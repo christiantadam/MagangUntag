@@ -13,9 +13,9 @@ class SupplierController extends Controller
     public function index()
     {
         $supplier = DB::connection('ConnPurchase')->select('exec SP_5409_PBL_SUPPLIER @kd = ?', [1]);
-        $access = (new HakAksesController)->HakAksesFiturMaster('Beli');
-        // dd($supplier);
         $matauang = DB::connection('ConnPurchase')->select('exec SP_7775_PBL_LIST_MATA_UANG');
+        $access = (new HakAksesController)->HakAksesFiturMaster('Beli');
+        // dd($matauang);
         return view('Beli.Master.Supplier', compact('supplier', 'matauang', 'access'));
     }
 
