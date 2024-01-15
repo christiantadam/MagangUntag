@@ -33,6 +33,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     //home
     Route::get('Beli', 'App\Http\Controllers\HomeController@Beli');
+    Route::get('Utility', 'App\Http\Controllers\HomeController@Utility');
     //master
     Route::resource('Supplier', App\Http\Controllers\Beli\Master\SupplierController::class);
     Route::post('/Supplier/{id}', 'App\Http\Controllers\Beli\Master\SupplierController@destroy')->name('supplier.destroy');
@@ -63,6 +64,15 @@ Route::group(['middleware' => ['auth']], function () {
     //informasi
 
     #endregion
+
+    #Region Utility
+
+    //elektrik
+    Route::resource('InputGangguanElektrik', App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikController::class);
+    Route::resource('TambahGambarElektrik', App\Http\Controllers\Utility\Elektrik\TambahGambarElektrikController::class);
+    Route::resource('PrintElektrik', App\Http\Controllers\Utility\Elektrik\PrintElektrikController::class);
+
+
 });
 
 Route::get('/test', 'App\Http\Controllers\testController@index');
