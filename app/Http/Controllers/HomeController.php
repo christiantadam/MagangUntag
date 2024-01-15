@@ -64,4 +64,14 @@ class HomeController extends Controller
             abort(404);
         }
     }
+    public function Utility()
+    {
+        $result = (new HakAksesController)->HakAksesProgram('Utility');
+        $access = (new HakAksesController)->HakAksesFiturMaster('Utility');
+        if ($result > 0) {
+            return view('layouts.appUtility', compact('access'));
+        } else {
+            abort(404);
+        }
+    }
 }
