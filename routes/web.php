@@ -76,6 +76,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Compressor
     Route::resource('addCompressor', App\Http\Controllers\Utility\Compressor\InputPerawatanController::class);
+    Route::resource('LogSheet', App\Http\Controllers\Utility\Compressor\LogSheetController::class);
 
     #endRegion
 
