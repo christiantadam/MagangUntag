@@ -64,6 +64,15 @@ Route::group(['middleware' => ['auth']], function () {
     //informasi
 
     #endregion
+
+    #Region Utility
+
+    //elektrik
+    Route::resource('InputGangguanElektrik', App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikController::class);
+    Route::resource('TambahGambarElektrik', App\Http\Controllers\Utility\Elektrik\TambahGambarElektrikController::class);
+    Route::resource('PrintElektrik', App\Http\Controllers\Utility\Elektrik\PrintElektrikController::class);
+
+
 });
 
 Route::get('/test', 'App\Http\Controllers\testController@index');
