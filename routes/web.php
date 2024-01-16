@@ -67,16 +67,22 @@ Route::group(['middleware' => ['auth']], function () {
 
     #endregion
 
-    #region Utility
+    #Region Utility
     Route::get('Utility', 'App\Http\Controllers\HomeController@Utility');
 
     // Elektrik
-    Route::resource('InputGangguanElektrik', App\Http\Controllers\Utility\Elektrik\InputGangguanController::class);
+    // Route::resource('InputGangguanElektrik', App\Http\Controllers\Utility\Elektrik\InputGangguanController::class);
     Route::resource('ListOrder', App\Http\Controllers\Beli\Transaksi\ListOrderController::class);
 
     // Compressor
+    // Route::get('addCompressor/show/{date1}/{date2}/{NoMesin}', 'App\Http\Controllers\Utility\Compressor\InputPerawatanController@show');
     Route::resource('addCompressor', App\Http\Controllers\Utility\Compressor\InputPerawatanController::class);
     Route::resource('LogSheet', App\Http\Controllers\Utility\Compressor\LogSheetController::class);
+
+    // Genzet
+    Route::resource('InputOperasional', App\Http\Controllers\Utility\Genzet\InputOperasionalController::class);
+
+
 
     #endRegion
 

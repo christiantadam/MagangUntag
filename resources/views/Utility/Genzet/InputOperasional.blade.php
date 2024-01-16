@@ -4,13 +4,12 @@
         <div class="row justify-content-center">
             <div class="col-md-10 RDZMobilePaddingLR0">
                 <div class="card">
-                    <div class="card-header">Input Perawatan</div>
+                    <div class="card-header">Input Operasional</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
-                        <form class="form" method="POST" enctype="multipart/form-data" action="{{ url('Compressor') }}"
-                            id="form_Compressor">
+                        <form class="form" method="POST" enctype="multipart/form-data" id="form_genzet">
                             {{ csrf_field() }}
                             <div class="row-12 d-flex flex-wrap">
-                                <div class="col-lg-6 p-4">
+                                <div class="col-lg-4 p-4">
                                     <div class="acs-div-filter p-2">
                                         <label for="tanggal">Tanggal</label>
                                         <input type="date" class="form-control" id="tanggal"
@@ -19,7 +18,7 @@
                                     <div class="acs-div-filter p-2">
                                         <label for="Mesin">Mesin</label>
                                         <select class="form-select" aria-label="Default select example">
-                                            <option selected>Pilih Mesin..</option>
+                                            <option selected>Pilih Mesin Genzet..</option>
                                             @foreach ($mesin as $data)
                                                 <option value="{{ $data->NamaMesin }}">
                                                     {{ $data->NamaMesin }}</option>
@@ -27,41 +26,85 @@
                                         </select>
                                     </div>
                                     <div class="acs-div-filter p-2">
-                                        <label for="jam_operasi">Jam Operasi</label>
-                                        <input type="text" class="form-control" id="jam_operasi" name="jam_operasi"
+                                        <label for="jam_operasi">Jam Awal Produksi</label>
+                                        <input type="time" class="form-control" id="jam_operasi" name="jam_operasi"
                                             placeholder="name@example.com">
                                     </div>
-                                </div>
-                                <div class="col-lg-6 p-4">
                                     <div class="acs-div-filter p-2">
-                                        <label for="sparepart">Sparepart</label>
-                                        <select class="form-select" aria-label="Default select example">
-                                            <option selected>Pilih Sparepart..</option>
-                                            @foreach ($part as $data)
-                                                <option value="{{ $data->NamaPart }}">
-                                                    {{ $data->NamaPart }}</option>
-                                            @endforeach
-                                        </select>
+                                        <label for="jam_operasi">Jam Akhir Produksi</label>
+                                        <input type="time" class="form-control" id="jam_operasi" name="jam_operasi"
+                                            placeholder="name@example.com">
                                     </div>
                                     <div class="acs-div-filter p-2">
-                                        <label for="keterangan">Keterangan : </label>
+                                        <label for="operationhours">Operation Hours</label>
+                                        <input type="text" class="form-control" id="operationhours" name="operationhours"
+                                            placeholder="...">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 p-4">
+                                    <div class="acs-div-filter p-2">
+                                        <label for="lubeoil">Lube Oil (Press Min 1.9)</label>
+                                        <input type="text" class="form-control" id="lubeoil" name="lubeoil"
+                                            placeholder="...">
+                                    </div>
+
+                                    <div class="acs-div-filter p-2">
+                                        <label for="coolwater">Cool Water (Temp Max 95* celcius)</label>
+                                        <input type="text" class="form-control" id="coolwater" name="coolwater"
+                                            placeholder="...">
+                                    </div>
+
+                                    <div class="acs-div-filter p-2">
+                                        <label for="volt">Volt 380 (10%)</label>
+                                        <input type="text" class="form-control" id="volt" name="volt"
+                                            placeholder="...">
+                                    </div>
+                                    <div class="acs-div-filter p-2">
+                                        <label for="hz">Hz (45-51)</label>
+                                        <input type="text" class="form-control" id="hz" name="hz"
+                                            placeholder="...">
+                                    </div>
+                                    <div class="acs-div-filter p-2">
+                                        <label for="amp">Amp (Max 650 A)</label>
+                                        <input type="text" class="form-control" id="amp" name="amp"
+                                            placeholder="...">
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 p-4">
+                                    <div class="acs-div-filter p-2">
+                                        <label for="tambahbbm">Tambah BBM</label>
+                                        <input type="text" class="form-control" id="tambahbbm" name="tambahbbm"
+                                            placeholder="...">
+                                    </div>
+                                    <div class="acs-div-filter p-2">
+                                        <label for="tambahoil">Tambah Oil</label>
+                                        <input type="text" class="form-control" id="tambahoil" name="tambahoil"
+                                            placeholder="...">
+                                    </div>
+                                    <div class="acs-div-filter p-2">
+                                        <label for="status">Status Log</label>
                                         <select class="form-select" aria-label="Default select example">
-                                            <option selected disabled>Pilih keterangan...</option>
-                                            @foreach ($keterangan as $data)
-                                                <option value="{{ $data->Keterangan }}">
-                                                    {{ $data->Keterangan }}</option>
+                                            <option selected disabled>Pilih Status Log...</option>
+                                            @foreach ($status as $data)
+                                                <option value="{{ $data->NamaStatusLog }}">
+                                                    {{ $data->NamaStatusLog }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="acs-div-filter p-2">
                                         <label for="teknisi">Teknisi</label>
                                         <select class="form-select" aria-label="Default select example">
-                                            <option selected disabled>Pilih Teknisi...</option>
+                                            <option selected disabled>Pilih teknisi...</option>
                                             @foreach ($teknisi as $data)
                                                 <option value="{{ $data->NamaTeknisi }}">
                                                     {{ $data->NamaTeknisi }}</option>
                                             @endforeach
                                         </select>
+                                    </div>
+                                    <div class="acs-div-filter p-2">
+                                        <label for="keterangan">Keterangan</label>
+                                        <input type="text" class="form-control" id="keterangan" name="keterangan"
+                                            placeholder="...">
                                     </div>
                                 </div>
                                 <div class="col-lg-12 p-4">
@@ -97,7 +140,8 @@
                                             <label for="tanggal">Mesin</label>
                                         </div>
                                         <div class="d-flex gap-2 m-3">
-                                            <select class="form-select" aria-label="Default select example" name="NoMesin">
+                                            <select class="form-select" aria-label="Default select example"
+                                                name="NoMesin">
                                                 <option selected>Pilih Mesin..</option>
                                                 @foreach ($mesin as $data)
                                                     <option value="{{ $data->NamaMesin }}">
