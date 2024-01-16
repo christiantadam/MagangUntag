@@ -28,8 +28,16 @@ class HomeController extends Controller
     public function index()
     {
         // $AccessProgram=DB::connection('ConnEDP')->table('User_Fitur')->select('NamaProgram')->join('FiturMaster','Id_Fitur','IdFitur')->join('ProgramMaster','Id_Program','IdProgram')->groupBy('NamaProgram')->where('Id_User',Auth::user()->IDUser)->get();
-        $AccessProgram = DB::connection('ConnEDP')->table('User_Fitur')->select('NamaProgram')->join('FiturMaster', 'Id_Fitur', 'IdFitur')->join('MenuMaster', 'Id_Menu', 'IdMenu')->join('ProgramMaster', 'Id_Program', 'IdProgram')->groupBy('NamaProgram')->where('Id_User', Auth::user()->IDUser)->get();
-        //dd($AccessProgram);
+        $AccessProgram = DB::connection('ConnEDP')
+                            ->table('User_Fitur')
+                            ->select('NamaProgram')
+                            ->join('FiturMaster', 'Id_Fitur', 'IdFitur')
+                            ->join('MenuMaster', 'Id_Menu', 'IdMenu')
+                            ->join('ProgramMaster', 'Id_Program', 'IdProgram')
+                            ->groupBy('NamaProgram')
+                            ->where('Id_User', Auth::user()->IDUser)->get();
+                            
+        // dd($AccessProgram,Auth::user()->IDUser);
         return view('home', compact('AccessProgram'));
     }
     public function Sales()
