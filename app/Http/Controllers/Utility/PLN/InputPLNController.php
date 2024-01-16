@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Utility\Compressor;
+namespace App\Http\Controllers\Utility\PLN;
 
 use DB;
 
@@ -9,22 +9,15 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\HakAksesController;
 
 
-class InputPerawatanController extends Controller
+class InputPLNController extends Controller
 {
     // Display a listing of the resource.
     public function index()
     {
 
-        $mesin = DB::connection('ConnUtility')->select('exec SP_LIST_MESIN_COMPRESSOR');
-        $part = DB::connection('ConnUtility')->select('exec SP_LIST_PART_COMPRESSOR');
-        $keterangan = DB::connection('ConnUtility')->select('exec SP_LIST_KETERANGAN_COMPRESSOR');
-        $teknisi = DB::connection('ConnUtility')->select('exec SP_LIST_TEKNISI_GENZET');
-
-        // dd($data);
-
+        $mesin = DB::connection('ConnUtility')->select('exec SP_LIST_MESIN_GENZET');
         $access = (new HakAksesController)->HakAksesFiturMaster('Utility');
-        // dd($supplier);
-        return view('Utility.Compressor.InputPerawatan.index' , compact('mesin','part','keterangan','teknisi','access'));
+        return view('Utility.PLN.InputPLN' , compact('mesin','access'));
     }
 
     //Show the form for creating a new resource.
@@ -39,7 +32,7 @@ class InputPerawatanController extends Controller
         //
     }
 
-    // Display the specified resource.
+    //Display the specified resource.
     public function show(Request $request)
 {
     // $date1 = $request->input('date1');

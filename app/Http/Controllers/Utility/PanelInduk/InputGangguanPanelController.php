@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Utility\Compressor;
+namespace App\Http\Controllers\Utility\PanelInduk;
 
 use DB;
 
@@ -9,22 +9,17 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\HakAksesController;
 
 
-class InputPerawatanController extends Controller
+class InputGangguanPanelController extends Controller
 {
     // Display a listing of the resource.
     public function index()
     {
 
-        $mesin = DB::connection('ConnUtility')->select('exec SP_LIST_MESIN_COMPRESSOR');
-        $part = DB::connection('ConnUtility')->select('exec SP_LIST_PART_COMPRESSOR');
-        $keterangan = DB::connection('ConnUtility')->select('exec SP_LIST_KETERANGAN_COMPRESSOR');
+        $mesin = DB::connection('ConnUtility')->select('exec SP_LIST_MESIN_GENZET');
+        $keterangan = DB::connection('ConnUtility')->select('exec SP_LIST_KET_GANGGUANG_PANEL_INDUK');
         $teknisi = DB::connection('ConnUtility')->select('exec SP_LIST_TEKNISI_GENZET');
-
-        // dd($data);
-
         $access = (new HakAksesController)->HakAksesFiturMaster('Utility');
-        // dd($supplier);
-        return view('Utility.Compressor.InputPerawatan.index' , compact('mesin','part','keterangan','teknisi','access'));
+        return view('Utility.PanelInduk.InputGangguanPanel' , compact('mesin','keterangan','teknisi','access'));
     }
 
     //Show the form for creating a new resource.
@@ -39,7 +34,7 @@ class InputPerawatanController extends Controller
         //
     }
 
-    // Display the specified resource.
+    //Display the specified resource.
     public function show(Request $request)
 {
     // $date1 = $request->input('date1');

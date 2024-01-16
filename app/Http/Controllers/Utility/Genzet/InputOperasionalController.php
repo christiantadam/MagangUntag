@@ -35,18 +35,18 @@ class InputOperasionalController extends Controller
     }
 
     //Display the specified resource.
-//     public function show(Request $request)
-// {
-//     $date1 = $request->input('date1');
-//     $date2 = $request->input('date2');
-//     $NoMesin = $request->input('NoMesin');
+    public function show(Request $request)
+{
+    // $date1 = $request->input('date1');
+    // $date2 = $request->input('date2');
+    // $NoMesin = $request->input('NoMesin');
 
 
-//     $data = DB::connection('ConnUtility')->select('exec SP_DT_LIST_COMPRESSOR_BLN_TAHUN2 @date1 = ?, @date2 = ?, @NoMesin=?', [$date1,$date2, $NoMesin]);
-//     dd($data);
-//     return response()->json($data);
-//     // return view('Utility.Compressor.InputPerawatan.index', compact('mesin','part','keterangan','teknisi','data','access'));
-// }
+    // $data = DB::connection('ConnUtility')->select('exec SP_DT_LIST_COMPRESSOR_BLN_TAHUN2 @date1 = ?, @date2 = ?, @NoMesin=?', [$date1,$date2, $NoMesin]);
+    // dd($data);
+    // return response()->json($data);
+    // return view('Utility.Compressor.InputPerawatan.index', compact('mesin','part','keterangan','teknisi','data','access'));
+}
 
 
     //Show the form for editing the specified resource.

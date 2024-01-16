@@ -82,6 +82,15 @@ Route::group(['middleware' => ['auth']], function () {
     // Genzet
     Route::resource('InputOperasional', App\Http\Controllers\Utility\Genzet\InputOperasionalController::class);
 
+    // Panel Induk
+    Route::resource('InputGangguanPanel', App\Http\Controllers\Utility\PanelInduk\InputGangguanPanelController::class);
+
+    //PDAM
+    Route::resource('InputPDAM', App\Http\Controllers\Utility\PDAM\InputPDAMController::class);
+
+    //PDAM
+    Route::resource('InputPLN', App\Http\Controllers\Utility\PLN\InputPLNController::class);
+
 
 
     #endRegion
