@@ -1,0 +1,36 @@
+.d-flex {
+    display: flex;
+}
+
+.flex-grow-1 {
+    flex: 1;
+}
+
+.container-fluid {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.card-body {
+    padding: 10px;
+}
+
+.acs-form-row {
+    margin-bottom: 8px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.acs-div-filter1 {
+    flex: 1;
+    padding: 10px;
+    margin-right: 10px;
+}
+
+.input {
+    width:50%; /* Biar input memenuhi lebar container */
+}
+
+.jarak {
+    margin-right: 18px;
+}
