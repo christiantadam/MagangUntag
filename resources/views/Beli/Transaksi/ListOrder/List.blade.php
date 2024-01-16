@@ -1,5 +1,7 @@
 @extends('layouts.appOrderPembelian')
 @section('content')
+<link href="{{ asset('css/ListOrderPembelian.css') }}" rel="stylesheet">
+
 @include('Beli/Transaksi/ListOrder/modalDetailListOrder')
 <script src="{{ asset('js/OrderPembelian/ListOrder.js') }}"></script>
 <script>
@@ -50,13 +52,13 @@
                             <label class="col-form-label">Tgl. Awal</label>
                           </div>
                           <div class="col-auto">
-                            <input type="date" class="form-control Filter" id="tglAwal" name="tglAwal">
+                            <input type="date" class="form-control Filter w-100" id="tglAwal" name="tglAwal">
                           </div>
                           <div class="col-auto">
                             <label class="col-form-label">Tgl. Akhir</label>
                           </div>
                           <div class="col-auto">
-                            <input type="date" class="form-control Filter" id="tglAkhir" name="tglAkhir">
+                            <input type="date" class="form-control Filter w-100" id="tglAkhir" name="tglAkhir">
                           </div>
                           <br>
                           <div class="col-auto">
@@ -71,7 +73,7 @@
 
                     </div>
                     <br>
-                    <table id="table_ListOrder" class="table table-bordered table-striped"  style="width:100%">
+                    <table id="table_ListOrder" class="table table-bordered table-striped tabel"  style="width:100%">
                         <thead class="thead-dark">
                             <tr>
                                 <th>No. Trans</th>

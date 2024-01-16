@@ -22,7 +22,7 @@
                 <form class="form" method="POST" enctype="multipart/form-data" action="{{ url('/Approve') }}" >
                 {{ csrf_field() }}
                 <div id="DataCheckbox"></div>
-                <div class="card-body RDZOverflow RDZMobilePaddingLR0">
+                <div class="card-body">
                     @if (\Session::has('danger'))
                     <div class="alert alert-danger">
                         {!! \Session::get('danger') !!}

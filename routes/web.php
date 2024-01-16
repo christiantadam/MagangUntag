@@ -36,7 +36,9 @@ Route::group(['middleware' => ['auth']], function () {
     //master
     Route::resource('Supplier', App\Http\Controllers\Beli\Master\SupplierController::class);
     Route::post('/Supplier/{id}', 'App\Http\Controllers\Beli\Master\SupplierController@destroy')->name('supplier.destroy');
-    Route::get('/options/supplierselect/{id}', 'App\Http\Controllers\Beli\Master\SupplierController@getSupplier');
+    Route::get('/options/supplierselect/{id}','App\Http\Controllers\Beli\Master\SupplierController@getSupplier');
+    Route::resource('HistoryPembelianMaster', App\Http\Controllers\Beli\Master\HistoryPembelianMasterController::class);
+    Route::get('HistoryPembelianMaster', 'APP\Http\Controllers\Beli\Master\HistoryPembelianMasterController@index')->name('historypembelianmaster');
     //transaksi beli
     Route::resource('PurchaseOrder', App\Http\Controllers\Beli\TransaksiBeli\PurchaseOrderController::class);
     Route::get('/get/dataPermohonanDivisi/{stBeli}/{Kd_Div}', 'App\Http\Controllers\Beli\TransaksiBeli\PurchaseOrderController@getPermohonanDivisi');
@@ -60,8 +62,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('FinalApprove', App\Http\Controllers\Beli\Transaksi\FinalApproveController::class);
     Route::get('/FinalApprove/{id}/show', 'App\Http\Controllers\Beli\Transaksi\FinalApproveController@show')->name('finalapprove.show');
     Route::post('/FinalApprove/{id}/up', 'App\Http\Controllers\Beli\Transaksi\FinalApproveController@update')->name('finalapprove.update');
+    Route::resource('OrderPembelian', App\Http\Controllers\Beli\Transaksi\OrderPembelianController::class);
+    Route::resource('ListOrder', App\Http\Controllers\Beli\Transaksi\ListOrderController::class);
     //informasi
-
+    Route::resource('DaftarHarga', App\Http\Controllers\Beli\Informasi\DaftarHargaController::class);
+    Route::get('DaftarHarga', 'App\Http\Controllers\Beli\Informasi\DaftarHargaController@index')->name('daftarharga');
+    Route::resource('CariType', App\Http\Controllers\Beli\Informasi\CariTypeController::class);
+    Route::get('CariType', 'App\Http\Controllers\Beli\Informasi\CariTypeController@index')->name('caritype');
     #endregion
 });
 

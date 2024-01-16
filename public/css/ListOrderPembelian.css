@@ -34,3 +34,21 @@
     flex-direction: row;
     gap: 5px;
 }
+
+.tabel{
+    font-size:medium ;
+    overflow-x:hidden ;
+}
+@media screen AND (max-width: 600px){
+    .tabel{
+        font-size: 8px ;
+
+    }
+}
+
+@media screen AND (max-width: 380px){
+    .tabel{
+        font-size: 7px ;
+
+    }
+}

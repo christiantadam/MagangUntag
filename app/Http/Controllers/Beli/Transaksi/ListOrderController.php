@@ -39,7 +39,6 @@ class ListOrderController extends Controller
         $firstDivisi = UserDiv::select()->where('Kd_user', rtrim($idUser))->first();
 
         $data = TransBL::select()->leftjoin('Y_BARANG', 'Y_BARANG.KD_BRG', 'YTRANSBL.Kd_brg')->leftjoin('YSATUAN', 'YSATUAN.No_satuan', 'YTRANSBL.NoSatuan')->leftjoin('STATUS_ORDER', 'STATUS_ORDER.KdStatus', 'YTRANSBL.StatusOrder')->where('YTRANSBL.Kd_div', $firstDivisi['Kd_div'])->where('YTRANSBL.Tgl_order', '=', $date)->get();
-
         return view('Beli.Transaksi.ListOrder.List', compact('data', 'dataDiv', 'access'));
     }
 

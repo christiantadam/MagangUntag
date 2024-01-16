@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Beli\Informasi;
+namespace App\Http\Controllers\Beli\Master;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HakAksesController;
 
-class DaftarHargaController extends Controller
+
+class HistoryPembelianMasterController extends Controller
 {
     public function index()
     {

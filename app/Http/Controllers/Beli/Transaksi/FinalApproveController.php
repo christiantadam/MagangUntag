@@ -15,8 +15,8 @@ class FinalApproveController extends Controller
 {
     public function index()
     {
+        $result = (new HakAksesController)->HakAksesProgram('Beli');
         $access = (new HakAksesController)->HakAksesFiturMaster('Beli');
-        $result = (new HakAksesController)->HakAksesFitur('FinalApprove');
         if ($result > 0) {
             $data = TransBL::select()->join('YUSER_ACC_DIR', 'YUSER_ACC_DIR.Kd_div', 'YTRANSBL.Kd_div')->leftjoin('Y_BARANG', 'Y_BARANG.KD_BRG', 'YTRANSBL.Kd_brg')->leftjoin('YUSER', 'YUSER.kd_user', 'YTRANSBL.Operator')->leftjoin('YSATUAN', 'YSATUAN.No_satuan', 'YTRANSBL.NoSatuan')->leftjoin('STATUS_ORDER', 'STATUS_ORDER.KdStatus', 'YTRANSBL.StatusOrder')->where('YUSER_ACC_DIR.Kd_user', strval(Auth::user()->kd_user))->where('StatusOrder', '3')->get();
             return view('Beli.Transaksi.FinalApprove.List', compact('data', 'access'));
