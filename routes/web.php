@@ -1,4 +1,5 @@
 <?php
+
 use function foo\func;
 use Illuminate\Support\Facades\Route;
 use function PHPUnit\Framework\assertDirectoryIsReadable;
@@ -13,6 +14,7 @@ use function PHPUnit\Framework\assertDirectoryIsReadable;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/', function () {
     if (Auth::guest())
         return view('auth/login');
@@ -29,10 +31,11 @@ Route::post('/logout', 'App\Http\Controllers\LoginController@logout')->name('log
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
 
-    #region Beli
 
+    #region Beli
     //home
     Route::get('Beli', 'App\Http\Controllers\HomeController@Beli');
+
     //master
     Route::resource('Supplier', App\Http\Controllers\Beli\Master\SupplierController::class);
     Route::post('/Supplier/{id}', 'App\Http\Controllers\Beli\Master\SupplierController@destroy')->name('supplier.destroy');
@@ -63,6 +66,29 @@ Route::group(['middleware' => ['auth']], function () {
     //informasi
 
     #endregion
+
+    #Region Utility
+    Route::get('Utility', 'App\Http\Controllers\HomeController@Utility');
+
+    // Elektrik
+    // Route::resource('InputGangguanElektrik', App\Http\Controllers\Utility\Elektrik\InputGangguanController::class);
+    Route::resource('ListOrder', App\Http\Controllers\Beli\Transaksi\ListOrderController::class);
+
+    // Compressor
+    // Route::get('addCompressor/show/{date1}/{date2}/{NoMesin}', 'App\Http\Controllers\Utility\Compressor\InputPerawatanController@show');
+    Route::resource('addCompressor', App\Http\Controllers\Utility\Compressor\InputPerawatanController::class);
+    Route::resource('LogSheet', App\Http\Controllers\Utility\Compressor\LogSheetController::class);
+
+    // Genzet
+    Route::resource('InputOperasional', App\Http\Controllers\Utility\Genzet\InputOperasionalController::class);
+
+
+
+    #endRegion
+
 });
+
+
+
 
 Route::get('/test', 'App\Http\Controllers\testController@index');
