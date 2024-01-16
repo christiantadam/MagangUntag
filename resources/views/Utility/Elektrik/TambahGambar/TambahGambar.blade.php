@@ -42,6 +42,77 @@
 
                                 </tbody>
                             </table>
+                            <div class="col-3">
+                                <form id="uploadForm1" action="/upload" method="post" enctype="multipart/form-data"
+                                    class="mb-1 ">
+                                    <label for="fileInput1" class="btn btn-link ">Pilih Gambar 1</label>
+                                    <input type="file" id="fileInput1" name="fileInput" style="display: none;"
+                                        accept="image/*">
+                                </form>
+                                <div class="nama_pelapor">Ket. Gambar 1</div>
+                                <input type="text" name="nama_pelapor" id="nama_pelapor" class="mb-4">
+
+
+                                <div id="imagePreviewContainer1">
+                                    <img id="imagePreview1" src="" alt="Preview 1"
+                                        style="display: none; max-width: 100%; height: auto;">
+                                </div>
+
+                                <form id="uploadForm2" action="/upload" method="post" enctype="multipart/form-data"
+                                    class="">
+                                    <label for="fileInput2" class="btn btn-link">Pilih Gambar 2</label>
+                                    <input type="file" id="fileInput2" name="fileInput" style="display: none;"
+                                        accept="image/*">
+                                </form>
+                                <div class="nama_pelapor">Ket. Gambar 2</div>
+                                <input type="text" name="nama_pelapor" id="nama_pelapor">
+
+
+                                <div id="imagePreviewContainer2">
+                                    <img id="imagePreview2" src="" alt="Preview 2"
+                                        style="display: none; max-width: 100%; height: auto;">
+                                </div>
+
+                                <script>
+                                    // Event listener untuk Gambar 1
+                                    document.getElementById('fileInput1').addEventListener('change', function() {
+                                        var fileInput = this;
+                                        var fileName = fileInput.value.split('\\').pop();
+
+                                        // Menampilkan nama file yang dipilih di label
+                                        document.querySelector('.btn-link').textContent = fileName;
+
+                                        // Membaca file gambar yang dipilih
+                                        var reader = new FileReader();
+                                        reader.onload = function(e) {
+                                            var imagePreview = document.getElementById('imagePreview1');
+                                            // Menetapkan sumber gambar saat file berhasil dibaca
+                                            imagePreview.src = e.target.result;
+                                            imagePreview.style.display = 'block'; // Menampilkan elemen gambar
+                                        };
+                                        reader.readAsDataURL(fileInput.files[0]); // Membaca file sebagai URL data
+                                    });
+
+                                    // Event listener untuk Gambar 2
+                                    document.getElementById('fileInput2').addEventListener('change', function() {
+                                        var fileInput = this;
+                                        var fileName = fileInput.value.split('\\').pop();
+
+                                        // Menampilkan nama file yang dipilih di label
+                                        document.querySelector('.btn-link').textContent = fileName;
+
+                                        // Membaca file gambar yang dipilih
+                                        var reader = new FileReader();
+                                        reader.onload = function(e) {
+                                            var imagePreview = document.getElementById('imagePreview2');
+                                            // Menetapkan sumber gambar saat file berhasil dibaca
+                                            imagePreview.src = e.target.result;
+                                            imagePreview.style.display = 'block'; // Menampilkan elemen gambar
+                                        };
+                                        reader.readAsDataURL(fileInput.files[0]); // Membaca file sebagai URL data
+                                    });
+                                </script>
+                            </div>
                         </div>
                     </div>
                 </div>
