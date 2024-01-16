@@ -28,8 +28,16 @@ class HomeController extends Controller
     public function index()
     {
         // $AccessProgram=DB::connection('ConnEDP')->table('User_Fitur')->select('NamaProgram')->join('FiturMaster','Id_Fitur','IdFitur')->join('ProgramMaster','Id_Program','IdProgram')->groupBy('NamaProgram')->where('Id_User',Auth::user()->IDUser)->get();
-        $AccessProgram = DB::connection('ConnEDP')->table('User_Fitur')->select('NamaProgram')->join('FiturMaster', 'Id_Fitur', 'IdFitur')->join('MenuMaster', 'Id_Menu', 'IdMenu')->join('ProgramMaster', 'Id_Program', 'IdProgram')->groupBy('NamaProgram')->where('Id_User', Auth::user()->IDUser)->get();
-        //dd($AccessProgram);
+        $AccessProgram = DB::connection('ConnEDP')
+                            ->table('User_Fitur')
+                            ->select('NamaProgram')
+                            ->join('FiturMaster', 'Id_Fitur', 'IdFitur')
+                            ->join('MenuMaster', 'Id_Menu', 'IdMenu')
+                            ->join('ProgramMaster', 'Id_Program', 'IdProgram')
+                            ->groupBy('NamaProgram')
+                            ->where('Id_User', Auth::user()->IDUser)->get();
+                            
+        // dd($AccessProgram,Auth::user()->IDUser);
         return view('home', compact('AccessProgram'));
     }
     public function Sales()
@@ -60,6 +68,16 @@ class HomeController extends Controller
         $access = (new HakAksesController)->HakAksesFiturMaster('EDP');
         if ($result > 0) {
             return view('layouts.appEDP', compact('access'));
+        } else {
+            abort(404);
+        }
+    }
+    public function Utility()
+    {
+        $result = (new HakAksesController)->HakAksesProgram('Utility');
+        $access = (new HakAksesController)->HakAksesFiturMaster('Utility');
+        if ($result > 0) {
+            return view('layouts.appUtility', compact('access'));
         } else {
             abort(404);
         }

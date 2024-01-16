@@ -33,6 +33,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     //home
     Route::get('Beli', 'App\Http\Controllers\HomeController@Beli');
+    Route::get('Utility', 'App\Http\Controllers\HomeController@Utility');
     //master
     Route::resource('Supplier', App\Http\Controllers\Beli\Master\SupplierController::class);
     Route::post('/Supplier/{id}', 'App\Http\Controllers\Beli\Master\SupplierController@destroy')->name('supplier.destroy');
