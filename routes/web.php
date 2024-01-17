@@ -66,7 +66,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('ListOrder', App\Http\Controllers\Beli\Transaksi\ListOrderController::class);
     //informasi
     Route::resource('DaftarHarga', App\Http\Controllers\Beli\Informasi\DaftarHargaController::class);
-    Route::get('DaftarHarga', 'App\Http\Controllers\Beli\Informasi\DaftarHargaController@index')->name('daftarharga');
+    Route::get('/DaftarHargaSearch', 'App\Http\Controllers\Beli\Informasi\DaftarHargaController@redisplay')->name('daftarharga.redisplay');
     Route::resource('CariType', App\Http\Controllers\Beli\Informasi\CariTypeController::class);
     Route::get('CariType', 'App\Http\Controllers\Beli\Informasi\CariTypeController@index')->name('caritype');
     #endregion
