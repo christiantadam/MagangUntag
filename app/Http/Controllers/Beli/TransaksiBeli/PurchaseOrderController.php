@@ -83,13 +83,29 @@ class PurchaseOrderController extends Controller
     //Store a newly created resource in storage.
     public function store(Request $request)
     {
-        //
-    }
 
-    //Display the specified resource.
+    }
     public function show($id)
     {
-        //
+
+    }
+    //Display the specified resource.
+    public function redisplay(Request $request)
+    {
+        $kd  = 1;
+        $MinDate = $request->input('MinDate');
+        $MaxDate = $request->input('MaxDate');
+        $Kd_div = $request->input('Kd_div');
+        $Acc = $request->input('Acc');
+        $Operator = $request->input('Operator');
+        $stBeli = $request->input('stBeli');
+        $noTrans = $request->input('noTrans');
+        $idSup = $request->input('idSup');
+        $noBTTB = $request->input('noBTTB');
+        $kdbrg = $request->input('kdbrg');
+        $requester = $request->input('requester');
+        $NoTransTmp = $request->input('NoTransTmp');
+        $NoPIB = $request->input('NoPIB');
     }
 
     //Show the form for editing the specified resource.
