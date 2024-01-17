@@ -7,6 +7,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <link rel="icon" href="{{ asset('/images/KRR.png') }}" type="image/gif" sizes="16x16">
     <title style="font-size: 20px">{{ config('app.name', 'Laravel') }}</title>
 
@@ -14,7 +15,7 @@
     <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
 
     <script src="{{ asset('js/app.js') }}"></script>
-    <!-- <script src="https://code.jquery.com/jquery-3.1.0.js"></script> -->
+    {{-- <script src="https://code.jquery.com/jquery-3.1.0.js"></script> --}}
     <!-- <script src="//code.jquery.com/jquery-1.11.0.min.js"></script> -->
     <script src="{{ asset('js/datatables.min.js') }}"></script>
     <script src="{{ asset('js/jquery-dateformat.js') }}"></script>

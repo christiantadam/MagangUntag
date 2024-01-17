@@ -6,8 +6,6 @@
                 <div class="card">
                     <div class="card-header">Input Perawatan</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
-                        <form class="form" method="POST" enctype="multipart/form-data" action="" id="form_Compressor">
-                            {{ csrf_field() }}
                             <div class="row-12 d-flex flex-wrap">
                                 <div class="col-lg-6 p-4">
                                     <div class="acs-div-filter pt-4">
@@ -17,45 +15,45 @@
                                     </div>
                                     <div class="acs-div-filter pt-4">
                                         <label for="Mesin">Mesin</label>
-                                        <select class="form-select" aria-label="Default select example">
+                                        <select class="form-select" id="select_mesin" aria-label="Default select example"
+                                            disabled>
                                             <option selected>Pilih Mesin..</option>
                                             @foreach ($mesin as $data)
-                                                <option value="{{ $data->NamaMesin }}">
+                                                <option value="{{ $data->NoMesin }}">
                                                     {{ $data->NamaMesin }}</option>
                                             @endforeach
                                         </select>
                                     </div>
                                     <div class="acs-div-filter pt-4">
                                         <label for="jam_operasi">Jam Operasi</label>
-                                        <input type="text" class="form-control" id="jam_operasi" name="jam_operasi"
-                                            placeholder="name@example.com">
+                                        <input type="number" class="form-control" id="jam_operasi" name="jam_operasi"
+                                            placeholder="Contoh : 8, 9, 10">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 p-4">
                                     <div class="acs-div-filter pt-4">
                                         <label for="sparepart">Sparepart</label>
-                                        <select class="form-select" aria-label="Default select example">
+                                        <select class="form-select" id="select_sparepart"
+                                            aria-label="Default select example" disabled>
                                             <option selected>Pilih Sparepart..</option>
                                             @foreach ($part as $data)
-                                                <option value="{{ $data->NamaPart }}">
-                                                    {{ $data->NamaPart }}</option>
+                                                <option value="{{ $data->IdPart }}">{{ $data->NamaPart }}</option>
                                             @endforeach
                                         </select>
                                     </div>
+
                                     <div class="acs-div-filter pt-4">
-                                        <label for="keterangan">Keterangan : </label>
-                                        <select class="form-select" aria-label="Default select example">
-                                            <option selected disabled>Pilih keterangan...</option>
-                                            @foreach ($keterangan as $data)
-                                                <option value="{{ $data->Keterangan }}">
-                                                    {{ $data->Keterangan }}</option>
-                                            @endforeach
+                                        <label for="keterangan">Keterangan</label>
+                                        <select class="form-select" id="select_keterangan"
+                                            aria-label="Default select example" disabled>
+                                            <option selected>Pilih keterangan...</option>
                                         </select>
                                     </div>
                                     <div class="acs-div-filter pt-4">
                                         <label for="teknisi">Teknisi</label>
-                                        <select class="form-select" aria-label="Default select example">
-                                            <option selected disabled>Pilih Teknisi...</option>
+                                        <select class="form-select" id="select_teknisi" aria-label="Default select example"
+                                            disabled>
+                                            <option selected>Pilih Teknisi...</option>s
                                             @foreach ($teknisi as $data)
                                                 <option value="{{ $data->NamaTeknisi }}">
                                                     {{ $data->NamaTeknisi }}</option>
@@ -65,15 +63,16 @@
                                 </div>
                                 <div class="col-lg-12 p-4">
                                     <div class="d-flex gap-2 justify-content-end flex-wrap">
-                                        <button class="btn btn-success mb-2" type="button">Input</button>
-                                        <button class="btn btn-outline-warning mb-2" type="button">Koreksi</button>
-                                        <button class="btn btn-outline-danger mb-2" type="button">Hapus</button>
-                                        <button class="btn btn-primary mb-2" type="button">Proses</button>
-                                        <button class="btn btn-danger mb-2" type="button">Batal</button>
+                                        <button class="btn btn-success mb-2" type="button" id="inputButton">Input</button>
+                                        <button class="btn btn-outline-warning mb-2" type="button"
+                                            id="updateButton">Koreksi</button>
+                                        <button class="btn btn-outline-danger mb-2" type="button"
+                                            id="deleteButton">Hapus</button>
+                                        <button class="btn btn-primary mb-2" type="button" id="saveButton">Proses</button>
+                                        <button class="btn btn-danger mb-2" type="button" id="cancelButton">Batal</button>
                                     </div>
                                 </div>
                             </div>
-                        </form>
                         <div class="col-lg-12 p-4">
                             <div class="row mb-3">
                                 <div class="col-md-6 mt-2">
@@ -92,14 +91,15 @@
                                         <label for="tanggal">Mesin</label>
                                     </div>
                                     <div class="d-flex gap-2">
-                                        <select class="form-select" aria-label="Default select example" name="NoMesin">
-                                            <option selected>Pilih Mesin..</option>
+                                        <select class="form-select" aria-label="Default select example" name="NoMesin"
+                                            id="NoMesinSearch">
+                                            <option selected disabled>Pilih Mesin..</option>
                                             @foreach ($mesin as $data)
-                                                <option value="{{ $data->NamaMesin }}">
+                                                <option value="{{ $data->NoMesin }}">
                                                     {{ $data->NamaMesin }}</option>
                                             @endforeach
                                         </select>
-                                        <button type="" class="btn btn-primary">Refresh</button>
+                                        <button id="refreshButton" class="btn btn-primary">Refresh</button>
                                     </div>
                                 </div>
                             </div>
@@ -116,32 +116,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{-- @foreach ($data as $row) --}}
-                                        <tr scope="row">
-                                            <td>coba</td>
-                                            <td>coba</td>
-                                            <td>coba</td>
-                                            <td>coba</td>
-                                            <td>coba</td>
-                                            <td>coba</td>
-                                        </tr>
-                                        <tr scope="row">
-                                            <td>coba</td>
-                                            <td>coba</td>
-                                            <td>coba</td>
-                                            <td>coba</td>
-                                            <td>coba</td>
-                                            <td>coba</td>
-                                        </tr>
-                                        <tr scope="row">
-                                            <td>coba</td>
-                                            <td>coba</td>
-                                            <td>coba</td>
-                                            <td>coba</td>
-                                            <td>coba</td>
-                                            <td>coba</td>
-                                        </tr>
-                                        {{-- @endforeach --}}
+
                                     </tbody>
                                 </table>
                             </div>
@@ -151,5 +126,6 @@
             </div>
         </div>
     </div>
-    </div>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="{{ asset('js/Utility/Compressor/InputPerawatan.js') }}"></script>
 @endsection

@@ -77,6 +77,10 @@ Route::group(['middleware' => ['auth']], function () {
     // Compressor
     // Route::get('addCompressor/show/{date1}/{date2}/{NoMesin}', 'App\Http\Controllers\Utility\Compressor\InputPerawatanController@show');
     Route::resource('addCompressor', App\Http\Controllers\Utility\Compressor\InputPerawatanController::class);
+    Route::get('/get-keterangan', [App\Http\Controllers\Utility\Compressor\InputPerawatanController::class, 'getKeterangan'])->name('get-keterangan');
+    Route::get('/get-perawatan', [App\Http\Controllers\Utility\Compressor\InputPerawatanController::class, 'getPerawatan'])->name('get-perawatan');
+    Route::post('/save-perawatan', [App\Http\Controllers\Utility\Compressor\InputPerawatanController::class, 'savePerawatan'])->name('save-perawatan');
+
     Route::resource('LogSheet', App\Http\Controllers\Utility\Compressor\LogSheetController::class);
 
     // Genzet
