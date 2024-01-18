@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Utility\Compressor;
 
-use DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HakAksesController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class InputPerawatanController extends Controller
 {
@@ -30,16 +31,17 @@ class InputPerawatanController extends Controller
 
     public function getPerawatan(Request $request)
     {
-            $date1 = $request->input('date1');
-            $date2 = $request->input('date2');
-            $NoMesin = $request->input('NoMesin');
+        $date1 = $request->input('date1');
+        $date2 = $request->input('date2');
+        $NoMesin = $request->input('NoMesin');
 
-            $listPerawatan = DB::connection('ConnUtility')
-                ->select('exec SP_DT_LIST_COMPRESSOR_BLN_TAHUN2 @date1 = ?, @date2 = ?, @NoMesin = ?', [$date1, $date2, $NoMesin]);
+        $listPerawatan = ($NoMesin == 0)
+            ? DB::connection('ConnUtility')->select('exec SP_DT_LIST_COMPRESSOR_BLN_TAHUN2 @date1 = ?, @date2 = ?, @NoMesin = 0', [$date1, $date2])
+            : DB::connection('ConnUtility')->select('exec SP_DT_LIST_COMPRESSOR_BLN_TAHUN2 @date1 = ?, @date2 = ?, @NoMesin = ?', [$date1, $date2, $NoMesin]);
 
-            return response()->json($listPerawatan);
-
+        return response()->json($listPerawatan);
     }
+
 
     public function savePerawatan(Request $request)
     {
@@ -50,20 +52,33 @@ class InputPerawatanController extends Controller
             $idPart = $request->input('IdPart');
             $keterangan = $request->input('Keterangan');
             $teknisi = $request->input('Teknisi');
-            $userInput = $request->input('UserInput');
-
-
+            $UserInput = Auth::user()->NomorUser;
 
             DB::connection('ConnUtility')->statement('exec SP_INSERT_PERAWATAN_COMPRESSOR ?, ?, ?, ?, ?, ?, ?', [
-                $tanggal, $noMesin, $jamOperasi, $idPart, $keterangan, $teknisi, $userInput
+                $tanggal, $noMesin, $jamOperasi, $idPart, $keterangan, $teknisi, $UserInput
             ]);
 
             return redirect()->back()->with('success', 'Data has been saved.');
         } catch (\Exception $e) {
-
             return redirect()->back()->with('error', 'An error occurred while saving the data. Please try again.');
         }
     }
+
+    public function hapusPerawatan(Request $request)
+    {
+        try {
+            $NomorPerawatan = $request->input('NoPerawatan');
+
+            foreach ($NomorPerawatan as $nomor) {
+                DB::connection('ConnUtility')->statement('exec SP_HAPUS_PERAWATAN_COMPRESSOR  @NoPerawatan = ?', [$nomor]);
+            }
+
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An error occurred while deleting the data. Please try again.']);
+        }
+    }
+
 
     //Show the form for creating a new resource.
     public function create()

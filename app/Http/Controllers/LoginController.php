@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
-use Auth;
-use Validator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class LoginController extends Controller
 {
@@ -66,6 +66,8 @@ class LoginController extends Controller
         Auth::attempt($data);
 
         if (Auth::check()) {
+
+            session(['NomorUser' => $request->input('username')]);
             return redirect()->route('home');
         } else {
             return redirect()->route('login')->withInput()->withErrors(['error' => 'Username atau Password tidak ditemukan!']);

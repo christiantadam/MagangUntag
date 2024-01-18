@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Utility\Compressor;
 
-use DB;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HakAksesController;
@@ -16,14 +16,11 @@ class LogSheetController extends Controller
     {
 
         $mesin = DB::connection('ConnUtility')->select('exec SP_LIST_MESIN_COMPRESSOR');
-        $part = DB::connection('ConnUtility')->select('exec SP_LIST_PART_COMPRESSOR');
-        $keterangan = DB::connection('ConnUtility')->select('exec SP_LIST_KETERANGAN_COMPRESSOR');
-        $teknisi = DB::connection('ConnUtility')->select('exec SP_LIST_TEKNISI_GENZET');
         // dd($teknisi);
 
         $access = (new HakAksesController)->HakAksesFiturMaster('Utility');
         // dd($supplier);
-        return view('Utility.Compressor.LogSheet.index' , compact('mesin','part','keterangan','teknisi','access'));
+        return view('Utility.Compressor.LogSheet.index', compact('mesin', 'access'));
     }
 
     //Show the form for creating a new resource.
@@ -36,6 +33,60 @@ class LogSheetController extends Controller
     public function store(Request $request)
     {
         //
+    }
+
+    //Display the specified resource.
+    public function saveDataLogSheet(Request $request)
+    {
+        try {
+            $Tanggal = $request->input('Tanggal');
+            $Mesin = $request->input('Mesin');
+            $Jam = $request->input('Jam');
+            $Temp = $request->input('Temp');
+            $Bar = $request->input('Bar');
+            $RM_Hours = $request->input('RM_Hours');
+            $LM_Hours = $request->input('LM_Hours');
+            $R_Hours = $request->input('R_Hours');
+            $L_Hours = $request->input('L_Hours');
+            $Efs = $request->input('Efs');
+            $Tech = $request->input('Tech');
+            $Keterangan = $request->input('Keterangan');
+            $UserInput = Auth::user()->NomorUser;
+
+            $data = DB::connection('ConnUtility')->statement('exec SP_INSERT_LOG_SHEET_COMPRESSOR ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?', [$Tanggal, $Mesin, $Jam, $Temp, $Bar, $RM_Hours, $LM_Hours, $R_Hours, $L_Hours, $Efs, $Tech, $Keterangan, $UserInput]);
+            return response()->json($data);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'An error occurred while saving the data. Please try again.');
+        }
+    }
+
+    //Display the specified resource.
+    public function getDataLogSheet(Request $request)
+    {
+        $date1 = $request->input('date1');
+        $date2 = $request->input('date2');
+        $NoMesin = $request->input('NoMesin');
+
+        $listLogSheet = ($NoMesin == 0)
+            ? DB::connection('ConnUtility')->select('exec SP_LIST_LOG_SHEET_BLN_TAHUN @date1 = ?, @date2 = ?, @NoMesin = 0', [$date1, $date2])
+            : DB::connection('ConnUtility')->select('exec SP_LIST_LOG_SHEET_BLN_TAHUN @date1 = ?, @date2 = ?, @NoMesin = ?', [$date1, $date2, $NoMesin]);
+
+        return response()->json($listLogSheet);
+    }
+
+    public function deleteDataLogSheet(Request $request)
+    {
+        try {
+            $NoLogSheet = $request->input('NoLogSheet');
+
+            foreach ($NoLogSheet as $nomorlog) {
+                DB::connection('ConnUtility')->statement('exec SP_HAPUS_LOG_SHEET_COMPRESSOR  @NoLogSheet = ?', [$nomorlog]);
+            }
+
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An error occurred while deleting the data. Please try again.']);
+        }
     }
 
     //Display the specified resource.

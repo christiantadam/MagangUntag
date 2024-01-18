@@ -2,6 +2,7 @@
 
 use function foo\func;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use function PHPUnit\Framework\assertDirectoryIsReadable;
 
 /*
@@ -75,13 +76,17 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('ListOrder', App\Http\Controllers\Beli\Transaksi\ListOrderController::class);
 
     // Compressor
-    // Route::get('addCompressor/show/{date1}/{date2}/{NoMesin}', 'App\Http\Controllers\Utility\Compressor\InputPerawatanController@show');
     Route::resource('addCompressor', App\Http\Controllers\Utility\Compressor\InputPerawatanController::class);
     Route::get('/get-keterangan', [App\Http\Controllers\Utility\Compressor\InputPerawatanController::class, 'getKeterangan'])->name('get-keterangan');
     Route::get('/get-perawatan', [App\Http\Controllers\Utility\Compressor\InputPerawatanController::class, 'getPerawatan'])->name('get-perawatan');
     Route::post('/save-perawatan', [App\Http\Controllers\Utility\Compressor\InputPerawatanController::class, 'savePerawatan'])->name('save-perawatan');
+    Route::delete('/delete-perawatan', [App\Http\Controllers\Utility\Compressor\InputPerawatanController::class, 'hapusPerawatan'])->name('delete-perawatan');
+
 
     Route::resource('LogSheet', App\Http\Controllers\Utility\Compressor\LogSheetController::class);
+    Route::get('/get-logsheet', [App\Http\Controllers\Utility\Compressor\LogSheetController::class, 'getDataLogSheet'])->name('get-logsheet');
+    Route::post('/save-logsheet', [App\Http\Controllers\Utility\Compressor\LogSheetController::class, 'saveDataLogSheet'])->name('save-logsheet');
+    Route::delete('/delete-logsheet', [App\Http\Controllers\Utility\Compressor\LogSheetController::class, 'deleteDataLogSheet'])->name('delete-logsheet');
 
     // Genzet
     Route::resource('InputOperasional', App\Http\Controllers\Utility\Genzet\InputOperasionalController::class);
