@@ -92,21 +92,32 @@ class PurchaseOrderController extends Controller
     //Display the specified resource.
     public function redisplay(Request $request)
     {
-        $kd  = 1;
-        $MinDate = $request->input('MinDate');
-        $MaxDate = $request->input('MaxDate');
-        $Kd_div = $request->input('Kd_div');
-        $Acc = $request->input('Acc');
-        $Operator = $request->input('Operator');
-        $stBeli = $request->input('stBeli');
-        $noTrans = $request->input('noTrans');
-        $idSup = $request->input('idSup');
-        $noBTTB = $request->input('noBTTB');
-        $kdbrg = $request->input('kdbrg');
-        $requester = $request->input('requester');
-        $NoTransTmp = $request->input('NoTransTmp');
-        $NoPIB = $request->input('NoPIB');
+        try {
+            $MaxDate = $request->input('betwendate1');
+            $MinDate = $request->input('betwendate2');
+            $noPO = $request->input('nomor_po');
+
+            info("Request: MaxDate=$MaxDate, MinDate=$MinDate, noPO=$noPO");
+
+            $purchaseorder = ($noPO)
+            ? DB::connection('ConnPurchase')->select('SP_5409_LIST_ORDER @kd = 1, @MaxDate = :maxDate, @MinDate = :minDate, @noPO = :noPO', ['maxDate' => $MaxDate, 'minDate' => $MinDate, 'noPO' => $noPO])
+            : DB::connection('ConnPurchase')->select('SP_5409_LIST_ORDER @kd = 1, @MaxDate = :maxDate, @MinDate = :minDate, @noPO = 0', ['maxDate' => $MaxDate, 'minDate' => $MinDate]);
+
+
+            info("Query Result: " . json_encode($purchaseorder));
+
+            return response()->json($purchaseorder);
+        } catch (\Exception $e) {
+            // Catat exception
+            info("Exception: " . $e->getMessage());
+            // Anda juga bisa mencatat stack trace
+            info("Exception Stack Trace: " . $e->getTraceAsString());
+            // Kembalikan respon error generic
+            return response()->json(['error' => 'Internal Server Error'], 500);
+        }
     }
+
+
 
     //Show the form for editing the specified resource.
     public function edit($id)

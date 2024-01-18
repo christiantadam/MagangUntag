@@ -23,35 +23,34 @@
                             <div class="form-check">
                                 <div class="row">
                                     <div class="col-4 md-2">
-                                        <input class="form-check-input" type="radio" name="filter_radioButton"
-                                            id="radio_betwen_date" value="Betwen Date" onclick="updateMinDate()">
-                                        <label class="form-check-label" for="radio_betwen_date">
-                                            Betwen Date
-                                        </label>
-                                        <input type="date" class="form-control" id="betwendate" name="betwendate">
-                                        <label for="betwendate1" class="form-label"></label>
+                                        <input class="form-check-input" type="radio" name="radiobutton" id="radiobutton"
+                                            value="tanggal" onclick="updateMinDate()">
+                                        Betwen Date
                                         <input type="date" class="form-control" id="betwendate1" name="betwendate1">
+                                        <label for="" class="form-label"></label>
+                                        <input type="date" class="form-control" id="betwendate2" name="betwendate2">
+                                        <label for="betwendate2" class="form-label"></label>
                                     </div>
+
                                     <div class="col-4 md-1">
-                                        <input class="form-check-input" type="radio" name="filter_radioButton"
-                                            id="radio_nomor_po" value="Nomor PO">
-                                        <label class="form-check-label" for="radio_nomor_po">
-                                            Nomor PO
-                                        </label>
-                                        <input type="TEXT" class="form-control" id="nomor_po" name="nomor_po">
-                                        <button class="btn btn-secondary mt-2" onclick="redisplayData()">Redisplay</button>
+                                        <input class="form-check-input" type="radio" name="radiobutton" value="nomor_po">
+                                        <label class="form-check-label" for="nomor_po">
+                                            Nomor PO </label>
+                                        <input type="text" class="form-control" id="no_po" name="no_po">
+                                        <button class="btn btn-secondary mt-2" id="redisplayButton">Redisplay</button>
                                     </div>
                                 </div>
                                 <!-- ... sisa konten ... -->
                                 <!-- Tabel Data -->
-                                <table class="table mt-4">
+                                <table class ="table mt-4" id="tabeldata">
+
                                     <thead class="table-dark">
                                         <tr>
                                             <th>No po</th>
                                             <th>Status</th>
                                             <th>Tanggal PO</th>
                                             <th>Sub Kategori</th>
-                                            <th>Divis</th>
+                                            <th>Divisi</th>
                                             <th>User PO</th>
                                             <th>No. BTTB</th>
                                         </tr>
@@ -82,11 +81,12 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/OrderPembelian/ListPurchaseOrder.js') }}"></script>
+    <script src="{{ asset('js/OrderPembelian/List.js') }}"></script>
+
     <script>
         function updateMinDate() {
-            var startDate = document.getElementById("betwendate").value;
-            document.getElementById("betwendate1").min = startDate;
+            var startDate = document.getElementById("betwendate1").value;
+            document.getElementById("betwendate2").min = startDate;
         }
 
         function redisplayData() {
