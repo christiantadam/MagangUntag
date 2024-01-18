@@ -38,7 +38,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/Supplier/{id}', 'App\Http\Controllers\Beli\Master\SupplierController@destroy')->name('supplier.destroy');
     Route::get('/options/supplierselect/{id}','App\Http\Controllers\Beli\Master\SupplierController@getSupplier');
     Route::resource('HistoryPembelianMaster', App\Http\Controllers\Beli\Master\HistoryPembelianMasterController::class);
-    Route::get('HistoryPembelianMaster', 'APP\Http\Controllers\Beli\Master\HistoryPembelianMasterController@index')->name('historypembelianmaster');
+    Route::get('HistoryPembelianMasterRedisplay', 'APP\Http\Controllers\Beli\Master\HistoryPembelianMasterController@redisplay')->name('historypembelianmaster.redisplay');
     //transaksi beli
     Route::resource('PurchaseOrder', App\Http\Controllers\Beli\TransaksiBeli\PurchaseOrderController::class);
     Route::get('/GETPurchaseOrder', 'App\Http\Controllers\Beli\TransaksiBeli\PurchaseOrderController@redisplay');
@@ -67,9 +67,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('ListOrder', App\Http\Controllers\Beli\Transaksi\ListOrderController::class);
     //informasi
     Route::resource('DaftarHarga', App\Http\Controllers\Beli\Informasi\DaftarHargaController::class);
-    Route::get('DaftarHarga', 'App\Http\Controllers\Beli\Informasi\DaftarHargaController@index')->name('daftarharga');
+    Route::get('/DaftarHargaRedisplay', 'App\Http\Controllers\Beli\Informasi\DaftarHargaController@redisplay')->name('daftarharga.redisplay');
     Route::resource('CariType', App\Http\Controllers\Beli\Informasi\CariTypeController::class);
-    Route::get('CariType', 'App\Http\Controllers\Beli\Informasi\CariTypeController@index')->name('caritype');
+    Route::get('/CariTypeSearch', 'App\Http\Controllers\Beli\Informasi\CariTypeController@searchData')->name('caritype.search');
     #endregion
 });
 

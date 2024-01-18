@@ -39,10 +39,13 @@
     font-size:medium ;
     overflow-x:hidden ;
 }
+.scrollmenu {
+    overflow: auto;
+    white-space: nowrap;
+  }
 @media screen AND (max-width: 600px){
     .tabel{
         font-size: 8px ;
-
     }
 }
 

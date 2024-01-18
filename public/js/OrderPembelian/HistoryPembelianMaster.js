@@ -54,7 +54,7 @@ function getSelectedInputValue() {
 function redisplayData(nm_brg, req, sup, kdbrg) {
     $.ajax({
         type: "GET",
-        url: "/DaftarHargaRedisplay",
+        url: "/HistoryPembelianMasterRedisplay",
         data: {
             nm_brg: nm_brg,
             req: req,
