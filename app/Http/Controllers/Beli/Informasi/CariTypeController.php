@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Beli\Informasi;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HakAksesController;
+use DB;
 
 class CariTypeController extends Controller
 {
@@ -25,6 +26,13 @@ class CariTypeController extends Controller
         //
     }
 
+    public function searchData(Request $request)
+    {
+        $nm_brg = $request->input('nm_brg');
+        $kd = 3;
+        $search = DB::connection('ConnPurchase')->select('exec spSelect_CariTypeBarang_dotNet @nm_brg = ?, @kd = ?',[$nm_brg,$kd]);
+        return response()->json($search);
+    }
     //Store a newly created resource in storage.
     public function store(Request $request)
     {

@@ -18,9 +18,9 @@
                 <div class="card">
                     <div class="card-header">Cari Type</div>
                     <div class="card-body">
-                        <form action="" id="formDaftarHarga">
+                        <form action="" id="formCari">
                             <div class="scrollmenu">
-                                <table id="" class="table table-bordered table-striped" style="width:100%">
+                                <table id="tabelData" class="table table-bordered table-striped" style="width:100%">
                                     <thead class="thead-dark">
                                         <tr>
                                             <th>Nama Barang</th>
@@ -56,7 +56,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="d-flex flex-column justify-content-between">
-                                        <button id="search" class="btn btn-primary mb-2">Search</button>
+                                        <button type="button" id="search" class="btn btn-primary mb-2">Search</button>
                                     </div>
                                 </div>
                             </div>

@@ -34,8 +34,7 @@ class DaftarHargaController extends Controller
         $req = $request->input('req');
         $sup = $request->input('sup');
         $kdbrg = $request->input('kdbrg');
-        $redisplay = DB::connection('ConnPurchase')->select('exec spSelect_CariTypeBarang_dotNet @nm_brg = ?, @kd = ?, @req = ?, @sup = ?, @kdbrg = ?',['pulley',$kd,null,null,null]);
-        // dd($redisplay);
+        $redisplay = DB::connection('ConnPurchase')->select('exec spSelect_CariTypeBarang_dotNet @nm_brg = ?, @kd = ?, @req = ?, @sup = ?, @kdbrg = ?',[$nm_brg,$kd,$req,$sup,$kdbrg]);
         return response()->json($redisplay);
     }
 

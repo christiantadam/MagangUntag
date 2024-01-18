@@ -1,20 +1,59 @@
 let search = document.getElementById("search");
-let formDaftarHarga = document.getElementById("formDaftarHarga");
+let formCari = document.getElementById("formCari");
 let inputText = document.getElementById("search_nama_barang");
+let tabelData = document.getElementById("tabelData");
 
+tabelData.style.display = "none";
 search.disabled = true;
 
-formDaftarHarga.addEventListener("input", function () {
+formCari.addEventListener("input", function () {
     search.disabled = !getInputValue();
 });
 
 search.addEventListener("click", function (event) {
     if (getInputValue()) {
         let value = getInputValue();
-        alert(value);
+        searchData(value);
+        // alert(value);
     }
 });
 
 function getInputValue() {
-    return inputText.value.trim() !== "";
+    let value = inputText.value.trim();
+    return value !== "" ? value : false;
+}
+
+function searchData(nm_brg) {
+    $.ajax({
+        type: "GET",
+        url: "/CariTypeSearch",
+        data: {
+            nm_brg: nm_brg,
+        },
+        success: function (response) {
+            // console.log(response);
+            dataTabel(response);
+        },
+        error: function (error) {
+            console.error("Error fetching data:", error);
+        },
+    });
+}
+
+function dataTabel(datas) {
+    tabelData.style.display = "block";
+    let tableBody = $("#tabelData").DataTable();
+    tableBody.clear();
+    datas.forEach(function (data) {
+        tableBody.row
+            .add([
+                data.NAMA_BRG,
+                data.KD_BRG,
+                data.nama,
+                data.nama_kategori,
+                data.nama_sub_kategori,
+                data.KET,
+            ])
+            .draw();
+    });
 }

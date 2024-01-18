@@ -19,9 +19,9 @@
                 <div class="card">
                     <div class="card-header">Daftar Harga</div>
                     <div class="card-body ">
-                        <form action="/" id="formDaftarHarga">
+                        <form action="" id="formDaftarHarga">
                             <div class="scrollmenu">
-                                <table id="" class="table table-bordered table-striped"  style="width:100%">
+                                <table id="tabelData" class="table table-bordered table-striped"  style="width:100%">
                                     <thead class="thead-dark">
                                         <tr>
                                             <th>KD Divisi</th>
@@ -95,7 +95,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="d-flex flex-column justify-content-between">
-                                        <button id="redisplay" class="btn btn-primary mb-2">Redisplay</button>
+                                        <button type="button" id="redisplay" class="btn btn-primary mb-2">Redisplay</button>
                                     </div>
                                 </div>
                             </div>
@@ -105,5 +105,5 @@
                 </div>
             </div>
         </div>
-        <script src="{{ asset('js/OrderPembelian/DaftarHarga.js') }}"></script>
+        <script src="{{ asset('js/OrderPembelian/HistoryPembelianMaster.js') }}"></script>
     @endsection

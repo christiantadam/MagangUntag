@@ -20,8 +20,8 @@
                         <form class="form" method="POST" enctype="multipart/form-data" action="{{ url('Supplier') }}"
                             id="form_supplier">
                             {{ csrf_field() }}
-                            <div class="col">
-                                <div class="acs-div-container pl-3">
+                            <div class="">
+                                <div class="acs-div-container">
                                     <div class="acs-div-filter">
                                         <label for="supplier">Supplier</label>
                                         <div class="acs-div-filter2">
