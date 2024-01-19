@@ -11,8 +11,8 @@ class CariTypeController extends Controller
 {
     public function index()
     {
-        $result = (new HakAksesController)->HakAksesProgram('Beli');
         $access = (new HakAksesController)->HakAksesFiturMaster('Beli');
+        $result = (new HakAksesController)->HakAksesFitur('Cari Type');
         if ($result > 0) {
             return view('Beli.Informasi.CariType', compact('access'));
         } else {

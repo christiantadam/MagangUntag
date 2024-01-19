@@ -42,7 +42,7 @@ function searchData(nm_brg) {
 
 function dataTabel(datas) {
     tabelData.style.display = "block";
-    let tableBody = $("#tabelData").DataTable();
+    let tableBody = $("#tabelData").DataTable({ searching: false });
     tableBody.clear();
     datas.forEach(function (data) {
         tableBody.row

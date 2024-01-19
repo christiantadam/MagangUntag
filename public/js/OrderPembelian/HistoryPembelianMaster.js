@@ -2,7 +2,7 @@ let redisplay = document.getElementById("redisplay");
 let formDaftarHarga = document.getElementById("formDaftarHarga");
 let tabelData = document.getElementById("tabelData");
 
-tabelData.style.display = 'none';
+tabelData.style.display = "none";
 redisplay.disabled = true;
 formDaftarHarga.addEventListener("change", function () {
     redisplay.disabled = !radioButtonIsSelected();
@@ -72,8 +72,8 @@ function redisplayData(nm_brg, req, sup, kdbrg) {
 }
 
 function dataTabel(datas) {
-    tabelData.style.display = 'block';
-    let tableBody = $("#tabelData").DataTable();
+    tabelData.style.display = "block";
+    let tableBody = $("#tabelData").DataTable({ searching: false });
     tableBody.clear();
     datas.forEach(function (data) {
         tableBody.row

@@ -11,8 +11,8 @@ class HistoryPembelianMasterController extends Controller
 {
     public function index()
     {
-        $result = (new HakAksesController)->HakAksesProgram('Beli');
         $access = (new HakAksesController)->HakAksesFiturMaster('Beli');
+        $result = (new HakAksesController)->HakAksesFitur('History Pembelian Master');
         if ($result > 0) {
             return view('Beli.Informasi.DaftarHarga', compact('access'));
         } else {
