@@ -40,7 +40,6 @@
                                         @endforeach
                                     </select>
                                 </div>
-
                                 <div class="acs-div-filter pt-4">
                                     <label for="keterangan">Keterangan</label>
                                     <select class="form-select" id="select_keterangan" aria-label="Default select example">
@@ -123,6 +122,6 @@
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> --}}
     <script src="{{ asset('js/Utility/Compressor/InputPerawatan.js') }}"></script>
 @endsection

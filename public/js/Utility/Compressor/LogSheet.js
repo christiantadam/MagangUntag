@@ -1,9 +1,5 @@
-$(document).ready(function () {
-    // Click event for the Refresh button
-
-});
-
 // Form Input
+
 let tanggal = document.getElementById("tanggal");
 let mesin = document.getElementById("mesin");
 let jam_operasi = document.getElementById("jam");
@@ -66,41 +62,6 @@ keterangan.disabled = true;
 updateButton.disabled = true;
 deleteButton.disabled = true;
 
-// Function to check if all fields are filled
-function checkAllFieldsFilled() {
-    return (
-        tanggal.value.trim() !== "" &&
-        mesin.value.trim() !== "" &&
-        jam_operasi.value.trim() !== "" &&
-        temp.value.trim() !== "" &&
-        bar.value.trim() !== "" &&
-        rm_hours.value.trim() !== "" &&
-        lm_hours.value.trim() !== "" &&
-        r_hours.value.trim() !== "" &&
-        l_hours.value.trim() !== "" &&
-        efs.value.trim() !== "" &&
-        tech.value.trim() !== "" &&
-        keterangan.value.trim() !== ""
-    );
-}
-
-[
-    tanggal,
-    mesin,
-    jam_operasi,
-    temp,
-    bar,
-    rm_hours,
-    lm_hours,
-    r_hours,
-    l_hours,
-    efs,
-    tech,
-].forEach(function (inputField) {
-    inputField.addEventListener("input", function () {
-        saveButton.disabled = !checkAllFieldsFilled();
-    });
-});
 
 // InputButton click
 inputButton.addEventListener("click", function () {
@@ -143,7 +104,7 @@ cancelButton.addEventListener("click", function () {
     // Clear Form
     // tanggal.value = "";
     mesin.value = "";
-    jam_operasi.value = "";
+    // jam_operasi.value = "";
     temp.value = "";
     bar.value = "";
     rm_hours.value = "";
@@ -221,122 +182,107 @@ $(document).ready(function () {
 
 // Show Data Log Sheet
 $(document).ready(function () {
+    var dataTable = $("#table-logsheet").DataTable({
+        processing: true,
+        serverSide: true,
+        responsive: true,
+        ajax: {
+            url: "/get-logsheet",
+            type: "GET",
+            data: function (d) {
+                d.date1 = $("#tanggal-awal").val();
+                d.date2 = $("#tanggal-akhir").val();
+                d.NoMesin = $("#NoMesinSearch").val();
+            },
+        },
+        columns: [
+            {
+                data: "NoLogSheet",
+                render: function (data, type, full, meta) {
+                    return (
+                        '<input type="checkbox" class="checkboxlogsheet" value="' +
+                        data +
+                        '">'
+                    );
+                },
+            },
+            {
+                data: "Tanggal",
+                render: function (data, type, full, meta) {
+                    var date = new Date(data);
+                    var day = date.getDate();
+                    var month = date.getMonth() + 1;
+                    var year = date.getFullYear();
+
+                    day = day < 10 ? "0" + day : day;
+                    month = month < 10 ? "0" + month : month;
+                    return day + "-" + month + "-" + year;
+                },
+            },
+            { data: "NamaMesin" },
+            {
+                data: "Jam",
+                render: function (data, type, full, meta) {
+                    var date = new Date(data);
+                    var hours = date.getHours().toString().padStart(2, "0");
+                    var minutes = date.getMinutes().toString().padStart(2, "0");
+                    return hours + ":" + minutes;
+                },
+            },
+            { data: "Temperatur" },
+            { data: "Bar" },
+            { data: "RMHours" },
+            { data: "LMHours" },
+            { data: "RHours" },
+            { data: "LHours" },
+            { data: "Efs" },
+            { data: "Tech" },
+            { data: "Keterangan" },
+        ],
+    });
 
     $("#refreshButton").click(function () {
-        fetchDataAndDisplay();
+        // Panggil metode reload dari DataTables
+        dataTable.ajax.reload();
     });
 
-    $("#table-logsheet").DataTable({
-        order: [[1, "desc"]],
-    });
-    // Function to fetch and display data
-    function fetchDataAndDisplay() {
-        var tanggal_awal = $("#tanggal-awal").val();
-        var tanggal_akhir = $("#tanggal-akhir").val();
-        var NoMesin = $("#NoMesinSearch").val();
-
-        var requestData = {
-            date1: tanggal_awal,
-            date2: tanggal_akhir,
-            NoMesin: NoMesin,
-        };
-
-        $.ajax({
-            url: "/get-logsheet",
-            method: "GET",
-            data: requestData,
-            dataType: "json",
-            success: function (response) {
-                var data = response;
-
-                // empty table body
-                $("table tbody").empty();
-                // $("#table-logsheet").DataTable().clear().draw();
-
-                $.each(data, function (index, row) {
-                    var formattedDate = new Date(row.Tanggal);
-
-                    var day = formattedDate.getDate();
-                    var month = formattedDate.getMonth() + 1;
-                    var year = formattedDate.getFullYear();
-
-                    var formattedDateString =
-                        (day < 10 ? "0" : "") +
-                        day +
-                        "-" +
-                        (month < 10 ? "0" : "") +
-                        month +
-                        "-" +
-                        year;
-
-                    $("table tbody").append(
-                        "<tr>" +
-                            "<td>" +
-                            '<input type="checkbox" class="checkboxlogsheet" value="' +
-                            row.NoLogSheet +
-                            '"></input>' +
-                            "</td>" +
-                            "<td>" +
-                            formattedDateString +
-                            "</td>" +
-                            "<td>" +
-                            row.NamaMesin +
-                            "</td>" +
-                            "<td>" +
-                            row.Jam +
-                            "</td>" +
-                            "<td>" +
-                            row.Temperatur +
-                            "</td>" +
-                            "<td>" +
-                            row.Bar +
-                            "</td>" +
-                            "<td>" +
-                            row.RMHours +
-                            "</td>" +
-                            "<td>" +
-                            row.LMHours +
-                            "</td>" +
-                            "<td>" +
-                            row.RHours +
-                            "</td>" +
-                            "<td>" +
-                            row.LHours +
-                            "</td>" +
-                            "<td>" +
-                            row.Efs +
-                            "</td>" +
-                            "<td>" +
-                            row.Tech +
-                            "</td>" +
-                            "<td>" +
-                            row.Keterangan +
-                            "</td>" +
-                            "</tr>"
-                    );
-                });
-                // $("#table-logsheet").DataTable().draw();
-            },
-            error: function (error) {
-                console.error("Error show Data : ", error.responseText);
-            },
-        });
-    }
-
-    // Checkbox click
     $("tbody").on("click", ".checkboxlogsheet", function () {
         if ($(this).prop("checked")) {
             deleteButton.disabled = false;
             updateButton.disabled = false;
 
-            var selectedRow = $(this).closest("tr");
+            // var selectedRow = $(this).closest("tr");
 
-            var selectedNomorLogSheet = $(this).val();
+            // var selectedDate = selectedRow.find("td:eq(1)").text();
+            // var selectedMesin = selectedRow.find("td:eq(2)").text();
+            // var selectedJamOperasi = selectedRow.find("td:eq(3)").text();
+            // var selectedSparepart = selectedRow.find("td:eq(4)").text();
+            // var selectedKeterangan = selectedRow.find("td:eq(5)").text();
+            // var selectedTeknisi = selectedRow.find("td:eq(6)").text();
+
+            var selectedNoLogSheet = $(this).val();
+
+            // // Set the values in your form inputs
+            // $("#tanggal").val(selectedDate);
+            // $("#select_mesin").val(selectedMesin);
+            // $("#jam_operasi").val(selectedJamOperasi);
+            // $("#select_sparepart").val(selectedSparepart);
+            // $("#select_keterangan").val(selectedKeterangan);
+            // $("#select_teknisi").val(selectedTeknisi);
 
             // Assuming you have defined your hiddenNomorPerawatan input somewhere in your code
-            $("#hiddenNomorPerawatan").val(selectedNomorLogSheet);
+            $("#hiddenNomorPerawatan").val(selectedNoLogSheet);
 
-            console.log("Selected NomorPerawatan: ", selectedNomorLogSheet);
+            console.log(
+                "Selected NomorPerawatan: ",
+                selectedNoLogSheet
+                // selectedDate,
+                // selectedJamOperasi,
+                // selectedKeterangan,
+                // selectedMesin,
+                // selectedSparepart,
+                // selectedTeknisi
+            );
         }
     });
 
@@ -352,20 +298,20 @@ $(document).ready(function () {
             })
             .get();
 
-        var requestData = {
+        var dataDelete = {
             NoLogSheet: checkboxValues,
         };
 
         $.ajax({
             url: "/delete-logsheet",
             method: "DELETE",
-            data: requestData,
+            data: dataDelete,
             headers: {
                 "X-CSRF-TOKEN": csrfToken,
             },
             success: function (response) {
-                console.log("data log sheet delete successfully", response);
-                fetchDataAndDisplay();
+                console.log("data delete successfully", response);
+                dataTable.ajax.reload();
             },
             error: function (error) {
                 console.error("Error delete Data : ", error.responseText);

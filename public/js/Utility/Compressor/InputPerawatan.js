@@ -177,15 +177,12 @@ $(document).ready(function () {
             },
             success: function (response) {
                 console.log("Data saved successfully:", response);
-
-                // Display Bootstrap Alert
-                $("#alertContainer").html(
-                    '<div class="alert alert-success" role="alert">Data Perawatan Berhasil Disimpan!</div>'
-                );
-
-                setTimeout(function () {
-                    location.reload();
-                }, 2000);
+                Swal.fire({
+                    icon : "success",
+                    title : "Data Berhasil Disimpan!",
+                    showConfirmButton : false,
+                    timer : "2000"
+                });
             },
             error: function (error) {
                 console.error("Error saving data:", error);
@@ -195,83 +192,53 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    // Function to fetch and display data
-    function fetchDataAndDisplay() {
-        var tanggal_awal = $("#tanggal-awal").val();
-        var tanggal_akhir = $("#tanggal-akhir").val();
-        var NoMesin = $("#NoMesinSearch").val();
-
-        var requestData = {
-            date1: tanggal_awal,
-            date2: tanggal_akhir,
-            NoMesin: NoMesin,
-        };
-
-        $.ajax({
+    var dataTable = $("#table-perawatan").DataTable({
+        processing: true,
+        serverSide: true,
+        responsive: true,
+        ajax: {
             url: "/get-perawatan",
-            method: "GET",
-            data: requestData,
-            dataType: "json",
-            success: function (response) {
-                var data = response;
-
-                // empty table body
-                $("table tbody").empty();
-
-                $.each(data, function (index, row) {
-                    var formattedDate = new Date(row.Tanggal);
-
-                    var day = formattedDate.getDate();
-                    var month = formattedDate.getMonth() + 1;
-                    var year = formattedDate.getFullYear();
-
-                    var formattedDateString =
-                        (day < 10 ? "0" : "") +
-                        day +
-                        "-" +
-                        (month < 10 ? "0" : "") +
-                        month +
-                        "-" +
-                        year;
-
-                    $("table tbody").append(
-                        "<tr>" +
-                            "<td>" +
-                            '<input type="checkbox" class="checkboxperawatan" value="' +
-                            row.NoPerawatan +
-                            '"></input>' +
-                            "</td>" +
-                            "<td>" +
-                            formattedDateString +
-                            "</td>" +
-                            "<td>" +
-                            row.NamaMesin +
-                            "</td>" +
-                            "<td>" +
-                            row.JamOperasi +
-                            "</td>" +
-                            "<td>" +
-                            row.NamaPart +
-                            "</td>" +
-                            "<td>" +
-                            row.Keterangan +
-                            "</td>" +
-                            "<td>" +
-                            row.Teknisi +
-                            "</td>" +
-                            "</tr>"
+            type: "GET",
+            data: function (d) {
+                d.date1 = $("#tanggal-awal").val();
+                d.date2 = $("#tanggal-akhir").val();
+                d.NoMesin = $("#NoMesinSearch").val();
+            },
+        },
+        columns: [
+            {
+                data: "NoPerawatan",
+                render: function (data, type, full, meta) {
+                    return (
+                        '<input type="checkbox" class="checkboxperawatan" value="' +
+                        data +
+                        '">'
                     );
-                });
+                },
             },
-            error: function (error) {
-                console.error("Error show Data : ", error.responseText);
-            },
-        });
-    }
+            {
+                data: "Tanggal",
+                render: function (data, type, full, meta) {
+                    var date = new Date(data);
+                    var day = date.getDate();
+                    var month = date.getMonth() + 1;
+                    var year = date.getFullYear();
 
-    // Click event for the Refresh button
+                    day = day < 10 ? "0" + day : day;
+                    month = month < 10 ? "0" + month : month;
+                    return day + "-" + month + "-" + year;
+                },
+            },
+            { data: "NamaMesin" },
+            { data: "JamOperasi" },
+            { data: "NamaPart" },
+            { data: "Keterangan" },
+            { data: "Teknisi" },
+        ],
+    });
+
     $("#refreshButton").click(function () {
-        fetchDataAndDisplay();
+        dataTable.ajax.reload();
     });
 
     // Checkbox click
@@ -291,6 +258,7 @@ $(document).ready(function () {
 
             var selectedNomorPerawatan = $(this).val();
 
+            $("#hiddenNomorPerawatan").val(selectedNomorPerawatan);
             // Set the values in your form inputs
             $("#tanggal").val(selectedDate);
             $("#select_mesin").val(selectedMesin);
@@ -299,19 +267,13 @@ $(document).ready(function () {
             $("#select_keterangan").val(selectedKeterangan);
             $("#select_teknisi").val(selectedTeknisi);
 
-            // Assuming you have defined your hiddenNomorPerawatan input somewhere in your code
-            $("#hiddenNomorPerawatan").val(selectedNomorPerawatan);
-
-            console.log(
-                "Selected NomorPerawatan: ",
-                selectedNomorPerawatan,
-                selectedDate,
-                selectedJamOperasi,
-                selectedKeterangan,
-                selectedMesin,
-                selectedSparepart,
-                selectedTeknisi
-            );
+            console.log("Selected NomorPerawatan: ", selectedNomorPerawatan);
+            console.log("Selected Date: ", selectedDate);
+            console.log("Selected Mesin: ", selectedMesin);
+            console.log("Selected Jam: ", selectedJamOperasi);
+            console.log("Selected Sparepart: ", selectedSparepart);
+            console.log("Selected Keterangan: ", selectedKeterangan);
+            console.log("Selected Teknisi: ", selectedTeknisi);
         }
     });
 
@@ -339,8 +301,15 @@ $(document).ready(function () {
                 "X-CSRF-TOKEN": csrfToken,
             },
             success: function (response) {
+                dataTable.ajax.reload();
+                Swal.fire({
+                    icon : "success",
+                    title : "Terhapus!",
+                    text : "Data Berhasil Dihapus!",
+                    showConfirmButton : false,
+                    timer : "2000"
+                });
                 console.log("data delete successfully", response);
-                fetchDataAndDisplay();
             },
             error: function (error) {
                 console.error("Error delete Data : ", error.responseText);

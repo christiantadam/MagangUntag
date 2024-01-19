@@ -71,7 +71,7 @@ class LogSheetController extends Controller
             ? DB::connection('ConnUtility')->select('exec SP_LIST_LOG_SHEET_BLN_TAHUN @date1 = ?, @date2 = ?, @NoMesin = 0', [$date1, $date2])
             : DB::connection('ConnUtility')->select('exec SP_LIST_LOG_SHEET_BLN_TAHUN @date1 = ?, @date2 = ?, @NoMesin = ?', [$date1, $date2, $NoMesin]);
 
-        return response()->json($listLogSheet);
+        return datatables($listLogSheet)->make(true);
     }
 
     public function deleteDataLogSheet(Request $request)

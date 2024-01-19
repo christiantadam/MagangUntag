@@ -145,16 +145,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{-- @foreach ($dataTabel as $row)
-                                                <tr>
-                                                    <td>{{ $row->tanggal }}</td>
-                                                    <td>{{ $row->mesin }}</td>
-                                                    <td>{{ $row->jam_operasi }}</td>
-                                                    <td>{{ $row->sparepart }}</td>
-                                                    <td>{{ $row->keterangan }}</td>
-                                                    <td>{{ $row->teknisi }}</td>
-                                                </tr>
-                                            @endforeach --}}
                                     </tbody>
                                 </table>
                             </div>

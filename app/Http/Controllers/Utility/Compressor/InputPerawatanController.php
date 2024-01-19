@@ -39,7 +39,7 @@ class InputPerawatanController extends Controller
             ? DB::connection('ConnUtility')->select('exec SP_DT_LIST_COMPRESSOR_BLN_TAHUN2 @date1 = ?, @date2 = ?, @NoMesin = 0', [$date1, $date2])
             : DB::connection('ConnUtility')->select('exec SP_DT_LIST_COMPRESSOR_BLN_TAHUN2 @date1 = ?, @date2 = ?, @NoMesin = ?', [$date1, $date2, $NoMesin]);
 
-        return response()->json($listPerawatan);
+        return datatables($listPerawatan)->make(true);
     }
 
 

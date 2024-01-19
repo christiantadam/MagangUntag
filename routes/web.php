@@ -96,6 +96,10 @@ Route::group(['middleware' => ['auth']], function () {
 
     //PDAM
     Route::resource('InputPDAM', App\Http\Controllers\Utility\PDAM\InputPDAMController::class);
+    Route::put('/update-pdam', [App\Http\Controllers\Utility\PDAM\InputPDAMController::class, 'updatePDAM'])->name('update-pdam');
+    Route::post('/save-pdam', [App\Http\Controllers\Utility\PDAM\InputPDAMController::class, 'createPDAM'])->name('save-pdam');
+    Route::get('/get-pdam', [App\Http\Controllers\Utility\PDAM\InputPDAMController::class, 'getPDAM'])->name('get-pdam');
+    Route::delete('/delete-pdam', [App\Http\Controllers\Utility\PDAM\InputPDAMController::class, 'deletePDAM'])->name('delete-pdam');
 
     //PDAM
     Route::resource('InputPLN', App\Http\Controllers\Utility\PLN\InputPLNController::class);
