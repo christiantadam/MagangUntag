@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Beli\TransaksiBeli;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use DB;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HakAksesController;
+use DB;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PurchaseOrderController extends Controller
 {
@@ -55,7 +55,6 @@ class PurchaseOrderController extends Controller
         DB::connection('ConnPurchase')->statement('update ycounter set NO_SPPB =' . $mValue[0]->NO_SPPB . '+ 1');
         // dd($No_PO);
 
-
         for ($i = 0; $i < count($noTrans); $i++) {
             db::connection('ConnPurchase')->statement('exec SP_5409_MAINT_PO
             @kd = ?,
@@ -92,32 +91,24 @@ class PurchaseOrderController extends Controller
     //Display the specified resource.
     public function redisplay(Request $request)
     {
-        try {
-            $MaxDate = $request->input('betwendate1');
-            $MinDate = $request->input('betwendate2');
-            $noPO = $request->input('nomor_po');
+        $MinDate = $request->input('MinDate');
+        $MaxDate = $request->input('MaxDate');
+        $noPO = $request->input('noPO');
+        $kd = 22;
+        // info("Request: MaxDate=$MaxDate, MinDate=$MinDate, noPO=$noPO");
 
-            info("Request: MaxDate=$MaxDate, MinDate=$MinDate, noPO=$noPO");
+        // $purchaseorder = ($noPO == 0)
+        // ? DB::connection('ConnPurchase')->select('SP_5409_LIST_ORDER @kd = 22, , @MinDate = ? @MaxDate = ?', [ $MinDate,$MaxDate])
+        // : DB::connection('ConnPurchase')->select('SP_5409_LIST_ORDER @kd = 21,@MinDate = ?, @MaxDate = ?,  @noPO = ?', [$MinDate,$MaxDate]);
+        $purchaseorder = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd =?, @noPO =?, @MinDate=?, @MaxDate=?',[$kd,$noPO,$MinDate,$MaxDate]);
+        // info("Query Result: " . json_encode($purchaseorder));
 
-            $purchaseorder = ($noPO)
-            ? DB::connection('ConnPurchase')->select('SP_5409_LIST_ORDER @kd = 1, @MaxDate = :maxDate, @MinDate = :minDate, @noPO = :noPO', ['maxDate' => $MaxDate, 'minDate' => $MinDate, 'noPO' => $noPO])
-            : DB::connection('ConnPurchase')->select('SP_5409_LIST_ORDER @kd = 1, @MaxDate = :maxDate, @MinDate = :minDate, @noPO = 0', ['maxDate' => $MaxDate, 'minDate' => $MinDate]);
+        // dd(
+        //     $purchaseorder
+        // );
 
-
-            info("Query Result: " . json_encode($purchaseorder));
-
-            return response()->json($purchaseorder);
-        } catch (\Exception $e) {
-            // Catat exception
-            info("Exception: " . $e->getMessage());
-            // Anda juga bisa mencatat stack trace
-            info("Exception Stack Trace: " . $e->getTraceAsString());
-            // Kembalikan respon error generic
-            return response()->json(['error' => 'Internal Server Error'], 500);
-        }
+        return response()->json($purchaseorder);
     }
-
-
 
     //Show the form for editing the specified resource.
     public function edit($id)

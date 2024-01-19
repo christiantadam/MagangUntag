@@ -24,7 +24,7 @@
                                 <div class="row">
                                     <div class="col-4 md-2">
                                         <input class="form-check-input" type="radio" name="radiobutton" id="radiobutton"
-                                            value="tanggal" onclick="updateMinDate()">
+                                            value="tanggal">
                                         Betwen Date
                                         <input type="date" class="form-control" id="betwendate1" name="betwendate1">
                                         <label for="" class="form-label"></label>
@@ -42,7 +42,7 @@
                                 </div>
                                 <!-- ... sisa konten ... -->
                                 <!-- Tabel Data -->
-                                <table class ="table mt-4" id="tabeldata">
+                                <table class ="table mt-4" id="tabelchelsy">
 
                                     <thead class="table-dark">
                                         <tr>
@@ -52,26 +52,32 @@
                                             <th>Sub Kategori</th>
                                             <th>Divisi</th>
                                             <th>User PO</th>
-                                            <th>No. BTTB</th>
+                                            {{-- <th>No. BTTB</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <!-- Baris-baris tabel yang dapat diisi akan ditambahkan melalui JavaScript atau PHP/Laravel -->
                                         <!-- Contoh baris kosong -->
                                         <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            {{-- <td contenteditable="true"></td>
                                             <td contenteditable="true"></td>
                                             <td contenteditable="true"></td>
                                             <td contenteditable="true"></td>
                                             <td contenteditable="true"></td>
                                             <td contenteditable="true"></td>
-                                            <td contenteditable="true"></td>
-                                            <td contenteditable="true"></td>
+                                            <td contenteditable="true"></td> --}}
                                         </tr>
                                     </tbody>
                                 </table>
                                 <!-- Buttons -->
                                 <div class="d-flex justify-content-end">
-                                    <button class="btn btn-danger" onclick="exitPage()">Exit</button>
+                                    <button class="btn btn-danger">Exit</button>
                                 </div>
                             </div>
                         </div>
@@ -83,7 +89,7 @@
 
     <script src="{{ asset('js/OrderPembelian/List.js') }}"></script>
 
-    <script>
+    {{-- <script>
         function updateMinDate() {
             var startDate = document.getElementById("betwendate1").value;
             document.getElementById("betwendate2").min = startDate;
@@ -98,5 +104,5 @@
             // Logika untuk keluar dari halaman
             console.log('Exiting...');
         }
-    </script>
+    </script> --}}
 @endsection
