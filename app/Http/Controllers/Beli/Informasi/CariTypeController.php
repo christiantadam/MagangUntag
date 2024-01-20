@@ -31,7 +31,7 @@ class CariTypeController extends Controller
         $nm_brg = $request->input('nm_brg');
         $kd = 3;
         $search = DB::connection('ConnPurchase')->select('exec spSelect_CariTypeBarang_dotNet @nm_brg = ?, @kd = ?',[$nm_brg,$kd]);
-        return response()->json($search);
+        return datatables($search)->make(true);
     }
     //Store a newly created resource in storage.
     public function store(Request $request)

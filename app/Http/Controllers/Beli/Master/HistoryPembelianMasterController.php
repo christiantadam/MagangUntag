@@ -33,7 +33,7 @@ class HistoryPembelianMasterController extends Controller
         $sup = $request->input('sup');
         $kdbrg = $request->input('kdbrg');
         $redisplay = DB::connection('ConnPurchase')->select('exec spSelect_CariTypeBarang_dotNet @nm_brg = ?, @kd = ?, @req = ?, @sup = ?, @kdbrg = ?', [$nm_brg, $kd, $req, $sup, $kdbrg]);
-        return response()->json($redisplay);
+        return datatables($redisplay)->make(true);
     }
     //Store a newly created resource in storage.
     public function store(Request $request)
