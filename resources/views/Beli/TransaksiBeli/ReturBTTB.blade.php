@@ -24,27 +24,27 @@
                                 <input type="text" class="form-control" id="nomor_po" name="nomor_po">
                             </div>
                             <div class="col-md-4">
-                                <label for="tanggal_po" class="form-label">Suplier</label>
-                                <input type="text" class="form-control" id="tanggal_po" name="tanggal_po">
+                                <label for="suplier" class="form-label">Suplier</label>
+                                <input type="text" class="form-control" id="suplier" name="suplier">
                             </div>
                             <div class="col-md-4">
-                                <label for="supplier" class="form-label">Payment Term</label>
-                                <input type="text" class="form-control" id="supplier" name="supplier">
+                                <label for="payment" class="form-label">Payment Term</label>
+                                <input type="text" class="form-control" id="payment" name="payment">
                             </div>
                         </div>
                         <div class="row mb-3 m-1">
                             <div class="col-md-4">
-                                <label for="tanggal_mohonKirim" class="form-label">Tanggal PO</label>
-                                <input type="date" class="form-control" id="tanggal_mohonKirim"
-                                    name="tanggal_mohonKirim">
+                                <label for="tanggal_po" class="form-label">Tanggal PO</label>
+                                <input type="date" class="form-control" id="tanggal_po"
+                                    name="tanggal_po">
                             </div>
                             <div class="col-md-4">
-                                <label for="payment_term" class="form-label">Tanggal Mohon Kirim</label>
-                                <input type="date" class="form-control" id="payment_term" name="payment_term">
+                                <label for="tanggalkirim" class="form-label">Tanggal Mohon Kirim</label>
+                                <input type="date" class="form-control" id="tanggalkirim" name="tanggalkirim">
                             </div>
                             <div class="col-md-4">
-                                <label for="matauang_input" class="form-label">Mata uang</label>
-                                <input type="text" class="form-control" id="matauang_input" name="matauang_input">
+                                <label for="matauang" class="form-label">Mata uang</label>
+                                <input type="text" class="form-control" id="matauang" name="matauang">
                             </div>
                         </div>
                     </div>
@@ -151,52 +151,52 @@
                         </div>
                         <div class="col-md-4">
                             <label for="kelompok" class="form-label">Kelompok</label>
-                            <input type="text" class="form-control" id="kelompok" name="payment_term">
+                            <input type="text" class="form-control" id="kelompok" name="kelompok">
                         </div>
                         <div class="col-md-4">
                             <label for="namabarang" class="form-label">Sub Kategori</label>
                             <input type="text" class="form-control" id="namabarang" name="namabarang">
                         </div>
                         <div class="col-md-2">
-                            <label for="type" class="form-label">Qty Retur Primer</label>
-                            <input type="float" class="form-control" id="type" name="type">
+                            <label for="returprimer" class="form-label">Qty Retur Primer</label>
+                            <input type="float" class="form-control" id="returprimer" name="returprimer">
                         </div>
                         <div class="col-md-2">
-                            <label for="kelompok" class="form-label">Qty Sekunder</label>
-                            <input type="float" class="form-control" id="kelompok" name="payment_term">
+                            <label for="sekunder" class="form-label">Qty Sekunder</label>
+                            <input type="float" class="form-control" id="sekunder" name="sekunder">
                         </div>
                         <div class="col-md-2">
-                            <label for="kelompok" class="form-label">Qty Tertier</label>
-                            <input type="float" class="form-control" id="kelompok" name="payment_term">
+                            <label for="tertier" class="form-label">Qty Tertier</label>
+                            <input type="float" class="form-control" id="tertier" name="tertier">
                         </div>
                     </div>
                     <div class="row mb-3 m-1">
                         <div class="col-md-2">
-                            <label for="kelompok" class="form-label">No. BTTB</label>
-                            <input type="float" class="form-control" ids="kelompok" name="payment_term">
+                            <label for="bttb" class="form-label">No. BTTB</label>
+                            <input type="float" class="form-control" ids="bttb" name="bttb">
                         </div>
                         <div class="col-md-8" style="width: 400px; margin-right: -60px;">
-                            <label for="kelompok" class="form-label">Alasan</label>
-                            <input type="float" class="form-control" id="kelompok" name="payment_term">
+                            <label for="alasan" class="form-label">Alasan</label>
+                            <input type="float" class="form-control" id="alasan" name="alasan">
                         </div>
                     </div>
 
                     <div class="row mb-3 m-1">
                         <div class="col-md-2">
-                            <label for="kelompok" class="form-label">No. SJ</label>
-                            <input type="float" class="form-control" id="kelompok" name="payment_term">
+                            <label for="no_sj" class="form-label">No. SJ</label>
+                            <input type="float" class="form-control" id="no_sj" name="no_sj">
                         </div>
                     </div>
                     <div class="row mb-3 m-1">
                         <div class="col-md-2">
-                            <label for="kelompok" class="form-label">Id Terima</label>
-                            <input type="int" class="form-control" id="kelompok" name="payment_term">
+                            <label for="id_terima" class="form-label">Id Terima</label>
+                            <input type="int" class="form-control" id="id_terima" name="id_terima">
                         </div>
                     </div>
                     <div class="row mb-3 m-1">
                         <div class="col-md-2">
-                            <label for="kelompok" class="form-label">Qty Terima</label>
-                            <input type="float" class="form-control" id="kelompok" name="payment_term">
+                            <label for="qty_terima" class="form-label">Qty Terima</label>
+                            <input type="float" class="form-control" id="qty_terima" name="qty_terima">
                         </div>
                     </div>
 
@@ -211,7 +211,6 @@
 
             </div>
         </div>
-        <script src="{{ asset('js/OrderPembelian/ListPurchaseOrder.js') }}"></script>
         <script>
             function printData() {
                 // Add your print logic here
@@ -221,7 +220,7 @@
             function exitPage() {
                 // Add your exit logic here
                 console.log('Exiting...');
-            } <
-            script src = "{{ asset('js/OrderPembelian/ReturBTTB.js') }}" >
+            }
+          <script src = "{{ asset('js/OrderPembelian/Retur.js') }}" >
         </script>
     @endsection
