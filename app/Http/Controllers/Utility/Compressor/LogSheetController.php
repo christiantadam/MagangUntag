@@ -23,18 +23,6 @@ class LogSheetController extends Controller
         return view('Utility.Compressor.LogSheet.index', compact('mesin', 'access'));
     }
 
-    //Show the form for creating a new resource.
-    public function create()
-    {
-        //
-    }
-
-    //Store a newly created resource in storage.
-    public function store(Request $request)
-    {
-        //
-    }
-
     //Display the specified resource.
     public function saveDataLogSheet(Request $request)
     {
@@ -54,6 +42,30 @@ class LogSheetController extends Controller
             $UserInput = Auth::user()->NomorUser;
 
             $data = DB::connection('ConnUtility')->statement('exec SP_INSERT_LOG_SHEET_COMPRESSOR ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?', [$Tanggal, $Mesin, $Jam, $Temp, $Bar, $RM_Hours, $LM_Hours, $R_Hours, $L_Hours, $Efs, $Tech, $Keterangan, $UserInput]);
+            return response()->json($data);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'An error occurred while saving the data. Please try again.');
+        }
+    }
+    public function updateDataLogSheet(Request $request)
+    {
+        try {
+            $id = $request->input('NoLogSheet');
+            $Tanggal = $request->input('Tanggal');
+            $Mesin = $request->input('Mesin');
+            $Jam = $request->input('Jam');
+            $Temp = $request->input('Temp');
+            $Bar = $request->input('Bar');
+            $RM_Hours = $request->input('RM_Hours');
+            $LM_Hours = $request->input('LM_Hours');
+            $R_Hours = $request->input('R_Hours');
+            $L_Hours = $request->input('L_Hours');
+            $Efs = $request->input('Efs');
+            $Tech = $request->input('Tech');
+            $Keterangan = $request->input('Keterangan');
+            $UserInput = Auth::user()->NomorUser;
+
+            $data = DB::connection('ConnUtility')->statement('exec SP_KOREKSI_LOG_SHEET_COMPRESSOR ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?', [$id, $Tanggal, $Mesin, $Jam, $Temp, $Bar, $RM_Hours, $LM_Hours, $R_Hours, $L_Hours, $Efs, $Tech, $Keterangan, $UserInput]);
             return response()->json($data);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'An error occurred while saving the data. Please try again.');
