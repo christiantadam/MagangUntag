@@ -2,7 +2,7 @@ let redisplay = document.getElementById("redisplay");
 let formDaftarHarga = document.getElementById("formDaftarHarga");
 let tabelData = document.getElementById("tabelData");
 
-tabelData.style.display = 'none';
+tabelData.style.display = "none";
 redisplay.disabled = true;
 formDaftarHarga.addEventListener("change", function () {
     redisplay.disabled = !radioButtonIsSelected();
@@ -52,44 +52,34 @@ function getSelectedInputValue() {
 }
 
 function redisplayData(nm_brg, req, sup, kdbrg) {
-    $.ajax({
-        type: "GET",
-        url: "/DaftarHargaRedisplay",
-        data: {
-            nm_brg: nm_brg,
-            req: req,
-            sup: sup,
-            kdbrg: kdbrg,
-        },
-        success: function (response) {
-            // console.log(response);
-            dataTabel(response);
-        },
-        error: function (error) {
-            console.error("Error fetching data:", error);
-        },
-    });
-}
+    tabelData.style.display = "block";
 
-function dataTabel(datas) {
-    tabelData.style.display = 'block';
-    let tableBody = $("#tabelData").DataTable();
-    tableBody.clear();
-    datas.forEach(function (data) {
-        tableBody.row
-            .add([
-                data.Kd_div,
-                data.Kd_brg,
-                data.NAMA_BRG,
-                data.Nama_satuan,
-                data.NM_SUP,
-                data.KOTA1,
-                data.NEGARA1,
-                data.Hrg_trm,
-                data.Id_MataUang_BC,
-                data.Nama,
-                data.Tgl_order,
-            ])
-            .draw();
+    $("#tabelData").DataTable({
+        responsive:true,
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: "/DaftarHargaRedisplay",
+            type: "GET",
+            data: function(data) {
+                data.nm_brg = nm_brg,
+                data.req = req,
+                data.sup = sup,
+                data.kdbrg = kdbrg
+            }
+        },
+        columns: [
+            { data: "Kd_div" },
+            { data: "Kd_brg" },
+            { data: "NAMA_BRG" },
+            { data: "Nama_satuan" },
+            { data: "NM_SUP" },
+            { data: "KOTA1" },
+            { data: "NEGARA1" },
+            { data: "Hrg_trm" },
+            { data: "Id_MataUang_BC" },
+            { data: "Nama" },
+            {data: "Tgl_order"},
+        ],
     });
 }

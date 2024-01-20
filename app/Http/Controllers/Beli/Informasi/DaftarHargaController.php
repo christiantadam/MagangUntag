@@ -12,8 +12,8 @@ class DaftarHargaController extends Controller
 {
     public function index()
     {
-        $result = (new HakAksesController)->HakAksesProgram('Beli');
         $access = (new HakAksesController)->HakAksesFiturMaster('Beli');
+        $result = (new HakAksesController)->HakAksesFitur('Daftar Harga');
         if ($result > 0) {
             return view('Beli.Informasi.DaftarHarga', compact('access'));
         } else {
@@ -35,7 +35,7 @@ class DaftarHargaController extends Controller
         $sup = $request->input('sup');
         $kdbrg = $request->input('kdbrg');
         $redisplay = DB::connection('ConnPurchase')->select('exec spSelect_CariTypeBarang_dotNet @nm_brg = ?, @kd = ?, @req = ?, @sup = ?, @kdbrg = ?',[$nm_brg,$kd,$req,$sup,$kdbrg]);
-        return response()->json($redisplay);
+        return datatables($redisplay)->make(true);
     }
 
     //Store a newly created resource in storage.

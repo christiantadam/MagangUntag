@@ -22,7 +22,7 @@
                             {{ csrf_field() }}
                             <div class="">
                                 <div class="acs-div-container">
-                                    <div class="acs-div-filter">
+                                    <div class="acs-div-filter pl-2">
                                         <label for="supplier">Supplier</label>
                                         <div class="acs-div-filter2">
                                             <input type="text" name="supplier_text" id="supplier_text" class="input">

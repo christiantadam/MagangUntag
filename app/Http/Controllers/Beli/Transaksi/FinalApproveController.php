@@ -9,16 +9,21 @@ use App\Models\Beli\TransBL;
 use App\User;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HakAksesController;
+use DB;
 
 
 class FinalApproveController extends Controller
 {
     public function index()
     {
-        $result = (new HakAksesController)->HakAksesProgram('Beli');
+        $kd = 4;
+        $operator = '1001';
+        $result = (new HakAksesController)->HakAksesFitur('Final Approve');
         $access = (new HakAksesController)->HakAksesFiturMaster('Beli');
         if ($result > 0) {
-            $data = TransBL::select()->join('YUSER_ACC_DIR', 'YUSER_ACC_DIR.Kd_div', 'YTRANSBL.Kd_div')->leftjoin('Y_BARANG', 'Y_BARANG.KD_BRG', 'YTRANSBL.Kd_brg')->leftjoin('YUSER', 'YUSER.kd_user', 'YTRANSBL.Operator')->leftjoin('YSATUAN', 'YSATUAN.No_satuan', 'YTRANSBL.NoSatuan')->leftjoin('STATUS_ORDER', 'STATUS_ORDER.KdStatus', 'YTRANSBL.StatusOrder')->where('YUSER_ACC_DIR.Kd_user', strval(Auth::user()->kd_user))->where('StatusOrder', '3')->get();
+            // $data = TransBL::select()->join('YUSER_ACC_DIR', 'YUSER_ACC_DIR.Kd_div', 'YTRANSBL.Kd_div')->leftjoin('Y_BARANG', 'Y_BARANG.KD_BRG', 'YTRANSBL.Kd_brg')->leftjoin('YUSER', 'YUSER.kd_user', 'YTRANSBL.Operator')->leftjoin('YSATUAN', 'YSATUAN.No_satuan', 'YTRANSBL.NoSatuan')->leftjoin('STATUS_ORDER', 'STATUS_ORDER.KdStatus', 'YTRANSBL.StatusOrder')->where('YUSER_ACC_DIR.Kd_user', strval(Auth::user()->kd_user))->where('StatusOrder', '3')->get();
+            $data = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd = ?, @Operator=?',[$kd,$operator]);
+
             return view('Beli.Transaksi.FinalApprove.List', compact('data', 'access'));
         } else {
             abort(403);
