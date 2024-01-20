@@ -13,15 +13,15 @@ let efs = document.getElementById("efs");
 let tech = document.getElementById("tech");
 let keterangan = document.getElementById("keterangan");
 
-// Mendapatkan waktu saat ini
-let waktuSekarang = new Date();
+// // // Mendapatkan waktu saat ini
+// // let waktuSekarang = new Date();
 
-// Membuat format jam dan menetapkannya pada elemen input
-let jamSekarang = waktuSekarang.getHours().toString().padStart(2, "0"); // Menggunakan padStart untuk memastikan format dua digit
-let menitSekarang = waktuSekarang.getMinutes().toString().padStart(2, "0");
+// // // Membuat format jam dan menetapkannya pada elemen input
+// // let jamSekarang = waktuSekarang.getHours().toString().padStart(2, "0"); // Menggunakan padStart untuk memastikan format dua digit
+// // let menitSekarang = waktuSekarang.getMinutes().toString().padStart(2, "0");
 
-// Menetapkan nilai input
-jam_operasi.value = jamSekarang + ":" + menitSekarang;
+// // Menetapkan nilai input
+// jam_operasi.value = jamSekarang + ":" + menitSekarang;
 
 // tanggal form
 var tanggal_Input = document.getElementById("tanggal");
@@ -61,7 +61,6 @@ tech.disabled = true;
 keterangan.disabled = true;
 updateButton.disabled = true;
 deleteButton.disabled = true;
-
 
 // InputButton click
 inputButton.addEventListener("click", function () {
@@ -104,7 +103,7 @@ cancelButton.addEventListener("click", function () {
     // Clear Form
     // tanggal.value = "";
     mesin.value = "";
-    // jam_operasi.value = "";
+    jam_operasi.value = "";
     temp.value = "";
     bar.value = "";
     rm_hours.value = "";
@@ -219,7 +218,9 @@ $(document).ready(function () {
                     return day + "-" + month + "-" + year;
                 },
             },
-            { data: "NamaMesin" },
+            {
+                data: "NamaMesin",  value :'NoMesin'
+            },
             {
                 data: "Jam",
                 render: function (data, type, full, meta) {
@@ -251,37 +252,52 @@ $(document).ready(function () {
             deleteButton.disabled = false;
             updateButton.disabled = false;
 
-            // var selectedRow = $(this).closest("tr");
+            var selectedRow = $(this).closest("tr");
 
-            // var selectedDate = selectedRow.find("td:eq(1)").text();
-            // var selectedMesin = selectedRow.find("td:eq(2)").text();
-            // var selectedJamOperasi = selectedRow.find("td:eq(3)").text();
-            // var selectedSparepart = selectedRow.find("td:eq(4)").text();
-            // var selectedKeterangan = selectedRow.find("td:eq(5)").text();
-            // var selectedTeknisi = selectedRow.find("td:eq(6)").text();
+            var selectedDate = selectedRow.find("td:eq(1)").text();
+            var selectedMesin = selectedRow.find("td:eq(2)").text();
+            var selectedJamOperasi = selectedRow.find("td:eq(3)").text();
+            var selectedTemp = selectedRow.find("td:eq(4)").text();
+            var selectedBar = selectedRow.find("td:eq(5)").text();
+            var selectedRMHours = selectedRow.find("td:eq(6)").text();
+            var selectedLMHours = selectedRow.find("td:eq(7)").text();
+            var selectedRHours = selectedRow.find("td:eq(8)").text();
+            var selectedLHours = selectedRow.find("td:eq(9)").text();
+            var selectedEfs = selectedRow.find("td:eq(10)").text();
+            var selectedTech = selectedRow.find("td:eq(11)").text();
+            var selectedKeterangan = selectedRow.find("td:eq(12)").text();
 
             var selectedNoLogSheet = $(this).val();
 
-            // // Set the values in your form inputs
-            // $("#tanggal").val(selectedDate);
-            // $("#select_mesin").val(selectedMesin);
-            // $("#jam_operasi").val(selectedJamOperasi);
-            // $("#select_sparepart").val(selectedSparepart);
-            // $("#select_keterangan").val(selectedKeterangan);
-            // $("#select_teknisi").val(selectedTeknisi);
-
-            // Assuming you have defined your hiddenNomorPerawatan input somewhere in your code
-            $("#hiddenNomorPerawatan").val(selectedNoLogSheet);
+            // Set the values in your form inputs
+            $("#tanggal").val(selectedDate);
+            $("#mesin").val(selectedMesin);
+            $("#jam").val(selectedJamOperasi);
+            $("#temp").val(selectedTemp);
+            $("#bar").val(selectedBar);
+            $("#rm_hours").val(selectedRMHours);
+            $("#lm_hours").val(selectedLMHours);
+            $("#r_hours").val(selectedRHours);
+            $("#l_hours").val(selectedLHours);
+            $("#efs").val(selectedEfs);
+            $("#tech").val(selectedTech);
+            $("#keterangan").val(selectedKeterangan);
+            $("#hiddenNoLogSheet").val(selectedNoLogSheet);
 
             console.log(
-                "Selected NomorPerawatan: ",
-                selectedNoLogSheet
-                // selectedDate,
-                // selectedJamOperasi,
-                // selectedKeterangan,
-                // selectedMesin,
-                // selectedSparepart,
-                // selectedTeknisi
+                "Selected No Log Sheet: ",
+                selectedNoLogSheet,
+                selectedDate,
+                selectedMesin,
+                selectedJamOperasi,
+                selectedTemp,
+                selectedRMHours,
+                selectedLMHours,
+                selectedRHours,
+                selectedLHours,
+                selectedEfs,
+                selectedTech,
+                selectedKeterangan,
             );
         }
     });

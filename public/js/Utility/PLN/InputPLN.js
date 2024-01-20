@@ -1,9 +1,9 @@
 // Form Input
 let tanggal = document.getElementById("tanggal");
 let jam = document.getElementById("jam");
-let nometer = document.getElementById("nometer");
-let nometersearch = document.getElementById("nometersearch");
-let counter = document.getElementById("counter");
+let lwbp = document.getElementById("lwbp");
+let wbp = document.getElementById("wbp");
+let kvar = document.getElementById("kvar");
 let teknisi = document.getElementById("teknisi");
 
 // tanggal form
@@ -30,30 +30,30 @@ let saveButton = document.getElementById("saveButton");
 let refreshButton = document.getElementById("refreshButton");
 
 // Checkbox
-// let checkboxpdam = document.getElementsByClassName("checkboxpdam");
+let nomorpln = document.getElementById("hiddenNomorpln");
 
 saveButton.disabled = true;
 tanggal.disabled = true;
 jam.disabled = true;
-nometer.disabled = true;
-counter.disabled = true;
+lwbp.disabled = true;
+wbp.disabled = true;
+kvar.disabled = true;
 teknisi.disabled = true;
 updateButton.disabled = true;
 deleteButton.disabled = true;
 
-// Function to check if all fields are filled
 function checkAllFieldsFilled() {
     return (
         tanggal.value.trim() !== "" &&
         jam.value.trim() !== "" &&
-        nometer.value.trim() !== "" &&
-        counter.value.trim() !== "" &&
+        lwbp.value.trim() !== "" &&
+        wbp.value.trim() !== "" &&
+        kvar.value.trim() !== "" &&
         teknisi.value.trim() !== ""
     );
 }
 
-// Add event listeners to enable/disable saveButton based on input field values
-[tanggal, jam, nometer, counter, teknisi].forEach(function (inputField) {
+[tanggal, jam, lwbp, wbp, kvar, teknisi].forEach(function (inputField) {
     inputField.addEventListener("input", function () {
         saveButton.disabled = !checkAllFieldsFilled();
     });
@@ -61,14 +61,44 @@ function checkAllFieldsFilled() {
 
 // InputButton click
 inputButton.addEventListener("click", function () {
-    // Disable input fields and disable Update and Delete buttons
     tanggal.disabled = false;
     jam.disabled = false;
-    nometer.disabled = false;
-    counter.disabled = false;
+    lwbp.disabled = false;
+    wbp.disabled = false;
+    kvar.disabled = false;
     teknisi.disabled = false;
     updateButton.disabled = true;
     deleteButton.disabled = true;
+    nomorpln.value = "";
+});
+// InputButton click
+updateButton.addEventListener("click", function () {
+    tanggal.disabled = false;
+    jam.disabled = false;
+    lwbp.disabled = false;
+    wbp.disabled = false;
+    kvar.disabled = false;
+    teknisi.disabled = false;
+    inputButton.disabled = true;
+    deleteButton.disabled = true;
+
+    var checkboxValues = $(".checkboxpln:checked")
+        .map(function () {
+            return this.value;
+        })
+        .get();
+
+    // Check if there are selected checkboxes
+    if (checkboxValues.length === 0) {
+        Swal.fire({
+            icon: "error",
+            title: "Tidak Ada Data Terpilih",
+            text: "Pilih setidaknya satu data PLN untuk update.",
+        });
+    } else {
+        // Perform your other update logic if checkboxes are checked
+        // ...
+    }
 });
 
 
@@ -76,80 +106,97 @@ inputButton.addEventListener("click", function () {
 cancelButton.addEventListener("click", function () {
     tanggal.disabled = true;
     jam.disabled = true;
-    nometer.disabled = true;
-    counter.disabled = true;
+    lwbp.disabled = true;
+    wbp.disabled = true;
+    kvar.disabled = true;
     teknisi.disabled = true;
+    inputButton.disabled = false;
     updateButton.disabled = false;
     deleteButton.disabled = false;
 
     // Clear Form
     // tanggal.value = "";
+    nomorpln.value = "";
     jam.value = "";
-    nometer.value = "";
-    counter.value = "";
+    lwbp.value = "";
+    wbp.value = "";
+    kvar.value = "";
     teknisi.value = "";
 
+    $(".checkboxpln").prop("checked", false);
     // Disable saveButton
     saveButton.disabled = true;
 });
 
 // Reload Window
 window.addEventListener("beforeunload", function () {
-
     jam.value = "";
-    nometer.value = "";
-    counter.value = "";
+    lwbp.value = "";
+    wbp.value = "";
+    kvar.value = "";
     teknisi.value = "";
-    nometersearch.value = "";
-
 
     // Disable saveButton
     saveButton.disabled = true;
 });
 
-
 $(document).ready(function () {
+    // console.log(checkboxpln.value)
     $("#saveButton").click(function () {
         var tanggalValue = $("#tanggal").val();
         var jamValue = $("#jam").val();
-        var meterValue = $("#nometer").val();
-        var counterValue = $("#counter").val();
+        var lwbpValue = $("#lwbp").val();
+        var wbpValue = $("#wbp").val();
+        var kvarValue = $("#kvar").val();
         var teknisiValue = $("#teknisi").val();
-        var nomorpdamValue = $("#hiddenNomorpdam").val();
+        var nomorplnValue = $("#hiddenNomorpln").val();
 
         var csrfToken = $('meta[name="csrf-token"]').attr("content");
 
         var requestData = {
             Tanggal: tanggalValue,
             Jam: jamValue,
-            Meter: meterValue,
-            Counter: counterValue,
+            LWBP: lwbpValue,
+            WBP: wbpValue,
+            KVAR: kvarValue,
             Teknisi: teknisiValue,
         };
-        if (nomorpdamValue) {
-            requestData.Nomorpdam = nomorpdamValue;
+        if (nomorplnValue) {
+            requestData.NomorPLN = nomorplnValue;
         }
-
         $.ajax({
-            url: nomorpdamValue ? "/update-pdam" : "/save-pdam",
-            method: nomorpdamValue ? "PUT" : "POST",
+            url: nomorplnValue ? "/update-pln" : "/save-pln",
+            method: nomorplnValue ? "PUT" : "POST",
             data: requestData,
             headers: {
                 "X-CSRF-TOKEN": csrfToken,
             },
             success: function (response) {
                 console.log(requestData);
+                console.log(nomorplnValue);
                 Swal.fire({
                     icon: "success",
-                    title: "Data Berhasil Disimpan!",
+                    title: "Data PLN Berhasil Disimpan!",
                     showConfirmButton: false,
                     timer: "2000",
                 });
+                nomorpln.value = "";
+                jam.value = "";
+                lwbp.value = "";
+                wbp.value = "";
+                kvar.value = "";
+                teknisi.value = "";
+                tanggal.disabled = true;
+                jam.disabled = true;
+                lwbp.disabled = true;
+                wbp.disabled = true;
+                kvar.disabled = true;
+                teknisi.disabled = true;
             },
             error: function (error) {
                 Swal.fire({
                     icon: "failed",
-                    title: "Data Tidak Berhasil Disimpan!",
+                    title: "Data PLN Tidak Berhasil Disimpan!",
                     showConfirmButton: false,
                     timer: "2000",
                 });
@@ -159,19 +206,17 @@ $(document).ready(function () {
     });
 });
 
-
 $(document).ready(function () {
-    var dataTable = $("#table-pdam").DataTable({
+    var dataTable = $("#table-pln").DataTable({
         processing: true,
         serverSide: true,
         responsive: true,
         ajax: {
-            url: "/get-pdam",
+            url: "/get-pln",
             type: "GET",
             data: function (d) {
                 d.date1 = $("#tanggal-awal").val();
                 d.date2 = $("#tanggal-akhir").val();
-                d.NoMeter = $("#nometersearch").val();
             },
         },
         columns: [
@@ -179,7 +224,7 @@ $(document).ready(function () {
                 data: "nomor",
                 render: function (data, type, full, meta) {
                     return (
-                        '<input type="checkbox" class="checkboxpdam" value="' +
+                        '<input type="checkbox" class="checkboxpln" value="' +
                         data +
                         '">'
                     );
@@ -188,7 +233,7 @@ $(document).ready(function () {
             {
                 data: "tanggal",
                 render: function (data, type, full, meta) {
-                    var date = new Date(data).toISOString().split('T')[0];
+                    var date = new Date(data).toISOString().split("T")[0];
                     return date;
                 },
             },
@@ -201,20 +246,35 @@ $(document).ready(function () {
                     return hours + ":" + minutes;
                 },
             },
-            { data: "nometer" },
-            { data: "counter" },
+            { data: "lwbp" },
+            { data: "wbp" },
+            { data: "kvar" },
             { data: "teknisi" },
         ],
     });
 
     $("#refreshButton").click(function () {
+        inputButton.disabled = false;
+        saveButton.disabled = true;
+        tanggal.disabled = true;
+        jam.disabled = true;
+        lwbp.disabled = true;
+        wbp.disabled = true;
+        kvar.disabled = true;
+        teknisi.disabled = true;
+        updateButton.disabled = true;
+        deleteButton.disabled = true;
+        nomorpln.value = "";
+        jam.value = "";
+        lwbp.value = "";
+        wbp.value = "";
+        kvar.value = "";
+        teknisi.value = "";
         dataTable.ajax.reload();
-
-
     });
 
     // Checkbox click
-    $("tbody").on("click", ".checkboxpdam", function () {
+    $("tbody").on("click", ".checkboxpln", function () {
         if ($(this).prop("checked")) {
             deleteButton.disabled = false;
             updateButton.disabled = false;
@@ -223,28 +283,30 @@ $(document).ready(function () {
 
             var selectedDate = selectedRow.find("td:eq(1)").text();
             var selectedJam = selectedRow.find("td:eq(2)").text();
-            var selectedNoMeter = selectedRow.find("td:eq(3)").text();
-            var selectedCounter = selectedRow.find("td:eq(4)").text();
-            var selectedTeknisi = selectedRow.find("td:eq(5)").text();
+            var selectedLWBP = selectedRow.find("td:eq(3)").text();
+            var selectedWBP = selectedRow.find("td:eq(4)").text();
+            var selectedKVAR = selectedRow.find("td:eq(5)").text();
+            var selectedTeknisi = selectedRow.find("td:eq(6)").text();
 
-            var selectedNomorpdam = $(this).val();
+            var selectedNomorPLN = $(this).val();
 
-            $("#hiddenNomorpdam").val(selectedNomorpdam);
+            $("#hiddenNomorpln").val(selectedNomorPLN);
             $("#tanggal").val(selectedDate);
             $("#jam").val(selectedJam);
-            $("#nometer").val(selectedNoMeter);
-            $("#counter").val(selectedCounter);
+            $("#lwbp").val(selectedLWBP);
+            $("#wbp").val(selectedWBP);
+            $("#kvar").val(selectedKVAR);
             $("#teknisi").val(selectedTeknisi);
 
-            console.log("Selected Nomorpdam: ", selectedNomorpdam);
+            console.log("Selected Nomorpln: ", selectedNomorPLN);
             console.log("Selected Date: ", selectedDate);
             console.log("Selected Jam: ", selectedJam);
-            console.log("Selected No Meter: ", selectedNoMeter);
-            console.log("Selected Counter: ", selectedCounter);
+            console.log("Selected LWBP: ", selectedLWBP);
+            console.log("Selected WBP: ", selectedWBP);
+            console.log("Selected KVAR: ", selectedKVAR);
             console.log("Selected Teknisi: ", selectedTeknisi);
         }
     });
-
 
     // DeleteButton click
     $("#deleteButton").click(function (e) {
@@ -252,18 +314,28 @@ $(document).ready(function () {
 
         var csrfToken = $('meta[name="csrf-token"]').attr("content");
 
-        var checkboxValues = $(".checkboxpdam:checked")
+        var checkboxValues = $(".checkboxpln:checked")
             .map(function () {
                 return this.value;
             })
             .get();
+
+        // Check if there are selected checkboxes
+        if (checkboxValues.length === 0) {
+            Swal.fire({
+                icon: "error",
+                title: "Tidak Ada Data Terpilih",
+                text: "Pilih setidaknya satu data PLN untuk dihapus.",
+            });
+            return; // Abort further processing
+        }
 
         var requestData = {
             Nomor: checkboxValues,
         };
 
         $.ajax({
-            url: "/delete-pdam",
+            url: "/delete-pln",
             method: "DELETE",
             data: requestData,
             headers: {
@@ -275,11 +347,11 @@ $(document).ready(function () {
                 Swal.fire({
                     icon: "success",
                     title: "Terhapus!",
-                    text: "Data Berhasil Dihapus!",
+                    text: "Data PLN Berhasil Dihapus!",
                     showConfirmButton: false,
                     timer: "2000",
                 });
-                console.log("data delete successfully", response);
+                console.log("data pln delete successfully", response);
             },
             error: function (error) {
                 console.error("Error delete Data : ", error.responseText);

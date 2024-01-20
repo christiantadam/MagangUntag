@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Utility\PLN;
 
-use DB;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HakAksesController;
@@ -17,34 +17,75 @@ class InputPLNController extends Controller
 
         $mesin = DB::connection('ConnUtility')->select('exec SP_LIST_MESIN_GENZET');
         $access = (new HakAksesController)->HakAksesFiturMaster('Utility');
-        return view('Utility.PLN.InputPLN' , compact('mesin','access'));
+        return view('Utility.PLN.InputPLN', compact('mesin', 'access'));
     }
 
-    //Show the form for creating a new resource.
-    public function create()
+    public function createPLN(Request $request)
     {
-        //
-    }
+        try {
+            $tanggal = $request->input('Tanggal');
+            $jam = $request->input('Jam');
+            $lwbp = $request->input('LWBP');
+            $wbp = $request->input('WBP');
+            $kvar = $request->input('KVAR');
+            $teknisi = $request->input('Teknisi');
+            $UserInput = Auth::user()->NomorUser;
 
-    //Store a newly created resource in storage.
-    public function store(Request $request)
+            $data = DB::connection('ConnUtility')->statement('exec SP_INSERT_PLN ? , ? , ? , ? , ? , ? , ?', [$tanggal, $jam, $lwbp, $wbp, $kvar, $teknisi, $UserInput]);
+            return response()->json($data);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'An error occurred while saving the data. Please try again.');
+        }
+    }
+    public function updatePLN(Request $request)
     {
-        //
+        try {
+            $tanggal = $request->input('Tanggal');
+            $jam = $request->input('Jam');
+            $lwbp = $request->input('LWBP');
+            $wbp = $request->input('WBP');
+            $kvar = $request->input('KVAR');
+            $teknisi = $request->input('Teknisi');
+            $UserInput = Auth::user()->NomorUser;
+            $id = $request->input('NomorPLN');
+
+            $data = DB::connection('ConnUtility')->statement('exec SP_KOREKSI_PLN ? , ? , ? , ? , ? , ? , ? , ?', [$id, $tanggal, $jam, $lwbp, $wbp, $kvar, $teknisi, $UserInput]);
+            return response()->json($data);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'An error occurred while saving the data. Please try again.');
+        }
     }
 
     //Display the specified resource.
-    public function show(Request $request)
-{
-    // $date1 = $request->input('date1');
-    // $date2 = $request->input('date2');
-    // $NoMesin = $request->input('NoMesin');
+    public function getPLN(Request $request)
+    {
+        try {
+            //code...
+            $date1 = $request->input('date1');
+            $date2 = $request->input('date2');
 
+            $data = DB::connection('ConnUtility')->select('exec SP_LIST_PLN_BLN_TAHUN2 @date1 = ?, @date2 = ?', [$date1, $date2]);
 
-    // $data = DB::connection('ConnUtility')->select('exec SP_DT_LIST_COMPRESSOR_BLN_TAHUN2 @date1 = ?, @date2 = ?, @NoMesin=?', [$date1,$date2, $NoMesin]);
-    // dd($data);
-    // return response()->json($data);
-    // return view('Utility.Compressor.InputPerawatan.index', compact('mesin','part','keterangan','teknisi','data','access'));
-}
+            return datatables($data)->make(true);
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function deletePLN(Request $request)
+    {
+        try {
+            $nomor = $request->input('Nomor');
+
+            foreach ($nomor as $nomor) {
+                DB::connection('ConnUtility')->statement('exec SP_HAPUS_PLN  @nomor = ?', [$nomor]);
+            }
+
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An error occurred while deleting the data. Please try again.']);
+        }
+    }
 
 
     //Show the form for editing the specified resource.

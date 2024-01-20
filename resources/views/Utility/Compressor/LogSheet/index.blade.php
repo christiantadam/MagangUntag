@@ -8,6 +8,7 @@
                     <div class="card-header">Log Sheet</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="row-12 d-flex flex-wrap">
+                            <input type="hidden" id="hiddenNoLogSheet">
                             <div class="col-lg-4 p-4">
                                 <div class="acs-div-filter pt-4">
                                     <label for="tanggal">Tanggal</label>
