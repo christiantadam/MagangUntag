@@ -1,5 +1,7 @@
 <?php
 use function foo\func;
+
+use App\Http\Controllers\Beli\Master\MaintenanceController;
 use Illuminate\Support\Facades\Route;
 use function PHPUnit\Framework\assertDirectoryIsReadable;
 
@@ -39,6 +41,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/options/supplierselect/{id}','App\Http\Controllers\Beli\Master\SupplierController@getSupplier');
     Route::resource('HistoryPembelianMaster', App\Http\Controllers\Beli\Master\HistoryPembelianMasterController::class);
     Route::get('HistoryPembelianMasterRedisplay', 'APP\Http\Controllers\Beli\Master\HistoryPembelianMasterController@redisplay')->name('historypembelianmaster.redisplay');
+    Route::resource('MaintenanceController', App\Http\Controllers\Beli\Master\MaintenanceController::class);
+    Route::get('/MaintenanceTypeBarang', 'App\Http\Controllers\Beli\Master\MaintenanceController@index')->name('MaintenanceTypeBarang');
+
+
     //transaksi beli
     Route::resource('PurchaseOrder', App\Http\Controllers\Beli\TransaksiBeli\PurchaseOrderController::class);
     Route::get('/GETPurchaseOrder', 'App\Http\Controllers\Beli\TransaksiBeli\PurchaseOrderController@redisplay');
