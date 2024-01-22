@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Beli\Master;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HakAksesController;
-
+use DB;
 
 class HistoryPembelianMasterController extends Controller
 {
@@ -32,8 +32,16 @@ class HistoryPembelianMasterController extends Controller
         $req = $request->input('req');
         $sup = $request->input('sup');
         $kdbrg = $request->input('kdbrg');
-        $redisplay = DB::connection('ConnPurchase')->select('exec spSelect_CariTypeBarang_dotNet @nm_brg = ?, @kd = ?, @req = ?, @sup = ?, @kdbrg = ?', [$nm_brg, $kd, $req, $sup, $kdbrg]);
-        return datatables($redisplay)->make(true);
+        if (($nm_brg != null) || ($req != null) || ($sup != null) || ($kdbrg != null)) {
+            try {
+                $redisplay = DB::connection('ConnPurchase')->select('exec spSelect_CariTypeBarang_dotNet @nm_brg = ?, @kd = ?, @req = ?, @sup = ?, @kdbrg = ?', [$nm_brg, $kd, $req, $sup, $kdbrg]);
+                return datatables($redisplay)->make(true);
+            } catch (\Throwable $Error) {
+                return Response()->json($Error);
+            }
+        } else {
+            return Response()->json('Parameter harus di isi');
+        }
     }
     //Store a newly created resource in storage.
     public function store(Request $request)

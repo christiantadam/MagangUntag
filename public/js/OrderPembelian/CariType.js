@@ -44,5 +44,5 @@ function searchData(nm_brg) {
             { data: "nama_sub_kategori" },
             { data: "KET" },
         ],
-    });
+    }).clear().destroy();
 }

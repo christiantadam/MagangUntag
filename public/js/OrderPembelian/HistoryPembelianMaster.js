@@ -51,36 +51,38 @@ function getSelectedInputValue() {
     return false;
 }
 
-
 function redisplayData(nm_brg, req, sup, kdbrg) {
     tabelData.style.display = "block";
 
-    $("#tabelData").DataTable({
-        responsive:true,
-        processing: true,
-        serverSide: true,
-        ajax: {
-            url: "/HistoryPembelianMasterRedisplay",
-            type: "GET",
-            data: function(data) {
-                data.nm_brg = nm_brg,
-                data.req = req,
-                data.sup = sup,
-                data.kdbrg = kdbrg
-            }
-        },
-        columns: [
-            { data: "Kd_div" },
-            { data: "Kd_brg" },
-            { data: "NAMA_BRG" },
-            { data: "Nama_satuan" },
-            { data: "NM_SUP" },
-            { data: "KOTA1" },
-            { data: "NEGARA1" },
-            { data: "Hrg_trm" },
-            { data: "Id_MataUang_BC" },
-            { data: "Nama" },
-            {data: "Tgl_order"},
-        ],
-    });
+    $("#tabelData")
+        .DataTable({
+            processing: true,
+            serverSide: true,
+            responsive: true,
+            ajax: {
+                url: "/HistoryPembelianMasterRedisplay",
+                type: "GET",
+                data: function (data) {
+                    (data.nm_brg = nm_brg),
+                        (data.req = req),
+                        (data.sup = sup),
+                        (data.kdbrg = kdbrg);
+                },
+            },
+            columns: [
+                { data: "Kd_div" },
+                { data: "Kd_brg" },
+                { data: "NAMA_BRG" },
+                { data: "Nama_satuan" },
+                { data: "NM_SUP" },
+                { data: "KOTA1" },
+                { data: "NEGARA1" },
+                { data: "Hrg_trm" },
+                { data: "Id_MataUang_BC" },
+                { data: "Nama" },
+                { data: "Tgl_order" },
+            ],
+        })
+        .clear()
+        .destroy();
 }
