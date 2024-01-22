@@ -23,40 +23,64 @@ class InputGangguanPanelController extends Controller
         return view('Utility.PanelInduk.InputGangguanPanel', compact('mesin', 'keterangan', 'teknisi', 'access'));
     }
 
-    //Show the form for creating a new resource.
-    public function create()
+    public function createPANEL(Request $request)
     {
-        //
+        try {
+            $tanggal = $request->input('Tanggal');
+            $feeder = $request->input('Feeder');
+            $start = $request->input('JamMulai');
+            $end = $request->input('JamSelesai');
+            $gangguan = $request->input('Gangguan');
+            $keterangan = $request->input('Keterangan');
+            $UserInput = Auth::user()->NomorUser;
+
+            $data = DB::connection('ConnUtility')->statement('exec SP_INSERT_PANEL_INDUK ? , ? , ? , ? , ? , ? , ? ', [$tanggal, $feeder, $start, $end, $gangguan, $keterangan, $UserInput]);
+            return response()->json($data);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'An error occurred while saving the data. Please try again.');
+        }
     }
 
-    //Store a newly created resource in storage.
-    public function store(Request $request)
+    public function updatePDAM(Request $request)
     {
-        //
+        try {
+            $id = $request->input('Nomorpdam');
+            $tanggal = $request->input('Tanggal');
+            $jam = $request->input('Jam');
+            $nometer = $request->input('Meter');
+            $counter = $request->input('Counter');
+            $teknisi = $request->input('Teknisi');
+            $UserInput = Auth::user()->NomorUser;
+
+            $data = DB::connection('ConnUtility')->statement('exec SP_KOREKSI_PDAM ? , ? , ? , ? , ? , ? , ?', [$id, $tanggal, $jam, $nometer, $counter, $teknisi, $UserInput]);
+            return response()->json($data);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'An error occurred while saving the data. Please try again.');
+        }
     }
 
-    //Display the specified resource.
-    public function show(Request $request)
+    public function getPANEL(Request $request)
     {
-        //
+        $date1 = $request->input('date1');
+        $date2 = $request->input('date2');
+
+        $listPerawatan =
+            DB::connection('ConnUtility')->select('exec SP_DT_LIST_PANEL_INDUK_BLN_THN2 @date1 = ?, @date2 = ?', [$date1, $date2]);
+        return datatables($listPerawatan)->make(true);
     }
 
-
-    //Show the form for editing the specified resource.
-    public function edit($id)
+    public function deletePANEL(Request $request)
     {
-        //
-    }
+        try {
+            $Id_Transaksi = $request->input('id');
 
-    //Update the specified resource in storage.
-    public function update(Request $request, $id)
-    {
-        //
-    }
+            foreach ($Id_Transaksi as $id) {
+                DB::connection('ConnUtility')->statement('exec SP_HAPUS_PANEL_INDUK  @id_transaksi = ?', [$id]);
+            }
 
-    //Remove the specified resource from storage.
-    public function destroy($id)
-    {
-        //
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An error occurred while deleting the data. Please try again.']);
+        }
     }
 }
