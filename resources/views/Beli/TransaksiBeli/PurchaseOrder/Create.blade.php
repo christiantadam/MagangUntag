@@ -38,7 +38,7 @@
                 @endif
                 <div class="card">
                     <div class="card-header">Daftar Order</div>
-                    <div class="card-body RDZOverflow RDZMobilePaddingLR0">
+                    <div class="card-body">
                         <div class="row px-2 px-md">
                             <div class="col-md-4 h-auto mb-4 mb-md-0">
                                 <div class="w-100 h-auto">

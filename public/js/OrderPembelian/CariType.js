@@ -13,6 +13,7 @@ formCari.addEventListener("input", function () {
 search.addEventListener("click", function (event) {
     if (getInputValue()) {
         let value = getInputValue();
+        $("#tabelData").DataTable().clear().destroy();
         searchData(value);
     }
 });
