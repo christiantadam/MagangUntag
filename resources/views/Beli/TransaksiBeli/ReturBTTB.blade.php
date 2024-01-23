@@ -35,8 +35,7 @@
                         <div class="row mb-3 m-1">
                             <div class="col-md-4">
                                 <label for="tanggal_po" class="form-label">Tanggal PO</label>
-                                <input type="date" class="form-control" id="tanggal_po"
-                                    name="tanggal_po">
+                                <input type="date" class="form-control" id="tanggal_po" name="tanggal_po">
                             </div>
                             <div class="col-md-4">
                                 <label for="tanggalkirim" class="form-label">Tanggal Mohon Kirim</label>
@@ -49,7 +48,7 @@
                         </div>
                     </div>
                     <div class="mb-20 m-4">
-                        <table class="mx-auto w-90 table sm">
+                        <table class="mx-auto w-90 table sm" id="tabelretur">
                             <thead class="table-dark">
                                 <tr>
                                     <th>No BTTB</th>
@@ -66,10 +65,14 @@
                                     <th>Qty Retur</th>
                                     <th>Alasan Retur</th>
                                     <th>Penagih</th>
+                                    <th>Alasan Retur</th>
+                                    <th>Penagih</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
+                                    <td contenteditable="true"></td>
+                                    <td contenteditable="true"></td>
                                     <td contenteditable="true"></td>
                                     <td contenteditable="true"></td>
                                     <td contenteditable="true"></td>
@@ -203,24 +206,13 @@
                     <!-- Buttons -->
                     <div class="row align-items-center">
                         <div class="col-md-12 d-flex justify-content-end">
-                        <button type="button" class="btn  btn-lg btn-success mr-3">POST</button>
-                        <button type="button" class="btn btn-danger">EXIT</button>
+                            <button type="button" class="btn  btn-lg btn-success mr-3">POST</button>
+                            <button type="button" class="btn btn-danger">EXIT</button>
                         </div>
 
+                    </div>
+
                 </div>
-
             </div>
-        </div>
-        <script>
-            function printData() {
-                // Add your print logic here
-                console.log('Printing...');
-            }
-
-            function exitPage() {
-                // Add your exit logic here
-                console.log('Exiting...');
-            }
-          <script src = "{{ asset('js/OrderPembelian/Retur.js') }}" >
-        </script>
-    @endsection
+            <script src = "{{ asset('js/OrderPembelian/Retur.js') }}"></script>
+        @endsection

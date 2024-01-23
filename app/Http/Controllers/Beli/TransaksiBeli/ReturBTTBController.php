@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Beli\TransaksiBeli;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HakAksesController;
+use DB;
 
 class ReturBTTBController extends Controller
 {
@@ -34,6 +35,20 @@ class ReturBTTBController extends Controller
     }
 
     //Show the form for editing the specified resource.
+
+    public function po(Request $request)
+    {
+        $noPO = $request->input('noPO');
+        $kd = 37;
+
+        $returbttb = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd=?, @noPO=?',[$kd,$noPO]);
+
+        return response()->json($returbttb);
+    }
+
+
+
+
     public function edit($id)
     {
         //
