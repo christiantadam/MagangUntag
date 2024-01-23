@@ -91,6 +91,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Genzet
     Route::resource('InputOperasional', App\Http\Controllers\Utility\Genzet\InputOperasionalController::class);
+    Route::get('/get-genzet', [App\Http\Controllers\Utility\Genzet\InputOperasionalController::class, 'getGenzet'])->name('get-genzet');
 
     // Panel Induk
     Route::resource('InputGangguanPanel', App\Http\Controllers\Utility\PanelInduk\InputGangguanPanelController::class);

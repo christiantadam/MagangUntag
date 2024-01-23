@@ -22,6 +22,19 @@ class InputOperasionalController extends Controller
         return view('Utility.Genzet.InputOperasional', compact('mesin', 'status', 'teknisi', 'access'));
     }
 
+
+    public function getGenzet(Request $request)
+    {
+        $date1 = $request->input('date1');
+        $date2 = $request->input('date2');
+        $NoMesin = $request->input('NoMesin');
+
+        $listPerawatan = ($NoMesin == 0)
+            ? DB::connection('ConnUtility')->select('exec SP_DT_LIST_OPERASIONAL_GENZET2 @date1 = ?, @date2 = ?, @NoMesin = 0', [$date1, $date2])
+            : DB::connection('ConnUtility')->select('exec SP_DT_LIST_OPERASIONAL_GENZET2 @date1 = ?, @date2 = ?, @NoMesin = ?', [$date1, $date2, $NoMesin]);
+
+        return datatables($listPerawatan)->make(true);
+    }
     //Show the form for creating a new resource.
     public function create()
     {

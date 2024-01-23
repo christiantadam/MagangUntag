@@ -138,22 +138,23 @@
                                             <label for="tanggal">Mesin</label>
                                         </div>
                                         <div class="d-flex gap-2">
-                                            <select class="form-select" aria-label="Default select example"
-                                                name="NoMesin">
-                                                <option selected>Pilih Mesin..</option>
-                                                @foreach ($mesin as $data)
-                                                    <option value="{{ $data->NamaMesin }}">
-                                                        {{ $data->NamaMesin }}</option>
-                                                @endforeach
-                                            </select>
-                                            <button type="submit" class="btn btn-primary">Refresh</button>
+                                            <select class="form-select" aria-label="Default select example" name="NoMesin"
+                                            id="MesinSearch">
+                                            <option selected value="0">Pilih Semua Mesin..</option>
+                                            @foreach ($mesin as $data)
+                                                <option value="{{ $data->NoMesin }}">
+                                                    {{ $data->NamaMesin }}</option>
+                                            @endforeach
+                                        </select>
+                                            <button type="submit" id="refreshButton" class="btn btn-primary">Refresh</button>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="table-responsive">
-                                    <table class="table">
+                                    <table class="table" id="table-genzet">
                                         <thead class="thead-dark">
                                             <tr>
+                                                <th scope="col">Aksi</th>
                                                 <th scope="col">Tanggal</th>
                                                 <th scope="col">Mesin</th>
                                                 <th scope="col">Jam</th>
@@ -169,11 +170,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {{-- @foreach ($data as $row)
-                                                <tr>
-                                                    <td>{{ $row->Tanggal }}</td>
-                                                </tr>
-                                            @endforeach --}}
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -183,5 +180,5 @@
             </div>
         </div>
     </div>
-    </div>
+    <script src="{{ asset('js/Utility/Genzet/InputOperasional.js') }}"></script>
 @endsection
