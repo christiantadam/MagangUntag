@@ -13,12 +13,16 @@ redisplay.addEventListener("click", function (event) {
         let radioButtonChecked = radioButtonIsSelected();
         let value = getSelectedInputValue();
         if (radioButtonChecked === "kode_barang") {
+            $("#tabelData").DataTable().clear().destroy();
             redisplayData(null, null, null, value);
         } else if (radioButtonChecked === "nama_barang") {
+            $("#tabelData").DataTable().clear().destroy();
             redisplayData(value, null, null, null);
         } else if (radioButtonChecked === "supplier") {
+            $("#tabelData").DataTable().clear().destroy();
             redisplayData(null, null, value, null);
         } else if (radioButtonChecked === "user") {
+            $("#tabelData").DataTable().clear().destroy();
             redisplayData(null, value, null, null);
         }
     } else {
@@ -82,7 +86,6 @@ function redisplayData(nm_brg, req, sup, kdbrg) {
                 { data: "Nama" },
                 { data: "Tgl_order" },
             ],
-        })
-        .clear()
-        .destroy();
+        });
+
 }

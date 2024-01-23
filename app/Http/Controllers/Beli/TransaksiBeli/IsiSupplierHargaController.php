@@ -37,8 +37,6 @@ class IsiSupplierHargaController extends Controller
         } else {
             abort(404);
         }
-        // $access = (new HakAksesController)->HakAksesFiturMaster('Beli');
-        // return view('Beli.TransaksiBeli.IsiSupplierHarga', compact('id','access'));
     }
     public function redisplay(Request $request, $id)
     {
@@ -53,7 +51,7 @@ class IsiSupplierHargaController extends Controller
                 } else if ($kd == 23) {
                     $redisplay = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @requester = ?, @kd = ?, @stBeli = ?', [$requester, $kd, $id]);
                 } else if ($kd == 24) {
-                    $redisplay = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd = ?, @stBeli = ?', [$kd, 0]);
+                    $redisplay = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd = ?, @stBeli = ?', [$kd, $id]);
                 }
                 return datatables($redisplay)->make(true);
             } catch (\Throwable $Error) {
@@ -61,6 +59,22 @@ class IsiSupplierHargaController extends Controller
             }
         } else {
             return Response()->json('Parameter harus di isi');
+        }
+    }
+    public function daftarData()
+    {
+        $kd_sup = 1;
+        try {
+            $supplier = DB::connection('ConnPurchase')->select('exec SP_5409_PBL_SUPPLIER @kd = ?', [$kd_sup]);
+            $matauang = DB::connection('ConnPurchase')->select('exec SP_7775_PBL_LIST_MATA_UANG');
+            $ppn = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_PPN');
+            return Response()->json([
+                'matauang' => $matauang,
+                'supplier' => $supplier,
+                'ppn' => $ppn
+            ]);
+        } catch (\Throwable $Error) {
+            return Response()->json($Error);
         }
     }
     //Show the form for editing the specified resource.

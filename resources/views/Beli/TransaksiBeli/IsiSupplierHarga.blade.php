@@ -81,10 +81,11 @@
                                     <div class="col-12 mb-2">
                                         <div class="row align-items-center">
                                             <div class="col-4">
-                                                <label for="nomor_order">Nomor Order</label>
+                                                <label for="no_po">Nomor Order</label>
                                             </div>
-                                            <div class="col-6">
-                                                <input type="text" name="nomor_order" id="nomor_order" class="input">
+                                            <div class="col-8 col-md-6">
+                                                <input type="text" name="no_po" id="no_po" class="input w-100"
+                                                    readonly>
                                             </div>
 
                                         </div>
@@ -108,9 +109,9 @@
                                             <div class="col-4">
                                                 <label for="tanggal_dibutuhkan">Tanggal Dibutuhkan</label>
                                             </div>
-                                            <div class="col-6">
+                                            <div class="col-8 col-md-6">
                                                 <input type="date" name="tanggal_dibutuhkan" id="tanggal_dibutuhkan"
-                                                    class="input">
+                                                    class="input w-100" readonly>
                                             </div>
 
                                         </div>
@@ -120,8 +121,9 @@
                                             <div class="col-4">
                                                 <label for="divisi">Divisi</label>
                                             </div>
-                                            <div class="col-6">
-                                                <input type="text" name="divisi" id="divisi" class="input">
+                                            <div class="col-8 col-md-6">
+                                                <input type="text" name="divisi" id="divisi" class="input w-100"
+                                                    readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -130,9 +132,9 @@
                                             <div class="col-4">
                                                 <label for="kode_barang">Kode Barang</label>
                                             </div>
-                                            <div class="col-6">
+                                            <div class="col-8 col-md-6">
                                                 <input type="text" name="kode_barang" id="kode_barang"
-                                                    class="input">
+                                                    class="input w-100" readonly>
 
                                             </div>
                                         </div>
@@ -142,9 +144,9 @@
                                             <div class="col-4">
                                                 <label for="nama_barang">Nama Barang</label>
                                             </div>
-                                            <div class="col-6">
+                                            <div class="col-8 col-md-6">
                                                 <input type="text" name="nama_barang" id="nama_barang"
-                                                    class="input">
+                                                    class="input w-100" readonly>
 
                                             </div>
                                         </div>
@@ -154,9 +156,9 @@
                                             <div class="col-4">
                                                 <label for="sub_kategori">Sub Kategori</label>
                                             </div>
-                                            <div class="col-6">
+                                            <div class="col-8 col-md-6">
                                                 <input type="text" name="sub_kategori" id="sub_kategori"
-                                                    class="input">
+                                                    class="input w-100" readonly>
 
                                             </div>
                                         </div>
@@ -166,9 +168,9 @@
                                             <div class="col-4">
                                                 <label for="keterangan_order">Keterangan Order</label>
                                             </div>
-                                            <div class="col-6">
+                                            <div class="col-8 col-md-6">
                                                 <input type="text" name="keterangan_order" id="keterangan_order"
-                                                    class="input" value="-">
+                                                    class="input w-100" value="-" readonly>
 
                                             </div>
                                         </div>
@@ -178,9 +180,9 @@
                                             <div class="col-4">
                                                 <label for="keterangan_internal">Keterangan Internal</label>
                                             </div>
-                                            <div class="col-6">
+                                            <div class="col-8 col-md-6">
                                                 <input type="text" name="keterangan_internal" id="keterangan_internal"
-                                                    class="input" value="-">
+                                                    class="input w-100" value="-" readonly>
 
                                             </div>
                                         </div>
@@ -188,11 +190,11 @@
                                     <div class="col-12 mb-2">
                                         <div class="row align-items-center">
                                             <div class="col-4">
-                                                <label for="user">User</label>
+                                                <label for="user_input">User</label>
                                             </div>
-                                            <div class="col-6">
-                                                <input type="text" name="user" id="user" class="input">
-
+                                            <div class="col-8 col-md-6">
+                                                <input type="text" name="user_input" id="user_input"
+                                                    class="input w-100" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -205,7 +207,7 @@
                                                     <div class="col-4">
                                                         <label for="qty_order">Qty Order</label>
                                                     </div>
-                                                    <div class="col-6">
+                                                    <div class="col-8">
                                                         <input type="text" name="qty_order" id="qty_order"
                                                             class="input w-100" value="0">
                                                     </div>
@@ -216,7 +218,7 @@
                                                     <div class="col-4">
                                                         <label for="qty_delay">Qty Delay</label>
                                                     </div>
-                                                    <div class="col-6">
+                                                    <div class="col-8">
                                                         <input type="text" name="qty_delay" id="qty_delay"
                                                             class="input w-100" value="0">
                                                     </div>
@@ -229,9 +231,9 @@
                                             <div class="col-4">
                                                 <label for="supplier">Supplier</label>
                                             </div>
-                                            <div class="col-6">
-                                                <select name="supplier" id="supplier_select">
-                                                    <option selected disabled>-- Pilih Supplier --</option>
+                                            <div class="col-8 col-md-6">
+                                                <select name="supplier" id="supplier_select" class="w-100 input">
+                                                    <option class="w-100" selected disabled>-- Pilih Supplier --</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -241,9 +243,9 @@
                                             <div class="col-4">
                                                 <label for="mata_uang">Mata Uang</label>
                                             </div>
-                                            <div class="col-6">
-                                                <select name="mata_uang" id="mata_uangSelect">
-                                                    <option selected disabled>-- Pilih Mata Uang --</option>
+                                            <div class="col-8 col-md-6">
+                                                <select name="matauang_select" id="matauang_select" class="w-100 input">
+                                                    <option class="w-100" selected disabled>-- Pilih Mata Uang --</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -253,226 +255,140 @@
                                             <div class="col-4">
                                                 <label for="kurs">Kurs</label>
                                             </div>
-                                            <div class="col-6">
-                                                <input type="text" name="kurs" id="kurs" class="input"
+                                            <div class="col-8 col-md-6">
+                                                <input type="text" name="kurs" id="kurs" class="input w-100"
                                                     value="1">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-12 mb-2">
+
                                         <div class="row align-items-center">
-                                            <div class="col-4">
-                                                <label for="kode_barang">Kode Barang</label>
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <label for="harga_unit">Harga Unit</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <input type="text" name="harga_unit" id="harga_unit"
+                                                            class="input w-100" value="0">
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="col-6">
-                                                <input type="text" name="kode_barang" id="kode_barang"
-                                                    class="input">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <label for="idr_unit">IDR Unit</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <input type="text" name="idr_unit" id="idr_unit"
+                                                            class="input w-100" value="0" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <div class="row align-items-center">
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <label for="harga_sub_total">Harga Sub Total</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <input type="text" name="harga_sub_total" id="harga_sub_total"
+                                                            class="input w-100" value="0" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <label for="idr_sub_total">IDR Sub Total</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <input type="text" name="idr_sub_total" id="idr_sub_total"
+                                                            class="input w-100" value="0" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <div class="row align-items-center">
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <label for="ppn">PPN %</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <select name="ppn_select" id="ppn_select" class="w-100 input">
+                                                            <option class="w-100" selected disabled></option>
+                                                        </select>
+                                                        <input type="text" name="ppn" id="ppn"
+                                                            class="input w-100" value="0" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <label for="idr_ppn">IDR PPN</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <input type="text" name="idr_ppn" id="idr_ppn"
+                                                            class="input w-100" value="0">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <div class="row align-items-center">
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <label for="harga_total">harga_total %</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <input type="text" name="harga_total" id="harga_total"
+                                                            class="input w-100">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <label for="idr_total">IDR Total</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <input type="text" name="idr_total" id="idr_total"
+                                                            class="input w-100">
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-12 mb-2">
                                         <div class="row align-items-center">
                                             <div class="col-4">
-                                                <label for="nama_barang">Nama Barang</label>
+                                                <label for="alasan_reject">Alasan Reject</label>
                                             </div>
-                                            <div class="col-6">
-                                                <input type="text" name="nama_barang" id="nama_barang"
-                                                    class="input">
+                                            <div class="col-8 col-md-6">
+                                                <input type="text" name="alasan_reject" id="alasan_reject"
+                                                    class="input w-100">
 
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12 mb-2">
-                                        <div class="row align-items-center">
-                                            <div class="col-4">
-                                                <label for="sub_kategori">Sub Kategori</label>
-                                            </div>
-                                            <div class="col-6">
-                                                <input type="text" name="sub_kategori" id="sub_kategori"
-                                                    class="input">
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 mb-2">
-                                        <div class="row align-items-center">
-                                            <div class="col-4">
-                                                <label for="keterangan_order">Keterangan Order</label>
-                                            </div>
-                                            <div class="col-6">
-                                                <input type="text" name="keterangan_order" id="keterangan_order"
-                                                    class="input" value="-">
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 mb-2">
-                                        <div class="row align-items-center">
-                                            <div class="col-4">
-                                                <label for="keterangan_internal">Keterangan Internal</label>
-                                            </div>
-                                            <div class="col-6">
-                                                <input type="text" name="keterangan_internal" id="keterangan_internal"
-                                                    class="input" value="-">
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 mb-2">
-                                        <div class="row align-items-center">
-                                            <div class="col-4">
-                                                <label for="user">User</label>
-                                            </div>
-                                            <div class="col-6">
-                                                <input type="text" name="user" id="user" class="input">
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        {{-- <div class="acs-form4">
-                            <div class="acs-form5">
-                                <div class="acs-div-filter">
-                                    <label for="nomor_order">Nomor Order</label>
-                                    <input type="text" name="nomor_order" id="nomor_order" class="input">
-                                </div>
-                                <div class="acs-div-filter">
-                                    <label for="status_beli">Status Beli</label>
-                                    <div class="acs-div-filter1">
-                                        <div style="display: flex;flex-direction:row">
-                                            <input type="radio" name="status_beliRadioButton"
-                                                id="status_beliPengadaanPembelian" class="input" checked>Pengadaan
-                                            Pembelian
-                                        </div>
-                                        <div style="display: flex;flex-direction:row">
-                                            <input type="radio" name="status_beliRadioButton"
-                                                id="status_beliBeliSendiri" class="input">Beli Sendiri
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="acs-div-filter">
-                                    <label for="tanggal_dibutuhkan">Tanggal Dibutuhkan</label>
-                                    <input type="date" name="tanggal_dibutuhkan" id="tanggal_dibutuhkan"
-                                        class="input">
-                                </div>
-                                <div class="acs-div-filter">
-                                    <label for="divisi">Divisi</label>
-                                    <input type="hidden" name="id_divisi" id="id_divisi">
-                                    <input type="text" name="divisi" id="divisi" class="input">
-                                </div>
-                                <div class="acs-div-filter">
-                                    <label for="kode_barang">Kode Barang</label>
-                                    <input type="text" name="kode_barang" id="kode_barang" class="input">
-                                </div>
-                                <div class="acs-div-filter">
-                                    <label for="nama_barang">Nama Barang</label>
-                                    <input type="text" name="nama_barang" id="nama_barang" class="input">
-                                </div>
-                                <div class="acs-div-filter">
-                                    <label for="sub_kategori">Sub Kategori</label>
-                                    <input type="text" name="sub_kategori" id="sub_kategori" class="input">
-                                </div>
-                                <div class="acs-div-filter">
-                                    <label for="keterangan_order">Keterangan Order</label>
-                                    <input type="text" name="keterangan_order" id="keterangan_order" class="input"
-                                        value="-">
-                                </div>
-                                <div class="acs-div-filter">
-                                    <label for="keterangan_internal">Keterangan Internal</label>
-                                    <input type="text" name="keterangan_internal" id="keterangan_internal"
-                                        class="input" value="-">
-                                </div>
-                                <div class="acs-div-filter">
-                                    <label for="user">User</label>
-                                    <input type="text" name="user" id="user" class="input">
                                 </div>
                             </div>
-                            <div class="acs-form5">
-                                <div class="acs-div-filter1" style="align-items: center">
-                                    <label for="qty_order">Qty Order</label>
-                                    <input type="text" name="qty_order" id="qty_order" class="input"
-                                        value="0">
-                                    <label for="qty_delay">Qty Delay</label>
-                                    <input type="text" name="qty_delay" id="qty_delay" class="input"
-                                        value="0">
-                                </div>
-                                <div class="acs-div-filter">
-                                    <label for="supplier">Supplier</label>
-                                    <select name="supplier" id="supplier_select">
-                                        <option selected disabled>-- Pilih Supplier --</option>
-                                    </select>
-                                </div>
-                                <div class="acs-div-filter">
-                                    <label for="mata_uang">Mata Uang</label>
-                                    <select name="mata_uang" id="mata_uangSelect">
-                                        <option selected disabled>-- Pilih Mata Uang --</option>
-                                    </select>
-                                </div>
-                                <div class="acs-div-filter">
-                                    <label for="kurs">Kurs</label>
-                                    <input type="text" name="kurs" id="kurs" class="input" value="1">
-                                </div>
-                                <div class="acs-form">
-                                    <div class="acs-form1">
-                                        <div class="acs-div-filter">
-                                            <label for="harga_unit">Harga Unit</label>
-                                            <input type="text" name="harga_unit" id="harga_unit" class="input">
-                                        </div>
-                                        <div class="acs-div-filter">
-                                            <label for="harga_subTotal">Harga SubTotal</label>
-                                            <input type="text" name="harga_subTotal" id="harga_subTotal"
-                                                class="input">
-                                        </div>
-                                        <div class="acs-div-filter">
-                                            <label for="harga_subTotal">Harga SubTotal</label>
-                                            <input type="text" name="harga_subTotal" id="harga_subTotal"
-                                                class="input">
-                                        </div>
-                                        <div class="acs-div-filter">
-                                            <label for="ppn">PPN (%)</label>
-                                            <select name="ppn" id="ppn_select">
-                                                <option disabled selected>-- Pilih PPN --</option>
-                                            </select>
-                                            <input type="text" name="harga_ppn" id="harga_ppn" class="input">
-                                        </div>
-                                        <div class="acs-div-filter">
-                                            <label for="harga_total">Harga Total</label>
-                                            <input type="text" name="harga_total" id="harga_total" class="input">
-                                        </div>
-                                    </div>
-                                    <div class="acs-form1">
-                                        <div class="acs-div-filter">
-                                            <label for="idr_unit">IDR Unit</label>
-                                            <input type="text" name="idr_unit" id="idr_unit" class="input">
-                                        </div>
-                                        <div class="acs-div-filter">
-                                            <label for="idr_subTotal">IDR SubTotal</label>
-                                            <input type="text" name="idr_subTotal" id="idr_subTotal" class="input">
-                                        </div>
-                                        <div class="acs-div-filter">
-                                            <label for="idr_ppn">IDR PPN</label>
-                                            <input type="text" name="idr_ppn" id="idr_ppn" class="input">
-                                        </div>
-                                        <div class="acs-div-filter">
-                                            <label for="idr_total">IDR Total</label>
-                                            <input type="text" name="idr_total" id="idr_total" class="input">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="acs-div-filter">
-                                    <label for="alasan_reject">Alasan Reject</label>
-                                    <input type="text" name="alasan_reject" id="alasan_reject" class="input">
-                                </div>
-                            </div>
-                            <div class="acs-form6">
+                            <div class="row pl-4">
                                 <button class="btn btn-success">Approve</button>
                                 <button class="btn btn-info">Clear</button>
                                 <button class="btn btn-danger">Reject</button>
                             </div>
-                        </div> --}}
+                        </div>
 
                     </div>
                 </div>
