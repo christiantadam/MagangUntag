@@ -72,7 +72,7 @@ class ApproveController extends Controller
 
         //     case 'Reject':
         //         $date = date("Y-m-d H:i:s");
-        //         TransBL::where('No_trans', $id)->update(['Tgl_Batal_acc' => $date, 'Batal_acc' => Auth::user()->kd_user, 'StatusOrder' => '6']);
+        //         TransBL::where('No_trans', $id)->update(['Tgl_Batal_acc' => $date, 'Batal_acc' => Auth::user()->kd_user, 'StatusOrder' => '0']);
         //         return back();
         // }
     }

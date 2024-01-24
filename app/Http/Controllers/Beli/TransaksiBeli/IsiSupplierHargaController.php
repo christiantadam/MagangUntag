@@ -78,6 +78,37 @@ class IsiSupplierHargaController extends Controller
         }
     }
     //Show the form for editing the specified resource.
+    public function approve(Request $request, $id)
+    {
+        $Operator = '1001';
+        $kd = 3;
+        $Qty = $request->input('Qty');
+        $QtyDelay = $request->input('QtyDelay');
+        $idsup = $request->input('idsup');
+        $kurs = $request->input('kurs');
+        $pUnit = $request->input('pUnit');
+        $pSub = $request->input('pSub');
+        $idPPN = $request->input('idPPN');
+        $pPPN = $request->input('pPPN');
+        $pTOT = $request->input('pTOT');
+        $pIDRUnit = $request->input('pIDRUnit');
+        $pIDRSub = $request->input('pIDRSub');
+        $pIDRPPN = $request->input('pIDRPPN');
+        $pIDRTot = $request->input('pIDRTot');
+        $jns_beli = $request->input('jns_beli');
+        $mtUang = $request->input('mtUang');
+        $noTrans = $request->input('noTrans');
+        if (($noTrans != null) || ($kd != null) || ($Qty != null) || ($QtyDelay != null) || ($idsup != null) || ($mtUang != null) || ($kurs != null) || ($pUnit != null) || ($pSub != null) || ($idPPN != null) || ($pPPN != null) || ($pTOT != null) || ($pIDRUnit != null) || ($pIDRSub != null) || ($pIDRPPN != null) || ($pIDRTot != null) || ($jns_beli != null)) {
+            try {
+                $approve = DB::connection('ConnPurchase')->statement('exec SP_5409_SAVE_ORDER @Operator = ?, @kd = ?, @Qty = ?, @QtyDelay = ?, @idsup = ?, @kurs = ?, @pUnit = ?, @pSub = ?, @idPPN = ?, @pPPN = ?, @pTOT = ?, @pIDRUnit = ?, @pIDRSub = ?, @pIDRPPN = ?, @pIDRTot = ?, @jns_beli = ?, @mtUang = ?, @noTrans = ?', [$Operator, $kd, $Qty, $QtyDelay, $idsup, $kurs, $pUnit, $pSub, $idPPN, $pPPN, $pTOT, $pIDRUnit, $pIDRSub, $pIDRPPN, $pIDRTot, $jns_beli, $mtUang, $noTrans]);
+                return Response()->json($approve);
+            } catch (\Throwable $Error) {
+                return Response()->json($Error);
+            }
+        } else {
+            return Response()->json('Parameter harus di isi');
+        }
+    }
     public function edit($id)
     {
         dd("masuk edit");

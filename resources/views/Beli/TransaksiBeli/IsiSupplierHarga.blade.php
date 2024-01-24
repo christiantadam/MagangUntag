@@ -75,7 +75,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="mt-4">
+                        <div class="mt-4" id="formApprove">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="col-12 mb-2">
@@ -232,7 +232,7 @@
                                                 <label for="supplier">Supplier</label>
                                             </div>
                                             <div class="col-8 col-md-6">
-                                                <select name="supplier" id="supplier_select" class="w-100 input">
+                                                <select name="supplier_select" id="supplier_select" class="w-100 input">
                                                     <option class="w-100" selected disabled>-- Pilih Supplier --</option>
                                                 </select>
                                             </div>
@@ -262,7 +262,6 @@
                                         </div>
                                     </div>
                                     <div class="col-12 mb-2">
-
                                         <div class="row align-items-center">
                                             <div class="col-6">
                                                 <div class="row">
@@ -337,7 +336,7 @@
                                                     </div>
                                                     <div class="col-8">
                                                         <input type="text" name="idr_ppn" id="idr_ppn"
-                                                            class="input w-100" value="0">
+                                                            class="input w-100" value="0" readonly>
                                                     </div>
                                                 </div>
                                             </div>
@@ -348,22 +347,22 @@
                                             <div class="col-6">
                                                 <div class="row">
                                                     <div class="col-4">
-                                                        <label for="harga_total">harga_total %</label>
+                                                        <label for="harga_total">harga_total</label>
                                                     </div>
                                                     <div class="col-8">
                                                         <input type="text" name="harga_total" id="harga_total"
-                                                            class="input w-100">
+                                                            class="input w-100" readonly>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="row">
                                                     <div class="col-4">
-                                                        <label for="idr_total">IDR Total</label>
+                                                        <label for="idr_harga_total">IDR Total</label>
                                                     </div>
                                                     <div class="col-8">
-                                                        <input type="text" name="idr_total" id="idr_total"
-                                                            class="input w-100">
+                                                        <input type="text" name="idr_harga_total" id="idr_harga_total"
+                                                            class="input w-100" readonly>
                                                     </div>
                                                 </div>
                                             </div>
@@ -382,14 +381,14 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-12">
+                                    <button class="btn btn-success" id="btn_approve">Approve</button>
+                                    <button class="btn btn-info" id="btn_clear">Clear</button>
+                                    <button class="btn btn-danger">Reject</button>
+                                </div>
                             </div>
-                            <div class="row pl-4">
-                                <button class="btn btn-success">Approve</button>
-                                <button class="btn btn-info">Clear</button>
-                                <button class="btn btn-danger">Reject</button>
-                            </div>
-                        </div>
 
+                        </div>
                     </div>
                 </div>
             </div>
