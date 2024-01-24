@@ -63,32 +63,11 @@
                                     <th>id Trans INV</th>
                                     <th>No Order</th>
                                     <th>Qty Retur</th>
-                                    <th>Alasan Retur</th>
-                                    <th>Penagih</th>
+                                    <th>Tgl Retur</th>
                                     <th>Alasan Retur</th>
                                     <th>Penagih</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td contenteditable="true"></td>
-                                    <td contenteditable="true"></td>
-                                    <td contenteditable="true"></td>
-                                    <td contenteditable="true"></td>
-                                    <td contenteditable="true"></td>
-                                    <td contenteditable="true"></td>
-                                    <td contenteditable="true"></td>
-                                    <td contenteditable="true"></td>
-                                    <td contenteditable="true"></td>
-                                    <td contenteditable="true"></td>
-                                    <td contenteditable="true"></td>
-                                    <td contenteditable="true"></td>
-                                    <td contenteditable="true"></td>
-                                    <td contenteditable="true"></td>
-                                    <td contenteditable="true"></td>
-                                    <td contenteditable="true"></td>
-                                </tr>
-                            </tbody>
                         </table>
                         </table>
                         <table class="table sm">
@@ -157,8 +136,8 @@
                             <input type="text" class="form-control" id="kelompok" name="kelompok">
                         </div>
                         <div class="col-md-4">
-                            <label for="namabarang" class="form-label">Sub Kategori</label>
-                            <input type="text" class="form-control" id="namabarang" name="namabarang">
+                            <label for="subkategori" class="form-label">Sub Kategori</label>
+                            <input type="text" class="form-control" id="subkategori" name="subkategori">
                         </div>
                         <div class="col-md-2">
                             <label for="returprimer" class="form-label">Qty Retur Primer</label>
@@ -176,7 +155,7 @@
                     <div class="row mb-3 m-1">
                         <div class="col-md-2">
                             <label for="bttb" class="form-label">No. BTTB</label>
-                            <input type="float" class="form-control" ids="bttb" name="bttb">
+                            <input type="float" class="form-control" id="bttb" name="bttb">
                         </div>
                         <div class="col-md-8" style="width: 400px; margin-right: -60px;">
                             <label for="alasan" class="form-label">Alasan</label>
@@ -186,8 +165,8 @@
 
                     <div class="row mb-3 m-1">
                         <div class="col-md-2">
-                            <label for="no_sj" class="form-label">No. SJ</label>
-                            <input type="float" class="form-control" id="no_sj" name="no_sj">
+                            <label for="sj" class="form-label">No. SJ</label>
+                            <input type="float" class="form-control" id="sj" name="sj">
                         </div>
                     </div>
                     <div class="row mb-3 m-1">

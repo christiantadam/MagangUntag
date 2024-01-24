@@ -59,6 +59,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('ListOrderPembelian', App\Http\Controllers\Beli\TransaksiBeli\ListOrderPembelianController::class);
     Route::resource('ReturBTTB', App\Http\Controllers\Beli\TransaksiBeli\ReturBTTBController::class);
     Route::get('/GETReturBTTB', 'App\Http\Controllers\Beli\TransaksiBeli\ReturBTTBController@po');
+    Route::get('/GETBTTB', 'App\Http\Controllers\Beli\TransaksiBeli\ReturBTTBController@display');
+
+
+
+
+
     Route::resource('CreateBTTB', App\Http\Controllers\Beli\TransaksiBeli\CreateBTTBController::class);
     Route::resource('TransferBarang', App\Http\Controllers\Beli\TransaksiBeli\TransferBarangController::class);
 
