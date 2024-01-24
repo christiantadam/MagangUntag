@@ -47,6 +47,16 @@ class ReturBTTBController extends Controller
     }
 
 
+    public function display(Request $request)
+    {
+        $noPO = $request->input('noPO');
+        $kd = 25;
+
+        $returbttb = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd=?, @noPO=?',[$kd,$noPO]);
+
+        return response()->json($returbttb);
+    }
+
 
 
     public function edit($id)

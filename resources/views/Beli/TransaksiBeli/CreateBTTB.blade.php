@@ -187,9 +187,17 @@
                                 <label for="kelompok" class="form-label">Harga Total</label>
                                 <input type="text" class="form-control" id="kelompok" name="payment_term">
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-2 mb-5">
                                 <label for="kelompok" class="form-label">IDR Total</label>
                                 <input type="text" class="form-control" id="kelompok" name="payment_term">
+                            </div>
+                            <div class="col-md-12 d-flex justify-content-end pb-4">
+                                <div class="col-md-12 d-flex justify-content-end">
+                                    <button type="button" class="btn btn-primary btn-lg mr-3" onclick="updateData()">Update</button>
+                                    <button type="button" class="btn btn-danger btn-lg mr-3" onclick="removeData()">Remove</button>
+                                    <button type="button" class="btn btn-success btn-lg mr-3" onclick="postBTTB()">Post BTTB</button>
+                                    <button type="button" class="btn btn-secondary btn-lg" onclick="exit()">Exit</button>
+                                </div>
                             </div>
                         </div>
                     </div>
