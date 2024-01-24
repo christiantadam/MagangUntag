@@ -35,40 +35,86 @@ class InputOperasionalController extends Controller
 
         return datatables($listPerawatan)->make(true);
     }
-    //Show the form for creating a new resource.
-    public function create()
-    {
-        //
-    }
 
-    //Store a newly created resource in storage.
-    public function store(Request $request)
+    public function getById(Request $request)
     {
-        //
-    }
+        $id = $request->input('nomorGenzet');
+        $data = DB::connection('ConnUtility')->table('OPERASIONAL_GENZET')->where('NoTransaksi', $id)->first();
 
-    //Display the specified resource.
-    public function show(Request $request)
-    {
-        //
+        if (!$data) {
+            return response()->json(['message' => 'Data not found'], 404);
+        }
+
+        return response()->json($data, 200);
     }
 
 
-    //Show the form for editing the specified resource.
-    public function edit($id)
+    public function createGenzet(Request $request)
     {
-        //
+        try {
+            $tanggal = $request->input('Tanggal');
+            $mesingenzet = $request->input('MesinGenzet');
+            $jamawal = $request->input('JamAwal');
+            $jamakhir = $request->input('JamAkhir');
+            $operationhours = $request->input('OperationHours');
+            $lubeoil = $request->input('LubeOil');
+            $coolwater = $request->input('CoolWater');
+            $volt = $request->input('Volt');
+            $hz = $request->input('Hz');
+            $amp = $request->input('Amp');
+            $tambahbbm = $request->input('TambahBBM');
+            $tambahoil = $request->input('TambahOil');
+            $statuslog = $request->input('StatusLog');
+            $teknisi = $request->input('Teknisi');
+            $keterangan = $request->input('Keterangan');
+            $UserInput = Auth::user()->NomorUser;
+            $data = DB::connection('ConnUtility')->statement('exec SP_INSERT_OPERASIONAL_GENZET ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?', [$tanggal, $mesingenzet, $jamawal, $jamakhir, $operationhours, $lubeoil, $coolwater, $volt, $hz, $amp, $tambahbbm, $tambahoil, $statuslog, $keterangan, $teknisi, $UserInput]);
+
+            return response()->json($data);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'An error occurred while saving the data. Please try again.');
+        }
     }
 
-    //Update the specified resource in storage.
-    public function update(Request $request, $id)
+    public function updateGenzet(Request $request)
     {
-        //
+        try {
+            $id = $request->input('NomorGenzet');
+            $tanggal = $request->input('Tanggal');
+            $mesingenzet = $request->input('MesinGenzet');
+            $jamawal = $request->input('JamAwal');
+            $jamakhir = $request->input('JamAkhir');
+            $operationhours = $request->input('OperationHours');
+            $lubeoil = $request->input('LubeOil');
+            $coolwater = $request->input('CoolWater');
+            $volt = $request->input('Volt');
+            $hz = $request->input('Hz');
+            $amp = $request->input('Amp');
+            $tambahbbm = $request->input('TambahBBM');
+            $tambahoil = $request->input('TambahOil');
+            $statuslog = $request->input('StatusLog');
+            $teknisi = $request->input('Teknisi');
+            $keterangan = $request->input('Keterangan');
+            $UserInput = Auth::user()->NomorUser;
+            $data = DB::connection('ConnUtility')->statement('exec SP_KOREKSI_OPERASIONAL_GENZET ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?', [$id, $tanggal, $mesingenzet, $jamawal, $jamakhir, $operationhours, $lubeoil, $coolwater, $volt, $hz, $amp, $tambahbbm, $tambahoil, $statuslog, $keterangan, $teknisi, $UserInput]);
+            return response()->json($data);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'An error occurred while saving the data. Please try again.');
+        }
     }
 
-    //Remove the specified resource from storage.
-    public function destroy($id)
+    public function deleteGenzet(Request $request)
     {
-        //
+        try {
+            $nomor = $request->input('Nomor');
+
+            foreach ($nomor as $nomor) {
+                DB::connection('ConnUtility')->statement('exec SP_HAPUS_PDAM  @nomor = ?', [$nomor]);
+            }
+
+            return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An error occurred while deleting the data. Please try again.']);
+        }
     }
 }

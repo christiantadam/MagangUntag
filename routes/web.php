@@ -82,7 +82,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/save-perawatan', [App\Http\Controllers\Utility\Compressor\InputPerawatanController::class, 'savePerawatan'])->name('save-perawatan');
     Route::delete('/delete-perawatan', [App\Http\Controllers\Utility\Compressor\InputPerawatanController::class, 'hapusPerawatan'])->name('delete-perawatan');
 
-
+    //LogSheet
     Route::resource('LogSheet', App\Http\Controllers\Utility\Compressor\LogSheetController::class);
     Route::get('/get-logsheet', [App\Http\Controllers\Utility\Compressor\LogSheetController::class, 'getDataLogSheet'])->name('get-logsheet');
     Route::post('/save-logsheet', [App\Http\Controllers\Utility\Compressor\LogSheetController::class, 'saveDataLogSheet'])->name('save-logsheet');
@@ -92,6 +92,22 @@ Route::group(['middleware' => ['auth']], function () {
     // Genzet
     Route::resource('InputOperasional', App\Http\Controllers\Utility\Genzet\InputOperasionalController::class);
     Route::get('/get-genzet', [App\Http\Controllers\Utility\Genzet\InputOperasionalController::class, 'getGenzet'])->name('get-genzet');
+    Route::get('/get-operational-genzet', [App\Http\Controllers\Utility\Genzet\InputOperasionalController::class, 'getById'])->name('get-operational-genzet');
+    Route::post('/save-genzet', [App\Http\Controllers\Utility\Genzet\InputOperasionalController::class, 'createGenzet'])->name('save-genzet');
+    Route::put('/update-genzet', [App\Http\Controllers\Utility\Genzet\InputOperasionalController::class, 'updateGenzet'])->name('update-genzet');
+    Route::delete('/delete-genzet', [App\Http\Controllers\Utility\Genzet\InputOperasionalController::class, 'deleteGenzet'])->name('delete-genzet');
+
+    // Status Log Genzet
+    Route::get('/get-statuslog', [App\Http\Controllers\Utility\Genzet\StatusLog\StatusLogController::class, 'getStatusLog'])->name('get-statuslog');
+    Route::post('/save-statuslog', [App\Http\Controllers\Utility\Genzet\StatusLog\StatusLogController::class, 'savestatuslog'])->name('save-statuslog');
+    Route::put('/update-statuslog', [App\Http\Controllers\Utility\Genzet\StatusLog\StatusLogController::class, 'updatestatuslog'])->name('update-statuslog');
+    Route::delete('/delete-statuslog', [App\Http\Controllers\Utility\Genzet\StatusLog\StatusLogController::class, 'deletestatuslog'])->name('delete-statuslog');
+
+    // Teknisi Genzet
+    Route::get('/get-teknisi', [App\Http\Controllers\Utility\Genzet\Teknisi\TeknisiController::class, 'getTeknisi'])->name('get-teknisi');
+    Route::post('/save-teknisi', [App\Http\Controllers\Utility\Genzet\Teknisi\TeknisiController::class, 'saveTeknisi'])->name('save-teknisi');
+    Route::put('/update-teknisi', [App\Http\Controllers\Utility\Genzet\Teknisi\TeknisiController::class, 'updateTeknisi'])->name('update-teknisi');
+    Route::delete('/delete-teknisi', [App\Http\Controllers\Utility\Genzet\Teknisi\TeknisiController::class, 'deleteTeknisi'])->name('delete-teknisi');
 
     // Panel Induk
     Route::resource('InputGangguanPanel', App\Http\Controllers\Utility\PanelInduk\InputGangguanPanelController::class);
@@ -99,11 +115,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/save-panel', [App\Http\Controllers\Utility\PanelInduk\InputGangguanPanelController::class, 'createPANEL'])->name('save-panel');
     Route::get('/get-panel', [App\Http\Controllers\Utility\PanelInduk\InputGangguanPanelController::class, 'getPANEL'])->name('get-panel');
     Route::delete('/delete-panel', [App\Http\Controllers\Utility\PanelInduk\InputGangguanPanelController::class, 'deletePANEL'])->name('delete-panel');
-    //Keterangan Gangguan
+
+    //Keterangan Gangguan Panel Induk
     Route::get('/get-keterangangangguan', [App\Http\Controllers\Utility\PanelInduk\KetGangguan\InputKeteranganGangguanController::class, 'getKeteranganGangguan'])->name('get-keterangangangguan');
     Route::post('/save-keterangangangguan', [App\Http\Controllers\Utility\PanelInduk\KetGangguan\InputKeteranganGangguanController::class, 'saveKeteranganGangguan'])->name('save-keterangangangguan');
     Route::put('/update-keterangangangguan', [App\Http\Controllers\Utility\PanelInduk\KetGangguan\InputKeteranganGangguanController::class, 'updateKeteranganGangguan'])->name('update-keterangangangguan');
     Route::delete('/delete-keterangangangguan', [App\Http\Controllers\Utility\PanelInduk\KetGangguan\InputKeteranganGangguanController::class, 'deleteKeteranganGangguan'])->name('delete-keterangangangguan');
+
     //PDAM
     Route::resource('InputPDAM', App\Http\Controllers\Utility\PDAM\InputPDAMController::class);
     Route::put('/update-pdam', [App\Http\Controllers\Utility\PDAM\InputPDAMController::class, 'updatePDAM'])->name('update-pdam');
@@ -111,7 +129,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/get-pdam', [App\Http\Controllers\Utility\PDAM\InputPDAMController::class, 'getPDAM'])->name('get-pdam');
     Route::delete('/delete-pdam', [App\Http\Controllers\Utility\PDAM\InputPDAMController::class, 'deletePDAM'])->name('delete-pdam');
 
-    //PDAM
+    //PLN
     Route::resource('InputPLN', App\Http\Controllers\Utility\PLN\InputPLNController::class);
     Route::get('/get-pln', [App\Http\Controllers\Utility\PLN\InputPLNController::class, 'getPLN'])->name('get-pln');
     Route::put('/update-pln', [App\Http\Controllers\Utility\PLN\InputPLNController::class, 'updatePLN'])->name('update-pln');

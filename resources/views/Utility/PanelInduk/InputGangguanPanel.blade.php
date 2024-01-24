@@ -71,7 +71,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-lg-12 p-4">
                             <div class="row mb-3">
                                 <div class="col-md-12 mt-2">
@@ -119,7 +118,6 @@
                                     <div class="d-flex gap-2 pt-4 justify-content-end flex-wrap">
                                         <button class="btn btn-primary mb-2" type="button"
                                             id="tambahKetGangguanButton">Tambah Ket.Gangguan</button>
-
                                     </div>
                                 </div>
                             </div>
