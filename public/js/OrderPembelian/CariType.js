@@ -6,7 +6,7 @@ let tabelData = document.getElementById("tabelData");
 tabelData.style.display = "none";
 search.disabled = true;
 
-formCari.addEventListener("input", function () {
+formCari.addEventListener("input", function (event) {
     search.disabled = !getInputValue();
 });
 

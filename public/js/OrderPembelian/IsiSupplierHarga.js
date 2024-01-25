@@ -16,6 +16,7 @@ let qty_delay = document.getElementById("qty_delay");
 let qty_order = document.getElementById("qty_order");
 let btn_clear = document.getElementById("btn_clear");
 let btn_approve = document.getElementById("btn_approve");
+let btn_reject = document.getElementById("btn_reject");
 let keterangan_internal = document.getElementById("keterangan_internal");
 let keterangan_order = document.getElementById("keterangan_order");
 let user_input = document.getElementById("user_input");
@@ -25,7 +26,10 @@ let kode_barang = document.getElementById("kode_barang");
 let divisi = document.getElementById("divisi");
 let no_po = document.getElementById("no_po");
 let idr_unit = document.getElementById("idr_unit");
+let alasan_reject = document.getElementById("alasan_reject");
+let tanggal_dibutuhkan = document.getElementById("tanggal_dibutuhkan");
 
+let jenisSupplier;
 let fixValueQTYOrder;
 
 let csrfToken = $('meta[name="csrf-token"]').attr("content");
@@ -33,16 +37,65 @@ let url = window.location.href;
 let segments = url.split("/");
 let id = segments[segments.length - 1];
 
+tanggal_dibutuhkan.valueAsDate = new Date();
 redisplay.disabled = true;
-formCekRedisplay.addEventListener("change", function () {
+formCekRedisplay.addEventListener("change", function (event) {
     redisplay.disabled = !radioButtonIsSelected();
 });
+btn_reject.disabled = true;
+alasan_reject.addEventListener("input", function (event) {
+    if (alasan_reject.value.trim() !== "") {
+        btn_reject.disabled = false;
+    } else {
+        btn_reject.disabled = true;
+    }
+});
+btn_reject.addEventListener("click", function (event) {
+    $.ajax({
+        url: "/IsiSupplierHarga/" + id + "/Reject",
+        type: "POST",
+        headers: {
+            "X-CSRF-TOKEN": csrfToken,
+        },
+        data: {
+            noTrans: no_po.value,
+            alasan: alasan_reject.value,
+        },
+        success: function (response) {
+            alert("Data Berhasil di Reject");
+            clearData();
+            console.log(response);
+        },
+        error: function (error) {
+            console.error("Error Send Data:", error);
+        },
+    });
+});
+
 btn_approve.disabled = true;
-formApprove.addEventListener("change", function () {
+formApprove.addEventListener("change", function (event) {
     btn_approve.disabled = !supplier_select.selectedIndex === 0;
+    if (supplier_select.selectedIndex !== 0) {
+        $.ajax({
+            url: "/IsiSupplierHarga/" + id + "/DaftarSupplier",
+            type: "GET",
+            data: {
+                idsup: supplier_select.value,
+            },
+            success: function (response) {
+                matauang_select.value = response[0].Id_MataUang;
+                matauang_select.name = response[0].Nama_MataUang;
+                jenisSupplier = response[0].JNS_SUP;
+            },
+            error: function (error) {
+                console.error("Error Send Data:", error);
+            },
+        });
+    }
 });
 
 function clearData() {
+    tanggal_dibutuhkan.valueAsDate = new Date();
     btn_approve.disabled = true;
     no_po.value = "";
     divisi.value = "";
@@ -73,7 +126,7 @@ btn_clear.addEventListener("click", function (event) {
 });
 btn_approve.addEventListener("click", function (event) {
     $.ajax({
-        url: "/IsiSupplierHarga/" + id + "/approve",
+        url: "/IsiSupplierHarga/" + id + "/Approve",
         type: "POST",
         headers: {
             "X-CSRF-TOKEN": csrfToken,
@@ -94,10 +147,11 @@ btn_approve.addEventListener("click", function (event) {
             pIDRTot: idr_harga_total.value,
             mtUang: matauang_select.value,
             noTrans: no_po.value,
+            jns_beli: jenisSupplier,
         },
         success: function (response) {
-            alert('Data Berhasil di Approve')
-            clearData()
+            alert("Data Berhasil di Approve");
+            clearData();
         },
         error: function (error) {
             console.error("Error Send Data:", error);
@@ -154,12 +208,12 @@ function getSelectedInputValue() {
 }
 
 function redisplayData(noTrans, requester, kd) {
-    $("#table_IsiHarga").DataTable({
+    let table = $("#table_IsiHarga").DataTable({
         responsive: true,
         processing: true,
         serverSide: true,
         ajax: {
-            url: "/IsiSupplierHargaRedisplay/" + id,
+            url: "/IsiSupplierHarga/" + id + "/Redisplay",
             type: "GET",
             data: function (data) {
                 (data.noTrans = noTrans),
@@ -188,7 +242,7 @@ function redisplayData(noTrans, requester, kd) {
             { data: "Ket_Internal" },
         ],
         rowCallback: function (row, data) {
-            $(row).on("click", function () {
+            $(row).on("click", function (event) {
                 let tgl = new Date(data.Tgl_Dibutuhkan)
                     .toISOString()
                     .split("T")[0];
@@ -214,10 +268,27 @@ function redisplayData(noTrans, requester, kd) {
             });
         },
     });
+
+    table.on("click", "tbody tr", (e) => {
+        const classList = e.currentTarget.classList;
+
+        if (classList.contains("selected")) {
+            classList.remove("selected");
+        } else {
+            table
+                .rows(".selected")
+                .nodes()
+                .each((row) => row.classList.remove("selected"));
+            classList.add("selected");
+        }
+    });
+    btn_clear.addEventListener("click", function () {
+        table.row(".selected").remove().draw(false);
+    });
 }
 $(document).ready(function () {
     $.ajax({
-        url: "/DaftarData",
+        url: "/IsiSupplierHarga/" + id + "/DaftarData",
         type: "GET",
         success: function (data) {
             let matauang = data.matauang;
@@ -246,6 +317,23 @@ $(document).ready(function () {
             console.error("Error Fetch Data:", error);
         },
     });
+
+    qty_delay.addEventListener("input", function (event) {
+        qty_delay.value = qty_delay.value.replace(/\D/g, "");
+    });
+
+    qty_order.addEventListener("input", function (event) {
+        qty_order.value = qty_order.value.replace(/\D/g, "");
+    });
+
+    kurs.addEventListener("input", function (event) {
+        kurs.value = kurs.value.replace(/[^\d.]/g, "");
+    });
+
+    harga_unit.addEventListener("input", function (event) {
+        harga_unit.value = harga_unit.value.replace(/[^\d.]/g, "");
+    });
+
     qty_delay.addEventListener("change", function (event) {
         updateIdrUnit();
         updateSubTotal();

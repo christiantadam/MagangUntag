@@ -347,7 +347,7 @@
                                             <div class="col-6">
                                                 <div class="row">
                                                     <div class="col-4">
-                                                        <label for="harga_total">harga_total</label>
+                                                        <label for="harga_total">Harga Total</label>
                                                     </div>
                                                     <div class="col-8">
                                                         <input type="text" name="harga_total" id="harga_total"
@@ -384,7 +384,7 @@
                                 <div class="col-12">
                                     <button class="btn btn-success" id="btn_approve">Approve</button>
                                     <button class="btn btn-info" id="btn_clear">Clear</button>
-                                    <button class="btn btn-danger">Reject</button>
+                                    <button class="btn btn-danger" id="btn_reject">Reject</button>
                                 </div>
                             </div>
 

@@ -4,7 +4,7 @@ let tabelData = document.getElementById("tabelData");
 
 tabelData.style.display = "none";
 redisplay.disabled = true;
-formDaftarHarga.addEventListener("change", function () {
+formDaftarHarga.addEventListener("change", function (event) {
     redisplay.disabled = !radioButtonIsSelected();
 });
 
