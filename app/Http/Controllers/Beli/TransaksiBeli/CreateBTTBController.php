@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HakAksesController;
+use DB;
 
 class CreateBTTBController extends Controller
 {
@@ -27,6 +28,18 @@ class CreateBTTBController extends Controller
     {
         //
     }
+
+    public function createbttb(Request $request)
+    {
+        $noPO = $request->input('noPO');
+        $kd = 16;
+
+        $createbttb = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd=?, @noPO=?',[$kd,$noPO]);
+
+        return response()->json($createbttb);
+    }
+
+
 
     //Display the specified resource.
     public function show($id)
