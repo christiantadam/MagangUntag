@@ -12,16 +12,7 @@ let l_hours = document.getElementById("l_hours");
 let efs = document.getElementById("efs");
 let tech = document.getElementById("tech");
 let keterangan = document.getElementById("keterangan");
-
-// // // Mendapatkan waktu saat ini
-// // let waktuSekarang = new Date();
-
-// // // Membuat format jam dan menetapkannya pada elemen input
-// // let jamSekarang = waktuSekarang.getHours().toString().padStart(2, "0"); // Menggunakan padStart untuk memastikan format dua digit
-// // let menitSekarang = waktuSekarang.getMinutes().toString().padStart(2, "0");
-
-// // Menetapkan nilai input
-// jam_operasi.value = jamSekarang + ":" + menitSekarang;
+let id = document.getElementById("hiddenNoLogSheet");
 
 // tanggal form
 var tanggal_Input = document.getElementById("tanggal");
@@ -62,6 +53,22 @@ keterangan.disabled = true;
 updateButton.disabled = true;
 deleteButton.disabled = true;
 
+function clearForm() {
+    // tanggal.value = "";
+    mesin.value = "";
+    jam_operasi.value = "";
+    temp.value = "";
+    bar.value = "";
+    rm_hours.value = "";
+    lm_hours.value = "";
+    r_hours.value = "";
+    l_hours.value = "";
+    efs.value = "";
+    tech.value = "";
+    keterangan.value = "";
+    id.value = "";
+}
+
 // InputButton click
 inputButton.addEventListener("click", function () {
     tanggal.disabled = false;
@@ -79,6 +86,26 @@ inputButton.addEventListener("click", function () {
     updateButton.disabled = true;
     deleteButton.disabled = true;
     saveButton.disabled = false;
+    clearForm();
+});
+
+// UpdateButton click
+updateButton.addEventListener("click", function () {
+    tanggal.disabled = false;
+    mesin.disabled = false;
+    jam_operasi.disabled = false;
+    temp.disabled = false;
+    bar.disabled = false;
+    rm_hours.disabled = false;
+    lm_hours.disabled = false;
+    r_hours.disabled = false;
+    l_hours.disabled = false;
+    efs.disabled = false;
+    tech.disabled = false;
+    keterangan.disabled = false;
+    updateButton.disabled = false;
+    deleteButton.disabled = true;
+    // inputButton.disabled = true;
 });
 
 // CancelButton click
@@ -101,21 +128,47 @@ cancelButton.addEventListener("click", function () {
     deleteButton.disabled = false;
 
     // Clear Form
-    // tanggal.value = "";
-    mesin.value = "";
-    jam_operasi.value = "";
-    temp.value = "";
-    bar.value = "";
-    rm_hours.value = "";
-    lm_hours.value = "";
-    r_hours.value = "";
-    l_hours.value = "";
-    efs.value = "";
-    tech.value = "";
-    keterangan.value = "";
+    clearForm();
+    $(".checkboxlogsheet").prop("checked", false);
 
     // Disable saveButton
     saveButton.disabled = true;
+});
+
+function checkAllFieldsFilled() {
+    return (
+        tanggal.value.trim() !== "" &&
+        mesin.value.trim() !== "" &&
+        jam_operasi.value.trim() !== "" &&
+        temp.value.trim() !== "" &&
+        bar.value.trim() !== "" &&
+        rm_hours.value.trim() !== "" &&
+        lm_hours.value.trim() !== "" &&
+        r_hours.value.trim() !== "" &&
+        l_hours.value.trim() !== "" &&
+        efs.value.trim() !== "" &&
+        tech.value.trim() !== "" &&
+        keterangan.value.trim() !== ""
+    );
+}
+
+[
+    tanggal,
+    mesin,
+    jam_operasi,
+    temp,
+    bar,
+    rm_hours,
+    lm_hours,
+    r_hours,
+    l_hours,
+    efs,
+    tech,
+    keterangan,
+].forEach(function (inputField) {
+    inputField.addEventListener("input", function () {
+        saveButton.disabled = !checkAllFieldsFilled();
+    });
 });
 
 // Save Data Log Sheet
@@ -133,6 +186,7 @@ $(document).ready(function () {
         var EfsValue = $("#efs").val();
         var TechValue = $("#tech").val();
         var KeteranganValue = $("#keterangan").val();
+        var idValue = id.value;
 
         var csrfToken = $('meta[name="csrf-token"]').attr("content");
 
@@ -150,37 +204,41 @@ $(document).ready(function () {
             Tech: TechValue,
             Keterangan: KeteranganValue,
         };
+        if (idValue) {
+            requestData.id = idValue;
+        }
 
         $.ajax({
-            url: "/save-logsheet",
-            method: "POST",
+            url: idValue ? "/update-logsheet" : "/save-logsheet",
+            method: idValue ? "PUT" : "POST",
             data: requestData,
             headers: {
                 "X-CSRF-TOKEN": csrfToken,
             },
             success: function (response) {
                 console.log("Data saved successfully:", response);
-                // console.log(response.body);
-                console.log(requestData);
-
-                // Display Bootstrap Alert
-                $("#alertContainer").html(
-                    '<div class="alert alert-success" role="alert">Data Log Sheet Berhasil Disimpan!</div>'
-                );
-
-                // setTimeout(function () {
-                //     location.reload();
-                // }, 2000);
+                idValue
+                    ? Swal.fire({
+                          icon: "success",
+                          title: "Data Berhasil Diperbarui!",
+                          showConfirmButton: false,
+                          timer: "2000",
+                      })
+                    : Swal.fire({
+                          icon: "success",
+                          title: "Data Berhasil Disimpan!",
+                          showConfirmButton: false,
+                          timer: "2000",
+                      });
+                clearForm();
             },
             error: function (error) {
                 console.error("Error saving data:", error);
             },
         });
     });
-});
 
-// Show Data Log Sheet
-$(document).ready(function () {
+    // Show Data Log Sheet
     var dataTable = $("#table-logsheet").DataTable({
         processing: true,
         serverSide: true,
@@ -219,7 +277,8 @@ $(document).ready(function () {
                 },
             },
             {
-                data: "NamaMesin",  value :'NoMesin'
+                data: "NamaMesin",
+                value: "NoMesin",
             },
             {
                 data: "Jam",
@@ -251,54 +310,47 @@ $(document).ready(function () {
         if ($(this).prop("checked")) {
             deleteButton.disabled = false;
             updateButton.disabled = false;
-
-            var selectedRow = $(this).closest("tr");
-
-            var selectedDate = selectedRow.find("td:eq(1)").text();
-            var selectedMesin = selectedRow.find("td:eq(2)").text();
-            var selectedJamOperasi = selectedRow.find("td:eq(3)").text();
-            var selectedTemp = selectedRow.find("td:eq(4)").text();
-            var selectedBar = selectedRow.find("td:eq(5)").text();
-            var selectedRMHours = selectedRow.find("td:eq(6)").text();
-            var selectedLMHours = selectedRow.find("td:eq(7)").text();
-            var selectedRHours = selectedRow.find("td:eq(8)").text();
-            var selectedLHours = selectedRow.find("td:eq(9)").text();
-            var selectedEfs = selectedRow.find("td:eq(10)").text();
-            var selectedTech = selectedRow.find("td:eq(11)").text();
-            var selectedKeterangan = selectedRow.find("td:eq(12)").text();
-
             var selectedNoLogSheet = $(this).val();
 
-            // Set the values in your form inputs
-            $("#tanggal").val(selectedDate);
-            $("#mesin").val(selectedMesin);
-            $("#jam").val(selectedJamOperasi);
-            $("#temp").val(selectedTemp);
-            $("#bar").val(selectedBar);
-            $("#rm_hours").val(selectedRMHours);
-            $("#lm_hours").val(selectedLMHours);
-            $("#r_hours").val(selectedRHours);
-            $("#l_hours").val(selectedLHours);
-            $("#efs").val(selectedEfs);
-            $("#tech").val(selectedTech);
-            $("#keterangan").val(selectedKeterangan);
             $("#hiddenNoLogSheet").val(selectedNoLogSheet);
 
-            console.log(
-                "Selected No Log Sheet: ",
-                selectedNoLogSheet,
-                selectedDate,
-                selectedMesin,
-                selectedJamOperasi,
-                selectedTemp,
-                selectedRMHours,
-                selectedLMHours,
-                selectedRHours,
-                selectedLHours,
-                selectedEfs,
-                selectedTech,
-                selectedKeterangan,
-            );
+            $.ajax({
+                url: "/get-logsheet-compressor",
+                type: "GET",
+                data: { id: selectedNoLogSheet },
+                success: function (data) {
+                    // console.log(data);
+
+                    // Set the values in your form inputs
+                    var date = new Date(data.Tanggal + "Z");
+                    tanggal.value = date.toISOString().split("T")[0];
+                    mesin.value = data.NoMesin;
+                    var endHours = new Date(data.Jam + "Z")
+                        .getUTCHours()
+                        .toString()
+                        .padStart(2, "0");
+                    var endMinutes = new Date(data.Jam + "Z")
+                        .getUTCMinutes()
+                        .toString()
+                        .padStart(2, "0");
+                    jam_operasi.value = endHours + ":" + endMinutes;
+                    // jam_operasi.value = data.Jam;
+                    temp.value = data.Temperatur;
+                    bar.value = data.Bar;
+                    rm_hours.value = data.RMHours;
+                    lm_hours.value = data.LMHours;
+                    r_hours.value = data.RHours;
+                    l_hours.value = data.LHours;
+                    efs.value = data.Efs;
+                    tech.value = data.Tech;
+                    keterangan.value = data.Keterangan;
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching data:", error);
+                },
+            });
+        } else {
+            clearForm();
         }
     });
 

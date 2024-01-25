@@ -42,6 +42,18 @@ class InputPerawatanController extends Controller
         return datatables($listPerawatan)->make(true);
     }
 
+    public function getPerawatanById(Request $request)
+    {
+        $id = $request->input('id');
+        $data = DB::connection('ConnUtility')->table('PERAWATAN_COMPRESSOR')->where('NoPerawatan', $id)->first();
+
+        if (!$data) {
+            return response()->json(['message' => 'Data not found'], 404);
+        }
+
+        return response()->json($data, 200);
+    }
+
 
     public function savePerawatan(Request $request)
     {
@@ -59,6 +71,27 @@ class InputPerawatanController extends Controller
             ]);
 
             return redirect()->back()->with('success', 'Data has been saved.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'An error occurred while saving the data. Please try again.');
+        }
+    }
+    public function updatePerawatan(Request $request)
+    {
+        try {
+            $id = $request->input('id');
+            $tanggal = $request->input('Tanggal');
+            $noMesin = $request->input('NoMesin');
+            $jamOperasi = $request->input('JamOperasi');
+            $idPart = $request->input('IdPart');
+            $keterangan = $request->input('Keterangan');
+            $teknisi = $request->input('Teknisi');
+            $UserInput = Auth::user()->NomorUser;
+
+            $data = DB::connection('ConnUtility')->statement('exec SP_KOREKSI_PERAWATAN_COMPRESSOR ?, ?, ?, ?, ?, ?, ?, ?', [
+                $id, $tanggal, $noMesin, $jamOperasi, $idPart, $keterangan, $teknisi, $UserInput
+            ]);
+
+            return response()->json($data);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'An error occurred while saving the data. Please try again.');
         }

@@ -33,6 +33,15 @@ let refreshButton = document.getElementById("refreshButton");
 // Checkbox
 // let checkboxpdam = document.getElementsByClassName("checkboxpdam");
 
+function clearForm() {
+    // tanggal.value = "";
+    feeder.value = "";
+    jam_gangguan.value = "";
+    jam_selesai.value = "";
+    ket_gangguan.value = "";
+    keterangan.value = "";
+    id_transaksi.value = "";
+}
 saveButton.disabled = true;
 tanggal.disabled = true;
 feeder.disabled = true;
@@ -76,6 +85,19 @@ inputButton.addEventListener("click", function () {
     deleteButton.disabled = true;
 });
 
+// UpdateButton click
+updateButton.addEventListener("click", function () {
+    // Disable input fields and disable Update and Delete buttons
+    tanggal.disabled = false;
+    feeder.disabled = false;
+    jam_gangguan.disabled = false;
+    jam_selesai.disabled = false;
+    ket_gangguan.disabled = false;
+    keterangan.disabled = false;
+    inputButton.disabled = true;
+    deleteButton.disabled = true;
+});
+
 // CancelButton click
 cancelButton.addEventListener("click", function () {
     tanggal.disabled = true;
@@ -88,13 +110,7 @@ cancelButton.addEventListener("click", function () {
     deleteButton.disabled = false;
 
     // Clear Form
-    // tanggal.value = "";
-    feeder.value = "";
-    jam_gangguan.value = "";
-    jam_selesai.value = "";
-    ket_gangguan.value = "";
-    keterangan.value = "";
-    id_transaksi.value = "";
+    clearForm();
 
     // Disable saveButton
     saveButton.disabled = true;
@@ -102,13 +118,7 @@ cancelButton.addEventListener("click", function () {
 
 // Reload Window
 window.addEventListener("beforeunload", function () {
-    // tanggal.value = "";
-    id_transaksi.value = "";
-    feeder.value = "";
-    jam_gangguan.value = "";
-    jam_selesai.value = "";
-    ket_gangguan.value = "";
-    keterangan.value = "";
+    clearForm();
 
     // Disable saveButton
     saveButton.disabled = true;
@@ -147,12 +157,19 @@ $(document).ready(function () {
             },
             success: function (response) {
                 console.log(requestData);
-                Swal.fire({
-                    icon: "success",
-                    title: "Data Berhasil Disimpan!",
-                    showConfirmButton: false,
-                    timer: "2000",
-                });
+                nomorpanelValue
+                    ? Swal.fire({
+                          icon: "success",
+                          title: "Data Berhasil Diperbarui!",
+                          showConfirmButton: false,
+                          timer: "2000",
+                      })
+                    : Swal.fire({
+                          icon: "success",
+                          title: "Data Berhasil Disimpan!",
+                          showConfirmButton: false,
+                          timer: "2000",
+                      });
                 tanggal.disabled = true;
                 feeder.disabled = true;
                 jam_gangguan.disabled = true;
@@ -161,15 +178,8 @@ $(document).ready(function () {
                 keterangan.disabled = true;
                 updateButton.disabled = false;
                 deleteButton.disabled = false;
-                id_transaksi.value = "";
-
                 // Clear Form
-                // tanggal.value = "";
-                feeder.value = "";
-                jam_gangguan.value = "";
-                jam_selesai.value = "";
-                ket_gangguan.value = "";
-                keterangan.value = "";
+                clearForm();
             },
             error: function (error) {
                 Swal.fire({
@@ -182,9 +192,7 @@ $(document).ready(function () {
             },
         });
     });
-});
 
-$(document).ready(function () {
     var dataTable = $("#table-panelinduk").DataTable({
         processing: true,
         serverSide: true,
@@ -245,6 +253,7 @@ $(document).ready(function () {
     });
 
     $("#refreshButton").click(function () {
+        clearForm();
         dataTable.ajax.reload();
     });
 
@@ -254,32 +263,51 @@ $(document).ready(function () {
             deleteButton.disabled = false;
             updateButton.disabled = false;
 
-            var selectedRow = $(this).closest("tr");
-
-            var selectedDate = selectedRow.find("td:eq(1)").text();
-            var selectedFeeder = selectedRow.find("td:eq(2)").text();
-            var selectedStart = selectedRow.find("td:eq(3)").text();
-            var selectedEnd = selectedRow.find("td:eq(4)").text();
-            var selectedGangguan = selectedRow.find("td:eq(5)").text();
-            var selectedKeterangan = selectedRow.find("td:eq(6)").text();
-
             var selectedNomorpanel = $(this).val();
 
             $("#hiddenNomorpanel").val(selectedNomorpanel);
-            $("#tanggal").val(selectedDate);
-            $("#feeder").val(selectedFeeder);
-            $("#jam_gangguan").val(selectedStart);
-            $("#jam_selesai").val(selectedEnd);
-            $("#ket_gangguan").val(selectedGangguan);
-            $("#keterangan").val(selectedKeterangan);
 
-            console.log("Selected Nomorpanel: ", selectedNomorpanel);
-            console.log("Selected Date: ", selectedDate);
-            console.log("Selected Feeder: ", selectedFeeder);
-            console.log("Selected Jam Mulai: ", selectedStart);
-            console.log("Selected Jam Selesai: ", selectedEnd);
-            console.log("Selected Gangguan: ", selectedGangguan);
-            console.log("Selected Keterangan: ", selectedKeterangan);
+            $.ajax({
+                url: "/get-panel-id",
+                type: "GET",
+                data: { id: selectedNomorpanel },
+                success: function (data) {
+                    console.log(data);
+
+                    var date = new Date(data.tanggal + "Z");
+                    tanggal.value = date.toISOString().split("T")[0];
+
+                    feeder.value = data.Feeder_line;
+
+                    var startHours = new Date(data.Start_time + "Z")
+                        .getUTCHours()
+                        .toString()
+                        .padStart(2, "0");
+                    var startMinutes = new Date(data.Start_time + "Z")
+                        .getUTCMinutes()
+                        .toString()
+                        .padStart(2, "0");
+                    jam_gangguan.value = startHours + ":" + startMinutes;
+
+                    var endHours = new Date(data.Finish_time + "Z")
+                        .getUTCHours()
+                        .toString()
+                        .padStart(2, "0");
+                    var endMinutes = new Date(data.Finish_time + "Z")
+                        .getUTCMinutes()
+                        .toString()
+                        .padStart(2, "0");
+                    jam_selesai.value = endHours + ":" + endMinutes;
+
+                    ket_gangguan.value = data.L_Gangguan_panel_induk;
+                    keterangan.value = data.Keterangan;
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching data:", error);
+                },
+            });
+        } else {
+            clearForm();
         }
     });
 
@@ -316,8 +344,7 @@ $(document).ready(function () {
                     showConfirmButton: false,
                     timer: "2000",
                 });
-                id_transaksi.value = "";
-
+                clearForm();
                 console.log("data delete successfully", response);
             },
             error: function (error) {
@@ -326,6 +353,8 @@ $(document).ready(function () {
         });
     });
 });
+
+// ------------------------------------------------------------------------------------------------------------ //
 
 //Modal Keterangan Gangguan
 
@@ -340,16 +369,16 @@ updateButtonKeterangan.disabled = true;
 deleteButtonKeterangan.disabled = true;
 
 // Function to check if all fields are filled
-function checkAllFieldsFilled() {
+function checkAllFieldsFilled1() {
     return keterangan_gangguan.value.trim() !== "";
 }
 
 // Add event listeners to enable/disable saveButton based on input field values
 [keterangan_gangguan].forEach(function (inputField) {
     inputField.addEventListener("input", function () {
-        saveButtonKeterangan.disabled = !checkAllFieldsFilled();
-        deleteButtonKeterangan.disabled = !checkAllFieldsFilled();
-        updateButtonKeterangan.disabled = !checkAllFieldsFilled();
+        saveButtonKeterangan.disabled = !checkAllFieldsFilled1();
+        deleteButtonKeterangan.disabled = !checkAllFieldsFilled1();
+        updateButtonKeterangan.disabled = !checkAllFieldsFilled1();
     });
 });
 

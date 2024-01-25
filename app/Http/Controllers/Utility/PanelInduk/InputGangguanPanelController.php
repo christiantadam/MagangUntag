@@ -59,6 +59,18 @@ class InputGangguanPanelController extends Controller
         }
     }
 
+    public function getPANELById(Request $request)
+    {
+        $id = $request->input('id');
+        $data = DB::connection('ConnUtility')->table('E_Panel_induk')->where('Id_transaksi', $id)->first();
+
+        if (!$data) {
+            return response()->json(['message' => 'Data not found'], 404);
+        }
+
+        return response()->json($data, 200);
+    }
+
     public function getPANEL(Request $request)
     {
         $date1 = $request->input('date1');

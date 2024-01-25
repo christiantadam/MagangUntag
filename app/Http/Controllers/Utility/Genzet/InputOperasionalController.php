@@ -109,7 +109,7 @@ class InputOperasionalController extends Controller
             $nomor = $request->input('Nomor');
 
             foreach ($nomor as $nomor) {
-                DB::connection('ConnUtility')->statement('exec SP_HAPUS_PDAM  @nomor = ?', [$nomor]);
+                DB::connection('ConnUtility')->statement('exec SP_HAPUS_OPERASIONAL_GENZET  @NoTrans = ?', [$nomor]);
             }
 
             return response()->json(['success' => true]);

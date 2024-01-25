@@ -1,13 +1,12 @@
 @extends('layouts.appUtility')
 @section('content')
-@include('Utility.PanelInduk.InputKetGangguan')
-<div class="container-fluid">
+    @include('Utility.PanelInduk.InputKetGangguan')
+    <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-10 RDZMobilePaddingLR0">
                 <div class="card">
                     <div class="card-header">Input Gangguan</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
-
                         <div class="row-12 d-flex flex-wrap">
                             <div class="col-lg-6 p-4">
                                 <input type="hidden" id="hiddenNomorpanel">

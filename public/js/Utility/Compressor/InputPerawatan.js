@@ -5,6 +5,7 @@ let jam = document.getElementById("jam_operasi");
 let part = document.getElementById("select_sparepart");
 let keterangan = document.getElementById("select_keterangan");
 let teknisi = document.getElementById("select_teknisi");
+let id = document.getElementById("hiddenNomorPerawatan");
 
 // tanggal form
 var tanggal_Input = document.getElementById("tanggal");
@@ -31,6 +32,20 @@ let refreshButton = document.getElementById("refreshButton");
 
 // Checkbox
 let checkboxperawatan = document.getElementsByClassName("checkboxperawatan");
+
+function clearForm() {
+    // tanggal.value = "";
+    mesin.value = "";
+    jam.value = "";
+    part.value = "";
+    keterangan.value = "";
+    teknisi.value = "";
+    id.value = "";
+
+    // var selectKeterangan = $("#select_keterangan");
+    // selectKeterangan.empty().append("<option selected disabled>Pilih keterangan...</option>");
+    // selectKeterangan.prop("disabled", false);
+}
 
 saveButton.disabled = true;
 tanggal.disabled = true;
@@ -72,6 +87,24 @@ inputButton.addEventListener("click", function () {
     teknisi.disabled = false;
     updateButton.disabled = true;
     deleteButton.disabled = true;
+    clearForm();
+    var selectKeterangan = $("#select_keterangan");
+    selectKeterangan
+        .empty()
+        .append("<option selected disabled>Pilih keterangan...</option>");
+    selectKeterangan.prop("disabled", false);
+});
+
+// UpdateButton click
+updateButton.addEventListener("click", function () {
+    // Disable input fields and disable Update and Delete buttons
+    tanggal.disabled = false;
+    mesin.disabled = false;
+    jam.disabled = false;
+    part.disabled = false;
+    keterangan.disabled = false;
+    teknisi.disabled = false;
+    deleteButton.disabled = true;
 });
 
 // CancelButton click
@@ -84,14 +117,14 @@ cancelButton.addEventListener("click", function () {
     teknisi.disabled = true;
     updateButton.disabled = false;
     deleteButton.disabled = false;
+    var selectKeterangan = $("#select_keterangan");
+    selectKeterangan
+        .empty()
+        .append("<option selected disabled>Pilih keterangan...</option>");
+    selectKeterangan.prop("disabled", true);
 
     // Clear Form
-    tanggal.value = "";
-    mesin.value = "";
-    jam.value = "";
-    part.value = "";
-    keterangan.value = "";
-    teknisi.value = "";
+    clearForm();
 
     // Disable saveButton
     saveButton.disabled = true;
@@ -99,12 +132,7 @@ cancelButton.addEventListener("click", function () {
 
 // Reload Window
 window.addEventListener("beforeunload", function () {
-    // tanggal.value = "";
-    mesin.value = "";
-    jam.value = "";
-    part.value = "";
-    keterangan.value = "";
-    teknisi.value = "";
+    clearForm();
 
     // Disable saveButton
     saveButton.disabled = true;
@@ -147,49 +175,7 @@ $(document).ready(function () {
     });
 });
 
-// Save Data Perawatan
-$(document).ready(function () {
-    $("#saveButton").click(function () {
-        var tanggalValue = $("#tanggal").val();
-        var noMesinValue = $("#select_mesin").val();
-        var jamOperasiValue = $("#jam_operasi").val();
-        var PartValue = $("#select_sparepart").val();
-        var keteranganValue = $("#select_keterangan").val();
-        var teknisiValue = $("#select_teknisi").val();
 
-        var csrfToken = $('meta[name="csrf-token"]').attr("content");
-
-        var requestData = {
-            Tanggal: tanggalValue,
-            NoMesin: noMesinValue,
-            JamOperasi: jamOperasiValue,
-            IdPart: PartValue,
-            Keterangan: keteranganValue,
-            Teknisi: teknisiValue,
-        };
-
-        $.ajax({
-            url: "/save-perawatan",
-            method: "POST",
-            data: requestData,
-            headers: {
-                "X-CSRF-TOKEN": csrfToken,
-            },
-            success: function (response) {
-                console.log("Data saved successfully:", response);
-                Swal.fire({
-                    icon : "success",
-                    title : "Data Berhasil Disimpan!",
-                    showConfirmButton : false,
-                    timer : "2000"
-                });
-            },
-            error: function (error) {
-                console.error("Error saving data:", error);
-            },
-        });
-    });
-});
 
 $(document).ready(function () {
     var dataTable = $("#table-perawatan").DataTable({
@@ -219,14 +205,9 @@ $(document).ready(function () {
             {
                 data: "Tanggal",
                 render: function (data, type, full, meta) {
-                    var date = new Date(data);
-                    var day = date.getDate();
-                    var month = date.getMonth() + 1;
-                    var year = date.getFullYear();
-
-                    day = day < 10 ? "0" + day : day;
-                    month = month < 10 ? "0" + month : month;
-                    return day + "-" + month + "-" + year;
+                    var date = new Date(data + "Z");
+                    var date1 = new Date(date).toISOString().split("T")[0];
+                    return date1;
                 },
             },
             { data: "NamaMesin" },
@@ -247,35 +228,121 @@ $(document).ready(function () {
             deleteButton.disabled = false;
             updateButton.disabled = false;
 
-            var selectedRow = $(this).closest("tr");
-
-            var selectedDate = selectedRow.find("td:eq(1)").text();
-            var selectedMesin = selectedRow.find("td:eq(2)").text();
-            var selectedJamOperasi = selectedRow.find("td:eq(3)").text();
-            var selectedSparepart = selectedRow.find("td:eq(4)").text();
-            var selectedKeterangan = selectedRow.find("td:eq(5)").text();
-            var selectedTeknisi = selectedRow.find("td:eq(6)").text();
-
             var selectedNomorPerawatan = $(this).val();
 
             $("#hiddenNomorPerawatan").val(selectedNomorPerawatan);
-            // Set the values in your form inputs
-            $("#tanggal").val(selectedDate);
-            $("#select_mesin").val(selectedMesin);
-            $("#jam_operasi").val(selectedJamOperasi);
-            $("#select_sparepart").val(selectedSparepart);
-            $("#select_keterangan").val(selectedKeterangan);
-            $("#select_teknisi").val(selectedTeknisi);
 
-            console.log("Selected NomorPerawatan: ", selectedNomorPerawatan);
-            console.log("Selected Date: ", selectedDate);
-            console.log("Selected Mesin: ", selectedMesin);
-            console.log("Selected Jam: ", selectedJamOperasi);
-            console.log("Selected Sparepart: ", selectedSparepart);
-            console.log("Selected Keterangan: ", selectedKeterangan);
-            console.log("Selected Teknisi: ", selectedTeknisi);
+            $.ajax({
+                url: "/get-perawatan-compressor",
+                type: "GET",
+                data: { id: selectedNomorPerawatan },
+                success: function (data) {
+                    // console.log(data);
+
+                    var date = new Date(data.Tanggal + "Z");
+                    tanggal.value = date.toISOString().split("T")[0];
+                    mesin.value = data.NoMesin;
+                    jam.value = data.JamOperasi;
+                    part.value = data.IdPart;
+                    // keterangan.value = data.NoKeteranganPart;
+                    teknisi.value = data.Teknisi;
+
+                    getKeteranganData(data.IdPart);
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching data:", error);
+                },
+            });
+        } else {
+            clearForm();
         }
     });
+
+    // Save Data Perawatan
+    $("#saveButton").click(function () {
+        var tanggalValue = $("#tanggal").val();
+        var noMesinValue = $("#select_mesin").val();
+        var jamOperasiValue = $("#jam_operasi").val();
+        var PartValue = $("#select_sparepart").val();
+        var keteranganValue = $("#select_keterangan").val();
+        var teknisiValue = $("#select_teknisi").val();
+        var idValue = id.value;
+
+        var csrfToken = $('meta[name="csrf-token"]').attr("content");
+
+        var requestData = {
+            Tanggal: tanggalValue,
+            NoMesin: noMesinValue,
+            JamOperasi: jamOperasiValue,
+            IdPart: PartValue,
+            Keterangan: keteranganValue,
+            Teknisi: teknisiValue,
+        };
+        if (idValue) {
+            requestData.id = idValue;
+        }
+
+        $.ajax({
+            url: idValue ? "/update-perawatan" : "/save-perawatan",
+            method: idValue ? "PUT" : "POST",
+            data: requestData,
+            headers: {
+                "X-CSRF-TOKEN": csrfToken,
+            },
+            success: function (response) {
+                idValue
+                    ? Swal.fire({
+                          icon: "success",
+                          title: "Data Berhasil Diperbarui!",
+                          showConfirmButton: false,
+                          timer: "2000",
+                      })
+                    : Swal.fire({
+                          icon: "success",
+                          title: "Data Berhasil Disimpan!",
+                          showConfirmButton: false,
+                          timer: "2000",
+                      });
+                clearForm();
+                dataTable.ajax.reload();
+            },
+            error: function (error) {
+                console.error("Error saving data:", error);
+            },
+        });
+    });
+
+    function getKeteranganData(idPart) {
+        $.ajax({
+            url: "/get-keterangan",
+            method: "GET",
+            data: { idPart: idPart },
+            success: function (data) {
+                // console.log(data);
+                var selectKeterangan = $("#select_keterangan");
+                selectKeterangan
+                    .empty()
+                    .append(
+                        "<option selected disabled>Pilih keterangan...</option>"
+                    );
+
+                $.each(data, function (index, item) {
+                    selectKeterangan.append(
+                        '<option value="' +
+                            item.NoKeteranganPart +
+                            '">' +
+                            item.Keterangan +
+                            "</option>"
+                    );
+                });
+
+                selectKeterangan.prop("disabled", true);
+            },
+            error: function (error) {
+                console.log(error);
+            },
+        });
+    }
 
     // DeleteButton click
     $("#deleteButton").click(function (e) {
@@ -301,15 +368,15 @@ $(document).ready(function () {
                 "X-CSRF-TOKEN": csrfToken,
             },
             success: function (response) {
-                dataTable.ajax.reload();
                 Swal.fire({
-                    icon : "success",
-                    title : "Terhapus!",
-                    text : "Data Berhasil Dihapus!",
-                    showConfirmButton : false,
-                    timer : "2000"
+                    icon: "success",
+                    title: "Terhapus!",
+                    text: "Data Berhasil Dihapus!",
+                    showConfirmButton: false,
+                    timer: "2000",
                 });
-                console.log("data delete successfully", response);
+                dataTable.ajax.reload();
+                clearForm();
             },
             error: function (error) {
                 console.error("Error delete Data : ", error.responseText);

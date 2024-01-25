@@ -95,8 +95,8 @@ function checkAllFieldsFilled() {
         tambahbbm.value.trim() !== "" &&
         tambahoil.value.trim() !== "" &&
         statuslog.value.trim() !== "" &&
-        keterangan.value.trim() !== "" &&
-        teknisi.value.trim() !== ""
+        teknisi.value.trim() !== "" &&
+        keterangan.value.trim() !== ""
     );
 }
 
@@ -109,13 +109,13 @@ function checkAllFieldsFilled() {
     lubeoil,
     coolwater,
     volt,
-    amp,
     hz,
+    amp,
     tambahbbm,
     tambahoil,
     statuslog,
-    keterangan,
     teknisi,
+    keterangan,
 ].forEach(function (inputField) {
     inputField.addEventListener("input", function () {
         saveButton.disabled = !checkAllFieldsFilled();
@@ -141,6 +141,7 @@ inputButton.addEventListener("click", function () {
     keterangan.disabled = false;
     updateButton.disabled = true;
     deleteButton.disabled = true;
+    saveButton.disabled = false;
 
     // Clear Form
     clearForm();
@@ -166,7 +167,8 @@ updateButton.addEventListener("click", function () {
     teknisi.disabled = false;
     keterangan.disabled = false;
     deleteButton.disabled = true;
-    // inputButton.disabled = true;
+    saveButton.disabled = false;
+    inputButton.disabled = true;
 });
 
 // CancelButton click
@@ -188,6 +190,7 @@ cancelButton.addEventListener("click", function () {
     keterangan.disabled = true;
     updateButton.disabled = true;
     deleteButton.disabled = true;
+    saveButton.disabled = true;
 
     // Clear Form
     clearForm();
@@ -232,7 +235,7 @@ $(document).ready(function () {
                     return date1;
                 },
             },
-            { data: "NoMesin" },
+            { data: "NamaMesin" },
             {
                 data: "JamAwalProduksi",
                 render: function (data, type, full, meta) {
@@ -337,12 +340,19 @@ $(document).ready(function () {
             },
             success: function (response) {
                 console.log(requestData);
-                Swal.fire({
-                    icon: "success",
-                    title: "Data Berhasil Disimpan!",
-                    showConfirmButton: false,
-                    timer: "2000",
-                });
+                nomorgenzetValue
+                    ? Swal.fire({
+                          icon: "success",
+                          title: "Data Berhasil Diperbarui!",
+                          showConfirmButton: false,
+                          timer: "2000",
+                      })
+                    : Swal.fire({
+                          icon: "success",
+                          title: "Data Berhasil Disimpan!",
+                          showConfirmButton: false,
+                          timer: "2000",
+                      });
                 clearForm();
             },
             error: function (error) {
@@ -371,7 +381,7 @@ $(document).ready(function () {
                 type: "GET",
                 data: { nomorGenzet: selectedNomorgenzet },
                 success: function (data) {
-                    // console.log(data);
+                    console.log(data);
 
                     var date = new Date(data.Tanggal + "Z");
                     tanggal.value = date.toISOString().split("T")[0];
@@ -443,8 +453,6 @@ $(document).ready(function () {
             },
             success: function (response) {
                 console.log(requestData);
-                dataTable.ajax.reload();
-                clearForm();
                 Swal.fire({
                     icon: "success",
                     title: "Terhapus!",
@@ -453,6 +461,8 @@ $(document).ready(function () {
                     timer: "2000",
                 });
                 console.log("data delete successfully", response);
+                dataTable.ajax.reload();
+                clearForm();
             },
             error: function (error) {
                 console.error("Error delete Data : ", error.responseText);
@@ -460,6 +470,8 @@ $(document).ready(function () {
         });
     });
 });
+
+// ------------------------------------------------------------------------------------------------------------------------------------- //
 
 // Modal Status Log
 
@@ -473,19 +485,19 @@ saveButtonStatusLog.disabled = true;
 updateButtonStatusLog.disabled = true;
 deleteButtonStatusLog.disabled = true;
 
-// Function to check if all fields are filled
-function checkAllFieldsFilled() {
+function checkAllFieldsFilled1() {
     return StatusLog.value.trim() !== "";
 }
 
 // Add event listeners to enable/disable saveButton based on input field values
 [StatusLog].forEach(function (inputField) {
     inputField.addEventListener("input", function () {
-        saveButtonStatusLog.disabled = !checkAllFieldsFilled();
-        updateButtonStatusLog.disabled = !checkAllFieldsFilled();
-        deleteButtonStatusLog.disabled = !checkAllFieldsFilled();
+        saveButtonStatusLog.disabled = !checkAllFieldsFilled1();
+        updateButtonStatusLog.disabled = !checkAllFieldsFilled1();
+        deleteButtonStatusLog.disabled = !checkAllFieldsFilled1();
     });
 });
+
 $(document).ready(function () {
     $("#ModalStatusLogButton").on("click", function () {
         $("#statuslogmodalinput").val("");
@@ -545,6 +557,8 @@ $(document).ready(function () {
         } else {
             $("#statuslogmodalinput").val("");
             $("#hiddenIdStatusLog").val("");
+            updateButtonStatusLog.disabled = true;
+            deleteButtonStatusLog.disabled = true;
         }
     });
 
@@ -652,16 +666,16 @@ updateButtonTeknisi.disabled = true;
 deleteButtonTeknisi.disabled = true;
 
 // Function to check if all fields are filled
-function checkAllFieldsFilled() {
+function checkAllFieldsFilled2() {
     return Teknisi.value.trim() !== "";
 }
 
 // Add event listeners to enable/disable saveButton based on input field values
 [Teknisi].forEach(function (inputField) {
     inputField.addEventListener("input", function () {
-        saveButtonTeknisi.disabled = !checkAllFieldsFilled();
-        updateButtonTeknisi.disabled = !checkAllFieldsFilled();
-        deleteButtonTeknisi.disabled = !checkAllFieldsFilled();
+        saveButtonTeknisi.disabled = !checkAllFieldsFilled2();
+        updateButtonTeknisi.disabled = !checkAllFieldsFilled2();
+        deleteButtonTeknisi.disabled = !checkAllFieldsFilled2();
     });
 });
 $(document).ready(function () {

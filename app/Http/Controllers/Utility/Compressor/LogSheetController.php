@@ -50,7 +50,7 @@ class LogSheetController extends Controller
     public function updateDataLogSheet(Request $request)
     {
         try {
-            $id = $request->input('NoLogSheet');
+            $id = $request->input('id');
             $Tanggal = $request->input('Tanggal');
             $Mesin = $request->input('Mesin');
             $Jam = $request->input('Jam');
@@ -84,6 +84,17 @@ class LogSheetController extends Controller
             : DB::connection('ConnUtility')->select('exec SP_LIST_LOG_SHEET_BLN_TAHUN @date1 = ?, @date2 = ?, @NoMesin = ?', [$date1, $date2, $NoMesin]);
 
         return datatables($listLogSheet)->make(true);
+    }
+    public function getDataLogSheetById(Request $request)
+    {
+        $id = $request->input('id');
+        $data = DB::connection('ConnUtility')->table('LOG_SHEET_COMPRESSOR')->where('NoLogSheet', $id)->first();
+
+        if (!$data) {
+            return response()->json(['message' => 'Data not found'], 404);
+        }
+
+        return response()->json($data, 200);
     }
 
     public function deleteDataLogSheet(Request $request)

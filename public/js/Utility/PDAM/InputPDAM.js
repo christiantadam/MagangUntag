@@ -5,6 +5,7 @@ let nometer = document.getElementById("nometer");
 let nometersearch = document.getElementById("nometersearch");
 let counter = document.getElementById("counter");
 let teknisi = document.getElementById("teknisi");
+let id = document.getElementById("hiddenNomorpdam");
 
 // tanggal form
 var tanggal_Input = document.getElementById("tanggal");
@@ -31,6 +32,17 @@ let refreshButton = document.getElementById("refreshButton");
 
 // Checkbox
 // let checkboxpdam = document.getElementsByClassName("checkboxpdam");
+
+function clearForm(){
+
+    // tanggal.value = "";
+    jam.value = "";
+    nometer.value = "";
+    counter.value = "";
+    teknisi.value = "";
+    id.value = "";
+
+}
 
 saveButton.disabled = true;
 tanggal.disabled = true;
@@ -83,11 +95,7 @@ cancelButton.addEventListener("click", function () {
     deleteButton.disabled = false;
 
     // Clear Form
-    // tanggal.value = "";
-    jam.value = "";
-    nometer.value = "";
-    counter.value = "";
-    teknisi.value = "";
+    clearForm();
 
     // Disable saveButton
     saveButton.disabled = true;
@@ -96,13 +104,8 @@ cancelButton.addEventListener("click", function () {
 // Reload Window
 window.addEventListener("beforeunload", function () {
 
-    jam.value = "";
-    nometer.value = "";
-    counter.value = "";
-    teknisi.value = "";
+    clearForm();
     nometersearch.value = "";
-
-
     // Disable saveButton
     saveButton.disabled = true;
 });
@@ -154,6 +157,7 @@ $(document).ready(function () {
                     timer: "2000",
                 });
                 console.error("Error saving data:", error);
+                clearForm();
             },
         });
     });
@@ -271,7 +275,6 @@ $(document).ready(function () {
             },
             success: function (response) {
                 console.log(requestData);
-                dataTable.ajax.reload();
                 Swal.fire({
                     icon: "success",
                     title: "Terhapus!",
@@ -280,6 +283,8 @@ $(document).ready(function () {
                     timer: "2000",
                 });
                 console.log("data delete successfully", response);
+                dataTable.ajax.reload();
+                clearForm();
             },
             error: function (error) {
                 console.error("Error delete Data : ", error.responseText);

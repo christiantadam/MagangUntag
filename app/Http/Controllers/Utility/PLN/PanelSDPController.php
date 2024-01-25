@@ -9,20 +9,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\HakAksesController;
 
 
-class InputPLNController extends Controller
+class PanelSDPController extends Controller
 {
-    // Display a listing of the resource.
-    public function index()
-    {
-
-        $teknisi = DB::connection('ConnUtility')->select('exec SP_LIST_TEKNISI_GENZET');
-        $spd = DB::connection('ConnUtility')->select('exec SP_LIST_PRODUKSI_SPD');
-
-        $access = (new HakAksesController)->HakAksesFiturMaster('Utility');
-        return view('Utility.PLN.InputPLN', compact('teknisi','spd', 'access'));
-    }
-
-    public function createPLN(Request $request)
+    public function createSDP(Request $request)
     {
         try {
             $tanggal = $request->input('Tanggal');
@@ -39,7 +28,7 @@ class InputPLNController extends Controller
             return redirect()->back()->with('error', 'An error occurred while saving the data. Please try again.');
         }
     }
-    public function updatePLN(Request $request)
+    public function updateSDP(Request $request)
     {
         try {
             $tanggal = $request->input('Tanggal');
@@ -59,14 +48,16 @@ class InputPLNController extends Controller
     }
 
     //Display the specified resource.
-    public function getPLN(Request $request)
+    public function getSDP(Request $request)
     {
         try {
-            //code...
-            $date1 = $request->input('date1');
-            $date2 = $request->input('date2');
+            $bulan = $request->input('bulan');
+            $tahun = $request->input('tahun');
+            $produksi = $request->input('produksi');
 
-            $data = DB::connection('ConnUtility')->select('exec SP_LIST_PLN_BLN_TAHUN2 @date1 = ?, @date2 = ?', [$date1, $date2]);
+            $data = ($produksi == 0 || $produksi == null)
+            ? DB::connection('ConnUtility')->select('exec SP_LIST_SPD_BLN_TAHUN @bulan = ?, @tahun = ?, @NoProduksi = 0', [$bulan, $tahun])
+            : DB::connection('ConnUtility')->select('exec SP_LIST_SPD_BLN_TAHUN @bulan = ?, @tahun = ?, @NoProduksi = ?', [$bulan, $tahun, $produksi]);
 
             return datatables($data)->make(true);
         } catch (\Throwable $th) {
@@ -74,7 +65,7 @@ class InputPLNController extends Controller
         }
     }
 
-    public function deletePLN(Request $request)
+    public function deleteSDP(Request $request)
     {
         try {
             $nomor = $request->input('Nomor');
