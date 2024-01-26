@@ -56,8 +56,6 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- Baris-baris tabel yang dapat diisi akan ditambahkan melalui JavaScript atau PHP/Laravel -->
-                                        <!-- Contoh baris kosong -->
                                         <tr>
                                             <td></td>
                                             <td></td>
@@ -65,13 +63,6 @@
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                            {{-- <td contenteditable="true"></td>
-                                            <td contenteditable="true"></td>
-                                            <td contenteditable="true"></td>
-                                            <td contenteditable="true"></td>
-                                            <td contenteditable="true"></td>
-                                            <td contenteditable="true"></td>
-                                            <td contenteditable="true"></td> --}}
                                         </tr>
                                     </tbody>
                                 </table>
