@@ -181,20 +181,22 @@ class PurchaseOrderController extends Controller
         $MaxDate = $request->input('MaxDate');
         $noPO = $request->input('noPO');
         $kd = 22;
-        // info("Request: MaxDate=$MaxDate, MinDate=$MinDate, noPO=$noPO");
 
-        // $purchaseorder = ($noPO == 0)
-        // ? DB::connection('ConnPurchase')->select('SP_5409_LIST_ORDER @kd = 22, , @MinDate = ? @MaxDate = ?', [ $MinDate,$MaxDate])
-        // : DB::connection('ConnPurchase')->select('SP_5409_LIST_ORDER @kd = 21,@MinDate = ?, @MaxDate = ?,  @noPO = ?', [$MinDate,$MaxDate]);
-        $purchaseorder = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd =?, @noPO =?, @MinDate=?, @MaxDate=?', [$kd, $noPO, $MinDate, $MaxDate]);
-        // info("Query Result: " . json_encode($purchaseorder));
-
-        // dd(
-        //     $purchaseorder
-        // );
+        $purchaseorder = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd =?, @noPO =?, @MinDate=?, @MaxDate=?',[$kd,$noPO,$MinDate,$MaxDate]);
 
         return response()->json($purchaseorder);
     }
+
+    public function display(Request $request)
+    {
+        $noPO = $request->input('noPO');
+        $kd = 21;
+
+        $purchaseorder = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd =?, @noPO =?',[$kd,$noPO]);
+
+        return response()->json($purchaseorder);
+    }
+
 
     //Show the form for editing the specified resource.
     public function edit($id)
