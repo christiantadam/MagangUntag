@@ -1,6 +1,7 @@
 @extends('layouts.appUtility')
 @section('content')
     @include('Utility.PLN.PanelSDP')
+    @include('Utility.PLN.BeritaAcara')
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-10 RDZMobilePaddingLR0">
@@ -94,7 +95,8 @@
                                 <div class="d-flex justify-content-between flex-wrap">
                                     <button class="btn btn-primary mb-2" data-bs-toggle="modal"
                                         data-bs-target="#modalPanel" type="button">Panel SDP</button>
-                                    <button class="btn btn-primary mb-2" type="button">Berita Acara</button>
+                                    <button class="btn btn-primary mb-2" data-bs-toggle="modal"
+                                        data-bs-target="#modalBerita" type="button">Berita Acara</button>
                                 </div>
                             </div>
                         </div>

@@ -40,7 +40,7 @@
                             <select class="form-select" aria-label="Default select example" id="teknisi-sdp">
                                 <option selected disabled>Pilih...</option>
                                 @foreach ($teknisi as $data)
-                                    <option value="{{ $data->NoTeknisi }}">
+                                    <option value="{{ $data->NamaTeknisi }}">
                                         {{ $data->NamaTeknisi }}</option>
                                 @endforeach
                             </select>
@@ -84,7 +84,7 @@
                             </div>
                             <div class="d-flex gap-2">
                                 <select class="form-select" aria-label="Default select example" id="produksiSearch-sdp">
-                                    <option selected disabled>Pilih...</option>
+                                    <option selected value="0">Pilih Semua...</option>
                                     @foreach ($spd as $data)
                                         <option value="{{ $data->NoProduksi }}">
                                             {{ $data->Produksi }}</option>
@@ -113,7 +113,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Keluar</button>
+                <button type="button" class="btn btn-danger" id="exitButton-sdp" data-bs-dismiss="modal">Keluar</button>
             </div>
         </div>
     </div>

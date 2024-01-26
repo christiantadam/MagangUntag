@@ -428,6 +428,8 @@ inputButtonSDP.addEventListener("click", function () {
     updateButtonSDP.disabled = true;
     deleteButtonSDP.disabled = true;
     nomorsdp.value = "";
+    $(".checkboxsdp").prop("checked", false);
+    clearFormSDP();
 });
 // UpdateButton click
 updateButtonSDP.addEventListener("click", function () {
@@ -482,7 +484,9 @@ cancelButtonSDP.addEventListener("click", function () {
 // Reload Window
 window.addEventListener("beforeunload", function () {
     clearFormSDP();
-
+    $("#bulan-sdp").val("");
+    $("#tahun-sdp").val("");
+    $("#produksiSearch-sdp").val("");
     // Disable saveButton
     saveButtonSDP.disabled = true;
 });
@@ -504,12 +508,12 @@ $(document).ready(function () {
             Produksi: produksiSDPValue,
             Tanggal: tanggalSDPValue,
             Jam: jamSDPValue,
-            Kwh: kwhValue,
+            KWH: kwhValue,
             ct: ctFaktorValue,
             Teknisi: teknisiSDPValue,
         };
         if (nomorsdpValue) {
-            requestData.NomorSDP = nomorsdpValue;
+            requestData1.NomorSDP = nomorsdpValue;
         }
         $.ajax({
             url: nomorsdpValue ? "/update-sdp" : "/save-sdp",
@@ -519,7 +523,7 @@ $(document).ready(function () {
                 "X-CSRF-TOKEN": csrfToken,
             },
             success: function (response) {
-                console.log(requestData);
+                console.log(requestData1);
                 console.log(nomorsdpValue);
                 Swal.fire({
                     icon: "success",
@@ -534,6 +538,7 @@ $(document).ready(function () {
                 produksiSDP.disabled = true;
                 ct_faktorSDP.disabled = true;
                 teknisiSDP.disabled = true;
+                dataTableSDP.ajax.reload();
             },
             error: function (error) {
                 Swal.fire({
@@ -608,38 +613,52 @@ $(document).ready(function () {
         dataTableSDP.ajax.reload();
     });
 
+    $("#exitButton-sdp").click(function (e) {
+        e.preventDefault();
+        clearFormSDP();
+        dataTableSDP.ajax.reload();
+    });
+
     // Checkbox click
-    $("tbody").on("click", ".checkboxpln", function () {
+    $("tbody").on("click", ".checkboxsdp", function () {
         if ($(this).prop("checked")) {
-            deleteButton.disabled = false;
-            updateButton.disabled = false;
-
-            var selectedRow = $(this).closest("tr");
-
-            var selectedDate = selectedRow.find("td:eq(1)").text();
-            var selectedJam = selectedRow.find("td:eq(2)").text();
-            var selectedLWBP = selectedRow.find("td:eq(3)").text();
-            var selectedWBP = selectedRow.find("td:eq(4)").text();
-            var selectedKVAR = selectedRow.find("td:eq(5)").text();
-            var selectedTeknisi = selectedRow.find("td:eq(6)").text();
+            deleteButtonSDP.disabled = false;
+            updateButtonSDP.disabled = false;
 
             var selectedNomorSDP = $(this).val();
 
             $("#hiddenNomorsdp").val(selectedNomorSDP);
-            $("#tanggal").val(selectedDate);
-            $("#jam").val(selectedJam);
-            $("#lwbp").val(selectedLWBP);
-            $("#wbp").val(selectedWBP);
-            $("#kvar").val(selectedKVAR);
-            $("#teknisi").val(selectedTeknisi);
 
-            console.log("Selected Nomorpln: ", selectedNomorPLN);
-            console.log("Selected Date: ", selectedDate);
-            console.log("Selected Jam: ", selectedJam);
-            console.log("Selected LWBP: ", selectedLWBP);
-            console.log("Selected WBP: ", selectedWBP);
-            console.log("Selected KVAR: ", selectedKVAR);
-            console.log("Selected Teknisi: ", selectedTeknisi);
+            $.ajax({
+                url: "/get-sdp-id",
+                type: "GET",
+                data: { idSDP: selectedNomorSDP },
+                success: function (data) {
+                    console.log(data);
+
+                    produksiSDP.value = data.NoProduksi;
+                    var date = new Date(data.Tanggal + "Z");
+                    tanggalSDP.value = date.toISOString().split("T")[0];
+
+                    var startHours = new Date(data.Jam + "Z")
+                        .getUTCHours()
+                        .toString()
+                        .padStart(2, "0");
+                    var startMinutes = new Date(data.Jam + "Z")
+                        .getUTCMinutes()
+                        .toString()
+                        .padStart(2, "0");
+                    jamSDP.value = startHours + ":" + startMinutes;
+
+                    kwhSDP.value = data.KWH;
+                    teknisiSDP.value = data.Teknisi;
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching data:", error);
+                },
+            });
+        } else {
+            clearFormSDP();
         }
     });
 
@@ -649,7 +668,7 @@ $(document).ready(function () {
 
         var csrfToken = $('meta[name="csrf-token"]').attr("content");
 
-        var checkboxValues = $(".checkboxpln:checked")
+        var checkboxValues = $(".checkboxsdp:checked")
             .map(function () {
                 return this.value;
             })
@@ -660,17 +679,17 @@ $(document).ready(function () {
             Swal.fire({
                 icon: "error",
                 title: "Tidak Ada Data Terpilih",
-                text: "Pilih setidaknya satu data PLN untuk dihapus.",
+                text: "Pilih setidaknya satu data SDP untuk dihapus.",
             });
             return; // Abort further processing
         }
 
         var requestData = {
-            Nomor: checkboxValues,
+            NomorSDP: checkboxValues,
         };
 
         $.ajax({
-            url: "/delete-pln",
+            url: "/delete-sdp",
             method: "DELETE",
             data: requestData,
             headers: {
@@ -696,4 +715,420 @@ $(document).ready(function () {
 });
 
 // ------------------------------------------------------------------------------------------------------------------------------------- //
-// Panel SDP //
+// Berita Acara //
+
+// Form Input
+let nomorBA = document.getElementById("nomor-ba");
+let tanggalBA = document.getElementById("tanggal-ba");
+let lwbpBA = document.getElementById("lwbp-ba");
+let wbpBA = document.getElementById("wbp-ba");
+let kvarhBA = document.getElementById("kvarh-ba");
+let kvaBA = document.getElementById("kva-ba");
+let posisiJamBA = document.getElementById("posisijam-ba");
+let timeswitchBA = document.getElementById("timeswitch-ba");
+let pelangganBA = document.getElementById("pelanggan-ba");
+let pembacaBA = document.getElementById("pembaca-ba");
+
+// tanggal form
+var tanggal_Input = document.getElementById("tanggal-ba");
+var tanggal_Output = new Date().toISOString().split("T")[0];
+tanggal_Input.value = tanggal_Output;
+
+// Form Button
+let inputButtonBA = document.getElementById("inputButton-ba");
+let cancelButtonBA = document.getElementById("cancelButton-ba");
+let updateButtonBA = document.getElementById("updateButton-ba");
+let deleteButtonBA = document.getElementById("deleteButton-ba");
+let saveButtonBA = document.getElementById("saveButton-ba");
+let refreshButtonBA = document.getElementById("refreshButton-ba");
+
+// Checkbox
+let nomorba = document.getElementById("hiddenNomorBA");
+
+function clearFormBA() {
+    nomorBA.value = "";
+    tanggalBA.value = "";
+    lwbpBA.value = "";
+    wbpBA.value = "";
+    kvarhBA.value = "";
+    kvaBA.value = "";
+    posisiJamBA.value = "";
+    timeswitchBA.value = "";
+    pelangganBA.value = "";
+    pembacaBA.value = "";
+}
+
+nomorBA.disabled = true;
+tanggalBA.disabled = true;
+lwbpBA.disabled = true;
+wbpBA.disabled = true;
+kvarhBA.disabled = true;
+kvaBA.disabled = true;
+posisiJamBA.disabled = true;
+timeswitchBA.disabled = true;
+pelangganBA.disabled = true;
+pembacaBA.disabled = true;
+
+updateButtonBA.disabled = true;
+deleteButtonBA.disabled = true;
+saveButtonBA.disabled = true;
+
+function checkAllFieldsFilled2() {
+    return (
+        tanggalBA.value.trim() !== "" &&
+        lwbpBA.value.trim() !== "" &&
+        wbpBA.value.trim() !== "" &&
+        kvarhBA.value.trim() !== "" &&
+        kvaBA.value.trim() !== "" &&
+        posisiJamBA.value.trim() !== "" &&
+        timeswitchBA.value.trim() !== "" &&
+        pelangganBA.value.trim() !== "" &&
+        pembacaBA.value.trim() !== ""
+    );
+}
+
+[
+    tanggalBA,
+    lwbpBA,
+    wbpBA,
+    kvarhBA,
+    kvaBA,
+    posisiJamBA,
+    timeswitchBA,
+    pelangganBA,
+    pembacaBA,
+].forEach(function (inputField) {
+    inputField.addEventListener("input", function () {
+        saveButtonBA.disabled = !checkAllFieldsFilled2();
+    });
+});
+
+// InputButton click
+inputButtonBA.addEventListener("click", function () {
+    nomorBA.disabled = false;
+    tanggalBA.disabled = false;
+    lwbpBA.disabled = false;
+    wbpBA.disabled = false;
+    kvarhBA.disabled = false;
+    kvaBA.disabled = false;
+    posisiJamBA.disabled = false;
+    timeswitchBA.disabled = false;
+    pelangganBA.disabled = false;
+    pembacaBA.disabled = false;
+    updateButtonBA.disabled = true;
+    deleteButtonBA.disabled = true;
+    $(".checkboxba").prop("checked", false);
+    clearFormBA();
+});
+// UpdateButton click
+updateButtonBA.addEventListener("click", function () {
+    nomorBA.disabled = false;
+    tanggalBA.disabled = false;
+    lwbpBA.disabled = false;
+    wbpBA.disabled = false;
+    kvarhBA.disabled = false;
+    kvaBA.disabled = false;
+    posisiJamBA.disabled = false;
+    timeswitchBA.disabled = false;
+    pelangganBA.disabled = false;
+    pembacaBA.disabled = false;
+    inputButtonBA.disabled = true;
+    deleteButtonBA.disabled = true;
+
+    var checkboxValues = $(".checkboxba:checked")
+        .map(function () {
+            return this.value;
+        })
+        .get();
+
+    // Check if there are selected checkboxes
+    if (checkboxValues.length === 0) {
+        Swal.fire({
+            icon: "error",
+            title: "Tidak Ada Data Terpilih",
+            text: "Pilih setidaknya satu data SDP untuk update.",
+        });
+    } else {
+    }
+});
+
+// CancelButton click
+cancelButtonBA.addEventListener("click", function () {
+    nomorBA.disabled = true;
+    tanggalBA.disabled = true;
+    lwbpBA.disabled = true;
+    wbpBA.disabled = true;
+    kvarhBA.disabled = true;
+    kvaBA.disabled = true;
+    posisiJamBA.disabled = true;
+    timeswitchBA.disabled = true;
+    pelangganBA.disabled = true;
+    pembacaBA.disabled = true;
+    inputButtonBA.disabled = false;
+    updateButtonBA.disabled = false;
+    deleteButtonBA.disabled = false;
+
+    // Clear Form
+    clearFormBA();
+
+    $(".checkboxba").prop("checked", false);
+    // Disable saveButton
+    saveButtonBA.disabled = true;
+});
+
+// Reload Window
+window.addEventListener("beforeunload", function () {
+    clearFormBA();
+    $("#tahun-ba").val("");
+    // Disable saveButton
+    saveButtonBA.disabled = true;
+});
+
+$(document).ready(function () {
+    // console.log(checkboxpln.value)
+    $("#saveButton-ba").click(function () {
+        var nomorBAValue = nomorBA.value;
+        var tanggalBAValue = tanggalBA.value;
+        var lwbpBAValue = lwbpBA.value;
+        var wbpBAValue = wbpBA.value;
+        var kvarhBAValue = kvarhBA.value;
+        var kvaBAValue = kvaBA.value;
+        var posisiJamBAValue = posisiJamBA.value;
+        var timeswitchBAValue = timeswitchBA.value;
+        var pelangganBAValue = pelangganBA.value;
+        var pembacaBAValue = pembacaBA.value;
+
+        var csrfToken = $('meta[name="csrf-token"]').attr("content");
+
+        var requestData2 = {
+            nomorBA: nomorBAValue,
+            TanggalBA: tanggalBAValue,
+            lwbpBA: lwbpBAValue,
+            wbpBA: wbpBAValue,
+            kvarhBA: kvarhBAValue,
+            kvaBA: kvaBAValue,
+            posisiJamBA: posisiJamBAValue,
+            timeswitchBA: timeswitchBAValue,
+            pelangganBA: pelangganBAValue,
+            pembacaBA: pembacaBAValue,
+        };
+        // if (nomorBAValue) {
+        //     requestData2.nomorBA = nomorBAValue;
+        // }
+        $.ajax({
+            url: "/save-ba",
+            // url: nomorBAValue ? "/update-ba" : "/save-ba",
+            method: "POST",
+            // method: nomorBAValue ? "PUT" : "POST",
+            data: requestData2,
+            headers: {
+                "X-CSRF-TOKEN": csrfToken,
+            },
+            success: function (response) {
+                console.log(requestData2);
+                console.log(nomorBAValue);
+                Swal.fire({
+                    icon: "success",
+                    title: "Data Berita Acara Berhasil Disimpan!",
+                    showConfirmButton: false,
+                    timer: "2000",
+                });
+                clearFormSDP();
+                nomorBA.disabled = true;
+                tanggalBA.disabled = true;
+                lwbpBA.disabled = true;
+                wbpBA.disabled = true;
+                kvarhBA.disabled = true;
+                kvaBA.disabled = true;
+                posisiJamBA.disabled = true;
+                timeswitchBA.disabled = true;
+                pelangganBA.disabled = true;
+                pembacaBA.disabled = true;
+                dataTableBA.ajax.reload();
+            },
+            error: function (error) {
+                Swal.fire({
+                    icon: "failed",
+                    title: "Data PLN Tidak Berhasil Disimpan!",
+                    showConfirmButton: false,
+                    timer: "2000",
+                });
+                console.error("Error saving data:", error);
+            },
+        });
+    });
+
+    var dataTableBA = $("#table-berita").DataTable({
+        processing: true,
+        serverSide: true,
+        responsive: true,
+        ajax: {
+            url: "/get-ba",
+            type: "GET",
+            data: function (d) {
+                d.tahun = $("#tahun-ba").val();
+            },
+        },
+        columns: [
+            {
+                data: "Nomor",
+                render: function (data, type, full, meta) {
+                    return (
+                        '<input type="checkbox" class="checkboxba" value="' +
+                        data +
+                        '">'
+                    );
+                },
+            },
+            {
+                data: "Nomor",
+                // render: function (data, type, full, meta) {
+                //     return (
+                //         '<input type="checkbox" class="checkboxba" value="' +
+                //         data +
+                //         '">'
+                //     );
+                // },
+            },
+            {
+                data: "Tanggal",
+                render: function (data, type, full, meta) {
+                    var date = new Date(data).toISOString().split("T")[0];
+                    return date;
+                },
+            },
+            { data: "LWBP" },
+
+            { data: "WBP" },
+            { data: "KVARH" },
+            { data: "KVA_MAKS" },
+            {
+                data: "Posisi_Jam",
+                render: function (data, type, full, meta) {
+                    var date = new Date(data);
+                    var hours = date.getHours().toString().padStart(2, "0");
+                    var minutes = date.getMinutes().toString().padStart(2, "0");
+                    return hours + ":" + minutes;
+                },
+            },
+            {
+                data: "Time_Switch",
+                render: function (data, type, full, meta) {
+                    var date = new Date(data);
+                    var hours = date.getHours().toString().padStart(2, "0");
+                    var minutes = date.getMinutes().toString().padStart(2, "0");
+                    return hours + ":" + minutes;
+                },
+            },
+            { data: "Pelanggan" },
+            { data: "PembacaMeter" },
+        ],
+    });
+
+    $("#refreshButton-ba").click(function () {
+        inputButtonBA.disabled = false;
+        saveButtonBA.disabled = true;
+        updateButtonBA.disabled = true;
+        deleteButtonBA.disabled = true;
+        clearFormBA();
+        dataTableBA.ajax.reload();
+    });
+
+    $("#exitButton-ba").click(function (e) {
+        e.preventDefault();
+        clearFormSDP();
+        dataTableSDP.ajax.reload();
+    });
+
+    // Checkbox click
+    $("tbody").on("click", ".checkboxba", function () {
+        if ($(this).prop("checked")) {
+            deleteButtonBA.disabled = false;
+            updateButtonBA.disabled = false;
+
+            var selectedIdBA = $(this).val();
+
+            $("#hiddenNomorBA").val(selectedIdBA);
+
+            // $.ajax({
+            //     url: "/get-ba-id",
+            //     type: "GET",
+            //     data: { idBA: selectedIdBA },
+            //     success: function (data) {
+            //         console.log(data);
+
+            //         produksiSDP.value = data.NoProduksi;
+            //         var date = new Date(data.Tanggal + "Z");
+            //         tanggalSDP.value = date.toISOString().split("T")[0];
+
+            //         var startHours = new Date(data.Jam + "Z")
+            //             .getUTCHours()
+            //             .toString()
+            //             .padStart(2, "0");
+            //         var startMinutes = new Date(data.Jam + "Z")
+            //             .getUTCMinutes()
+            //             .toString()
+            //             .padStart(2, "0");
+            //         jamSDP.value = startHours + ":" + startMinutes;
+
+            //         kwhSDP.value = data.KWH;
+            //         teknisiSDP.value = data.Teknisi;
+            //     },
+            //     error: function (xhr, status, error) {
+            //         console.error("Error fetching data:", error);
+            //     },
+            // });
+        } else {
+            clearFormBA();
+        }
+    });
+
+    // DeleteButton click
+    $("#deleteButton-ba").click(function (e) {
+        e.preventDefault();
+        var csrfToken = $('meta[name="csrf-token"]').attr("content");
+        var checkboxValues = $(".checkboxba:checked")
+            .map(function () {
+                return this.value;
+            })
+            .get();
+        if (checkboxValues.length === 0) {
+            Swal.fire({
+                icon: "error",
+                title: "Tidak Ada Data Terpilih",
+                text: "Pilih setidaknya satu data Berita untuk dihapus.",
+            });
+            return;
+        }
+
+        var requestData3 = {
+            Nomor: checkboxValues,
+        };
+
+        $.ajax({
+            url: "/delete-ba",
+            method: "DELETE",
+            data: requestData3,
+            headers: {
+                "X-CSRF-TOKEN": csrfToken,
+            },
+            success: function (response) {
+                console.log(requestData3);
+                dataTableBA.ajax.reload();
+                Swal.fire({
+                    icon: "success",
+                    title: "Terhapus!",
+                    text: "Data Berita Acara Berhasil Dihapus!",
+                    showConfirmButton: false,
+                    timer: "2000",
+                });
+                console.log("data berita acara delete successfully", response);
+            },
+            error: function (error) {
+                console.error("Error delete Data : ", error.responseText);
+            },
+        });
+    });
+});
+
+// ------------------------------------------------------------------------------------------------------------------------------------- //

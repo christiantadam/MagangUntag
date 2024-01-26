@@ -142,9 +142,17 @@ Route::group(['middleware' => ['auth']], function () {
 
     //Panel SDP
     Route::get('/get-sdp', [App\Http\Controllers\Utility\PLN\PanelSDPController::class, 'getSDP'])->name('get-sdp');
+    Route::get('/get-sdp-id', [App\Http\Controllers\Utility\PLN\PanelSDPController::class, 'getSDPById'])->name('get-sdp-id');
     Route::put('/update-sdp', [App\Http\Controllers\Utility\PLN\PanelSDPController::class, 'updateSDP'])->name('update-sdp');
     Route::post('/save-sdp', [App\Http\Controllers\Utility\PLN\PanelSDPController::class, 'createSDP'])->name('save-sdp');
     Route::delete('/delete-sdp', [App\Http\Controllers\Utility\PLN\PanelSDPController::class, 'deleteSDP'])->name('delete-sdp');
+
+    //Berita Acara
+    Route::get('/get-ba', [App\Http\Controllers\Utility\PLN\BeritaAcaraController::class, 'getBA'])->name('get-ba');
+    Route::get('/get-ba-id', [App\Http\Controllers\Utility\PLN\BeritaAcaraController::class, 'getBAById'])->name('get-ba-id');
+    Route::put('/update-ba', [App\Http\Controllers\Utility\PLN\BeritaAcaraController::class, 'updateBA'])->name('update-ba');
+    Route::post('/save-ba', [App\Http\Controllers\Utility\PLN\BeritaAcaraController::class, 'createBA'])->name('save-ba');
+    Route::delete('/delete-ba', [App\Http\Controllers\Utility\PLN\BeritaAcaraController::class, 'deleteBA'])->name('delete-ba');
 
     #endRegion
 
