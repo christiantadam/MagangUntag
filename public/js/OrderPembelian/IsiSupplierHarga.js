@@ -62,11 +62,21 @@ btn_reject.addEventListener("click", function (event) {
             alasan: alasan_reject.value,
         },
         success: function (response) {
-            alert("Data Berhasil di Reject");
+            Swal.fire({
+                icon: "success",
+                title: "Data Berhasil DiReject!",
+                showConfirmButton: false,
+                timer: "2000",
+            });
             clearData();
-            console.log(response);
         },
         error: function (error) {
+            Swal.fire({
+                icon: "error",
+                title: "Data Tidak Berhasil DiReject!",
+                showConfirmButton: false,
+                timer: "2000",
+            });
             console.error("Error Send Data:", error);
         },
     });
@@ -118,7 +128,7 @@ function clearData() {
     idr_ppn.value = 0;
     harga_total.value = "";
     idr_harga_total.value = "";
-    kurs.value = "1";
+    kurs.value = 1;
 }
 
 btn_clear.addEventListener("click", function (event) {
@@ -150,10 +160,21 @@ btn_approve.addEventListener("click", function (event) {
             jns_beli: jenisSupplier,
         },
         success: function (response) {
-            alert("Data Berhasil di Approve");
+            Swal.fire({
+                icon: "success",
+                title: "Data Berhasil DiApprove!",
+                showConfirmButton: false,
+                timer: "2000",
+            });
             clearData();
         },
         error: function (error) {
+            Swal.fire({
+                icon: "error",
+                title: "Data Tidak Berhasil DiApprove!",
+                showConfirmButton: false,
+                timer: "2000",
+            });
             console.error("Error Send Data:", error);
         },
     });
@@ -246,24 +267,21 @@ function redisplayData(noTrans, requester, kd) {
                 let tgl = new Date(data.Tgl_Dibutuhkan)
                     .toISOString()
                     .split("T")[0];
-                document.getElementById("no_po").value = data.No_trans;
+                no_po.value = data.No_trans;
                 document.getElementById(
                     "status_beliPengadaanPembelian"
                 ).checked = data.StatusPembelian === "Pengadaan Pembelian";
                 document.getElementById("status_beliBeliSendiri").checked =
                     data.StatusPembelian === "Beli Sendiri";
-                document.getElementById("tanggal_dibutuhkan").value = tgl;
-                document.getElementById("divisi").value = data.Kd_div;
-                document.getElementById("kode_barang").value = data.Kd_brg;
-                document.getElementById("nama_barang").value = data.NAMA_BRG;
-                document.getElementById("sub_kategori").value =
-                    data.nama_sub_kategori;
-                document.getElementById("qty_order").value = data.Qty;
-                document.getElementById("user_input").value = data.Nama;
-                document.getElementById("keterangan_order").value =
-                    data.keterangan;
-                document.getElementById("keterangan_internal").value =
-                    data.Ket_Internal;
+                tanggal_dibutuhkan.value = tgl;
+                divisi.value = data.Kd_div;
+                kode_barang.value = data.Kd_brg;
+                nama_barang.value = data.NAMA_BRG;
+                sub_kategori.value = data.nama_sub_kategori;
+                qty_order.value = data.Qty;
+                user_input.value = data.Nama;
+                keterangan_order.value = data.keterangan;
+                keterangan_internal.value = data.Ket_Internal;
                 fixValueQTYOrder = data.Qty;
             });
         },

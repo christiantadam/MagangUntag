@@ -77,6 +77,8 @@ class IsiSupplierHargaController extends Controller
             } catch (\Throwable $Error) {
                 return Response()->json($Error);
             }
+        } else {
+            return Response()->json('Parameter harus di isi');
         }
     }
     public function daftarSupplier(Request $request, $id)
