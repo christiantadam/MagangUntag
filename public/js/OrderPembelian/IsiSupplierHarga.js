@@ -69,6 +69,7 @@ btn_reject.addEventListener("click", function (event) {
                 timer: "2000",
             });
             clearData();
+            $("#table_IsiHarga").DataTable().ajax.reload();
         },
         error: function (error) {
             Swal.fire({
@@ -167,6 +168,7 @@ btn_approve.addEventListener("click", function (event) {
                 timer: "2000",
             });
             clearData();
+            $("#table_IsiHarga").DataTable().ajax.reload();
         },
         error: function (error) {
             Swal.fire({
