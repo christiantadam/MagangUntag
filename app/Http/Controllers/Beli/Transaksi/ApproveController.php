@@ -64,17 +64,17 @@ class ApproveController extends Controller
 
     public function update(Request $request, $id)
     {
-        // switch ($request->input('action')) {
-        //     case 'Approve':
-        //         $date = date("Y-m-d H:i:s");
-        //         TransBL::where('No_trans', $id)->update(['Tgl_acc' => $date, 'Manager' => Auth::user()->kd_user, 'StatusOrder' => '2']);
-        //         return back();
+        switch ($request->input('action')) {
+            case 'Approve':
+                $date = date("Y-m-d H:i:s");
+                TransBL::where('No_trans', $id)->update(['Tgl_acc' => $date, 'Manager' => Auth::user()->kd_user, 'StatusOrder' => '2']);
+                return back();
 
-        //     case 'Reject':
-        //         $date = date("Y-m-d H:i:s");
-        //         TransBL::where('No_trans', $id)->update(['Tgl_Batal_acc' => $date, 'Batal_acc' => Auth::user()->kd_user, 'StatusOrder' => '6']);
-        //         return back();
-        // }
+            case 'Reject':
+                $date = date("Y-m-d H:i:s");
+                TransBL::where('No_trans', $id)->update(['Tgl_Batal_acc' => $date, 'Batal_acc' => Auth::user()->kd_user, 'StatusOrder' => '0']);
+                return back();
+        }
     }
 
     // public function destroy($id)

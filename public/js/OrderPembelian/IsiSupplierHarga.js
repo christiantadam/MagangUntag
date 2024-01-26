@@ -1,5 +1,6 @@
 let redisplay = document.getElementById("button_redisplay");
 let formCekRedisplay = document.getElementById("formCekRedisplay");
+let formApprove = document.getElementById("formApprove");
 let supplier_select = document.getElementById("supplier_select");
 let matauang_select = document.getElementById("matauang_select");
 let ppn_select = document.getElementById("ppn_select");
@@ -8,14 +9,154 @@ let kurs = document.getElementById("kurs");
 let harga_unit = document.getElementById("harga_unit");
 let harga_sub_total = document.getElementById("harga_sub_total");
 let idr_sub_total = document.getElementById("idr_sub_total");
+let idr_ppn = document.getElementById("idr_ppn");
+let harga_total = document.getElementById("harga_total");
+let idr_harga_total = document.getElementById("idr_harga_total");
+let qty_delay = document.getElementById("qty_delay");
+let qty_order = document.getElementById("qty_order");
+let btn_clear = document.getElementById("btn_clear");
+let btn_approve = document.getElementById("btn_approve");
+let btn_reject = document.getElementById("btn_reject");
+let keterangan_internal = document.getElementById("keterangan_internal");
+let keterangan_order = document.getElementById("keterangan_order");
+let user_input = document.getElementById("user_input");
+let sub_kategori = document.getElementById("sub_kategori");
+let nama_barang = document.getElementById("nama_barang");
+let kode_barang = document.getElementById("kode_barang");
+let divisi = document.getElementById("divisi");
+let no_po = document.getElementById("no_po");
+let idr_unit = document.getElementById("idr_unit");
+let alasan_reject = document.getElementById("alasan_reject");
+let tanggal_dibutuhkan = document.getElementById("tanggal_dibutuhkan");
 
+let jenisSupplier;
+let fixValueQTYOrder;
+
+let csrfToken = $('meta[name="csrf-token"]').attr("content");
 let url = window.location.href;
 let segments = url.split("/");
 let id = segments[segments.length - 1];
 
+tanggal_dibutuhkan.valueAsDate = new Date();
 redisplay.disabled = true;
-formCekRedisplay.addEventListener("change", function () {
+formCekRedisplay.addEventListener("change", function (event) {
     redisplay.disabled = !radioButtonIsSelected();
+});
+btn_reject.disabled = true;
+alasan_reject.addEventListener("input", function (event) {
+    if (alasan_reject.value.trim() !== "") {
+        btn_reject.disabled = false;
+    } else {
+        btn_reject.disabled = true;
+    }
+});
+btn_reject.addEventListener("click", function (event) {
+    $.ajax({
+        url: "/IsiSupplierHarga/" + id + "/Reject",
+        type: "POST",
+        headers: {
+            "X-CSRF-TOKEN": csrfToken,
+        },
+        data: {
+            noTrans: no_po.value,
+            alasan: alasan_reject.value,
+        },
+        success: function (response) {
+            alert("Data Berhasil di Reject");
+            clearData();
+            console.log(response);
+        },
+        error: function (error) {
+            console.error("Error Send Data:", error);
+        },
+    });
+});
+
+btn_approve.disabled = true;
+formApprove.addEventListener("change", function (event) {
+    btn_approve.disabled = !supplier_select.selectedIndex === 0;
+    if (supplier_select.selectedIndex !== 0) {
+        $.ajax({
+            url: "/IsiSupplierHarga/" + id + "/DaftarSupplier",
+            type: "GET",
+            data: {
+                idsup: supplier_select.value,
+            },
+            success: function (response) {
+                matauang_select.value = response[0].Id_MataUang;
+                matauang_select.name = response[0].Nama_MataUang;
+                jenisSupplier = response[0].JNS_SUP;
+            },
+            error: function (error) {
+                console.error("Error Send Data:", error);
+            },
+        });
+    }
+});
+
+function clearData() {
+    tanggal_dibutuhkan.valueAsDate = new Date();
+    btn_approve.disabled = true;
+    no_po.value = "";
+    divisi.value = "";
+    kode_barang.value = "";
+    nama_barang.value = "";
+    sub_kategori.value = "";
+    user_input.value = "";
+    keterangan_order.value = "-";
+    keterangan_internal.value = "-";
+    supplier_select.selectedIndex = 0;
+    matauang_select.selectedIndex = 0;
+    qty_delay.value = 0;
+    qty_order.value = 0;
+    harga_unit.value = 0;
+    idr_unit.value = 0;
+    harga_sub_total.value = 0;
+    idr_sub_total.value = 0;
+    ppn_select.value = "";
+    ppn.value = 0;
+    idr_ppn.value = 0;
+    harga_total.value = "";
+    idr_harga_total.value = "";
+    kurs.value = "1";
+}
+
+btn_clear.addEventListener("click", function (event) {
+    clearData();
+});
+btn_approve.addEventListener("click", function (event) {
+    $.ajax({
+        url: "/IsiSupplierHarga/" + id + "/Approve",
+        type: "POST",
+        headers: {
+            "X-CSRF-TOKEN": csrfToken,
+        },
+        data: {
+            Qty: qty_order.value,
+            QtyDelay: qty_delay.value,
+            idsup: supplier_select.value,
+            kurs: kurs.value,
+            pUnit: harga_unit.value,
+            pSub: harga_sub_total.value,
+            idPPN: ppn_select.value,
+            pPPN: ppn.value,
+            pTOT: harga_total.value,
+            pIDRUnit: idr_unit.value,
+            pIDRSub: idr_sub_total.value,
+            pIDRPPN: idr_ppn.value,
+            pIDRTot: idr_harga_total.value,
+            mtUang: matauang_select.value,
+            noTrans: no_po.value,
+            jns_beli: jenisSupplier,
+        },
+        success: function (response) {
+            alert("Data Berhasil di Approve");
+            clearData();
+        },
+        error: function (error) {
+            console.error("Error Send Data:", error);
+        },
+    });
 });
 
 redisplay.addEventListener("click", function (event) {
@@ -67,12 +208,12 @@ function getSelectedInputValue() {
 }
 
 function redisplayData(noTrans, requester, kd) {
-    $("#table_IsiHarga").DataTable({
+    let table = $("#table_IsiHarga").DataTable({
         responsive: true,
         processing: true,
         serverSide: true,
         ajax: {
-            url: "/IsiSupplierHargaRedisplay/" + id,
+            url: "/IsiSupplierHarga/" + id + "/Redisplay",
             type: "GET",
             data: function (data) {
                 (data.noTrans = noTrans),
@@ -101,7 +242,7 @@ function redisplayData(noTrans, requester, kd) {
             { data: "Ket_Internal" },
         ],
         rowCallback: function (row, data) {
-            $(row).on("click", function () {
+            $(row).on("click", function (event) {
                 let tgl = new Date(data.Tgl_Dibutuhkan)
                     .toISOString()
                     .split("T")[0];
@@ -123,13 +264,31 @@ function redisplayData(noTrans, requester, kd) {
                     data.keterangan;
                 document.getElementById("keterangan_internal").value =
                     data.Ket_Internal;
+                fixValueQTYOrder = data.Qty;
             });
         },
+    });
+
+    table.on("click", "tbody tr", (e) => {
+        const classList = e.currentTarget.classList;
+
+        if (classList.contains("selected")) {
+            classList.remove("selected");
+        } else {
+            table
+                .rows(".selected")
+                .nodes()
+                .each((row) => row.classList.remove("selected"));
+            classList.add("selected");
+        }
+    });
+    btn_clear.addEventListener("click", function () {
+        table.row(".selected").remove().draw(false);
     });
 }
 $(document).ready(function () {
     $.ajax({
-        url: "/DaftarData",
+        url: "/IsiSupplierHarga/" + id + "/DaftarData",
         type: "GET",
         success: function (data) {
             let matauang = data.matauang;
@@ -158,22 +317,82 @@ $(document).ready(function () {
             console.error("Error Fetch Data:", error);
         },
     });
+
+    qty_delay.addEventListener("input", function (event) {
+        qty_delay.value = qty_delay.value.replace(/\D/g, "");
+    });
+
+    qty_order.addEventListener("input", function (event) {
+        qty_order.value = qty_order.value.replace(/\D/g, "");
+    });
+
+    kurs.addEventListener("input", function (event) {
+        kurs.value = kurs.value.replace(/[^\d.]/g, "");
+    });
+
+    harga_unit.addEventListener("input", function (event) {
+        harga_unit.value = harga_unit.value.replace(/[^\d.]/g, "");
+    });
+
+    qty_delay.addEventListener("change", function (event) {
+        updateIdrUnit();
+        updateSubTotal();
+        updateIDRSubTotal();
+        updateIDRPPN();
+        updatePPN();
+        updateHargaTotal();
+        updateIDRHargaTotal();
+        updateQTYOrder();
+    });
+
+    qty_order.addEventListener("change", function (event) {
+        updateIdrUnit();
+        updateSubTotal();
+        updateIDRSubTotal();
+        updateIDRPPN();
+        updatePPN();
+        updateHargaTotal();
+        updateIDRHargaTotal();
+    });
+
     kurs.addEventListener("change", function (event) {
         updateIdrUnit();
         updateSubTotal();
         updateIDRSubTotal();
+        updateIDRPPN();
+        updatePPN();
+        updateHargaTotal();
+        updateIDRHargaTotal();
     });
     harga_unit.addEventListener("change", function (event) {
         updateIdrUnit();
         updateSubTotal();
         updateIDRSubTotal();
+        updateIDRPPN();
+        updatePPN();
+        updateHargaTotal();
+        updateIDRHargaTotal();
+    });
+    ppn_select.addEventListener("change", function (event) {
+        updatePPN();
+        updateIDRPPN();
+        updateHargaTotal();
+        updateIDRHargaTotal();
     });
 });
+
+function updateQTYOrder() {
+    let qty_orderValue = parseFloat(fixValueQTYOrder);
+    let qty_delayValue = parseFloat(document.getElementById("qty_delay").value);
+    if (!isNaN(qty_orderValue) && !isNaN(qty_delayValue)) {
+        let qtyOrderValue = qty_orderValue - qty_delayValue;
+        qty_order.value = qtyOrderValue;
+    }
+}
 
 function updateIdrUnit() {
     let kurs = parseFloat(document.getElementById("kurs").value);
     let hargaUnit = parseFloat(document.getElementById("harga_unit").value);
-    let idr_unit = document.getElementById("idr_unit");
     if (!isNaN(kurs) && !isNaN(hargaUnit)) {
         let idrUnitValue = hargaUnit * kurs;
         idr_unit.value = idrUnitValue;
@@ -191,9 +410,58 @@ function updateSubTotal() {
 
 function updateIDRSubTotal() {
     let kurs = parseFloat(document.getElementById("kurs").value);
-    let hargaSubTotal = parseFloat(document.getElementById("harga_sub_total").value);
+    let hargaSubTotal = parseFloat(
+        document.getElementById("harga_sub_total").value
+    );
     if (!isNaN(kurs) && !isNaN(hargaSubTotal)) {
         let idrSubTotalValue = hargaSubTotal * kurs;
         idr_sub_total.value = idrSubTotalValue;
+    }
+}
+
+function updatePPN() {
+    let selectedPPN = parseFloat(
+        ppn_select.options[ppn_select.selectedIndex].text
+    );
+    let hargaSubTotal = parseFloat(
+        document.getElementById("harga_sub_total").value
+    );
+    if (!isNaN(selectedPPN) && !isNaN(hargaSubTotal)) {
+        let jumPPN = (hargaSubTotal * selectedPPN) / 100;
+        ppn.value = jumPPN;
+    }
+}
+function updateIDRPPN() {
+    let selectedPPN = parseFloat(
+        ppn_select.options[ppn_select.selectedIndex].text
+    );
+    let hargaSubTotal = parseFloat(
+        document.getElementById("harga_sub_total").value
+    );
+    let kurs = parseFloat(document.getElementById("kurs").value);
+    if (!isNaN(selectedPPN) && !isNaN(hargaSubTotal) && !isNaN(kurs)) {
+        let jumPPN = (hargaSubTotal * selectedPPN) / 100;
+        let idrPPNValue = jumPPN * kurs;
+        idr_ppn.value = idrPPNValue;
+    }
+}
+
+function updateHargaTotal() {
+    let ppn = parseFloat(document.getElementById("ppn").value);
+    let hargaSubTotal = parseFloat(
+        document.getElementById("harga_sub_total").value
+    );
+    if (!isNaN(ppn) && !isNaN(hargaSubTotal)) {
+        let hargaTotalValue = hargaSubTotal + ppn;
+        harga_total.value = hargaTotalValue;
+    }
+}
+
+function updateIDRHargaTotal() {
+    let kurs = parseFloat(document.getElementById("kurs").value);
+    let hargaTotal = parseFloat(document.getElementById("harga_total").value);
+    if (!isNaN(kurs) && !isNaN(hargaTotal)) {
+        let IDRHargaTotalValue = hargaTotal * kurs;
+        idr_harga_total.value = IDRHargaTotalValue;
     }
 }

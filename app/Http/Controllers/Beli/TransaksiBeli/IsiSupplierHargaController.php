@@ -61,23 +61,89 @@ class IsiSupplierHargaController extends Controller
             return Response()->json('Parameter harus di isi');
         }
     }
-    public function daftarData()
+    public function daftarData($id)
     {
         $kd_sup = 1;
-        try {
-            $supplier = DB::connection('ConnPurchase')->select('exec SP_5409_PBL_SUPPLIER @kd = ?', [$kd_sup]);
-            $matauang = DB::connection('ConnPurchase')->select('exec SP_7775_PBL_LIST_MATA_UANG');
-            $ppn = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_PPN');
-            return Response()->json([
-                'matauang' => $matauang,
-                'supplier' => $supplier,
-                'ppn' => $ppn
-            ]);
-        } catch (\Throwable $Error) {
-            return Response()->json($Error);
+        if (($kd_sup != null)) {
+            try {
+                $supplier = DB::connection('ConnPurchase')->select('exec SP_5409_PBL_SUPPLIER @kd = ?', [$kd_sup]);
+                $matauang = DB::connection('ConnPurchase')->select('exec SP_7775_PBL_LIST_MATA_UANG');
+                $ppn = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_PPN');
+                return Response()->json([
+                    'matauang' => $matauang,
+                    'supplier' => $supplier,
+                    'ppn' => $ppn
+                ]);
+            } catch (\Throwable $Error) {
+                return Response()->json($Error);
+            }
         }
     }
-    //Show the form for editing the specified resource.
+    public function daftarSupplier(Request $request, $id)
+    {
+        $kd = 1;
+        $idsup = $request->input('idsup');
+        if (($idsup != null) || ($kd != null)) {
+            try {
+                $supplier = DB::connection('ConnPurchase')->select('exec SP_1273_PBL_LIST_SUPPLIER @kd = ?, @idsup = ?', [$kd, $idsup]);
+                return Response()->json($supplier);
+            } catch (\Throwable $Error) {
+                return Response()->json($Error);
+            }
+        } else {
+            return Response()->json('Parameter harus di isi');
+        }
+    }
+    public function approve(Request $request, $id)
+    {
+        $Operator = '1001';
+        $kd = 3;
+        $Qty = $request->input('Qty');
+        $QtyDelay = $request->input('QtyDelay');
+        $idsup = $request->input('idsup');
+        $kurs = $request->input('kurs');
+        $pUnit = $request->input('pUnit');
+        $pSub = $request->input('pSub');
+        $idPPN = $request->input('idPPN');
+        $pPPN = $request->input('pPPN');
+        $pTOT = $request->input('pTOT');
+        $pIDRUnit = $request->input('pIDRUnit');
+        $pIDRSub = $request->input('pIDRSub');
+        $pIDRPPN = $request->input('pIDRPPN');
+        $pIDRTot = $request->input('pIDRTot');
+        $jns_beli = $request->input('jns_beli');
+        $mtUang = $request->input('mtUang');
+        $noTrans = $request->input('noTrans');
+        if (($noTrans != null) || ($kd != null) || ($Qty != null) || ($QtyDelay != null) || ($idsup != null) || ($mtUang != null) || ($kurs != null) || ($pUnit != null) || ($pSub != null) || ($idPPN != null) || ($pPPN != null) || ($pTOT != null) || ($pIDRUnit != null) || ($pIDRSub != null) || ($pIDRPPN != null) || ($pIDRTot != null) || ($jns_beli != null)) {
+            try {
+                $approve = DB::connection('ConnPurchase')->statement('exec SP_5409_SAVE_ORDER @Operator = ?, @kd = ?, @Qty = ?, @QtyDelay = ?, @idsup = ?, @kurs = ?, @pUnit = ?, @pSub = ?, @idPPN = ?, @pPPN = ?, @pTOT = ?, @pIDRUnit = ?, @pIDRSub = ?, @pIDRPPN = ?, @pIDRTot = ?, @jns_beli = ?, @mtUang = ?, @noTrans = ?', [$Operator, $kd, $Qty, $QtyDelay, $idsup, $kurs, $pUnit, $pSub, $idPPN, $pPPN, $pTOT, $pIDRUnit, $pIDRSub, $pIDRPPN, $pIDRTot, $jns_beli, $mtUang, $noTrans]);
+                return Response()->json($approve);
+            } catch (\Throwable $Error) {
+                return Response()->json($Error);
+            }
+        } else {
+            return Response()->json('Parameter harus di isi');
+        }
+    }
+
+    public function reject(Request $request, $id)
+    {
+        $kd = 16;
+        $noTrans = $request->input('noTrans');
+        $alasan = $request->input('alasan');
+        $Operator = '1001';
+        if (($noTrans != null) || ($kd != null) || ($alasan != null) || ($Operator != null)) {
+            try {
+                $reject = DB::connection('ConnPurchase')->statement('exec SP_5409_SAVE_ORDER @Operator = ?, @kd = ?, @noTrans = ?, @alasan = ?', [$Operator, $kd, $noTrans, $alasan]);
+                return Response()->json($reject);
+            } catch (\Throwable $Error) {
+                return Response()->json($Error);
+            }
+        } else {
+            return Response()->json('Parameter harus di isi');
+        }
+    }
+
     public function edit($id)
     {
         dd("masuk edit");
