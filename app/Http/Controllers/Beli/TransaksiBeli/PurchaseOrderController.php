@@ -56,7 +56,8 @@ class PurchaseOrderController extends Controller
         // dd($No_PO);
 
         for ($i = 0; $i < count($noTrans); $i++) {
-            db::connection('ConnPurchase')->statement('exec SP_5409_MAINT_PO
+            db::connection('ConnPurchase')->statement(
+                'exec SP_5409_MAINT_PO
             @kd = ?,
             @noTrans = ?,
             @noPO = ?,
@@ -79,14 +80,129 @@ class PurchaseOrderController extends Controller
         // dd($loadHeader, $loadPermohonan);
         return view('Beli.TransaksiBeli.PurchaseOrder.CreateSPPB', compact('access', 'supplier', 'listPayment', 'mataUang', 'ppn', 'No_PO', 'loadPermohonan', 'loadHeader'));
     }
+
+    public function update(Request $request)
+    {
+        $kd = 3;
+        $Qty = $request->input('Qty');
+        $QtyCancel = $request->input('QtyCancel');
+        $kurs = $request->input('kurs');
+        $pUnit = $request->input('pUnit');
+        $pSub = $request->input('pSub');
+        $idPPN = $request->input('idPPN');
+        $pPPN = $request->input('pPPN');
+        $pTot = $request->input('pTot');
+        $pIDRUnit = $request->input('pIDRUnit');
+        $pIDRSub = $request->input('pIDRSub');
+        $pIDRPPN = $request->input('pIDRPPN');
+        $pIDRTot = $request->input('pIDRTot');
+        $Operator = '1001';
+        $persen = $request->input('persen');
+        $disc = $request->input('disc');
+        $discIDR = $request->input('discIDR');
+        $noTrans = $request->input('noTrans');
+        if (($kd !== null) ||
+            ($Qty !== null) ||
+            ($QtyCancel !== null) ||
+            ($kurs !== null) ||
+            ($pUnit !== null) ||
+            ($pSub !== null) ||
+            ($idPPN !== null) ||
+            ($pPPN !== null) ||
+            ($pTot !== null) ||
+            ($pIDRUnit !== null) ||
+            ($pIDRSub !== null) ||
+            ($pIDRPPN !== null) ||
+            ($pIDRTot !== null) ||
+            ($persen !== null) ||
+            ($disc !== null) ||
+            ($discIDR !== null) ||
+            ($noTrans !== null)
+        ) {
+            try {
+                $update = DB::connection('ConnPurchase')->select('exec SP_5409_MAINT_PO @kd = ?, @Qty = ?, @QtyCancel = ?, @kurs = ?, @pUnit = ?, @pSub = ?, @idPPN = ?, @pPPN = ?, @pTot = ?, @pIDRUnit = ?, @pIDRSub = ?, @pIDRPPN = ?, @pIDRTot = ?, @Operator = ?, @persen = ?, @disc = ?, @discIDR = ?, @noTrans = ?', [$kd, $Qty, $QtyCancel, $kurs, $pUnit, $pSub, $idPPN, $pPPN, $pTot, $pIDRUnit, $pIDRSub, $pIDRPPN, $pIDRTot, $Operator, $persen, $disc, $discIDR, $noTrans]);
+                return Response()->json(['message' => 'Data Berhasil diupdate']);
+            } catch (\Throwable $Error) {
+                return Response()->json($Error);
+            }
+        } else {
+            return Response()->json('Parameter harus di isi');
+        }
+    }
+    public function remove(Request $request)
+    {
+        $kd = 6;
+        $noTrans = $request->input('noTrans');
+        if (($kd !== null) &&
+            ($noTrans !== null)
+        ) {
+            try {
+                $remove = DB::connection('ConnPurchase')->select('exec SP_5409_MAINT_PO @kd = ?, @noTrans = ?', [$kd, $noTrans]);
+                return Response()->json(['message' => 'Data Berhasil Remove']);
+            } catch (\Throwable $Error) {
+                return Response()->json($Error);
+            }
+        } else {
+            return Response()->json('Parameter harus di isi');
+        }
+    }
+    public function reject(Request $request)
+    {
+        $kd = 4;
+        $noTrans = $request->input('noTrans');
+        $alasan = $request->input('alasan');
+        $Operator = '1001';
+
+        if (($kd !== null) &&
+            ($noTrans !== null) &&
+            ($alasan !== null)
+        ) {
+            try {
+                $remove = DB::connection('ConnPurchase')->select('exec SP_5409_MAINT_PO @kd = ?, @noTrans = ?, @alasan = ?, @Operator = ?', [$kd, $noTrans, $alasan, $Operator]);
+                return Response()->json(['message' => 'Data Berhasil Reject']);
+            } catch (\Throwable $Error) {
+                return Response()->json($Error);
+            }
+        } else {
+            return Response()->json('Parameter harus di isi');
+        }
+    }
+    public function post(Request $request)
+    {
+        $kd = 5;
+        $noTrans = $request->input('noTrans');
+        $mtUang = $request->input('mtUang');
+        $tglPO = $request->input('tglPO');
+        $Operator = '1001';
+        $idpay = $request->input('idpay');
+        $jumCetak = 1 ;
+        $Tgl_Dibutuhkan = $request->input('Tgl_Dibutuhkan');
+        $idSup = $request->input('idSup');
+
+        if (($kd !== null) ||
+            ($noTrans !== null) ||
+            ($mtUang !== null) ||
+            ($tglPO !== null) ||
+            ($idpay !== null) ||
+            ($Tgl_Dibutuhkan !== null) ||
+            ($idSup !== null)
+        ) {
+            try {
+                $post = DB::connection('ConnPurchase')->select('exec SP_5409_MAINT_PO @kd = ?, @noTrans = ?, @mtUang =?, @tglPO =? , @idpay = ? , @jumCetak =?, @Tgl_Dibutuhkan = ?, @idsup = ?, @Operator = ?', [$kd, $noTrans, $mtUang, $tglPO, $idpay, $jumCetak, $Tgl_Dibutuhkan, $idSup, $Operator]);
+                return Response()->json(['message' => 'Data Berhasil Post']);
+            } catch (\Throwable $Error) {
+                return Response()->json($Error);
+            }
+        } else {
+            return Response()->json('Parameter harus di isi');
+        }
+    }
     //Store a newly created resource in storage.
     public function store(Request $request)
     {
-
     }
     public function show($id)
     {
-
     }
     //Display the specified resource.
     public function redisplay(Request $request)
@@ -96,7 +212,7 @@ class PurchaseOrderController extends Controller
         $noPO = $request->input('noPO');
         $kd = 22;
 
-        $purchaseorder = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd =?, @noPO =?, @MinDate=?, @MaxDate=?',[$kd,$noPO,$MinDate,$MaxDate]);
+        $purchaseorder = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd =?, @noPO =?, @MinDate=?, @MaxDate=?', [$kd, $noPO, $MinDate, $MaxDate]);
 
         return response()->json($purchaseorder);
     }
@@ -106,7 +222,7 @@ class PurchaseOrderController extends Controller
         $noPO = $request->input('noPO');
         $kd = 21;
 
-        $purchaseorder = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd =?, @noPO =?',[$kd,$noPO]);
+        $purchaseorder = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd =?, @noPO =?', [$kd, $noPO]);
 
         return response()->json($purchaseorder);
     }
@@ -118,11 +234,7 @@ class PurchaseOrderController extends Controller
         //
     }
 
-    //Update the specified resource in storage.
-    public function update(Request $request, $id)
-    {
-        //
-    }
+
 
     //Remove the specified resource from storage.
     public function destroy($id)

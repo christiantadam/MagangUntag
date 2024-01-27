@@ -29,7 +29,7 @@
                                     </div>
                                     <div class="col-10">
                                         <input type="text" name="nomor_purchaseOrder" id="nomor_purchaseOrder"
-                                            class="input w-100" value="{{ $No_PO }}">
+                                            class="input w-100" value="{{ $No_PO }}" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -51,11 +51,11 @@
                             <div class="col-6 col-xl-4">
                                 <div class="row align-items-center">
                                     <div class="col-2">
-                                        <label for="payment_term">Payment Term</label>
+                                        <label for="paymentTerm">Payment Term</label>
 
                                     </div>
                                     <div class="col-10">
-                                        <select class="input w-100" name="payment_termSelect" id="payment_termSelect">
+                                        <select class="input w-100" name="paymentTerm_select" id="paymentTerm_select">
                                             <option selected disabled>-- Choose Payment Term --</option>
                                             @foreach ($listPayment as $data)
                                                 <option value="{{ $data->Kode }}">{{ $data->Pembayaran }}</option>
@@ -93,7 +93,7 @@
 
                                     </div>
                                     <div class="col-10">
-                                        <select class="input w-100" name="mata_uangSelect" id="mata_uangSelect">
+                                        <select class="input w-100" name="matauang_select" id="matauang_select">
                                             <option selected disabled>-- Pilih Mata Uang --</option>
                                             @foreach ($mataUang as $data)
                                                 <option value="{{ $data->Id_MataUang }}">{{ $data->Nama_MataUang }}
@@ -272,6 +272,10 @@
                                                 <div class="col-8">
                                                     <input type="text" name="disc" id="disc"
                                                         class="input w-100" value="0">
+                                                    <input type="text" name="total_disc" id="total_disc"
+                                                        class="input w-100" value="0" readonly>
+                                                    <input type="text" name="idr_total_disc" id="idr_total_disc"
+                                                        class="input w-100" value="0" style="display: none" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -394,7 +398,7 @@
                                 <button class="btn btn-success" id="btn_update">Update</button>
                                 <button class="btn btn-info" id="btn_remove">Remove</button>
                                 <button class="btn btn-danger" id="btn_reject">Reject</button>
-                                <button class="btn btn-success" id="btn_reject">Post PO</button>
+                                <button class="btn btn-success" id="btn_post">Post PO</button>
 
                             </div>
                         </div>

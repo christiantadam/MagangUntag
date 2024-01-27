@@ -18,7 +18,7 @@
                 <div class="card">
                     <div class="card-header">Cari Type</div>
                     <div class="card-body">
-                        <form action="" id="formCari">
+                        <div action="" id="formCari">
                             <div class="scrollmenu">
                                 <table id="tabelData" class="table table-bordered table-striped" style="width:100%">
                                     <thead class="thead-dark">
@@ -60,7 +60,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                        </div>
 
                     </div>
                 </div>
