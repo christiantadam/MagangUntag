@@ -398,7 +398,7 @@
                                 <button class="btn btn-success" id="btn_update">Update</button>
                                 <button class="btn btn-info" id="btn_remove">Remove</button>
                                 <button class="btn btn-danger" id="btn_reject">Reject</button>
-                                <button class="btn btn-success" id="btn_reject">Post PO</button>
+                                <button class="btn btn-success" id="btn_post">Post PO</button>
 
                             </div>
                         </div>

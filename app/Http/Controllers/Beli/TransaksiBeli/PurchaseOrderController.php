@@ -167,6 +167,36 @@ class PurchaseOrderController extends Controller
             return Response()->json('Parameter harus di isi');
         }
     }
+    public function post(Request $request)
+    {
+        $kd = 5;
+        $noTrans = $request->input('noTrans');
+        $mtUang = $request->input('mtUang');
+        $tglPO = $request->input('tglPO');
+        $Operator = '1001';
+        $idpay = $request->input('idpay');
+        $jumCetak = 1 ;
+        $Tgl_Dibutuhkan = $request->input('Tgl_Dibutuhkan');
+        $idSup = $request->input('idSup');
+
+        if (($kd !== null) ||
+            ($noTrans !== null) ||
+            ($mtUang !== null) ||
+            ($tglPO !== null) ||
+            ($idpay !== null) ||
+            ($Tgl_Dibutuhkan !== null) ||
+            ($idSup !== null)
+        ) {
+            try {
+                $post = DB::connection('ConnPurchase')->select('exec SP_5409_MAINT_PO @kd = ?, @noTrans = ?, @mtUang =?, @tglPO =? , @idpay = ? , @jumCetak =?, @Tgl_Dibutuhkan = ?, @idsup = ?, @Operator = ?', [$kd, $noTrans, $mtUang, $tglPO, $idpay, $jumCetak, $Tgl_Dibutuhkan, $idSup, $Operator]);
+                return Response()->json(['message' => 'Data Berhasil Post']);
+            } catch (\Throwable $Error) {
+                return Response()->json($Error);
+            }
+        } else {
+            return Response()->json('Parameter harus di isi');
+        }
+    }
     //Store a newly created resource in storage.
     public function store(Request $request)
     {
@@ -182,7 +212,7 @@ class PurchaseOrderController extends Controller
         $noPO = $request->input('noPO');
         $kd = 22;
 
-        $purchaseorder = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd =?, @noPO =?, @MinDate=?, @MaxDate=?',[$kd,$noPO,$MinDate,$MaxDate]);
+        $purchaseorder = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd =?, @noPO =?, @MinDate=?, @MaxDate=?', [$kd, $noPO, $MinDate, $MaxDate]);
 
         return response()->json($purchaseorder);
     }
@@ -192,7 +222,7 @@ class PurchaseOrderController extends Controller
         $noPO = $request->input('noPO');
         $kd = 21;
 
-        $purchaseorder = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd =?, @noPO =?',[$kd,$noPO]);
+        $purchaseorder = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd =?, @noPO =?', [$kd, $noPO]);
 
         return response()->json($purchaseorder);
     }
