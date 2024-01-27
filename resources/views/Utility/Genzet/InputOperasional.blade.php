@@ -38,7 +38,7 @@
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="operationhours">Operation Hours</label>
-                                    <input type="number" class="form-control"  id="operationhours" name="operationhours"
+                                    <input type="number" class="form-control" id="operationhours" name="operationhours"
                                         placeholder="...">
                                 </div>
                             </div>
@@ -176,9 +176,12 @@
                             </div>
                             <div class="col-lg-12 p-0 mt-4">
                                 <div class="d-flex justify-content-between flex-wrap">
-                                    <button class="btn btn-primary mb-2" id="ModalStatusLogButton" type="button">Status
+                                    <button class="btn btn-primary mb-2" data-bs-toggle="modal"
+                                        data-bs-target="#modalStatusLog" id="modalstatus" type="button">Status
                                         Log</button>
-                                    <button class="btn btn-primary mb-2" id="ModalTeknisiButton" type="button">Teknisi</button>
+                                    <button class="btn btn-primary mb-2" data-bs-toggle="modal"
+                                        data-bs-target="#modalTeknisi" id="modalteknisi" type="button">Teknisi</button>
+
                                 </div>
                             </div>
                         </div>

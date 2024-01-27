@@ -1,4 +1,4 @@
-<div class="modal fade" id="tambahKetGangguanModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="KetGangguanModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <input type="hidden" id="hiddenIdKeterangan">

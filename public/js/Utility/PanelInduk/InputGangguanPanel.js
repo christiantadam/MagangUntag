@@ -49,8 +49,8 @@ jam_gangguan.disabled = true;
 jam_selesai.disabled = true;
 ket_gangguan.disabled = true;
 keterangan.disabled = true;
-updateButton.disabled = true;
-deleteButton.disabled = true;
+updateButton.disabled = false;
+deleteButton.disabled = false;
 
 // Function to check if all fields are filled
 function checkAllFieldsFilled() {
@@ -87,15 +87,30 @@ inputButton.addEventListener("click", function () {
 
 // UpdateButton click
 updateButton.addEventListener("click", function () {
-    // Disable input fields and disable Update and Delete buttons
-    tanggal.disabled = false;
-    feeder.disabled = false;
-    jam_gangguan.disabled = false;
-    jam_selesai.disabled = false;
-    ket_gangguan.disabled = false;
-    keterangan.disabled = false;
-    inputButton.disabled = true;
-    deleteButton.disabled = true;
+    var checkboxValues = $(".checkboxpanel:checked")
+        .map(function () {
+            return this.value;
+        })
+        .get();
+
+    if (checkboxValues.length === 0) {
+        Swal.fire({
+            icon: "error",
+            title: "Tidak Ada Data Terpilih",
+            text: "Pilih satu data Gangguan Panel untuk diperbarui.",
+        });
+        deleteButton.disabled = false;
+        inputButton.disabled = false;
+    } else {
+        tanggal.disabled = false;
+        feeder.disabled = false;
+        jam_gangguan.disabled = false;
+        jam_selesai.disabled = false;
+        ket_gangguan.disabled = false;
+        keterangan.disabled = false;
+        inputButton.disabled = true;
+        deleteButton.disabled = true;
+    }
 });
 
 // CancelButton click
@@ -108,11 +123,7 @@ cancelButton.addEventListener("click", function () {
     keterangan.disabled = true;
     updateButton.disabled = false;
     deleteButton.disabled = false;
-
-    // Clear Form
     clearForm();
-
-    // Disable saveButton
     saveButton.disabled = true;
 });
 
@@ -120,7 +131,6 @@ cancelButton.addEventListener("click", function () {
 window.addEventListener("beforeunload", function () {
     clearForm();
 
-    // Disable saveButton
     saveButton.disabled = true;
 });
 
@@ -156,7 +166,6 @@ $(document).ready(function () {
                 "X-CSRF-TOKEN": csrfToken,
             },
             success: function (response) {
-                console.log(requestData);
                 nomorpanelValue
                     ? Swal.fire({
                           icon: "success",
@@ -178,8 +187,8 @@ $(document).ready(function () {
                 keterangan.disabled = true;
                 updateButton.disabled = false;
                 deleteButton.disabled = false;
-                // Clear Form
                 clearForm();
+                dataTable.ajax.reload();
             },
             error: function (error) {
                 Swal.fire({
@@ -253,6 +262,12 @@ $(document).ready(function () {
     });
 
     $("#refreshButton").click(function () {
+        tanggal.disabled = true;
+        feeder.disabled = true;
+        jam_gangguan.disabled = true;
+        jam_selesai.disabled = true;
+        ket_gangguan.disabled = true;
+        keterangan.disabled = true;
         clearForm();
         dataTable.ajax.reload();
     });
@@ -323,33 +338,58 @@ $(document).ready(function () {
             })
             .get();
 
-        var requestData = {
-            id: checkboxValues,
-        };
+        // Check if there are selected checkboxes
+        if (checkboxValues.length === 0) {
+            Swal.fire({
+                icon: "error",
+                title: "Tidak Ada Data Terpilih",
+                text: "Pilih setidaknya satu data Panel untuk dihapus.",
+            });
+            return; // Abort further processing
+        }
 
-        $.ajax({
-            url: "/delete-panel",
-            method: "DELETE",
-            data: requestData,
-            headers: {
-                "X-CSRF-TOKEN": csrfToken,
-            },
-            success: function (response) {
-                console.log(requestData);
-                dataTable.ajax.reload();
-                Swal.fire({
-                    icon: "success",
-                    title: "Terhapus!",
-                    text: "Data Berhasil Dihapus!",
-                    showConfirmButton: false,
-                    timer: "2000",
+        // Use SweetAlert for confirmation
+        Swal.fire({
+            title: "Konfirmasi",
+            text: "Anda yakin ingin menghapus data Panel yang terpilih?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Ya, Hapus!",
+            cancelButtonText: "Batal",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var requestData = {
+                    id: checkboxValues,
+                };
+
+                $.ajax({
+                    url: "/delete-panel",
+                    method: "DELETE",
+                    data: requestData,
+                    headers: {
+                        "X-CSRF-TOKEN": csrfToken,
+                    },
+                    success: function (response) {
+                        dataTable.ajax.reload();
+                        Swal.fire({
+                            icon: "success",
+                            title: "Terhapus!",
+                            text: "Data Panel Berhasil Dihapus!",
+                            showConfirmButton: false,
+                            timer: 2000,
+                        });
+                        clearForm();
+                    },
+                    error: function (error) {
+                        console.error(
+                            "Error delete Data : ",
+                            error.responseText
+                        );
+                    },
                 });
-                clearForm();
-                console.log("data delete successfully", response);
-            },
-            error: function (error) {
-                console.error("Error delete Data : ", error.responseText);
-            },
+            }
         });
     });
 });
@@ -365,8 +405,29 @@ let refreshButtonKeterangan = document.getElementById("refreshButtongangguan");
 let keterangan_gangguan = document.getElementById("keterangan_gangguan");
 
 saveButtonKeterangan.disabled = true;
-updateButtonKeterangan.disabled = true;
-deleteButtonKeterangan.disabled = true;
+updateButtonKeterangan.disabled = false;
+deleteButtonKeterangan.disabled = false;
+
+updateButtonKeterangan.addEventListener("click", function () {
+    var checkboxValues = $(".checkboxketgangguan:checked")
+        .map(function () {
+            return this.value;
+        })
+        .get();
+
+    // Check if there are selected checkboxes
+    if (checkboxValues.length === 0) {
+        Swal.fire({
+            icon: "error",
+            title: "Tidak Ada Data Terpilih",
+            text: "Pilih satu Keterangan Gangguan untuk diperbarui.",
+        });
+        deleteButtonKeterangan.disabled = false;
+    } else {
+        saveButtonKeterangan.disabled = true;
+        deleteButtonKeterangan.disabled = false;
+    }
+});
 
 // Function to check if all fields are filled
 function checkAllFieldsFilled1() {
@@ -383,11 +444,11 @@ function checkAllFieldsFilled1() {
 });
 
 $(document).ready(function () {
-    $("#tambahKetGangguanButton").on("click", function () {
+    $("#openmodal").click(function (e) {
+        e.preventDefault();
         $("#keterangan_gangguan").val("");
         $("#hiddenIdKeterangan").val("");
         dataTableKeterangan.ajax.reload();
-        $("#tambahKetGangguanModal").modal("show");
     });
 
     var dataTableKeterangan = $("#table-ketgangguan").DataTable({
@@ -424,9 +485,6 @@ $(document).ready(function () {
     // Checkbox click
     $("tbody").on("click", ".checkboxketgangguan", function () {
         if ($(this).prop("checked")) {
-            deleteButton.disabled = false;
-            updateButton.disabled = false;
-
             var selectedRow = $(this).closest("tr");
 
             var selectedKeterangan = selectedRow.find("td:eq(1)").text();
@@ -435,16 +493,12 @@ $(document).ready(function () {
 
             $("#hiddenIdKeterangan").val(selectedId);
             $("#keterangan_gangguan").val(selectedKeterangan);
-
-            console.log("Selected Id: ", selectedId);
-            console.log("Selected Keterangan: ", selectedKeterangan);
         } else {
             $("#keterangan_gangguan").val("");
             $("#hiddenIdKeterangan").val("");
         }
     });
 
-    // DeleteButton click
     $("#deleteButtongangguan").click(function (e) {
         e.preventDefault();
 
@@ -456,35 +510,57 @@ $(document).ready(function () {
             })
             .get();
 
-        var requestData = {
-            id: checkboxValues,
-        };
+        if (checkboxValues.length === 0) {
+            Swal.fire({
+                icon: "error",
+                title: "Tidak Ada Data Terpilih",
+                text: "Pilih setidaknya satu data Keterangan Gangguan untuk dihapus.",
+            });
+            return;
+        }
 
-        $.ajax({
-            url: "/delete-keterangangangguan",
-            method: "DELETE",
-            data: requestData,
-            headers: {
-                "X-CSRF-TOKEN": csrfToken,
-            },
-            success: function (response) {
-                console.log(requestData);
-                dataTable.ajax.reload();
-                Swal.fire({
-                    icon: "success",
-                    title: "Terhapus!",
-                    text: "Data Berhasil Dihapus!",
-                    showConfirmButton: false,
-                    timer: "2000",
+        Swal.fire({
+            title: "Konfirmasi",
+            text: "Anda yakin ingin menghapus data Keterangan Gangguan terpilih?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Ya, Hapus!",
+            cancelButtonText: "Batal",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var requestData = {
+                    id: checkboxValues,
+                };
+
+                $.ajax({
+                    url: "/delete-keterangangangguan",
+                    method: "DELETE",
+                    data: requestData,
+                    headers: {
+                        "X-CSRF-TOKEN": csrfToken,
+                    },
+                    success: function (response) {
+                        dataTableKeterangan.ajax.reload();
+                        Swal.fire({
+                            icon: "success",
+                            title: "Terhapus!",
+                            text: "Data Keterangan Gangguan Berhasil Dihapus!",
+                            showConfirmButton: false,
+                            timer: 2000,
+                        });
+                        $("#keterangan_gangguan").val("");
+                        $("#hiddenIdKeterangan").val("");
+                    },
+                    error: function (error) {
+                        console.error(
+                            "Error delete Data : ",
+                            error.responseText
+                        );
+                    },
                 });
-                $("#keterangan_gangguan").val("");
-                $("#hiddenIdKeterangan").val("");
-
-                console.log("data delete successfully", response);
-            },
-            error: function (error) {
-                console.error("Error delete Data : ", error.responseText);
-            },
+            }
         });
     });
 
@@ -511,18 +587,24 @@ $(document).ready(function () {
                 "X-CSRF-TOKEN": csrfToken,
             },
             success: function (response) {
-                console.log(requestData);
-                Swal.fire({
-                    icon: "success",
-                    title: "Data Berhasil Disimpan!",
-                    showConfirmButton: false,
-                    timer: "2000",
-                });
+                nomorIdValue
+                    ? Swal.fire({
+                          icon: "success",
+                          title: "Data Berhasil Diperbarui!",
+                          showConfirmButton: false,
+                          timer: "2000",
+                      })
+                    : Swal.fire({
+                          icon: "success",
+                          title: "Data Berhasil Disimpan!",
+                          showConfirmButton: false,
+                          timer: "2000",
+                      });
 
                 // Clear Form
                 $("#keterangan_gangguan").val("");
                 $("#hiddenIdKeterangan").val("");
-                dataTable.ajax.reload();
+                dataTableKeterangan.ajax.reload();
             },
             error: function (error) {
                 Swal.fire({

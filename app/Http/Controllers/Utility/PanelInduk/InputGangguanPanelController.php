@@ -41,18 +41,18 @@ class InputGangguanPanelController extends Controller
         }
     }
 
-    public function updatePDAM(Request $request)
+    public function updatePANEL(Request $request)
     {
         try {
-            $id = $request->input('Nomorpdam');
+            $id = $request->input('NomorPanel');
             $tanggal = $request->input('Tanggal');
-            $jam = $request->input('Jam');
-            $nometer = $request->input('Meter');
-            $counter = $request->input('Counter');
-            $teknisi = $request->input('Teknisi');
+            $feeder = $request->input('Feeder');
+            $start = $request->input('JamMulai');
+            $end = $request->input('JamSelesai');
+            $gangguan = $request->input('Gangguan');
+            $keterangan = $request->input('Keterangan');
             $UserInput = Auth::user()->NomorUser;
-
-            $data = DB::connection('ConnUtility')->statement('exec SP_KOREKSI_PDAM ? , ? , ? , ? , ? , ? , ?', [$id, $tanggal, $jam, $nometer, $counter, $teknisi, $UserInput]);
+            $data = DB::connection('ConnUtility')->statement('exec SP_KOREKSI_PANEL_INDUK ?, ? , ? , ? , ? , ? , ? , ? ', [$tanggal, $feeder, $start, $end, $gangguan, $keterangan, $UserInput,$id]);
             return response()->json($data);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'An error occurred while saving the data. Please try again.');

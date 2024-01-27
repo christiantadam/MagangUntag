@@ -30,18 +30,13 @@ let deleteButton = document.getElementById("deleteButton");
 let saveButton = document.getElementById("saveButton");
 let refreshButton = document.getElementById("refreshButton");
 
-// Checkbox
-// let checkboxpdam = document.getElementsByClassName("checkboxpdam");
-
-function clearForm(){
-
+function clearForm() {
     // tanggal.value = "";
     jam.value = "";
     nometer.value = "";
     counter.value = "";
     teknisi.value = "";
     id.value = "";
-
 }
 
 saveButton.disabled = true;
@@ -50,10 +45,9 @@ jam.disabled = true;
 nometer.disabled = true;
 counter.disabled = true;
 teknisi.disabled = true;
-updateButton.disabled = true;
-deleteButton.disabled = true;
+updateButton.disabled = false;
+deleteButton.disabled = false;
 
-// Function to check if all fields are filled
 function checkAllFieldsFilled() {
     return (
         tanggal.value.trim() !== "" &&
@@ -73,7 +67,6 @@ function checkAllFieldsFilled() {
 
 // InputButton click
 inputButton.addEventListener("click", function () {
-    // Disable input fields and disable Update and Delete buttons
     tanggal.disabled = false;
     jam.disabled = false;
     nometer.disabled = false;
@@ -82,7 +75,6 @@ inputButton.addEventListener("click", function () {
     updateButton.disabled = true;
     deleteButton.disabled = true;
 });
-
 
 // CancelButton click
 cancelButton.addEventListener("click", function () {
@@ -93,23 +85,47 @@ cancelButton.addEventListener("click", function () {
     teknisi.disabled = true;
     updateButton.disabled = false;
     deleteButton.disabled = false;
-
+    inputButton.disabled = false;
     // Clear Form
     clearForm();
 
-    // Disable saveButton
     saveButton.disabled = true;
+});
+
+updateButton.addEventListener("click", function () {
+    var checkboxValues = $(".checkboxpdam:checked")
+        .map(function () {
+            return this.value;
+        })
+        .get();
+
+    // Check if there are selected checkboxes
+    if (checkboxValues.length === 0) {
+        Swal.fire({
+            icon: "error",
+            title: "Tidak Ada Data Terpilih",
+            text: "Pilih satu data PDAM untuk diperbarui.",
+        });
+        deleteButton.disabled = false;
+        inputButton.disabled = false;
+    } else {
+        tanggal.disabled = false;
+        jam.disabled = false;
+        nometer.disabled = false;
+        counter.disabled = false;
+        teknisi.disabled = false;
+        inputButton.disabled = true;
+        deleteButton.disabled = true;
+        saveButton.disabled = false;
+    }
 });
 
 // Reload Window
 window.addEventListener("beforeunload", function () {
-
     clearForm();
     nometersearch.value = "";
-    // Disable saveButton
     saveButton.disabled = true;
 });
-
 
 $(document).ready(function () {
     $("#saveButton").click(function () {
@@ -141,13 +157,28 @@ $(document).ready(function () {
                 "X-CSRF-TOKEN": csrfToken,
             },
             success: function (response) {
-                console.log(requestData);
-                Swal.fire({
-                    icon: "success",
-                    title: "Data Berhasil Disimpan!",
-                    showConfirmButton: false,
-                    timer: "2000",
-                });
+                nomorpdamValue
+                    ? Swal.fire({
+                          icon: "success",
+                          title: "Data Berhasil Diperbarui!",
+                          showConfirmButton: false,
+                          timer: "2000",
+                      })
+                    : Swal.fire({
+                          icon: "success",
+                          title: "Data Berhasil Disimpan!",
+                          showConfirmButton: false,
+                          timer: "2000",
+                      });
+                updateButton.disabled = false;
+                deleteButton.disabled = false;
+                tanggal.disabled = true;
+                jam.disabled = true;
+                nometer.disabled = true;
+                counter.disabled = true;
+                teknisi.disabled = true;
+                clearForm();
+                dataTable.ajax.reload();
             },
             error: function (error) {
                 Swal.fire({
@@ -161,10 +192,7 @@ $(document).ready(function () {
             },
         });
     });
-});
 
-
-$(document).ready(function () {
     var dataTable = $("#table-pdam").DataTable({
         processing: true,
         serverSide: true,
@@ -192,7 +220,7 @@ $(document).ready(function () {
             {
                 data: "tanggal",
                 render: function (data, type, full, meta) {
-                    var date = new Date(data).toISOString().split('T')[0];
+                    var date = new Date(data).toISOString().split("T")[0];
                     return date;
                 },
             },
@@ -212,9 +240,13 @@ $(document).ready(function () {
     });
 
     $("#refreshButton").click(function () {
+        tanggal.disabled = true;
+        jam.disabled = true;
+        nometer.disabled = true;
+        counter.disabled = true;
+        teknisi.disabled = true;
+        clearForm();
         dataTable.ajax.reload();
-
-
     });
 
     // Checkbox click
@@ -239,16 +271,8 @@ $(document).ready(function () {
             $("#nometer").val(selectedNoMeter);
             $("#counter").val(selectedCounter);
             $("#teknisi").val(selectedTeknisi);
-
-            console.log("Selected Nomorpdam: ", selectedNomorpdam);
-            console.log("Selected Date: ", selectedDate);
-            console.log("Selected Jam: ", selectedJam);
-            console.log("Selected No Meter: ", selectedNoMeter);
-            console.log("Selected Counter: ", selectedCounter);
-            console.log("Selected Teknisi: ", selectedTeknisi);
         }
     });
-
 
     // DeleteButton click
     $("#deleteButton").click(function (e) {
@@ -262,33 +286,61 @@ $(document).ready(function () {
             })
             .get();
 
-        var requestData = {
-            Nomor: checkboxValues,
-        };
+        if (checkboxValues.length === 0) {
+            Swal.fire({
+                icon: "error",
+                title: "Tidak Ada Data Terpilih",
+                text: "Pilih setidaknya satu data PDAM untuk dihapus.",
+            });
+            return;
+        }
 
-        $.ajax({
-            url: "/delete-pdam",
-            method: "DELETE",
-            data: requestData,
-            headers: {
-                "X-CSRF-TOKEN": csrfToken,
-            },
-            success: function (response) {
-                console.log(requestData);
-                Swal.fire({
-                    icon: "success",
-                    title: "Terhapus!",
-                    text: "Data Berhasil Dihapus!",
-                    showConfirmButton: false,
-                    timer: "2000",
+        // Use SweetAlert for confirmation
+        Swal.fire({
+            title: "Konfirmasi",
+            text: "Anda yakin ingin menghapus data PDAM terpilih?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Ya, Hapus!",
+            cancelButtonText: "Batal",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var requestData = {
+                    Nomor: checkboxValues,
+                };
+                $.ajax({
+                    url: "/delete-pdam",
+                    method: "DELETE",
+                    data: requestData,
+                    headers: {
+                        "X-CSRF-TOKEN": csrfToken,
+                    },
+                    success: function (response) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Terhapus!",
+                            text: "Data PDAM Berhasil Dihapus!",
+                            showConfirmButton: false,
+                            timer: 2000,
+                        });
+                        tanggal.disabled = true;
+                        jam.disabled = true;
+                        nometer.disabled = true;
+                        counter.disabled = true;
+                        teknisi.disabled = true;
+                        dataTable.ajax.reload();
+                        clearForm();
+                    },
+                    error: function (error) {
+                        console.error(
+                            "Error delete Data : ",
+                            error.responseText
+                        );
+                    },
                 });
-                console.log("data delete successfully", response);
-                dataTable.ajax.reload();
-                clearForm();
-            },
-            error: function (error) {
-                console.error("Error delete Data : ", error.responseText);
-            },
+            }
         });
     });
 });

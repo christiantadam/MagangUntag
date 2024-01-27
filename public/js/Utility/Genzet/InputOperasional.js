@@ -54,8 +54,8 @@ tambahoil.disabled = true;
 statuslog.disabled = true;
 teknisi.disabled = true;
 keterangan.disabled = true;
-updateButton.disabled = true;
-deleteButton.disabled = true;
+updateButton.disabled = false;
+deleteButton.disabled = false;
 saveButton.disabled = true;
 
 function clearForm() {
@@ -75,9 +75,6 @@ function clearForm() {
     teknisi.value = "";
     keterangan.value = "";
     id.value = "";
-
-    deleteButton.disabled = true;
-    updateButton.disabled = true;
 }
 
 function checkAllFieldsFilled() {
@@ -141,7 +138,6 @@ inputButton.addEventListener("click", function () {
     keterangan.disabled = false;
     updateButton.disabled = true;
     deleteButton.disabled = true;
-    saveButton.disabled = false;
 
     // Clear Form
     clearForm();
@@ -151,24 +147,39 @@ inputButton.addEventListener("click", function () {
 
 // InputButton click
 updateButton.addEventListener("click", function () {
-    tanggal.disabled = false;
-    mesingenzet.disabled = false;
-    jam_awal.disabled = false;
-    jam_akhir.disabled = false;
-    operationhours.disabled = false;
-    lubeoil.disabled = false;
-    coolwater.disabled = false;
-    volt.disabled = false;
-    hz.disabled = false;
-    amp.disabled = false;
-    tambahbbm.disabled = false;
-    tambahoil.disabled = false;
-    statuslog.disabled = false;
-    teknisi.disabled = false;
-    keterangan.disabled = false;
-    deleteButton.disabled = true;
-    saveButton.disabled = false;
-    inputButton.disabled = true;
+    var checkboxValues = $(".checkboxgenzet:checked")
+        .map(function () {
+            return this.value;
+        })
+        .get();
+
+    if (checkboxValues.length === 0) {
+        Swal.fire({
+            icon: "error",
+            title: "Tidak Ada Data Terpilih",
+            text: "Pilih satu data Genzet untuk diperbarui.",
+        });
+        deleteButton.disabled = false;
+        inputButton.disabled = false;
+    } else {
+        tanggal.disabled = false;
+        mesingenzet.disabled = false;
+        jam_awal.disabled = false;
+        jam_akhir.disabled = false;
+        operationhours.disabled = false;
+        lubeoil.disabled = false;
+        coolwater.disabled = false;
+        volt.disabled = false;
+        hz.disabled = false;
+        amp.disabled = false;
+        tambahbbm.disabled = false;
+        tambahoil.disabled = false;
+        statuslog.disabled = false;
+        teknisi.disabled = false;
+        keterangan.disabled = false;
+        deleteButton.disabled = true;
+        inputButton.disabled = true;
+    }
 });
 
 // CancelButton click
@@ -188,10 +199,9 @@ cancelButton.addEventListener("click", function () {
     statuslog.disabled = true;
     teknisi.disabled = true;
     keterangan.disabled = true;
-    updateButton.disabled = true;
-    deleteButton.disabled = true;
-    saveButton.disabled = true;
-
+    updateButton.disabled = false;
+    deleteButton.disabled = false;
+    inputButton.disabled = false;
     // Clear Form
     clearForm();
 
@@ -428,7 +438,6 @@ $(document).ready(function () {
         }
     });
 
-    // DeleteButton click
     $("#deleteButton").click(function (e) {
         e.preventDefault();
 
@@ -440,33 +449,61 @@ $(document).ready(function () {
             })
             .get();
 
-        var requestData = {
-            Nomor: checkboxValues,
-        };
+        if (checkboxValues.length === 0) {
+            Swal.fire({
+                icon: "error",
+                title: "Tidak Ada Data Terpilih",
+                text: "Pilih setidaknya satu data Genzet untuk dihapus.",
+            });
+            return;
+        }
 
-        $.ajax({
-            url: "/delete-genzet",
-            method: "DELETE",
-            data: requestData,
-            headers: {
-                "X-CSRF-TOKEN": csrfToken,
-            },
-            success: function (response) {
-                console.log(requestData);
-                Swal.fire({
-                    icon: "success",
-                    title: "Terhapus!",
-                    text: "Data Berhasil Dihapus!",
-                    showConfirmButton: false,
-                    timer: "2000",
+        Swal.fire({
+            title: "Konfirmasi",
+            text: "Anda yakin ingin menghapus data Genzet terpilih?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Ya, Hapus!",
+            cancelButtonText: "Batal",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var requestData = {
+                    Nomor: checkboxValues,
+                };
+
+                $.ajax({
+                    url: "/delete-genzet",
+                    method: "DELETE",
+                    data: requestData,
+                    headers: {
+                        "X-CSRF-TOKEN": csrfToken,
+                    },
+                    success: function (response) {
+                        console.log(requestData);
+                        Swal.fire({
+                            icon: "success",
+                            title: "Terhapus!",
+                            text: "Data Genzet Berhasil Dihapus!",
+                            showConfirmButton: false,
+                            timer: 2000,
+                        });
+                        console.log(
+                            "data Genzet delete successfully",
+                            response
+                        );
+                        dataTable.ajax.reload();
+                        clearForm();
+                    },
+                    error: function (error) {
+                        console.error(
+                            "Error delete Data : ",
+                            error.responseText
+                        );
+                    },
                 });
-                console.log("data delete successfully", response);
-                dataTable.ajax.reload();
-                clearForm();
-            },
-            error: function (error) {
-                console.error("Error delete Data : ", error.responseText);
-            },
+            }
         });
     });
 });
@@ -482,14 +519,34 @@ let refreshButtonStatusLog = document.getElementById("refreshButtonStatusLog");
 let StatusLog = document.getElementById("statuslogmodalinput");
 
 saveButtonStatusLog.disabled = true;
-updateButtonStatusLog.disabled = true;
-deleteButtonStatusLog.disabled = true;
+updateButtonStatusLog.disabled = false;
+deleteButtonStatusLog.disabled = false;
 
 function checkAllFieldsFilled1() {
     return StatusLog.value.trim() !== "";
 }
 
-// Add event listeners to enable/disable saveButton based on input field values
+// InputButton click
+updateButtonStatusLog.addEventListener("click", function () {
+    var checkboxValues = $(".checkboxstatuslog:checked")
+        .map(function () {
+            return this.value;
+        })
+        .get();
+
+    if (checkboxValues.length === 0) {
+        Swal.fire({
+            icon: "error",
+            title: "Tidak Ada Data Terpilih",
+            text: "Pilih satu data Status Log untuk diperbarui.",
+        });
+        deleteButtonStatusLog.disabled = false;
+    } else {
+        StatusLog.disabled = false;
+        deleteButtonStatusLog.disabled = true;
+    }
+});
+
 [StatusLog].forEach(function (inputField) {
     inputField.addEventListener("input", function () {
         saveButtonStatusLog.disabled = !checkAllFieldsFilled1();
@@ -499,13 +556,12 @@ function checkAllFieldsFilled1() {
 });
 
 $(document).ready(function () {
-    $("#ModalStatusLogButton").on("click", function () {
-        $("#statuslogmodalinput").val("");
+    $("#modalstatus").click(function (e) {
+        e.preventDefault();
+        StatusLog.value = "";
         $("#hiddenIdStatusLog").val("");
         dataTableStatusLog.ajax.reload();
-        $("#modalStatusLog").modal("show");
     });
-
     var dataTableStatusLog = $("#table-statuslog").DataTable({
         serverSide: true,
         responsive: true,
@@ -551,9 +607,6 @@ $(document).ready(function () {
 
             $("#statuslogmodalinput").val(selectedStatusLog);
             $("#hiddenIdStatusLog").val(selectedId);
-
-            console.log("Selected Id: ", selectedId);
-            console.log("Selected Status: ", selectedStatusLog);
         } else {
             $("#statuslogmodalinput").val("");
             $("#hiddenIdStatusLog").val("");
@@ -574,35 +627,57 @@ $(document).ready(function () {
             })
             .get();
 
-        var requestData = {
-            id: checkboxValues,
-        };
+        if (checkboxValues.length === 0) {
+            Swal.fire({
+                icon: "error",
+                title: "Tidak Ada Data Terpilih",
+                text: "Pilih setidaknya satu Status Log untuk dihapus.",
+            });
+            return;
+        }
 
-        $.ajax({
-            url: "/delete-statuslog",
-            method: "DELETE",
-            data: requestData,
-            headers: {
-                "X-CSRF-TOKEN": csrfToken,
-            },
-            success: function (response) {
-                console.log(requestData);
-                dataTableStatusLog.ajax.reload();
-                Swal.fire({
-                    icon: "success",
-                    title: "Terhapus!",
-                    text: "Data Berhasil Dihapus!",
-                    showConfirmButton: false,
-                    timer: "2000",
+        Swal.fire({
+            title: "Konfirmasi",
+            text: "Anda yakin ingin menghapus Status Log terpilih?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Ya, Hapus!",
+            cancelButtonText: "Batal",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var requestData = {
+                    Nomor: checkboxValues,
+                };
+
+                $.ajax({
+                    url: "/delete-statuslog",
+                    method: "DELETE",
+                    data: requestData,
+                    headers: {
+                        "X-CSRF-TOKEN": csrfToken,
+                    },
+                    success: function (response) {
+                        dataTableStatusLog.ajax.reload();
+                        Swal.fire({
+                            icon: "success",
+                            title: "Terhapus!",
+                            text: "Data Berhasil Dihapus!",
+                            showConfirmButton: false,
+                            timer: "2000",
+                        });
+                        $("#statuslogmodalinput").val("");
+                        $("#hiddenIdStatusLog").val("");
+                    },
+                    error: function (error) {
+                        console.error(
+                            "Error delete Data : ",
+                            error.responseText
+                        );
+                    },
                 });
-                $("#statuslogmodalinput").val("");
-                $("#hiddenIdStatusLog").val("");
-
-                console.log("data delete successfully", response);
-            },
-            error: function (error) {
-                console.error("Error delete Data : ", error.responseText);
-            },
+            }
         });
     });
 
@@ -628,13 +703,19 @@ $(document).ready(function () {
             },
             success: function (response) {
                 console.log(requestData);
-                Swal.fire({
-                    icon: "success",
-                    title: "Data Berhasil Disimpan!",
-                    showConfirmButton: false,
-                    timer: "2000",
-                });
-
+                nomorIdValue
+                    ? Swal.fire({
+                          icon: "success",
+                          title: "Data Berhasil Diperbarui!",
+                          showConfirmButton: false,
+                          timer: "2000",
+                      })
+                    : Swal.fire({
+                          icon: "success",
+                          title: "Data Berhasil Disimpan!",
+                          showConfirmButton: false,
+                          timer: "2000",
+                      });
                 // Clear Form
                 $("#statuslogmodalinput").val("");
                 $("#hiddenIdStatusLog").val("");
@@ -653,6 +734,8 @@ $(document).ready(function () {
     });
 });
 
+// ------------------------------------------------------------------------------------------------------------------------------------- //
+
 // Modal Teknisi
 
 let updateButtonTeknisi = document.getElementById("updateButtonTeknisi");
@@ -670,6 +753,26 @@ function checkAllFieldsFilled2() {
     return Teknisi.value.trim() !== "";
 }
 
+updateButtonTeknisi.addEventListener("click", function () {
+    var checkboxValues = $(".checkboxteknisi:checked")
+        .map(function () {
+            return this.value;
+        })
+        .get();
+
+    if (checkboxValues.length === 0) {
+        Swal.fire({
+            icon: "error",
+            title: "Tidak Ada Data Terpilih",
+            text: "Pilih satu Data Teknisi untuk diperbarui.",
+        });
+        deleteButtonTeknisi.disabled = false;
+    } else {
+        Teknisi.disabled = false;
+        deleteButtonTeknisi.disabled = true;
+    }
+});
+
 // Add event listeners to enable/disable saveButton based on input field values
 [Teknisi].forEach(function (inputField) {
     inputField.addEventListener("input", function () {
@@ -679,11 +782,11 @@ function checkAllFieldsFilled2() {
     });
 });
 $(document).ready(function () {
-    $("#ModalTeknisiButton").on("click", function () {
+    $("#modalteknisi").click(function (e) {
+        e.preventDefault();
         $("#teknisimodalinput").val("");
         $("#hiddenIdTeknisi").val("");
         dataTableTeknisi.ajax.reload();
-        $("#modalTeknisi").modal("show");
     });
 
     var dataTableTeknisi = $("#table-teknisi").DataTable({
@@ -752,35 +855,60 @@ $(document).ready(function () {
             })
             .get();
 
-        var requestData = {
-            id: checkboxValues,
-        };
+        if (checkboxValues.length === 0) {
+            Swal.fire({
+                icon: "error",
+                title: "Tidak Ada Data Terpilih",
+                text: "Pilih setidaknya satu Teknisi untuk dihapus.",
+            });
+            return;
+        }
 
-        $.ajax({
-            url: "/delete-teknisi",
-            method: "DELETE",
-            data: requestData,
-            headers: {
-                "X-CSRF-TOKEN": csrfToken,
-            },
-            success: function (response) {
-                console.log(requestData);
-                dataTableTeknisi.ajax.reload();
-                Swal.fire({
-                    icon: "success",
-                    title: "Terhapus!",
-                    text: "Data Berhasil Dihapus!",
-                    showConfirmButton: false,
-                    timer: "2000",
+        // Use SweetAlert for confirmation
+        Swal.fire({
+            title: "Konfirmasi",
+            text: "Anda yakin ingin menghapus Data Teknisi yang terpilih?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Ya, Hapus!",
+            cancelButtonText: "Batal",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var requestData = {
+                    id: checkboxValues,
+                };
+                $.ajax({
+                    url: "/delete-teknisi",
+                    method: "DELETE",
+                    data: requestData,
+                    headers: {
+                        "X-CSRF-TOKEN": csrfToken,
+                    },
+                    success: function (response) {
+                        console.log(requestData);
+                        dataTableTeknisi.ajax.reload();
+                        Swal.fire({
+                            icon: "success",
+                            title: "Terhapus!",
+                            text: "Data Berhasil Dihapus!",
+                            showConfirmButton: false,
+                            timer: "2000",
+                        });
+                        $("#teknisimodalinput").val("");
+                        $("#hiddenIdTeknisi").val("");
+
+                        console.log("data delete successfully", response);
+                    },
+                    error: function (error) {
+                        console.error(
+                            "Error delete Data : ",
+                            error.responseText
+                        );
+                    },
                 });
-                $("#teknisimodalinput").val("");
-                $("#hiddenIdTeknisi").val("");
-
-                console.log("data delete successfully", response);
-            },
-            error: function (error) {
-                console.error("Error delete Data : ", error.responseText);
-            },
+            }
         });
     });
 

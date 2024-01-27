@@ -9,9 +9,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\HakAksesController;
 
 
-class PanelSDPController extends Controller
+class PanelSPDController extends Controller
 {
-    public function createSDP(Request $request)
+    public function createSPD(Request $request)
     {
         try {
             $produksi = $request->input('Produksi');
@@ -28,10 +28,10 @@ class PanelSDPController extends Controller
             return redirect()->back()->with('error', 'An error occurred while saving the data. Please try again.');
         }
     }
-    public function updateSDP(Request $request)
+    public function updateSPD(Request $request)
     {
         try {
-            $id = $request->input('NomorSDP');
+            $id = $request->input('NomorSPD');
             $produksi = $request->input('Produksi');
             $tanggal = $request->input('Tanggal');
             $jam = $request->input('Jam');
@@ -48,7 +48,7 @@ class PanelSDPController extends Controller
     }
 
     //Display the specified resource.
-    public function getSDP(Request $request)
+    public function getSPD(Request $request)
     {
         try {
             $bulan = $request->input('bulan');
@@ -65,9 +65,9 @@ class PanelSDPController extends Controller
         }
     }
 
-    public function getSDPById(Request $request)
+    public function getSPDById(Request $request)
     {
-        $id = $request->input('idSDP');
+        $id = $request->input('idspd');
         $data = DB::connection('ConnUtility')->table('PANEL_SPD')->where('NoTransaksi', $id)->first();
 
         if (!$data) {
@@ -79,7 +79,7 @@ class PanelSDPController extends Controller
 
 
 
-    public function deleteSDP(Request $request)
+    public function deleteSPD(Request $request)
     {
         try {
             $nomor = $request->input('NomorSDP');
@@ -92,24 +92,5 @@ class PanelSDPController extends Controller
         } catch (\Exception $e) {
             return response()->json(['error' => 'An error occurred while deleting the data. Please try again.']);
         }
-    }
-
-
-    //Show the form for editing the specified resource.
-    public function edit($id)
-    {
-        //
-    }
-
-    //Update the specified resource in storage.
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    //Remove the specified resource from storage.
-    public function destroy($id)
-    {
-        //
     }
 }

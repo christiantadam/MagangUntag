@@ -1,6 +1,6 @@
 @extends('layouts.appUtility')
 @section('content')
-    @include('Utility.PLN.PanelSDP')
+    @include('Utility.PLN.PanelSPD')
     @include('Utility.PLN.BeritaAcara')
     <div class="container-fluid">
         <div class="row justify-content-center">
@@ -60,16 +60,14 @@
                         <div class="col-lg-12 p-4">
                             <div class="row mb-3">
                                 <div class="col-md-12">
-                                    <div class="d-flex gap-2 mb-2">
-                                        <label for="tanggal">Filter</label>
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <label for="tanggal" class="fs-5">Filter</label>
                                     </div>
-                                    <div class="d-flex gap-2">
-                                        <h6 class="mt-2">Tanggal</h6>
-                                        <input type="date" class="form-control" id="tanggal-awal" name="date1"
-                                            placeholder="name@example.com">
-                                        <h6 class="mt-2">S/D</h6>
-                                        <input type="date" class="form-control" id="tanggal-akhir" name="date2"
-                                            placeholder="name@example.com">
+                                    <div class="d-flex align-items-center gap-2 mb-3">
+                                        <h6 class="fs-6 mb-0">Tanggal</h6>
+                                        <input type="date" class="form-control" id="tanggal-awal" name="date1">
+                                        <h6 class="fs-6 mb-0">S/D</h6>
+                                        <input type="date" class="form-control" id="tanggal-akhir" name="date2">
                                         <button id="refreshButton" class="btn btn-primary">Refresh</button>
                                     </div>
                                 </div>

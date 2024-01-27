@@ -50,8 +50,8 @@ lwbp.disabled = true;
 wbp.disabled = true;
 kvar.disabled = true;
 teknisi.disabled = true;
-updateButton.disabled = true;
-deleteButton.disabled = true;
+updateButton.disabled = false;
+deleteButton.disabled = false;
 
 function checkAllFieldsFilled() {
     return (
@@ -80,7 +80,7 @@ inputButton.addEventListener("click", function () {
     teknisi.disabled = false;
     updateButton.disabled = true;
     deleteButton.disabled = true;
-    nomorpln.value = "";
+    clearForm();
 });
 // InputButton click
 updateButton.addEventListener("click", function () {
@@ -104,11 +104,9 @@ updateButton.addEventListener("click", function () {
         Swal.fire({
             icon: "error",
             title: "Tidak Ada Data Terpilih",
-            text: "Pilih setidaknya satu data PLN untuk update.",
+            text: "Pilih satu data PLN untuk diperbarui.",
         });
-    } else {
-        // Perform your other update logic if checkboxes are checked
-        // ...
+        deleteButton.disabled = false;
     }
 });
 
@@ -124,7 +122,6 @@ cancelButton.addEventListener("click", function () {
     updateButton.disabled = false;
     deleteButton.disabled = false;
 
-    // Clear Form
     clearForm();
 
     $(".checkboxpln").prop("checked", false);
@@ -141,7 +138,6 @@ window.addEventListener("beforeunload", function () {
 });
 
 $(document).ready(function () {
-    // console.log(checkboxpln.value)
     $("#saveButton").click(function () {
         var tanggalValue = $("#tanggal").val();
         var jamValue = $("#jam").val();
@@ -172,14 +168,19 @@ $(document).ready(function () {
                 "X-CSRF-TOKEN": csrfToken,
             },
             success: function (response) {
-                console.log(requestData);
-                console.log(nomorplnValue);
-                Swal.fire({
-                    icon: "success",
-                    title: "Data PLN Berhasil Disimpan!",
-                    showConfirmButton: false,
-                    timer: "2000",
-                });
+                nomorplnValue
+                    ? Swal.fire({
+                          icon: "success",
+                          title: "Data PLN Berhasil Diperbarui!",
+                          showConfirmButton: false,
+                          timer: "2000",
+                      })
+                    : Swal.fire({
+                          icon: "success",
+                          title: "Data PLN Berhasil Disimpan!",
+                          showConfirmButton: false,
+                          timer: "2000",
+                      });
                 clearForm();
                 tanggal.disabled = true;
                 jam.disabled = true;
@@ -187,6 +188,7 @@ $(document).ready(function () {
                 wbp.disabled = true;
                 kvar.disabled = true;
                 teknisi.disabled = true;
+                dataTable.ajax.reload();
             },
             error: function (error) {
                 Swal.fire({
@@ -255,18 +257,16 @@ $(document).ready(function () {
         wbp.disabled = true;
         kvar.disabled = true;
         teknisi.disabled = true;
-        updateButton.disabled = true;
-        deleteButton.disabled = true;
+        updateButton.disabled = false;
+        deleteButton.disabled = false;
         clearForm();
         dataTable.ajax.reload();
+        $(".checkboxpln").prop("checked", false);
     });
 
     // Checkbox click
     $("tbody").on("click", ".checkboxpln", function () {
         if ($(this).prop("checked")) {
-            deleteButton.disabled = false;
-            updateButton.disabled = false;
-
             var selectedRow = $(this).closest("tr");
 
             var selectedDate = selectedRow.find("td:eq(1)").text();
@@ -285,14 +285,6 @@ $(document).ready(function () {
             $("#wbp").val(selectedWBP);
             $("#kvar").val(selectedKVAR);
             $("#teknisi").val(selectedTeknisi);
-
-            console.log("Selected Nomorpln: ", selectedNomorPLN);
-            console.log("Selected Date: ", selectedDate);
-            console.log("Selected Jam: ", selectedJam);
-            console.log("Selected LWBP: ", selectedLWBP);
-            console.log("Selected WBP: ", selectedWBP);
-            console.log("Selected KVAR: ", selectedKVAR);
-            console.log("Selected Teknisi: ", selectedTeknisi);
         } else {
             clearForm();
         }
@@ -310,240 +302,255 @@ $(document).ready(function () {
             })
             .get();
 
-        // Check if there are selected checkboxes
         if (checkboxValues.length === 0) {
             Swal.fire({
                 icon: "error",
                 title: "Tidak Ada Data Terpilih",
                 text: "Pilih setidaknya satu data PLN untuk dihapus.",
             });
-            return; // Abort further processing
+            return;
         }
 
-        var requestData = {
-            Nomor: checkboxValues,
-        };
+        Swal.fire({
+            title: "Konfirmasi",
+            text: "Anda yakin ingin menghapus data PLN yang terpilih?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Ya, Hapus!",
+            cancelButtonText: "Batal",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var requestData = {
+                    Nomor: checkboxValues,
+                };
 
-        $.ajax({
-            url: "/delete-pln",
-            method: "DELETE",
-            data: requestData,
-            headers: {
-                "X-CSRF-TOKEN": csrfToken,
-            },
-            success: function (response) {
-                console.log(requestData);
-                dataTable.ajax.reload();
-                Swal.fire({
-                    icon: "success",
-                    title: "Terhapus!",
-                    text: "Data PLN Berhasil Dihapus!",
-                    showConfirmButton: false,
-                    timer: "2000",
+                $.ajax({
+                    url: "/delete-pln",
+                    method: "DELETE",
+                    data: requestData,
+                    headers: {
+                        "X-CSRF-TOKEN": csrfToken,
+                    },
+                    success: function (response) {
+                        dataTable.ajax.reload();
+                        Swal.fire({
+                            icon: "success",
+                            title: "Terhapus!",
+                            text: "Data PLN Berhasil Dihapus!",
+                            showConfirmButton: false,
+                            timer: 2000,
+                        });
+                        clearForm();
+                    },
+                    error: function (error) {
+                        console.error(
+                            "Error delete Data : ",
+                            error.responseText
+                        );
+                    },
                 });
-                console.log("data pln delete successfully", response);
-                clearForm();
-            },
-            error: function (error) {
-                console.error("Error delete Data : ", error.responseText);
-            },
+            }
         });
     });
 });
 
 // ------------------------------------------------------------------------------------------------------------------------------------- //
-// Panel SDP //
+// Panel SPD //
 
 // Form Input
-let produksiSDP = document.getElementById("produksi-sdp");
-let tanggalSDP = document.getElementById("tanggal-sdp");
-let jamSDP = document.getElementById("jam-sdp");
-let kwhSDP = document.getElementById("kwh-sdp");
-let ct_faktorSDP = document.getElementById("ct_faktor-sdp");
-let teknisiSDP = document.getElementById("teknisi-sdp");
+let produksiSPD = document.getElementById("produksi-spd");
+let tanggalSPD = document.getElementById("tanggal-spd");
+let jamSPD = document.getElementById("jam-spd");
+let kwhSPD = document.getElementById("kwh-spd");
+let ct_faktorSPD = document.getElementById("ct_faktor-spd");
+let teknisiSPD = document.getElementById("teknisi-spd");
 
 // tanggal form
-var tanggal_Input = document.getElementById("tanggal-sdp");
+var tanggal_Input = document.getElementById("tanggal-spd");
 var tanggal_Output = new Date().toISOString().split("T")[0];
 tanggal_Input.value = tanggal_Output;
 
 // Form Button
-let inputButtonSDP = document.getElementById("inputButton-sdp");
-let cancelButtonSDP = document.getElementById("cancelButton-sdp");
-let updateButtonSDP = document.getElementById("updateButton-sdp");
-let deleteButtonSDP = document.getElementById("deleteButton-sdp");
-let saveButtonSDP = document.getElementById("saveButton-sdp");
-let refreshButtonSDP = document.getElementById("refreshButton-sdp");
+let inputButtonSPD = document.getElementById("inputButton-spd");
+let cancelButtonSPD = document.getElementById("cancelButton-spd");
+let updateButtonSPD = document.getElementById("updateButton-spd");
+let deleteButtonSPD = document.getElementById("deleteButton-spd");
+let saveButtonSPD = document.getElementById("saveButton-spd");
+let refreshButtonSPD = document.getElementById("refreshButton-spd");
 
 // Checkbox
-let nomorsdp = document.getElementById("hiddenNomorsdp");
+let nomorSPD = document.getElementById("hiddenNomorSPD");
 
-function clearFormSDP() {
-    produksiSDP.value = "";
-    tanggalSDP.value = "";
-    jamSDP.value = "";
-    kwhSDP.value = "";
-    ct_faktorSDP.value = "";
-    teknisiSDP.value = "";
-    nomorsdp.value = "";
+function clearFormSPD() {
+    produksiSPD.value = "";
+    tanggalSPD.value = "";
+    jamSPD.value = "";
+    kwhSPD.value = "";
+    ct_faktorSPD.value = "";
+    teknisiSPD.value = "";
+    nomorSPD.value = "";
 }
 
-saveButtonSDP.disabled = true;
-produksiSDP.disabled = true;
-tanggalSDP.disabled = true;
-jamSDP.disabled = true;
-kwhSDP.disabled = true;
-ct_faktorSDP.disabled = true;
-teknisiSDP.disabled = true;
-updateButtonSDP.disabled = true;
-deleteButtonSDP.disabled = true;
+saveButtonSPD.disabled = true;
+produksiSPD.disabled = true;
+tanggalSPD.disabled = true;
+jamSPD.disabled = true;
+kwhSPD.disabled = true;
+ct_faktorSPD.disabled = true;
+teknisiSPD.disabled = true;
+updateButtonSPD.disabled = false;
+deleteButtonSPD.disabled = false;
 
 function checkAllFieldsFilled1() {
     return (
-        produksiSDP.value.trim() !== "" &&
-        tanggalSDP.value.trim() !== "" &&
-        jamSDP.value.trim() !== "" &&
-        kwhSDP.value.trim() !== "" &&
-        ct_faktorSDP.value.trim() !== "" &&
-        teknisiSDP.value.trim() !== ""
+        produksiSPD.value.trim() !== "" &&
+        tanggalSPD.value.trim() !== "" &&
+        jamSPD.value.trim() !== "" &&
+        kwhSPD.value.trim() !== "" &&
+        ct_faktorSPD.value.trim() !== "" &&
+        teknisiSPD.value.trim() !== ""
     );
 }
 
-[produksiSDP, tanggalSDP, jamSDP, kwhSDP, ct_faktorSDP, teknisiSDP].forEach(
+[produksiSPD, tanggalSPD, jamSPD, kwhSPD, ct_faktorSPD, teknisiSPD].forEach(
     function (inputField) {
         inputField.addEventListener("input", function () {
-            saveButtonSDP.disabled = !checkAllFieldsFilled1();
+            saveButtonSPD.disabled = !checkAllFieldsFilled1();
         });
     }
 );
 
 // InputButton click
-inputButtonSDP.addEventListener("click", function () {
-    produksiSDP.disabled = false;
-    tanggalSDP.disabled = false;
-    jamSDP.disabled = false;
-    kwhSDP.disabled = false;
-    ct_faktorSDP.disabled = false;
-    teknisiSDP.disabled = false;
-    updateButtonSDP.disabled = true;
-    deleteButtonSDP.disabled = true;
-    nomorsdp.value = "";
-    $(".checkboxsdp").prop("checked", false);
-    clearFormSDP();
+inputButtonSPD.addEventListener("click", function () {
+    produksiSPD.disabled = false;
+    tanggalSPD.disabled = false;
+    jamSPD.disabled = false;
+    kwhSPD.disabled = false;
+    ct_faktorSPD.disabled = false;
+    teknisiSPD.disabled = false;
+    updateButtonSPD.disabled = true;
+    deleteButtonSPD.disabled = true;
+    nomorSPD.value = "";
+    $(".checkboxSPD").prop("checked", false);
+    clearFormSPD();
 });
 // UpdateButton click
-updateButtonSDP.addEventListener("click", function () {
-    produksiSDP.disabled = false;
-    tanggalSDP.disabled = false;
-    jamSDP.disabled = false;
-    kwhSDP.disabled = false;
-    ct_faktorSDP.disabled = false;
-    teknisiSDP.disabled = false;
-    inputButtonSDP.disabled = true;
-    deleteButtonSDP.disabled = true;
+updateButtonSPD.addEventListener("click", function () {
+    produksiSPD.disabled = false;
+    tanggalSPD.disabled = false;
+    jamSPD.disabled = false;
+    kwhSPD.disabled = false;
+    ct_faktorSPD.disabled = false;
+    teknisiSPD.disabled = false;
+    inputButtonSPD.disabled = true;
+    deleteButtonSPD.disabled = true;
 
-    var checkboxValues = $(".checkboxsdp:checked")
+    var checkboxValues = $(".checkboxSPD:checked")
         .map(function () {
             return this.value;
         })
         .get();
 
-    // Check if there are selected checkboxes
     if (checkboxValues.length === 0) {
         Swal.fire({
             icon: "error",
             title: "Tidak Ada Data Terpilih",
-            text: "Pilih setidaknya satu data SDP untuk update.",
+            text: "Pilih setidaknya satu data SPD untuk update.",
         });
-    } else {
-        // Perform your other update logic if checkboxes are checked
-        // ...
+        inputButtonSPD.disabled = false;
+        deleteButtonSPD.disabled = false;
     }
 });
 
 // CancelButton click
-cancelButtonSDP.addEventListener("click", function () {
-    produksiSDP.disabled = true;
-    tanggalSDP.disabled = true;
-    jamSDP.disabled = true;
-    kwhSDP.disabled = true;
-    ct_faktorSDP.disabled = true;
-    teknisiSDP.disabled = true;
-    inputButtonSDP.disabled = false;
-    updateButtonSDP.disabled = false;
-    deleteButtonSDP.disabled = false;
+cancelButtonSPD.addEventListener("click", function () {
+    produksiSPD.disabled = true;
+    tanggalSPD.disabled = true;
+    jamSPD.disabled = true;
+    kwhSPD.disabled = true;
+    ct_faktorSPD.disabled = true;
+    teknisiSPD.disabled = true;
+    inputButtonSPD.disabled = false;
+    updateButtonSPD.disabled = false;
+    deleteButtonSPD.disabled = false;
 
     // Clear Form
-    clearFormSDP();
+    clearFormSPD();
 
-    $(".checkboxsdp").prop("checked", false);
+    $(".checkboxSPD").prop("checked", false);
     // Disable saveButton
     saveButton.disabled = true;
 });
 
 // Reload Window
 window.addEventListener("beforeunload", function () {
-    clearFormSDP();
-    $("#bulan-sdp").val("");
-    $("#tahun-sdp").val("");
-    $("#produksiSearch-sdp").val("");
+    clearFormSPD();
+    $("#bulan-SPD").val("");
+    $("#tahun-SPD").val("");
+    $("#produksiSearch-SPD").val("");
     // Disable saveButton
-    saveButtonSDP.disabled = true;
+    saveButtonSPD.disabled = true;
 });
 
 $(document).ready(function () {
-    // console.log(checkboxpln.value)
-    $("#saveButton-sdp").click(function () {
-        var produksiSDPValue = $("#produksi-sdp").val();
-        var tanggalSDPValue = $("#tanggal-sdp").val();
-        var jamSDPValue = $("#jam-sdp").val();
-        var kwhValue = $("#kwh-sdp").val();
-        var teknisiSDPValue = $("#teknisi-sdp").val();
-        var ctFaktorValue = $("#ct_faktor-sdp").val();
-        var nomorsdpValue = $("#hiddenNomorsdp").val();
+    $("#saveButton-spd").click(function () {
+        var produksiSPDValue = $("#produksi-spd").val();
+        var tanggalSPDValue = $("#tanggal-spd").val();
+        var jamSPDValue = $("#jam-spd").val();
+        var kwhValue = $("#kwh-spd").val();
+        var teknisiSPDValue = $("#teknisi-spd").val();
+        var ctFaktorValue = $("#ct_faktor-spd").val();
+        var nomorSPDValue = $("#hiddenNomorSPD").val();
 
         var csrfToken = $('meta[name="csrf-token"]').attr("content");
 
         var requestData1 = {
-            Produksi: produksiSDPValue,
-            Tanggal: tanggalSDPValue,
-            Jam: jamSDPValue,
+            Produksi: produksiSPDValue,
+            Tanggal: tanggalSPDValue,
+            Jam: jamSPDValue,
             KWH: kwhValue,
             ct: ctFaktorValue,
-            Teknisi: teknisiSDPValue,
+            Teknisi: teknisiSPDValue,
         };
-        if (nomorsdpValue) {
-            requestData1.NomorSDP = nomorsdpValue;
+        if (nomorSPDValue) {
+            requestData1.NomorSPD = nomorSPDValue;
         }
         $.ajax({
-            url: nomorsdpValue ? "/update-sdp" : "/save-sdp",
-            method: nomorsdpValue ? "PUT" : "POST",
+            url: nomorSPDValue ? "/update-spd" : "/save-spd",
+            method: nomorSPDValue ? "PUT" : "POST",
             data: requestData1,
             headers: {
                 "X-CSRF-TOKEN": csrfToken,
             },
             success: function (response) {
-                console.log(requestData1);
-                console.log(nomorsdpValue);
-                Swal.fire({
-                    icon: "success",
-                    title: "Data SDP Berhasil Disimpan!",
-                    showConfirmButton: false,
-                    timer: "2000",
-                });
-                clearFormSDP();
-                tanggalSDP.disabled = true;
-                jamSDP.disabled = true;
-                kwhSDP.disabled = true;
-                produksiSDP.disabled = true;
-                ct_faktorSDP.disabled = true;
-                teknisiSDP.disabled = true;
-                dataTableSDP.ajax.reload();
+                nomorSPDValue
+                    ? Swal.fire({
+                          icon: "success",
+                          title: "Data SPD Berhasil Diperbarui!",
+                          showConfirmButton: false,
+                          timer: "2000",
+                      })
+                    : Swal.fire({
+                          icon: "success",
+                          title: "Data SPD Berhasil Disimpan!",
+                          showConfirmButton: false,
+                          timer: "2000",
+                      });
+                clearFormSPD();
+                tanggalSPD.disabled = true;
+                jamSPD.disabled = true;
+                kwhSPD.disabled = true;
+                produksiSPD.disabled = true;
+                ct_faktorSPD.disabled = true;
+                teknisiSPD.disabled = true;
+                dataTableSPD.ajax.reload();
             },
             error: function (error) {
                 Swal.fire({
                     icon: "failed",
-                    title: "Data PLN Tidak Berhasil Disimpan!",
+                    title: "Data SPD Tidak Berhasil Disimpan!",
                     showConfirmButton: false,
                     timer: "2000",
                 });
@@ -552,17 +559,17 @@ $(document).ready(function () {
         });
     });
 
-    var dataTableSDP = $("#table-panelsdp").DataTable({
+    var dataTableSPD = $("#table-panelspd").DataTable({
         processing: true,
         serverSide: true,
         responsive: true,
         ajax: {
-            url: "/get-sdp",
+            url: "/get-spd",
             type: "GET",
             data: function (d) {
-                d.bulan = $("#bulan-sdp").val();
-                d.tahun = $("#tahun-sdp").val();
-                d.produksi = $("#produksiSearch-sdp").val();
+                d.bulan = $("#bulan-spd").val();
+                d.tahun = $("#tahun-spd").val();
+                d.produksi = $("#produksiSearch-spd").val();
             },
         },
         columns: [
@@ -570,7 +577,7 @@ $(document).ready(function () {
                 data: "NoTransaksi",
                 render: function (data, type, full, meta) {
                     return (
-                        '<input type="checkbox" class="checkboxsdp" value="' +
+                        '<input type="checkbox" class="checkboxSPD" value="' +
                         data +
                         '">'
                     );
@@ -598,48 +605,45 @@ $(document).ready(function () {
         ],
     });
 
-    $("#refreshButton-sdp").click(function () {
-        inputButtonSDP.disabled = false;
-        saveButtonSDP.disabled = true;
-        produksiSDP.disabled = true;
-        tanggalSDP.disabled = true;
-        jamSDP.disabled = true;
-        kwhSDP.disabled = true;
-        ct_faktorSDP.disabled = true;
-        teknisiSDP.disabled = true;
-        updateButtonSDP.disabled = true;
-        deleteButtonSDP.disabled = true;
-        clearFormSDP();
-        dataTableSDP.ajax.reload();
+    $("#refreshButton-spd").click(function () {
+        inputButtonSPD.disabled = false;
+        saveButtonSPD.disabled = true;
+        produksiSPD.disabled = true;
+        tanggalSPD.disabled = true;
+        jamSPD.disabled = true;
+        kwhSPD.disabled = true;
+        ct_faktorSPD.disabled = true;
+        teknisiSPD.disabled = true;
+        updateButtonSPD.disabled = true;
+        deleteButtonSPD.disabled = true;
+        clearFormSPD();
+        dataTableSPD.ajax.reload();
     });
 
-    $("#exitButton-sdp").click(function (e) {
+    $("#exitButton-spd").click(function (e) {
         e.preventDefault();
-        clearFormSDP();
-        dataTableSDP.ajax.reload();
+        clearFormSPD();
+        dataTableSPD.ajax.reload();
     });
 
     // Checkbox click
-    $("tbody").on("click", ".checkboxsdp", function () {
+    $("tbody").on("click", ".checkboxSPD", function () {
         if ($(this).prop("checked")) {
-            deleteButtonSDP.disabled = false;
-            updateButtonSDP.disabled = false;
+            deleteButtonSPD.disabled = false;
+            updateButtonSPD.disabled = false;
 
-            var selectedNomorSDP = $(this).val();
+            var selectedNomorSPD = $(this).val();
 
-            $("#hiddenNomorsdp").val(selectedNomorSDP);
+            $("#hiddenNomorSPD").val(selectedNomorSPD);
 
             $.ajax({
-                url: "/get-sdp-id",
+                url: "/get-spd-id",
                 type: "GET",
-                data: { idSDP: selectedNomorSDP },
+                data: { idspd: selectedNomorSPD },
                 success: function (data) {
-                    console.log(data);
-
-                    produksiSDP.value = data.NoProduksi;
+                    produksiSPD.value = data.NoProduksi;
                     var date = new Date(data.Tanggal + "Z");
-                    tanggalSDP.value = date.toISOString().split("T")[0];
-
+                    tanggalSPD.value = date.toISOString().split("T")[0];
                     var startHours = new Date(data.Jam + "Z")
                         .getUTCHours()
                         .toString()
@@ -648,68 +652,80 @@ $(document).ready(function () {
                         .getUTCMinutes()
                         .toString()
                         .padStart(2, "0");
-                    jamSDP.value = startHours + ":" + startMinutes;
-
-                    kwhSDP.value = data.KWH;
-                    teknisiSDP.value = data.Teknisi;
+                    jamSPD.value = startHours + ":" + startMinutes;
+                    kwhSPD.value = data.KWH;
+                    teknisiSPD.value = data.Teknisi;
                 },
                 error: function (xhr, status, error) {
                     console.error("Error fetching data:", error);
                 },
             });
         } else {
-            clearFormSDP();
+            clearFormSPD();
         }
     });
 
-    // DeleteButton click
-    $("#deleteButton-sdp").click(function (e) {
+    $("#deleteButton-spd").click(function (e) {
         e.preventDefault();
 
         var csrfToken = $('meta[name="csrf-token"]').attr("content");
 
-        var checkboxValues = $(".checkboxsdp:checked")
+        var checkboxValues = $(".checkboxSPD:checked")
             .map(function () {
                 return this.value;
             })
             .get();
 
-        // Check if there are selected checkboxes
         if (checkboxValues.length === 0) {
             Swal.fire({
                 icon: "error",
                 title: "Tidak Ada Data Terpilih",
-                text: "Pilih setidaknya satu data SDP untuk dihapus.",
+                text: "Pilih setidaknya satu data SPD untuk dihapus.",
             });
-            return; // Abort further processing
+            return;
         }
 
-        var requestData = {
-            NomorSDP: checkboxValues,
-        };
+        Swal.fire({
+            title: "Konfirmasi",
+            text: "Anda yakin ingin menghapus data SPD terpilih?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Ya, Hapus!",
+            cancelButtonText: "Batal",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var requestData = {
+                    NomorSPD: checkboxValues,
+                };
 
-        $.ajax({
-            url: "/delete-sdp",
-            method: "DELETE",
-            data: requestData,
-            headers: {
-                "X-CSRF-TOKEN": csrfToken,
-            },
-            success: function (response) {
-                console.log(requestData);
-                dataTableSDP.ajax.reload();
-                Swal.fire({
-                    icon: "success",
-                    title: "Terhapus!",
-                    text: "Data PLN Berhasil Dihapus!",
-                    showConfirmButton: false,
-                    timer: "2000",
+                $.ajax({
+                    url: "/delete-spd",
+                    method: "DELETE",
+                    data: requestData,
+                    headers: {
+                        "X-CSRF-TOKEN": csrfToken,
+                    },
+                    success: function (response) {
+                        dataTableSPD.ajax.reload();
+                        Swal.fire({
+                            icon: "success",
+                            title: "Terhapus!",
+                            text: "Data SPD Berhasil Dihapus!",
+                            showConfirmButton: false,
+                            timer: 2000,
+                        });
+                        console.log("data SPD delete successfully", response);
+                    },
+                    error: function (error) {
+                        console.error(
+                            "Error delete Data : ",
+                            error.responseText
+                        );
+                    },
                 });
-                console.log("data pln delete successfully", response);
-            },
-            error: function (error) {
-                console.error("Error delete Data : ", error.responseText);
-            },
+            }
         });
     });
 });
@@ -730,9 +746,8 @@ let pelangganBA = document.getElementById("pelanggan-ba");
 let pembacaBA = document.getElementById("pembaca-ba");
 
 // tanggal form
-var tanggal_Input = document.getElementById("tanggal-ba");
 var tanggal_Output = new Date().toISOString().split("T")[0];
-tanggal_Input.value = tanggal_Output;
+tanggalBA.value = tanggal_Output;
 
 // Form Button
 let inputButtonBA = document.getElementById("inputButton-ba");
@@ -741,9 +756,6 @@ let updateButtonBA = document.getElementById("updateButton-ba");
 let deleteButtonBA = document.getElementById("deleteButton-ba");
 let saveButtonBA = document.getElementById("saveButton-ba");
 let refreshButtonBA = document.getElementById("refreshButton-ba");
-
-// Checkbox
-let nomorba = document.getElementById("hiddenNomorBA");
 
 function clearFormBA() {
     nomorBA.value = "";
@@ -769,8 +781,8 @@ timeswitchBA.disabled = true;
 pelangganBA.disabled = true;
 pembacaBA.disabled = true;
 
-updateButtonBA.disabled = true;
-deleteButtonBA.disabled = true;
+updateButtonBA.disabled = false;
+deleteButtonBA.disabled = false;
 saveButtonBA.disabled = true;
 
 function checkAllFieldsFilled2() {
@@ -801,55 +813,6 @@ function checkAllFieldsFilled2() {
     inputField.addEventListener("input", function () {
         saveButtonBA.disabled = !checkAllFieldsFilled2();
     });
-});
-
-// InputButton click
-inputButtonBA.addEventListener("click", function () {
-    nomorBA.disabled = false;
-    tanggalBA.disabled = false;
-    lwbpBA.disabled = false;
-    wbpBA.disabled = false;
-    kvarhBA.disabled = false;
-    kvaBA.disabled = false;
-    posisiJamBA.disabled = false;
-    timeswitchBA.disabled = false;
-    pelangganBA.disabled = false;
-    pembacaBA.disabled = false;
-    updateButtonBA.disabled = true;
-    deleteButtonBA.disabled = true;
-    $(".checkboxba").prop("checked", false);
-    clearFormBA();
-});
-// UpdateButton click
-updateButtonBA.addEventListener("click", function () {
-    nomorBA.disabled = false;
-    tanggalBA.disabled = false;
-    lwbpBA.disabled = false;
-    wbpBA.disabled = false;
-    kvarhBA.disabled = false;
-    kvaBA.disabled = false;
-    posisiJamBA.disabled = false;
-    timeswitchBA.disabled = false;
-    pelangganBA.disabled = false;
-    pembacaBA.disabled = false;
-    inputButtonBA.disabled = true;
-    deleteButtonBA.disabled = true;
-
-    var checkboxValues = $(".checkboxba:checked")
-        .map(function () {
-            return this.value;
-        })
-        .get();
-
-    // Check if there are selected checkboxes
-    if (checkboxValues.length === 0) {
-        Swal.fire({
-            icon: "error",
-            title: "Tidak Ada Data Terpilih",
-            text: "Pilih setidaknya satu data SDP untuk update.",
-        });
-    } else {
-    }
 });
 
 // CancelButton click
@@ -885,7 +848,58 @@ window.addEventListener("beforeunload", function () {
 });
 
 $(document).ready(function () {
-    // console.log(checkboxpln.value)
+    var mode = "insert";
+
+    // InputButton click
+    inputButtonBA.addEventListener("click", function () {
+        mode = "insert";
+        nomorBA.disabled = false;
+        tanggalBA.disabled = false;
+        lwbpBA.disabled = false;
+        wbpBA.disabled = false;
+        kvarhBA.disabled = false;
+        kvaBA.disabled = false;
+        posisiJamBA.disabled = false;
+        timeswitchBA.disabled = false;
+        pelangganBA.disabled = false;
+        pembacaBA.disabled = false;
+        updateButtonBA.disabled = true;
+        deleteButtonBA.disabled = true;
+        $(".checkboxba").prop("checked", false);
+        clearFormBA();
+    });
+
+    // UpdateButton click
+    updateButtonBA.addEventListener("click", function () {
+        mode = "update";
+        nomorBA.disabled = false;
+        tanggalBA.disabled = false;
+        lwbpBA.disabled = false;
+        wbpBA.disabled = false;
+        kvarhBA.disabled = false;
+        kvaBA.disabled = false;
+        posisiJamBA.disabled = false;
+        timeswitchBA.disabled = false;
+        pelangganBA.disabled = false;
+        pembacaBA.disabled = false;
+        inputButtonBA.disabled = true;
+        deleteButtonBA.disabled = true;
+
+        var checkboxValues = $(".checkboxba:checked")
+            .map(function () {
+                return this.value;
+            })
+            .get();
+
+        if (checkboxValues.length === 0) {
+            Swal.fire({
+                icon: "error",
+                title: "Tidak Ada Data Terpilih",
+                text: "Pilih setidaknya satu Berita untuk diperbarui.",
+            });
+        } else {
+        }
+    });
     $("#saveButton-ba").click(function () {
         var nomorBAValue = nomorBA.value;
         var tanggalBAValue = tanggalBA.value;
@@ -912,28 +926,36 @@ $(document).ready(function () {
             pelangganBA: pelangganBAValue,
             pembacaBA: pembacaBAValue,
         };
-        // if (nomorBAValue) {
-        //     requestData2.nomorBA = nomorBAValue;
-        // }
+
+        var url = mode === "insert" ? "/save-ba" : "/update-ba";
+        var method = mode === "insert" ? "POST" : "PUT";
+        var alert =
+            mode === "insert"
+                ? Swal.fire({
+                      icon: "success",
+                      title: "Data Berita Acara Berhasil Disimpan!",
+                      showConfirmButton: false,
+                      timer: "2000",
+                  })
+                : Swal.fire({
+                      icon: "success",
+                      title: "Data Berita Acara Berhasil Diperbarui!",
+                      showConfirmButton: false,
+                      timer: "2000",
+                  });
+
         $.ajax({
-            url: "/save-ba",
-            // url: nomorBAValue ? "/update-ba" : "/save-ba",
-            method: "POST",
-            // method: nomorBAValue ? "PUT" : "POST",
+            url: url,
+            method: method,
             data: requestData2,
             headers: {
                 "X-CSRF-TOKEN": csrfToken,
             },
             success: function (response) {
-                console.log(requestData2);
-                console.log(nomorBAValue);
-                Swal.fire({
-                    icon: "success",
-                    title: "Data Berita Acara Berhasil Disimpan!",
-                    showConfirmButton: false,
-                    timer: "2000",
-                });
-                clearFormSDP();
+                alert;
+                clearFormBA();
+                inputButtonBA.disabled = false;
+                deleteButtonBA.disabled = false;
                 nomorBA.disabled = true;
                 tanggalBA.disabled = true;
                 lwbpBA.disabled = true;
@@ -982,13 +1004,6 @@ $(document).ready(function () {
             },
             {
                 data: "Nomor",
-                // render: function (data, type, full, meta) {
-                //     return (
-                //         '<input type="checkbox" class="checkboxba" value="' +
-                //         data +
-                //         '">'
-                //     );
-                // },
             },
             {
                 data: "Tanggal",
@@ -1028,56 +1043,43 @@ $(document).ready(function () {
     $("#refreshButton-ba").click(function () {
         inputButtonBA.disabled = false;
         saveButtonBA.disabled = true;
-        updateButtonBA.disabled = true;
-        deleteButtonBA.disabled = true;
+        updateButtonBA.disabled = false;
+        deleteButtonBA.disabled = false;
         clearFormBA();
         dataTableBA.ajax.reload();
     });
 
     $("#exitButton-ba").click(function (e) {
         e.preventDefault();
-        clearFormSDP();
-        dataTableSDP.ajax.reload();
+        clearFormBA();
+        dataTableSPD.ajax.reload();
     });
 
     // Checkbox click
     $("tbody").on("click", ".checkboxba", function () {
         if ($(this).prop("checked")) {
-            deleteButtonBA.disabled = false;
-            updateButtonBA.disabled = false;
-
+            var selectedRow = $(this).closest("tr");
             var selectedIdBA = $(this).val();
+            var selectedDate = selectedRow.find("td:eq(2)").text();
+            var selectedLWBP = selectedRow.find("td:eq(3)").text();
+            var selectedWBP = selectedRow.find("td:eq(4)").text();
+            var selectedKVARH = selectedRow.find("td:eq(5)").text();
+            var selectedKVA = selectedRow.find("td:eq(6)").text();
+            var selectedPosisi = selectedRow.find("td:eq(7)").text();
+            var selectedTime = selectedRow.find("td:eq(8)").text();
+            var selectedPelanggan = selectedRow.find("td:eq(9)").text();
+            var selectedPembaca = selectedRow.find("td:eq(10)").text();
 
-            $("#hiddenNomorBA").val(selectedIdBA);
-
-            // $.ajax({
-            //     url: "/get-ba-id",
-            //     type: "GET",
-            //     data: { idBA: selectedIdBA },
-            //     success: function (data) {
-            //         console.log(data);
-
-            //         produksiSDP.value = data.NoProduksi;
-            //         var date = new Date(data.Tanggal + "Z");
-            //         tanggalSDP.value = date.toISOString().split("T")[0];
-
-            //         var startHours = new Date(data.Jam + "Z")
-            //             .getUTCHours()
-            //             .toString()
-            //             .padStart(2, "0");
-            //         var startMinutes = new Date(data.Jam + "Z")
-            //             .getUTCMinutes()
-            //             .toString()
-            //             .padStart(2, "0");
-            //         jamSDP.value = startHours + ":" + startMinutes;
-
-            //         kwhSDP.value = data.KWH;
-            //         teknisiSDP.value = data.Teknisi;
-            //     },
-            //     error: function (xhr, status, error) {
-            //         console.error("Error fetching data:", error);
-            //     },
-            // });
+            nomorBA.value = selectedIdBA;
+            tanggalBA.value = selectedDate;
+            lwbpBA.value = selectedLWBP;
+            wbpBA.value = selectedWBP;
+            kvarhBA.value = selectedKVARH;
+            kvaBA.value = selectedKVA;
+            posisiJamBA.value = selectedPosisi;
+            timeswitchBA.value = selectedTime;
+            pelangganBA.value = selectedPelanggan;
+            pembacaBA.value = selectedPembaca;
         } else {
             clearFormBA();
         }
@@ -1086,47 +1088,67 @@ $(document).ready(function () {
     // DeleteButton click
     $("#deleteButton-ba").click(function (e) {
         e.preventDefault();
-        var csrfToken = $('meta[name="csrf-token"]').attr("content");
+
         var checkboxValues = $(".checkboxba:checked")
             .map(function () {
                 return this.value;
             })
             .get();
+
         if (checkboxValues.length === 0) {
             Swal.fire({
                 icon: "error",
                 title: "Tidak Ada Data Terpilih",
-                text: "Pilih setidaknya satu data Berita untuk dihapus.",
+                text: "Pilih setidaknya satu Berita untuk dihapus.",
             });
             return;
         }
 
-        var requestData3 = {
-            Nomor: checkboxValues,
-        };
+        Swal.fire({
+            title: "Konfirmasi",
+            text: "Anda yakin ingin menghapus data Berita Acara terpilih?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Ya, Hapus!",
+            cancelButtonText: "Batal",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var csrfToken = $('meta[name="csrf-token"]').attr("content");
+                var requestData3 = {
+                    Nomor: checkboxValues,
+                };
 
-        $.ajax({
-            url: "/delete-ba",
-            method: "DELETE",
-            data: requestData3,
-            headers: {
-                "X-CSRF-TOKEN": csrfToken,
-            },
-            success: function (response) {
-                console.log(requestData3);
-                dataTableBA.ajax.reload();
-                Swal.fire({
-                    icon: "success",
-                    title: "Terhapus!",
-                    text: "Data Berita Acara Berhasil Dihapus!",
-                    showConfirmButton: false,
-                    timer: "2000",
+                $.ajax({
+                    url: "/delete-ba",
+                    method: "DELETE",
+                    data: requestData3,
+                    headers: {
+                        "X-CSRF-TOKEN": csrfToken,
+                    },
+                    success: function (response) {
+                        dataTableBA.ajax.reload();
+                        Swal.fire({
+                            icon: "success",
+                            title: "Terhapus!",
+                            text: "Data Berita Acara Berhasil Dihapus!",
+                            showConfirmButton: false,
+                            timer: 2000,
+                        });
+                        console.log(
+                            "data berita acara delete successfully",
+                            response
+                        );
+                    },
+                    error: function (error) {
+                        console.error(
+                            "Error delete Data : ",
+                            error.responseText
+                        );
+                    },
                 });
-                console.log("data berita acara delete successfully", response);
-            },
-            error: function (error) {
-                console.error("Error delete Data : ", error.responseText);
-            },
+            }
         });
     });
 });
