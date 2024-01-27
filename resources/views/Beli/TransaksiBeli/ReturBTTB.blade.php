@@ -35,11 +35,11 @@
                         <div class="row mb-3 m-1">
                             <div class="col-md-4">
                                 <label for="tanggal_po" class="form-label">Tanggal PO</label>
-                                <input type="date" class="form-control" id="tanggal_po" name="tanggal_po">
+                                <input type="date" class="form-control" id="tanggal_po" name="tanggal_po" value="{{ date('Y-m-d') }}">
                             </div>
                             <div class="col-md-4">
                                 <label for="tanggalkirim" class="form-label">Tanggal Mohon Kirim</label>
-                                <input type="date" class="form-control" id="tanggalkirim" name="tanggalkirim">
+                                <input type="date" class="form-control" id="tanggalkirim" name="tanggalkirim" value="{{ date('Y-m-d') }}">
                             </div>
                             <div class="col-md-4">
                                 <label for="matauang" class="form-label">Mata uang</label>
@@ -70,45 +70,28 @@
                             </thead>
                         </table>
                         </table>
-                        <table class="table sm">
+                        <table class="table sm" id="tabelretur1">
                             <thead class="table-dark">
                                 <tr>
-                                    <th>No BTTB</th>
-                                    <th>No. SJ</th>
-                                    <th>Id Terima</th>
+                                    <th>Id Type</th>
                                     <th>Kd Barang</th>
                                     <th>Nama Barang</th>
-                                    <th>Sub Kategori</th>
-                                    <th>Qty Terima</th>
-                                    <th>Satuan</th>
-                                    <th>id. Transfer</th>
-                                    <th>id Trans INV</th>
-                                    <th>No Order</th>
-                                    <th>Qty Retur</th>
-                                    <th>Alasan Retur</th>
-                                    <th>Penagih</th>
+                                    <th>Qty Primer</th>
+                                    <th>Satuan Primer</th>
+                                    <th>Qty Sekunder </th>
+                                    <th>Satuan Sekunder</th>
+                                    <th>Qty Tertier</th>
+                                    <th>Satuan Tertier</th>
+                                    <th>Sub Kelompok</th>
+                                    <th>Kelompok</th>
+                                    <th>Kel Utama</th>
+                                    <th>Objek</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <div class="text-left mt-20">
                                     <h5>Stock Inventory Divisi Pembelian</h5>
                                 </div>
-                                <tr>
-                                    <td contenteditable="true"></td>
-                                    <td contenteditable="true"></td>
-                                    <td contenteditable="true"></td>
-                                    <td contenteditable="true"></td>
-                                    <td contenteditable="true"></td>
-                                    <td contenteditable="true"></td>
-                                    <td contenteditable="true"></td>
-                                    <td contenteditable="true"></td>
-                                    <td contenteditable="true"></td>
-                                    <td contenteditable="true"></td>
-                                    <td contenteditable="true"></td>
-                                    <td contenteditable="true"></td>
-                                    <td contenteditable="true"></td>
-                                    <td contenteditable="true"></td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -119,7 +102,7 @@
                         </div>
                         <div class="col-md-4">
                             <label for="tanggalretur" class="form-label">Tanggal Retur</label>
-                            <input type="date" class="form-control" id="tanggalretur" name="tanggalretur">
+                            <input type="date" class="form-control" id="tanggalretur" name="tanggalretur" value="{{ date('Y-m-d') }}">
                         </div>
                     </div>
                     <div class="row mb-3 m-1">
@@ -129,7 +112,7 @@
                         </div>
                         <div class="col-md-4">
                             <label for="type" class="form-label">Id Type</label>
-                            <input type="text" class="form-control" id="type" name="type">
+                            <input type="number" class="form-control" id="type" name="type" maxlength="9" oninput="formatInput(this)">
                         </div>
                         <div class="col-md-4">
                             <label for="kelompok" class="form-label">Kelompok</label>
@@ -194,4 +177,23 @@
                 </div>
             </div>
             <script src = "{{ asset('js/OrderPembelian/Retur.js') }}"></script>
+            <script>
+                function formatInput(inputElement) {
+                    // Mendapatkan nilai input
+                    let inputValue = inputElement.value;
+
+                    // Mengisi dua angka terakhir dengan 0 jika panjang kurang dari 9
+                    while (inputValue.length < 9) {
+                        inputValue += '0';
+                    }
+
+                    // Memastikan bahwa nilai input tidak melebihi 9 angka
+                    inputValue = inputValue.slice(0, 9);
+
+                    // Menetapkan nilai kembali ke elemen input
+                    inputElement.value = inputValue;
+                }
+            </script>
+
+
         @endsection

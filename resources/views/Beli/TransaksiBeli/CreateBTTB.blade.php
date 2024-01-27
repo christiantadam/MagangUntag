@@ -37,7 +37,7 @@
                             </div>
                             <div class="col-md-3 mb-2">
                                 <label for="tglbttb" class="form-label">tgl BTTB</label>
-                                <input type="date" class="form-control" id="tglbttb" name="tglbttb">
+                                <input type="date" class="form-control" id="tglbttb" name="tglbttb" value="{{ date('Y-m-d') }}">
                             </div>
                             <div class="col-md-3 mb-2">
                                 <label for="nopib" class="form-label">No. PIB</label>
@@ -45,11 +45,11 @@
                             </div>
                             <div class="col-md-3 mb-2">
                                 <label for="tglsppb" class="form-label">Tgl. SPPB BC</label>
-                                <input type="date" class="form-control" id="tglsppb" name="tglsppb">
+                                <input type="date" class="form-control" id="tglsppb" name="tglsppb" value="{{ date('Y-m-d') }}">
                             </div>
                             <div class="col-md-3 mb-2">
                                 <label for="tglregis" class="form-label">Tgl. Rgistrasi</label>
-                                <input type="date" class="form-control" id="tglregis" name="tglregis">
+                                <input type="date" class="form-control" id="tglregis" name="tglregis" value="{{ date('Y-m-d') }}">
                             </div>
                             <div class="col-md-3 mb-2">
                                 <label for="supplier" class="form-label">Supplier</label>
@@ -73,7 +73,7 @@
                             </div>
                             <div class="col-md-3">
                                 <label for="tglpib" class="form-label">Tgl PIB</label>
-                                <input type="date" class="form-control" id="tglpib" name="tglpib">
+                                <input type="date" class="form-control" id="tglpib" name="tglpib" value="{{ date('Y-m-d') }}">
                             </div>
                             <div class="col-md-3">
                                 <label for="tglskbm" class="form-label">Tgl. SKBM</label>
