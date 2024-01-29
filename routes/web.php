@@ -41,7 +41,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/options/supplierselect/{id}','App\Http\Controllers\Beli\Master\SupplierController@getSupplier');
     Route::resource('HistoryPembelianMaster', App\Http\Controllers\Beli\Master\HistoryPembelianMasterController::class);
     Route::get('HistoryPembelianMasterRedisplay', 'APP\Http\Controllers\Beli\Master\HistoryPembelianMasterController@redisplay')->name('historypembelianmaster.redisplay');
-    Route::resource('MaintenanceTypeBarang', App\Http\Controllers\Beli\Master\MaintenanceController::class);
+    Route::resource('MaintenanceKodeBarang', App\Http\Controllers\Beli\Master\MaintenanceController::class);
+    Route::get('/Maintenance/KodeBarang', 'App\Http\Controllers\Beli\Master\MaintenanceController@kodeBarang')->name('maintenancekodebarang.kodebarang');
+    Route::get('/Maintenance/KategoriUtama', 'App\Http\Controllers\Beli\Master\MaintenanceController@kategoriUtama')->name('maintenancekodebarang.kategoriutama');
     Route::resource('BatalTransfer', App\Http\Controllers\Beli\Master\BatalTransferController::class);
     Route::post('/BatalTransfer/Proses', 'App\Http\Controllers\Beli\Master\BatalTransferController@batal')->name('bataltransfer.proses');
 
