@@ -64,36 +64,28 @@ class IsiSupplierHargaController extends Controller
     public function daftarData($id)
     {
         $kd_sup = 1;
-        if (($kd_sup != null)) {
-            try {
-                $supplier = DB::connection('ConnPurchase')->select('exec SP_5409_PBL_SUPPLIER @kd = ?', [$kd_sup]);
-                $matauang = DB::connection('ConnPurchase')->select('exec SP_7775_PBL_LIST_MATA_UANG');
-                $ppn = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_PPN');
-                return Response()->json([
-                    'matauang' => $matauang,
-                    'supplier' => $supplier,
-                    'ppn' => $ppn
-                ]);
-            } catch (\Throwable $Error) {
-                return Response()->json($Error);
-            }
-        } else {
-            return Response()->json('Parameter harus di isi');
+        try {
+            $supplier = DB::connection('ConnPurchase')->select('exec SP_5409_PBL_SUPPLIER @kd = ?', [$kd_sup]);
+            $matauang = DB::connection('ConnPurchase')->select('exec SP_7775_PBL_LIST_MATA_UANG');
+            $ppn = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_PPN');
+            return Response()->json([
+                'matauang' => $matauang,
+                'supplier' => $supplier,
+                'ppn' => $ppn
+            ]);
+        } catch (\Throwable $Error) {
+            return Response()->json($Error);
         }
     }
     public function daftarSupplier(Request $request, $id)
     {
         $kd = 1;
         $idsup = $request->input('idsup');
-        if (($idsup != null) || ($kd != null)) {
-            try {
-                $supplier = DB::connection('ConnPurchase')->select('exec SP_1273_PBL_LIST_SUPPLIER @kd = ?, @idsup = ?', [$kd, $idsup]);
-                return Response()->json($supplier);
-            } catch (\Throwable $Error) {
-                return Response()->json($Error);
-            }
-        } else {
-            return Response()->json('Parameter harus di isi');
+        try {
+            $supplier = DB::connection('ConnPurchase')->select('exec SP_1273_PBL_LIST_SUPPLIER @kd = ?, @idsup = ?', [$kd, $idsup]);
+            return Response()->json($supplier);
+        } catch (\Throwable $Error) {
+            return Response()->json($Error);
         }
     }
     public function approve(Request $request, $id)
@@ -134,7 +126,7 @@ class IsiSupplierHargaController extends Controller
         $noTrans = $request->input('noTrans');
         $alasan = $request->input('alasan');
         $Operator = '1001';
-        if (($noTrans != null) || ($kd != null) || ($alasan != null) || ($Operator != null)) {
+        if (($noTrans != null) || ($alasan != null)) {
             try {
                 $reject = DB::connection('ConnPurchase')->statement('exec SP_5409_SAVE_ORDER @Operator = ?, @kd = ?, @noTrans = ?, @alasan = ?', [$Operator, $kd, $noTrans, $alasan]);
                 return Response()->json($reject);

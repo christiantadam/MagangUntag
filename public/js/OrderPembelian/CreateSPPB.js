@@ -246,8 +246,8 @@ btn_update.addEventListener("click", function (event) {
                 showConfirmButton: false,
                 timer: "2000",
             });
-            table.row(".selected").remove().draw(false);
             clearData();
+            location.reload(true);
         },
         error: function (error) {
             Swal.fire({
@@ -277,8 +277,8 @@ btn_remove.addEventListener("click", function (event) {
                 showConfirmButton: false,
                 timer: "2000",
             });
-            table.row(".selected").remove().draw(false);
             clearData();
+            location.reload(true);
         },
         error: function (error) {
             Swal.fire({
@@ -309,8 +309,9 @@ btn_reject.addEventListener("click", function (event) {
                 showConfirmButton: false,
                 timer: "2000",
             });
-            table.row(".selected").remove().draw(false);
+
             clearData();
+            location.reload(true);
         },
         error: function (error) {
             Swal.fire({

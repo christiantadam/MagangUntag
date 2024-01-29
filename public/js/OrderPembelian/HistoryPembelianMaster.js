@@ -14,6 +14,9 @@ redisplay.addEventListener("click", function (event) {
         let value = getSelectedInputValue();
         if (radioButtonChecked === "kode_barang") {
             $("#tabelData").DataTable().clear().destroy();
+            while (value.length < 9) {
+                value = "0" + value;
+            }
             redisplayData(null, null, null, value);
         } else if (radioButtonChecked === "nama_barang") {
             $("#tabelData").DataTable().clear().destroy();

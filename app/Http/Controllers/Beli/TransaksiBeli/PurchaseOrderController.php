@@ -101,8 +101,7 @@ class PurchaseOrderController extends Controller
         $disc = $request->input('disc');
         $discIDR = $request->input('discIDR');
         $noTrans = $request->input('noTrans');
-        if (($kd !== null) ||
-            ($Qty !== null) ||
+        if (($Qty !== null) ||
             ($QtyCancel !== null) ||
             ($kurs !== null) ||
             ($pUnit !== null) ||
@@ -133,8 +132,7 @@ class PurchaseOrderController extends Controller
     {
         $kd = 6;
         $noTrans = $request->input('noTrans');
-        if (($kd !== null) &&
-            ($noTrans !== null)
+        if (($noTrans !== null)
         ) {
             try {
                 $remove = DB::connection('ConnPurchase')->select('exec SP_5409_MAINT_PO @kd = ?, @noTrans = ?', [$kd, $noTrans]);
@@ -153,8 +151,7 @@ class PurchaseOrderController extends Controller
         $alasan = $request->input('alasan');
         $Operator = '1001';
 
-        if (($kd !== null) &&
-            ($noTrans !== null) &&
+        if (($noTrans !== null) &&
             ($alasan !== null)
         ) {
             try {
@@ -175,12 +172,11 @@ class PurchaseOrderController extends Controller
         $tglPO = $request->input('tglPO');
         $Operator = '1001';
         $idpay = $request->input('idpay');
-        $jumCetak = 1 ;
+        $jumCetak = 1;
         $Tgl_Dibutuhkan = $request->input('Tgl_Dibutuhkan');
         $idSup = $request->input('idSup');
 
-        if (($kd !== null) ||
-            ($noTrans !== null) ||
+        if (($noTrans !== null) ||
             ($mtUang !== null) ||
             ($tglPO !== null) ||
             ($idpay !== null) ||
