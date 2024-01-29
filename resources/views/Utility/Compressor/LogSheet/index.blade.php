@@ -32,46 +32,46 @@
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="temp">Temperatur</label>
-                                    <input type="text" class="form-control" id="temp" name="temp"
-                                        placeholder="120 celcius">
+                                    <input type="number" pattern="[0-9]" min="0" class="form-control" id="temp"
+                                        name="temp" placeholder="120 celcius">
                                 </div>
 
                             </div>
                             <div class="col-lg-4 p-4">
                                 <div class="acs-div-filter pt-4">
                                     <label for="bar">Bar</label>
-                                    <input type="text" class="form-control" id="bar" name="bar"
-                                        placeholder="...">
+                                    <input type="number" pattern="[0-9]" min="0" class="form-control" id="bar"
+                                        name="bar" placeholder="...">
                                 </div>
 
                                 <div class="acs-div-filter pt-4">
                                     <label for="rm_hours">RM Hours</label>
-                                    <input type="text" class="form-control" id="rm_hours" name="rm_hours"
-                                        placeholder="...">
+                                    <input type="number" pattern="[0-9]" min="0" class="form-control" id="rm_hours"
+                                        name="rm_hours" placeholder="...">
                                 </div>
 
                                 <div class="acs-div-filter pt-4">
                                     <label for="lm_hours">LM Hours</label>
-                                    <input type="text" class="form-control" id="lm_hours" name="lm_hours"
-                                        placeholder="...">
+                                    <input type="number" pattern="[0-9]" min="0" class="form-control" id="lm_hours"
+                                        name="lm_hours" placeholder="...">
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="r_hours">R Hours</label>
-                                    <input type="text" class="form-control" id="r_hours" name="r_hours"
-                                        placeholder="...">
+                                    <input type="number" pattern="[0-9]" min="0" class="form-control" id="r_hours"
+                                        name="r_hours" placeholder="...">
                                 </div>
 
                             </div>
                             <div class="col-lg-4 p-4">
                                 <div class="acs-div-filter pt-4">
                                     <label for="l_hours">L Hours</label>
-                                    <input type="text" class="form-control" id="l_hours" name="l_hours"
-                                        placeholder="...">
+                                    <input type="number" pattern="[0-9]" min="0" class="form-control" id="l_hours"
+                                        name="l_hours" placeholder="...">
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="efs">Efs</label>
-                                    <input type="text" class="form-control" id="efs" name="efs"
-                                        placeholder="...">
+                                    <input type="number" pattern="[0-9]" min="0" class="form-control" id="efs"
+                                        name="efs" placeholder="...">
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="tech">Tech</label>
@@ -87,8 +87,10 @@
                             <div class="col-lg-12 p-4">
                                 <div class="d-flex gap-2 pt-4 justify-content-end flex-wrap">
                                     <button class="btn btn-success mb-2" id="inputButton" type="button">Input</button>
-                                    <button class="btn btn-outline-warning mb-2" id="updateButton" type="button">Koreksi</button>
-                                    <button class="btn btn-outline-danger mb-2" id="deleteButton" type="button">Hapus</button>
+                                    <button class="btn btn-outline-warning mb-2" id="updateButton"
+                                        type="button">Koreksi</button>
+                                    <button class="btn btn-outline-danger mb-2" id="deleteButton"
+                                        type="button">Hapus</button>
                                     <button class="btn btn-primary mb-2" id="saveButton" type="button">Proses</button>
                                     <button class="btn btn-danger mb-2" id="cancelButton" type="button">Batal</button>
                                 </div>
@@ -114,14 +116,16 @@
                                         <label for="tanggal">Mesin</label>
                                     </div>
                                     <div class="d-flex gap-2">
-                                        <select class="form-select" aria-label="Default select example" id="NoMesinSearch">
+                                        <select class="form-select" aria-label="Default select example"
+                                            id="NoMesinSearch">
                                             <option selected value="0">Pilih Semua Mesin..</option>
                                             @foreach ($mesin as $data)
                                                 <option value="{{ $data->NoMesin }}">
                                                     {{ $data->NamaMesin }}</option>
                                             @endforeach
                                         </select>
-                                        <button type="button" id="refreshButton" class="btn btn-primary">Refresh</button>
+                                        <button type="button" id="refreshButton"
+                                            class="btn btn-primary">Refresh</button>
                                     </div>
                                 </div>
                             </div>

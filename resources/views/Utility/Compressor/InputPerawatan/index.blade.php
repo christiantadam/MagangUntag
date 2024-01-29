@@ -26,8 +26,8 @@
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="jam_operasi">Jam Operasi</label>
-                                    <input type="number" class="form-control" id="jam_operasi" name="jam_operasi"
-                                        placeholder="Contoh : 8, 9, 10">
+                                    <input type="number" pattern="[0-9]" min="0" class="form-control"
+                                        id="jam_operasi" name="jam_operasi" placeholder="Contoh : 8, 9, 10">
                                 </div>
                             </div>
                             <div class="col-lg-6 p-4">

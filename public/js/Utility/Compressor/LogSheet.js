@@ -50,8 +50,6 @@ l_hours.disabled = true;
 efs.disabled = true;
 tech.disabled = true;
 keterangan.disabled = true;
-updateButton.disabled = true;
-deleteButton.disabled = true;
 
 function clearForm() {
     // tanggal.value = "";
@@ -91,21 +89,37 @@ inputButton.addEventListener("click", function () {
 
 // UpdateButton click
 updateButton.addEventListener("click", function () {
-    tanggal.disabled = false;
-    mesin.disabled = false;
-    jam_operasi.disabled = false;
-    temp.disabled = false;
-    bar.disabled = false;
-    rm_hours.disabled = false;
-    lm_hours.disabled = false;
-    r_hours.disabled = false;
-    l_hours.disabled = false;
-    efs.disabled = false;
-    tech.disabled = false;
-    keterangan.disabled = false;
-    updateButton.disabled = false;
-    deleteButton.disabled = true;
-    // inputButton.disabled = true;
+    var checkboxValues = $(".checkboxlogsheet:checked")
+        .map(function () {
+            return this.value;
+        })
+        .get();
+
+    if (checkboxValues.length === 0) {
+        Swal.fire({
+            icon: "warning",
+            title: "Tidak Ada Data Terpilih",
+            text: "Pilih satu data LogSheet untuk diperbarui.",
+        });
+        deleteButton.disabled = false;
+        inputButton.disabled = false;
+    } else {
+        // Disable input fields and disable Update and Delete buttons
+        tanggal.disabled = false;
+        mesin.disabled = false;
+        jam_operasi.disabled = false;
+        temp.disabled = false;
+        bar.disabled = false;
+        rm_hours.disabled = false;
+        lm_hours.disabled = false;
+        r_hours.disabled = false;
+        l_hours.disabled = false;
+        efs.disabled = false;
+        tech.disabled = false;
+        keterangan.disabled = false;
+        updateButton.disabled = false;
+        deleteButton.disabled = true;
+    }
 });
 
 // CancelButton click
@@ -366,24 +380,57 @@ $(document).ready(function () {
             })
             .get();
 
-        var dataDelete = {
-            NoLogSheet: checkboxValues,
-        };
+        // Check if there are selected checkboxes
+        if (checkboxValues.length === 0) {
+            Swal.fire({
+                icon: "error",
+                title: "Tidak Ada Data Terpilih",
+                text: "Pilih setidaknya satu data LogSheet untuk dihapus.",
+            });
+            return; // Abort further processing
+        }
 
-        $.ajax({
-            url: "/delete-logsheet",
-            method: "DELETE",
-            data: dataDelete,
-            headers: {
-                "X-CSRF-TOKEN": csrfToken,
-            },
-            success: function (response) {
-                console.log("data delete successfully", response);
-                dataTable.ajax.reload();
-            },
-            error: function (error) {
-                console.error("Error delete Data : ", error.responseText);
-            },
+        // Use SweetAlert for confirmation
+        Swal.fire({
+            title: "Konfirmasi",
+            text: "Anda yakin ingin menghapus data LogSheet yang terpilih?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Ya, Hapus!",
+            cancelButtonText: "Batal",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var dataDelete = {
+                    NoLogSheet: checkboxValues,
+                };
+                $.ajax({
+                    url: "/delete-logsheet",
+                    method: "DELETE",
+                    data: dataDelete,
+                    headers: {
+                        "X-CSRF-TOKEN": csrfToken,
+                    },
+                    success: function (response) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Terhapus!",
+                            text: "Data Berhasil Dihapus!",
+                            showConfirmButton: false,
+                            timer: "2000",
+                        });
+                        dataTable.ajax.reload();
+                        clearForm();
+                    },
+                    error: function (error) {
+                        console.error(
+                            "Error delete Data : ",
+                            error.responseText
+                        );
+                    },
+                });
+            }
         });
     });
 });

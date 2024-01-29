@@ -38,47 +38,47 @@
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="operationhours">Operation Hours</label>
-                                    <input type="number" class="form-control" id="operationhours" name="operationhours"
-                                        placeholder="...">
+                                    <input type="number" pattern="[0-9]" min="0" class="form-control"
+                                        id="operationhours" name="operationhours" placeholder="...">
                                 </div>
                             </div>
                             <div class="col-lg-4 p-4">
                                 <div class="acs-div-filter pt-4">
                                     <label for="lubeoil">Lube Oil (Press Min 1.9)</label>
-                                    <input type="number" class="form-control" id="lubeoil" name="lubeoil"
-                                        placeholder="...">
+                                    <input type="number" pattern="[0-9]" min="0" class="form-control" id="lubeoil"
+                                        name="lubeoil" placeholder="...">
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="coolwater">Cool Water (Temp Max 95* celcius)</label>
-                                    <input type="number" class="form-control" id="coolwater" name="coolwater"
-                                        placeholder="...">
+                                    <input type="number" pattern="[0-9]" min="0" class="form-control" id="coolwater"
+                                        name="coolwater" placeholder="...">
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="volt">Volt 380 (10%)</label>
-                                    <input type="number" class="form-control" id="volt" name="volt"
-                                        placeholder="...">
+                                    <input type="number" pattern="[0-9]" min="0" class="form-control" id="volt"
+                                        name="volt" placeholder="...">
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="hz">Hz (45-51)</label>
-                                    <input type="number" class="form-control" id="hz" name="hz"
-                                        placeholder="...">
+                                    <input type="number" pattern="[0-9]" min="0" class="form-control" id="hz"
+                                        name="hz" placeholder="...">
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="amp">Amp (Max 650 A)</label>
-                                    <input type="number" class="form-control" id="amp" name="amp"
-                                        placeholder="...">
+                                    <input type="number" pattern="[0-9]" min="0" class="form-control" id="amp"
+                                        name="amp" placeholder="...">
                                 </div>
                             </div>
                             <div class="col-lg-4 p-4">
                                 <div class="acs-div-filter pt-4">
                                     <label for="tambahbbm">Tambah BBM</label>
-                                    <input type="number" class="form-control" id="tambahbbm" name="tambahbbm"
-                                        placeholder="...">
+                                    <input type="number" pattern="[0-9]" min="0" class="form-control" id="tambahbbm"
+                                        name="tambahbbm" placeholder="...">
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="tambahoil">Tambah Oil</label>
-                                    <input type="number" class="form-control" id="tambahoil" name="tambahoil"
-                                        placeholder="...">
+                                    <input type="number" pattern="[0-9]" min="0" class="form-control"
+                                        id="tambahoil" name="tambahoil" placeholder="...">
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="status">Status Log</label>

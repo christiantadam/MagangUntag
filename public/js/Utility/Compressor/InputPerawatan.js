@@ -105,7 +105,7 @@ updateButton.addEventListener("click", function () {
 
     if (checkboxValues.length === 0) {
         Swal.fire({
-            icon: "error",
+            icon: "warning",
             title: "Tidak Ada Data Terpilih",
             text: "Pilih satu data perawatan untuk diperbarui.",
         });
@@ -375,7 +375,7 @@ $(document).ready(function () {
             Swal.fire({
                 icon: "error",
                 title: "Tidak Ada Data Terpilih",
-                text: "Pilih setidaknya satu data Panel untuk dihapus.",
+                text: "Pilih setidaknya satu perawatan untuk dihapus.",
             });
             return; // Abort further processing
         }
@@ -383,7 +383,7 @@ $(document).ready(function () {
         // Use SweetAlert for confirmation
         Swal.fire({
             title: "Konfirmasi",
-            text: "Anda yakin ingin menghapus data Panel yang terpilih?",
+            text: "Anda yakin ingin menghapus perawatan yang terpilih?",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
