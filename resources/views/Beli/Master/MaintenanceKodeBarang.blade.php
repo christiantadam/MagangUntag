@@ -129,8 +129,6 @@
                                     <div class="col-8">
                                         <select name="select_jenisPembelian" id="select_jenisPembelian"
                                             class="w-100 input">
-                                            <option class="w-100 text-center" selected disabled>
-                                            </option>
                                         </select>
                                     </div>
                                 </div>
@@ -143,7 +141,7 @@
                                         <div class="row">
                                             <div class="col-2">
                                                 <input type="checkbox" class="input" id="check_round"
-                                                    name="check_jenisPembelian">
+                                                    name="check_jenisPembelian" checked>
                                                 <label for="check_round">Round</label>
                                             </div>
                                             <div class="col-2">
@@ -278,11 +276,16 @@
                             </div>
                             <div class="col-12 mb-2">
                                 <div class="row">
-                                    <div class="col-2"><button type="button" class="w-100 btn btn-primary" id="btn_isi">Isi</button></div>
-                                    <div class="col-2"><button type="button" class="w-100 btn btn-secondary" id="btn_koreksi">Koreksi</button></div>
-                                    <div class="col-2"><button type="button" class="w-100 btn btn-danger" id="btn_hapus">Hapus</button></div>
-                                    <div class="col-2"><button type="button" class="w-100 btn btn-success" id="btn_proses">Proses</button></div>
-                                    <div class="col-2"><button type="button" class="w-100 btn btn-info" id="btn_batal">Batal</button></div>
+                                    <div class="col-2"><button type="button" class="w-100 btn btn-primary"
+                                            id="btn_isi">Isi</button></div>
+                                    <div class="col-2"><button type="button" class="w-100 btn btn-secondary"
+                                            id="btn_koreksi">Koreksi</button></div>
+                                    <div class="col-2"><button type="button" class="w-100 btn btn-danger"
+                                            id="btn_hapus">Hapus</button></div>
+                                    <div class="col-2"><button type="button" class="w-100 btn btn-success"
+                                            id="btn_proses">Proses</button></div>
+                                    <div class="col-2"><button type="button" class="w-100 btn btn-info"
+                                            id="btn_batal">Batal</button></div>
                                 </div>
                             </div>
                         </div>

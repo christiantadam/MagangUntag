@@ -119,7 +119,7 @@ class PurchaseOrderController extends Controller
             ($noTrans !== null)
         ) {
             try {
-                $update = DB::connection('ConnPurchase')->select('exec SP_5409_MAINT_PO @kd = ?, @Qty = ?, @QtyCancel = ?, @kurs = ?, @pUnit = ?, @pSub = ?, @idPPN = ?, @pPPN = ?, @pTot = ?, @pIDRUnit = ?, @pIDRSub = ?, @pIDRPPN = ?, @pIDRTot = ?, @Operator = ?, @persen = ?, @disc = ?, @discIDR = ?, @noTrans = ?', [$kd, $Qty, $QtyCancel, $kurs, $pUnit, $pSub, $idPPN, $pPPN, $pTot, $pIDRUnit, $pIDRSub, $pIDRPPN, $pIDRTot, $Operator, $persen, $disc, $discIDR, $noTrans]);
+                $update = DB::connection('ConnPurchase')->statement('exec SP_5409_MAINT_PO @kd = ?, @Qty = ?, @QtyCancel = ?, @kurs = ?, @pUnit = ?, @pSub = ?, @idPPN = ?, @pPPN = ?, @pTot = ?, @pIDRUnit = ?, @pIDRSub = ?, @pIDRPPN = ?, @pIDRTot = ?, @Operator = ?, @persen = ?, @disc = ?, @discIDR = ?, @noTrans = ?', [$kd, $Qty, $QtyCancel, $kurs, $pUnit, $pSub, $idPPN, $pPPN, $pTot, $pIDRUnit, $pIDRSub, $pIDRPPN, $pIDRTot, $Operator, $persen, $disc, $discIDR, $noTrans]);
                 return Response()->json(['message' => 'Data Berhasil diupdate']);
             } catch (\Throwable $Error) {
                 return Response()->json($Error);
@@ -135,7 +135,7 @@ class PurchaseOrderController extends Controller
         if (($noTrans !== null)
         ) {
             try {
-                $remove = DB::connection('ConnPurchase')->select('exec SP_5409_MAINT_PO @kd = ?, @noTrans = ?', [$kd, $noTrans]);
+                $remove = DB::connection('ConnPurchase')->statement('exec SP_5409_MAINT_PO @kd = ?, @noTrans = ?', [$kd, $noTrans]);
                 return Response()->json(['message' => 'Data Berhasil Remove']);
             } catch (\Throwable $Error) {
                 return Response()->json($Error);
@@ -155,7 +155,7 @@ class PurchaseOrderController extends Controller
             ($alasan !== null)
         ) {
             try {
-                $remove = DB::connection('ConnPurchase')->select('exec SP_5409_MAINT_PO @kd = ?, @noTrans = ?, @alasan = ?, @Operator = ?', [$kd, $noTrans, $alasan, $Operator]);
+                $remove = DB::connection('ConnPurchase')->statement('exec SP_5409_MAINT_PO @kd = ?, @noTrans = ?, @alasan = ?, @Operator = ?', [$kd, $noTrans, $alasan, $Operator]);
                 return Response()->json(['message' => 'Data Berhasil Reject']);
             } catch (\Throwable $Error) {
                 return Response()->json($Error);
@@ -184,7 +184,7 @@ class PurchaseOrderController extends Controller
             ($idSup !== null)
         ) {
             try {
-                $post = DB::connection('ConnPurchase')->select('exec SP_5409_MAINT_PO @kd = ?, @noTrans = ?, @mtUang =?, @tglPO =? , @idpay = ? , @jumCetak =?, @Tgl_Dibutuhkan = ?, @idsup = ?, @Operator = ?', [$kd, $noTrans, $mtUang, $tglPO, $idpay, $jumCetak, $Tgl_Dibutuhkan, $idSup, $Operator]);
+                $post = DB::connection('ConnPurchase')->statement('exec SP_5409_MAINT_PO @kd = ?, @noTrans = ?, @mtUang =?, @tglPO =? , @idpay = ? , @jumCetak =?, @Tgl_Dibutuhkan = ?, @idsup = ?, @Operator = ?', [$kd, $noTrans, $mtUang, $tglPO, $idpay, $jumCetak, $Tgl_Dibutuhkan, $idSup, $Operator]);
                 return Response()->json(['message' => 'Data Berhasil Post']);
             } catch (\Throwable $Error) {
                 return Response()->json($Error);
