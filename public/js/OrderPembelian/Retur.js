@@ -51,10 +51,8 @@ input.addEventListener("keypress", function (event) {
 
 let tabelData = $('#tabelretur').DataTable();
 $('#tabelretur tbody').on('dblclick', 'tr', function () {
-    // Mengambil data dari baris yang diklik
     var rowData = tabelData.row(this).data();
 
-    // Mengisi nilai ke elemen-elemen HTML di bawah tabelretur
     document.getElementById('kdbarang').value = rowData[4] || '';
     document.getElementById('tanggalretur').value = rowData[12];
     document.getElementById('namabarang').value = rowData[5] || '';
@@ -70,24 +68,39 @@ $('#tabelretur tbody').on('dblclick', 'tr', function () {
     document.getElementById('id_terima').value = rowData[2] || '';
     document.getElementById('qty_terima').value = rowData[7] || '';
 
-    // Mengisi nilai ke tabelretur1
     $.ajax({
         method: "GET",
-        url: "/GETRetur",  // Ganti dengan URL yang sesuai untuk mendapatkan data untuk tabelretur1
+        url: "/GETRetur",
         data: {
-            kodebarang: rowData[4],  // Menggunakan Kd Barang dari tabelretur sebagai parameter
+            kodebarang: rowData[4],
         },
         success: function (response) {
             console.log('Data successfully sent to the server');
             console.log('Server response for tabelretur1:', response);
 
-            // Memanggil fungsi responseDataTabelRetur1 dengan parameter response
             responseDataTabelRetur1(response);
         },
         error: function (error) {
             console.error('Error sending data to the server:', error);
         }
     });
+});
+
+
+$.ajax({
+    type: 'GET',
+    url: '/Retur', // Sesuaikan dengan URL rute Anda
+    dataType: 'json',
+    success: function(response) {
+        // Memasukkan data ke dalam dropdown
+        var select = $('#suplier');
+        $.each(response, function(index, supplier) {
+            select.append('<option value="' + supplier.NO_SUP + '">' + supplier.NM_SUP + '</option>');
+        });
+    },
+    error: function(error) {
+        console.log(error);
+    }
 });
 
 function responseData(datas) {
@@ -105,3 +118,4 @@ function responseDataTabelRetur1(datas) {
         tabelData.row.add([data.IdType, data.KodeBarang, data.NamaType, data.SaldoPrimer, data.satPrimer, data.Unitritier, data.SaldoTritier, data.SaldoSekunder, data.satSekunder, data.NamaSubKelompok, data.NamaKelompok, data.NamaKelompokUtama, data.NamaObjek]).draw();
     });
 }
+

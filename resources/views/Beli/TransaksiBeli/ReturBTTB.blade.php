@@ -25,7 +25,12 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="suplier" class="form-label">Suplier</label>
-                                <input type="text" class="form-control" id="suplier" name="suplier">
+                                <select name="suplier" class="form-control" id="suplier">
+                                    @foreach ($supplier as $chelsy)
+                                        <option value={{ $chelsy->NO_SUP }}>{{ $chelsy->NM_SUP }}</option>
+                                    @endforeach
+                                </select>
+                                {{-- <input type="text" class="form-control" id="suplier" name="suplier"> --}}
                             </div>
                             <div class="col-md-4">
                                 <label for="payment" class="form-label">Payment Term</label>
@@ -35,11 +40,13 @@
                         <div class="row mb-3 m-1">
                             <div class="col-md-4">
                                 <label for="tanggal_po" class="form-label">Tanggal PO</label>
-                                <input type="date" class="form-control" id="tanggal_po" name="tanggal_po" value="{{ date('Y-m-d') }}">
+                                <input type="date" class="form-control" id="tanggal_po" name="tanggal_po"
+                                    value="{{ date('Y-m-d') }}">
                             </div>
                             <div class="col-md-4">
                                 <label for="tanggalkirim" class="form-label">Tanggal Mohon Kirim</label>
-                                <input type="date" class="form-control" id="tanggalkirim" name="tanggalkirim" value="{{ date('Y-m-d') }}">
+                                <input type="date" class="form-control" id="tanggalkirim" name="tanggalkirim"
+                                    value="{{ date('Y-m-d') }}">
                             </div>
                             <div class="col-md-4">
                                 <label for="matauang" class="form-label">Mata uang</label>
@@ -102,7 +109,8 @@
                         </div>
                         <div class="col-md-4">
                             <label for="tanggalretur" class="form-label">Tanggal Retur</label>
-                            <input type="date" class="form-control" id="tanggalretur" name="tanggalretur" value="{{ date('Y-m-d') }}">
+                            <input type="date" class="form-control" id="tanggalretur" name="tanggalretur"
+                                value="{{ date('Y-m-d') }}">
                         </div>
                     </div>
                     <div class="row mb-3 m-1">
@@ -112,7 +120,8 @@
                         </div>
                         <div class="col-md-4">
                             <label for="type" class="form-label">Id Type</label>
-                            <input type="number" class="form-control" id="type" name="type" maxlength="9" oninput="formatInput(this)">
+                            <input type="number" class="form-control" id="type" name="type" maxlength="9"
+                                oninput="formatInput(this)">
                         </div>
                         <div class="col-md-4">
                             <label for="kelompok" class="form-label">Kelompok</label>
@@ -176,7 +185,7 @@
 
                 </div>
             </div>
-            <script src = "{{ asset('js/OrderPembelian/Retur.js') }}"></script>
+            <script src="{{ asset('js/OrderPembelian/Retur.js') }}"></script>
             <script>
                 function formatInput(inputElement) {
                     // Mendapatkan nilai input
@@ -194,6 +203,4 @@
                     inputElement.value = inputValue;
                 }
             </script>
-
-
         @endsection
