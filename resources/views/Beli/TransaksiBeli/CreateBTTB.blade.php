@@ -21,7 +21,11 @@
                         <div class="row">
                             <div class="col-md-3 mb-2">
                                 <label for="nobttb" class="form-label">No. BTTB</label>
-                                <input type="text" class="form-control" id="nobttb" name="nobttb">
+                                <select ame="nobttb" class="form-control" id="nobttb" >
+                                    @foreach ($supplier as $create )
+                                    <option value={{$create->NO_SUP}}>{{$create->NM_SUP}} </option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="col-md-3 mb-2">
                                 <label for="nosj" class="form-label">No. SJ</label>
