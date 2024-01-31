@@ -13,10 +13,11 @@ class CreateBTTBController extends Controller
     // Display a listing of the resource.
     public function index()
     {
-        $supplier = DB::connection('ConnPurchase')->select('exec SP_5409_PBL_SUPPLIER @kd=1');
+        $nosup = DB::connection('ConnPurchase')->select('exec SP_5409_PBL_SUPPLIER @kd=1');
         $po = DB::connection('ConnPurchase')->select('exec SP_5409_PBL_SUPPLIER @kd=1');
+        $ppn = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_PPN');
         $access = (new HakAksesController)->HakAksesFiturMaster('Beli');
-        return view('Beli.TransaksiBeli.CreateBTTB', compact('supplier','po','access'));
+        return view('Beli.TransaksiBeli.CreateBTTB', compact('nosup','po','ppn','access'));
     }
 
     //Show the form for creating a new resource.
