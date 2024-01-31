@@ -139,21 +139,22 @@
                                     </div>
                                     <div class="col-8">
                                         <div class="row">
-                                            <div class="col-2">
-                                                <input type="checkbox" class="input" id="check_round"
-                                                    name="check_jenisPembelian" checked>
-                                                <label for="check_round">Round</label>
-                                            </div>
-                                            <div class="col-2">
-                                                <input type="checkbox" class="input" id="check_export"
-                                                    name="check_jenisPembelian">
-                                                <label for="check_export">Export</label>
-                                            </div>
                                             <div class="col-3">
                                                 <input type="checkbox" class="input" id="check_barangSama"
                                                     name="check_jenisPembelian">
                                                 <label for="check_barangSama">Barang Sama</label>
                                             </div>
+                                            <div class="col-2">
+                                                <input type="checkbox" class="input" id="check_round"
+                                                    name="check_jenisPembelian">
+                                                <label for="check_round">Round</label>
+                                            </div>
+                                            <div class="col-7">
+                                                <input type="checkbox" class="input" id="check_export"
+                                                    name="check_jenisPembelian">
+                                                <label for="check_export">Export</label>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -225,54 +226,55 @@
                             <div class="col-12 mb-2">
                                 <div class="row">
                                     <div class="col-3">
-                                        <input type="text" class="input w-100" name="textBox" readonly>
+                                        <input type="text" class="input w-100" id="textBox1" name="textBox" readonly>
                                     </div>
                                     <div class="col-3">
-                                        <input type="text" class="input w-100" name="textBox" readonly>
+                                        <input type="text" class="input w-100" id="textBox2" name="textBox" readonly>
                                     </div>
                                     <div class="col-3">
-                                        <input type="text" class="input w-100" name="textBox" readonly>
+                                        <input type="text" class="input w-100" id="textBox3" name="textBox" readonly>
                                     </div>
                                     <div class="col-3">
-                                        <input type="text" class="input w-100" name="textBox" readonly>
+                                        <input type="text" class="input w-100" id="textBox4" name="textBox" readonly>
                                     </div>
                                     <div class="col-3">
-                                        <input type="text" class="input w-100" name="textBox" readonly>
+                                        <input type="text" class="input w-100" id="textBox5" name="textBox" readonly>
                                     </div>
                                     <div class="col-3">
-                                        <input type="text" class="input w-100" name="textBox" readonly>
+                                        <input type="text" class="input w-100" id="textBox6" name="textBox" readonly>
                                     </div>
                                     <div class="col-3">
-                                        <input type="text" class="input w-100" name="textBox" readonly>
+                                        <input type="text" class="input w-100" id="textBox7" name="textBox" readonly>
                                     </div>
                                     <div class="col-3">
-                                        <input type="text" class="input w-100" name="textBox" readonly>
+                                        <input type="text" class="input w-100" id="textBox8" name="textBox" readonly>
                                     </div>
                                     <div class="col-3">
-                                        <input type="text" class="input w-100" name="textBox" readonly>
+                                        <input type="text" class="input w-100" id="textBox9" name="textBox" readonly>
                                     </div>
                                     <div class="col-3">
-                                        <input type="text" class="input w-100" name="textBox" readonly>
+                                        <input type="text" class="input w-100" id="textBox10" name="textBox" readonly>
                                     </div>
                                     <div class="col-3">
-                                        <input type="text" class="input w-100" name="textBox" readonly>
+                                        <input type="text" class="input w-100" id="textBox11" name="textBox" readonly>
                                     </div>
                                     <div class="col-3">
-                                        <input type="text" class="input w-100" name="textBox" readonly>
+                                        <input type="text" class="input w-100" id="textBox12" name="textBox" readonly>
                                     </div>
                                     <div class="col-3">
-                                        <input type="text" class="input w-100" name="textBox" readonly>
+                                        <input type="text" class="input w-100" id="textBox13" name="textBox" readonly>
                                     </div>
                                     <div class="col-3">
-                                        <input type="text" class="input w-100" name="textBox" readonly>
+                                        <input type="text" class="input w-100" id="textBox14" name="textBox" readonly>
                                     </div>
                                     <div class="col-3">
-                                        <input type="text" class="input w-100" name="textBox" readonly>
+                                        <input type="text" class="input w-100" id="textBox15" name="textBox" readonly>
                                     </div>
                                     <div class="col-3">
-                                        <input type="text" class="input w-100" name="textBox" readonly>
+                                        <input type="text" class="input w-100" id="textBox16" name="textBox" readonly>
                                     </div>
                                 </div>
+
                             </div>
                             <div class="col-12 mb-2">
                                 <div class="row">
