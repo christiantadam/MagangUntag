@@ -21,11 +21,7 @@
                         <div class="row">
                             <div class="col-md-3 mb-2">
                                 <label for="nobttb" class="form-label">No. BTTB</label>
-                                <select ame="nobttb" class="form-control" id="nobttb" >
-                                    @foreach ($supplier as $create )
-                                    <option value={{$create->NO_SUP}}>{{$create->NM_SUP}} </option>
-                                    @endforeach
-                                </select>
+                                <input name="nobttb" class="form-control" id="nobttb" >
                             </div>
                             <div class="col-md-3 mb-2">
                                 <label for="nosj" class="form-label">No. SJ</label>
@@ -57,7 +53,11 @@
                             </div>
                             <div class="col-md-3 mb-2">
                                 <label for="supplier" class="form-label">Supplier</label>
-                                <input type="text" class="form-control" id="supplier" name="supplier">
+                                <select class="form-control" id="supplier" name="supplier">
+                                    @foreach ($nosup as $bttb)
+                                        <option value="{{ $bttb->NO_SUP }}">{{ $bttb->NM_SUP }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                             <div class="col-md-3 mb-2">
                                 <label for="nopibext" class="form-label">No. PIB Ext</label>
@@ -73,7 +73,11 @@
                             </div>
                             <div class="col-md-3">
                                 <label for="po" class="form-label">No. PO</label>
-                                <input type="text" class="form-control" id="po" name="po">
+                                <select class="form-control" id="po" name="po">
+                                    @foreach ($po as $create)
+                                    <option value="{{ $create->NM_SUP }}">{{ $create->NO_SUP }}</option>
+                                @endforeach
+                            </select>
                             </div>
                             <div class="col-md-3">
                                 <label for="tglpib" class="form-label">Tgl PIB</label>
@@ -161,7 +165,11 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="hargasub" class="form-label">Harga Sub Total</label>
-                                <input type="text" class="form-control" id="hargasub" name="harga">
+                                <select class="form-control" id="hargasub" name="harga">
+                                    @foreach ($ppn as $no)
+                                    <option value="{{ $no->JumPPN }}">{{ $no->IdPPN }}</option>
+                                @endforeach
+                            </select>
                             </div>
                             <div class="col-md-4">
                                 <label for="idrsubtotal" class="form-label">IDR SubTotal</label>
