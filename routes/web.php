@@ -43,7 +43,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('HistoryPembelianMasterRedisplay', 'APP\Http\Controllers\Beli\Master\HistoryPembelianMasterController@redisplay')->name('historypembelianmaster.redisplay');
     Route::resource('MaintenanceKodeBarang', App\Http\Controllers\Beli\Master\MaintenanceController::class);
     Route::get('/Maintenance/KodeBarang', 'App\Http\Controllers\Beli\Master\MaintenanceController@kodeBarang')->name('maintenancekodebarang.kodebarang');
-    Route::get('/Maintenance/KategoriUtama', 'App\Http\Controllers\Beli\Master\MaintenanceController@kategoriUtama')->name('maintenancekodebarang.kategoriutama');
+    Route::get('/Maintenance/Data', 'App\Http\Controllers\Beli\Master\MaintenanceController@data')->name('maintenancekodebarang.data');
+    Route::get('/Maintenance/Kategori', 'App\Http\Controllers\Beli\Master\MaintenanceController@kategori')->name('maintenancekodebarang.kategori');
+    Route::get('/Maintenance/SubKategori', 'App\Http\Controllers\Beli\Master\MaintenanceController@subKategori')->name('maintenancekodebarang.subkategori');
+    Route::get('/Maintenance/NamaBarang', 'App\Http\Controllers\Beli\Master\MaintenanceController@namaBarang')->name('maintenancekodebarang.namabarang');
     Route::resource('BatalTransfer', App\Http\Controllers\Beli\Master\BatalTransferController::class);
     Route::post('/BatalTransfer/Proses', 'App\Http\Controllers\Beli\Master\BatalTransferController@batal')->name('bataltransfer.proses');
 

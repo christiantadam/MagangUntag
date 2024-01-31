@@ -33,14 +33,61 @@ class MaintenanceController extends Controller
             return Response()->json($Error);
         }
     }
-    public function kategoriUtama()
+    public function data()
     {
         $MyType = 1;
         try {
-            $data = DB::connection('ConnPurchase')->select('exec SP_MOHON_BELI @MyType = ?', [$MyType]);
-            return Response()->json($data);
+            $kategoriUtama = DB::connection('ConnPurchase')->select('exec SP_MOHON_BELI @MyType = ?', [$MyType]);
+            $jenisPembelian = DB::connection('ConnPurchase')->select('exec spSelect_Jenis_Pembelian');
+            $satuanList = DB::connection('ConnPurchase')->select('exec sp_list_stri');
+            return Response()->json(["kategoriUtama" => $kategoriUtama, "jenisPembelian" => $jenisPembelian , "satuanList" => $satuanList]);
         } catch (\Throwable $Error) {
             return Response()->json($Error);
+        }
+    }
+    public function kategori(Request $request)
+    {
+        $MyType = 2;
+        $MyValue = $request->input('MyValue');
+        if ($MyValue != null) {
+            try {
+                $data = DB::connection('ConnPurchase')->select('exec SP_MOHON_BELI @MyType = ?, @MyValue = ?', [$MyType, $MyValue]);
+                return Response()->json($data);
+            } catch (\Throwable $Error) {
+                return Response()->json($Error);
+            }
+        } else {
+            return Response()->json('Parameter harus di isi');
+        }
+    }
+    public function subKategori(Request $request)
+    {
+        $MyType = 3;
+        $MyValue = $request->input('MyValue');
+        if ($MyValue != null) {
+            try {
+                $data = DB::connection('ConnPurchase')->select('exec SP_MOHON_BELI @MyType = ?, @MyValue = ?', [$MyType, $MyValue]);
+                return Response()->json($data);
+            } catch (\Throwable $Error) {
+                return Response()->json($Error);
+            }
+        } else {
+            return Response()->json('Parameter harus di isi');
+        }
+    }
+    public function namaBarang(Request $request)
+    {
+        $MyType = 5;
+        $MyValue = $request->input('MyValue');
+        if ($MyValue != null) {
+            try {
+                $data = DB::connection('ConnPurchase')->select('exec SP_MOHON_BELI @MyType = ?, @MyValue = ?', [$MyType, $MyValue]);
+                return Response()->json($data);
+            } catch (\Throwable $Error) {
+                return Response()->json($Error);
+            }
+        } else {
+            return Response()->json('Parameter harus di isi');
         }
     }
 }
