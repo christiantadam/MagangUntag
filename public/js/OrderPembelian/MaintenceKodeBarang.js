@@ -5,15 +5,19 @@ let select_subKategori = document.getElementById("select_subKategori");
 let ket_khusus = document.getElementById("ket_khusus");
 let select_namaBarang = document.getElementById("select_namaBarang");
 let ket_barang = document.getElementById("ket_barang");
+let tambah_kategori = document.getElementById("tambah_kategori");
+let tambah_subKategori = document.getElementById("tambah_subKategori");
 let select_jenisPembelian = document.getElementById("select_jenisPembelian");
 let check_round = document.getElementById("check_round");
 let check_export = document.getElementById("check_export");
 let check_barangSama = document.getElementById("check_barangSama");
+let check_spek = document.getElementById("check_spek");
 let org_penjaluk = document.getElementById("org_penjaluk");
 let select_satuanPrimer = document.getElementById("select_satuanPrimer");
 let select_satuanSekunder = document.getElementById("select_satuanSekunder");
 let select_satuanTritier = document.getElementById("select_satuanTritier");
 let select_satuanUmum = document.getElementById("select_satuanUmum");
+let select_spek = document.getElementById("select_spek");
 let textBox1 = document.getElementById("textBox1");
 let textBox2 = document.getElementById("textBox2");
 let textBox3 = document.getElementById("textBox3");
@@ -30,7 +34,14 @@ let textBox13 = document.getElementById("textBox13");
 let textBox14 = document.getElementById("textBox14");
 let textBox15 = document.getElementById("textBox15");
 let textBox16 = document.getElementById("textBox16");
+let labelExport = document.getElementById("labelExport");
+let groupSpek = document.getElementById("groupSpek");
 let btn_batal = document.getElementById("btn_batal");
+let btn_tambahKategori = document.getElementById("btn_tambahKategori");
+let btn_tambahSubKategori = document.getElementById("btn_tambahSubKategori");
+let btn_namaBarang = document.getElementById("btn_namaBarang");
+
+let csrfToken = $('meta[name="csrf-token"]').attr("content");
 
 let tamValueNamaBrg = "";
 const SpesifikasiType = {
@@ -47,45 +58,170 @@ const SpesifikasiType = {
     KarungWovenBag: 1508,
 };
 
+labelExport.style.display = "none";
+groupSpek.style.display = "none";
+
 btn_cari_kdBarang.addEventListener("click", function (event) {
     cariKodeBarang(kd_barang.value);
 });
 btn_batal.addEventListener("click", function (event) {
-    // console.log(select_kategori.options.length);
     clearData();
 });
+btn_tambahKategori.addEventListener("click", function (event) {
+    let myValue = select_kategori_utama.value.slice(1);
+    $.ajax({
+        url: "/Maintenance/TambahKategori",
+        type: "POST",
+        headers: {
+            "X-CSRF-TOKEN": csrfToken,
+        },
+        data: {
+            no_kat_utama: myValue,
+            nama_kategori: tambah_kategori.value,
+        },
+        success: function (response) {
+            Swal.fire({
+                icon: "success",
+                title: "Data Berhasil DiTambahkan!",
+                showConfirmButton: false,
+                timer: "2000",
+            });
+            tambah_kategori.value = "";
+            optionClr();
+            kategori(myValue, function () {});
+        },
+        error: function (error) {
+            Swal.fire({
+                icon: "error",
+                title: "Data Tidak Berhasil DiTambahkan!",
+                showConfirmButton: false,
+                timer: "2000",
+            });
+            console.error("Error Send Data:", error);
+        },
+    });
+});
+btn_tambahSubKategori.addEventListener("click", function (event) {
+    $.ajax({
+        url: "/Maintenance/TambahSubKategori",
+        type: "POST",
+        headers: {
+            "X-CSRF-TOKEN": csrfToken,
+        },
+        data: {
+            no_kategori: select_kategori.value,
+            nama_sub_kategori: tambah_subKategori.value,
+        },
+        success: function (response) {
+            Swal.fire({
+                icon: "success",
+                title: "Data Berhasil DiTambahkan!",
+                showConfirmButton: false,
+                timer: "2000",
+            });
+            tambah_subKategori.value = "";
+            select_subKategori.selectedIndex = 0;
+            clearOptions(select_subKategori);
+            select_namaBarang.selectedIndex = 0;
+            clearOptions(select_namaBarang);
+            subKategori(select_kategori.value, function () {});
+        },
+        error: function (error) {
+            Swal.fire({
+                icon: "error",
+                title: "Data Tidak Berhasil DiTambahkan!",
+                showConfirmButton: false,
+                timer: "2000",
+            });
+            console.error("Error Send Data:", error);
+        },
+    });
+});
+btn_namaBarang.addEventListener("click", function (event) {
+    let namaBarang;
+    if (select_namaBarang.selectedIndex == 0) {
+        console.log('asj')
+        namaBarang = "";
+    } else {
+        namaBarang = select_namaBarang.value;
+    }
+    let table = $("#table_cekNamaBarang").DataTable({
+        responsive: true,
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: "/Maintenance/CekNamaBarang",
+            type: "GET",
+            data: function (data) {
+                data.nama_brg = namaBarang;
+            },
+        },
+        columns: [
+            { data: "nama_sub_kategori" },
+            { data: "KD_BRG" },
+            { data: "NAMA_BRG" },
+        ],
+    });
+});
+
 check_export.disabled = true;
 
+select_kategori_utama.addEventListener("change", function (event) {
+    optionClr();
+    let myValue = select_kategori_utama.value.slice(1);
+    kategori(myValue, function () {});
+});
+
+select_kategori.addEventListener("change", function (event) {
+    select_subKategori.selectedIndex = 0;
+    clearOptions(select_subKategori);
+    select_namaBarang.selectedIndex = 0;
+    clearOptions(select_namaBarang);
+    let myValue = select_kategori.value;
+    subKategori(myValue, function () {});
+});
+
+select_subKategori.addEventListener("change", function (event) {
+    select_namaBarang.selectedIndex = 0;
+    clearOptions(select_namaBarang);
+    let myValue = select_subKategori.value;
+    namaBarang(myValue, function () {});
+});
+
 function clearOptions(selectElement) {
-    console.log(selectElement.options.length)
-    let length = selectElement.options.length
+    let length = selectElement.options.length;
 
     for (let i = length - 1; i > 0; i--) {
         selectElement.remove(i);
     }
 }
-
+function optionClr() {
+    select_kategori.selectedIndex = 0;
+    clearOptions(select_kategori);
+    select_subKategori.selectedIndex = 0;
+    clearOptions(select_subKategori);
+    select_namaBarang.selectedIndex = 0;
+    clearOptions(select_namaBarang);
+}
 function clearData() {
+    labelExport.style.display = "none";
     tamValueNamaBrg = "";
     kd_barang.value = "";
     ket_khusus.value = "";
     org_penjaluk.value = "";
     ket_barang.value = "";
     select_kategori_utama.selectedIndex = 0;
-    select_kategori.selectedIndex = 0;
-    clearOptions(select_kategori);
-    select_subKategori.selectedIndex = 0;
-    // clearOptions(subKategori);
-    select_namaBarang.selectedIndex = 0;
-    // clearOptions(select_namaBarang);
+    optionClr();
     select_jenisPembelian.selectedIndex = 0;
     select_satuanPrimer.selectedIndex = 0;
     select_satuanSekunder.selectedIndex = 0;
     select_satuanTritier.selectedIndex = 0;
     select_satuanUmum.selectedIndex = 0;
+    select_spek.selectedIndex = 0;
     check_barangSama.checked = false;
     check_round.checked = false;
     check_export.checked = false;
+    check_spek.checked = false;
     textBox1.value = "";
     textBox2.value = "";
     textBox3.value = "";
@@ -159,6 +295,20 @@ function cariKodeBarang(kd_barang) {
                     select_kategori_utama.selectedIndex = i;
                 }
             }
+            if (response[0].KDSPEC != null) {
+                check_spek.checked = true;
+                for (let i = 0; i < select_spek.options.length; i++) {
+                    if (
+                        select_spek.options[i].value.replace(/\s/g, "") ===
+                        response[0].KDSPEC.replace(/\s/g, "")
+                    ) {
+                        select_spek.selectedIndex = i;
+                    }
+                }
+            } else {
+                check_spek.checked = false;
+                select_spek.selectedIndex = 0;
+            }
             ket_khusus.value = response[0].KET_KHUSUS;
             ket_barang.value = response[0].KET;
             org_penjaluk.value = response[0].PENJALUK;
@@ -170,8 +320,15 @@ function cariKodeBarang(kd_barang) {
 
             if (response[0].no_kategori == "011") {
                 check_export.disabled = false;
+                labelExport.style.display = "block";
             } else {
                 check_export.disabled = true;
+                labelExport.style.display = "none";
+            }
+            if (response[0].Barang_Eksport == "Y") {
+                check_export.checked = true;
+            } else {
+                check_export.checked = false;
             }
             if (response[0].ROUND == "Y") {
                 check_round.checked = true;
@@ -272,6 +429,7 @@ function cariKodeBarang(kd_barang) {
 }
 
 function kategori(MyValue, callback) {
+    console.log(MyValue);
     $.ajax({
         url: "/Maintenance/Kategori",
         type: "GET",
@@ -279,6 +437,7 @@ function kategori(MyValue, callback) {
             MyValue: MyValue,
         },
         success: function (response) {
+            console.log(response);
             response.forEach(function (data) {
                 let option = document.createElement("option");
                 option.value = data.no_kategori;
@@ -919,6 +1078,7 @@ function PecahKarungWovenBag(TypeBrg) {
         MySearchChar = "+";
         MyPos = TypeBrg.indexOf(MySearchChar, MyStart);
         Lebar = TypeBrg.substring(MyStart, MyPos).trim();
+        console.log(Lebar);
         LongOfValue = Lebar.length;
         try {
             MySearchChar = ".";
@@ -926,8 +1086,8 @@ function PecahKarungWovenBag(TypeBrg) {
             BeforePoint = Lebar.substring(MyInStart, MyInPos).trim();
             AfterPoint = Lebar.substring(MyInPos + 1, MyInPos + 2).trim();
             Lebar = BeforePoint + "." + AfterPoint;
-        } catch (ex) {
-            Lebar = ("000" + Lebar).slice(-3) + ".0";
+        } catch (error) {
+            Lebar = Lebar + ".0";
         }
         textBox1.value = Lebar;
 
@@ -945,7 +1105,7 @@ function PecahKarungWovenBag(TypeBrg) {
             AfterPoint = Gaset.substring(MyInPos + 1, MyInPos + 2).trim();
             Gaset = BeforePoint + "." + AfterPoint;
         } catch (ex) {
-            Gaset = ("00" + Gaset).slice(-2) + ".0";
+            Gaset = Gaset + ".0";
         }
         textBox2.value = Gaset;
 
@@ -962,8 +1122,8 @@ function PecahKarungWovenBag(TypeBrg) {
             BeforePoint = Panjang.substring(MyInStart, MyInPos).trim();
             AfterPoint = Panjang.substring(MyInPos + 1, MyInPos + 2).trim();
             Panjang = BeforePoint + "." + AfterPoint;
-        } catch (ex) {
-            Panjang = ("000" + Panjang).slice(-3) + ".0";
+        } catch (error) {
+            Panjang = Panjang + ".0";
         }
         textBox3.value = Panjang;
 
@@ -980,8 +1140,8 @@ function PecahKarungWovenBag(TypeBrg) {
             BeforePoint = Wapf.substring(MyInStart, MyInPos).trim();
             AfterPoint = Wapf.substring(MyInPos + 1, MyInPos + 2).trim();
             Wapf = BeforePoint + "." + AfterPoint;
-        } catch (ex) {
-            Wapf = ("00" + Wapf).slice(-2) + ".0";
+        } catch (error) {
+            Wapf = Wapf + ".0";
         }
         textBox4.value = Wapf;
 
@@ -999,7 +1159,7 @@ function PecahKarungWovenBag(TypeBrg) {
             AfterPoint = Weft.substring(MyInPos + 1, MyInPos + 2).trim();
             Weft = BeforePoint + "." + AfterPoint;
         } catch (ex) {
-            Weft = ("00" + Weft).slice(-2) + ".0";
+            Weft = Weft + ".0";
         }
         textBox5.value = Weft;
 
@@ -1091,7 +1251,6 @@ function PecahKarungWovenBag(TypeBrg) {
             textBox12.value = Ass;
         }
 
-        // Update TextNamaBarang
         let TextNamaBarang =
             Lebar +
             "+" +
@@ -1116,7 +1275,7 @@ function PecahKarungWovenBag(TypeBrg) {
             Lami +
             "/" +
             Ass;
-        tamValueNamaBrg.value = TextNamaBarang;
+        tamValueNamaBrg = TextNamaBarang;
     } catch (error) {
         alert(error.message);
     }
@@ -1130,6 +1289,7 @@ $(document).ready(function () {
             let kategoriUtama = response.kategoriUtama;
             let jenisPembelian = response.jenisPembelian;
             let satuanList = response.satuanList;
+            let spek = response.spek;
             kategoriUtama.forEach(function (data) {
                 let option = document.createElement("option");
                 option.value = data.no_kat_utama;
@@ -1165,6 +1325,12 @@ $(document).ready(function () {
                 option.value = data.No_satuan;
                 option.text = data.Nama_satuan;
                 select_satuanUmum.add(option);
+            });
+            spek.forEach(function (data) {
+                let option = document.createElement("option");
+                option.value = data.KDSPEC;
+                option.text = data.RAJUTAN;
+                select_spek.add(option);
             });
         },
         error: function (error) {

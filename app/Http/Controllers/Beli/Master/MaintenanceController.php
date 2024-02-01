@@ -40,7 +40,8 @@ class MaintenanceController extends Controller
             $kategoriUtama = DB::connection('ConnPurchase')->select('exec SP_MOHON_BELI @MyType = ?', [$MyType]);
             $jenisPembelian = DB::connection('ConnPurchase')->select('exec spSelect_Jenis_Pembelian');
             $satuanList = DB::connection('ConnPurchase')->select('exec sp_list_stri');
-            return Response()->json(["kategoriUtama" => $kategoriUtama, "jenisPembelian" => $jenisPembelian , "satuanList" => $satuanList]);
+            $spek = DB::connection('ConnPurchase')->select('exec spSelect_GeneralSpec_dotNet ');
+            return Response()->json(["kategoriUtama" => $kategoriUtama, "jenisPembelian" => $jenisPembelian, "satuanList" => $satuanList, "spek" => $spek]);
         } catch (\Throwable $Error) {
             return Response()->json($Error);
         }
@@ -89,5 +90,49 @@ class MaintenanceController extends Controller
         } else {
             return Response()->json('Parameter harus di isi');
         }
+    }
+    public function tambahKategori(Request $request)
+    {
+        $no_kat_utama = $request->input('no_kat_utama');
+        $nama_kategori = $request->input('nama_kategori');
+        if ($no_kat_utama != null && $nama_kategori != null) {
+            try {
+                $data = DB::connection('ConnPurchase')->statement('exec spInsert_Kategori_dotNet @no_kat_utama = ?, @nama_kategori = ?', [$no_kat_utama, $nama_kategori]);
+                return Response()->json(['message' => 'Data berhasil ditambahkan']);
+            } catch (\Throwable $Error) {
+                return Response()->json($Error);
+            }
+        } else {
+            return Response()->json('Parameter harus di isi');
+        }
+    }
+    public function tambahSubKategori(Request $request)
+    {
+        $no_kategori = $request->input('no_kategori');
+        $nama_sub_kategori = $request->input('nama_sub_kategori');
+        if ($no_kategori != null && $nama_sub_kategori != null) {
+            try {
+                $data = DB::connection('ConnPurchase')->statement('exec spInsert_SubKategori_dotNet @no_kategori = ?, @nama_sub_kategori = ?', [$no_kategori, $nama_sub_kategori]);
+                return Response()->json(['message' => 'Data berhasil ditambahkan']);
+            } catch (\Throwable $Error) {
+                return Response()->json($Error);
+            }
+        } else {
+            return Response()->json('Parameter harus di isi');
+        }
+    }
+    public function cekNamaBarang(Request $request)
+    {
+        $nama_brg = $request->input('nama_brg');
+        if($nama_brg == null){
+            $nama_brg = '';
+        }
+        try {
+            $data = DB::connection('ConnPurchase')->select('exec spCek_Nama_Barang  @nama_brg = ?', [$nama_brg]);
+            return datatables($data)->make(true);
+        } catch (\Throwable $Error) {
+            return Response()->json($Error);
+        }
+
     }
 }
