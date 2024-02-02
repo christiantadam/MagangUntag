@@ -21,13 +21,13 @@
                         <div class="row">
                             <div class="col-12 mb-2">
                                 <div class="row">
-                                    <div class="col-2 ">
+                                    <div class="col-4 col-md-2">
                                         <label for="kd_barang">Kd Barang</label>
                                     </div>
                                     <div class="col-8">
                                         <input type="text" class="input w-100" id="kd_barang" name="kd_barang">
                                     </div>
-                                    <div class="col-2">
+                                    <div class="col-4 col-md-2">
                                         <button type="button" class="btn btn-primary w-100"
                                             id="btn_cari_kdBarang">Cari</button>
                                     </div>
@@ -35,7 +35,7 @@
                             </div>
                             <div class="col-12 mb-2">
                                 <div class="row">
-                                    <div class="col-2 ">
+                                    <div class="col-4 col-md-2">
                                         <label for="kategori_utama">Kategori Utama</label>
                                     </div>
                                     <div class="col-8">
@@ -44,7 +44,7 @@
                                             </option>
                                         </select>
                                     </div>
-                                    <div class="col-2">
+                                    <div class="col-4 col-md-2">
                                         <button type="button" class="btn btn-success w-100"
                                             id="btn_tambah_kategoriUtama">Tambah</button>
                                     </div>
@@ -52,7 +52,7 @@
                             </div>
                             <div class="col-12 mb-2">
                                 <div class="row">
-                                    <div class="col-2 ">
+                                    <div class="col-4 col-md-2">
                                         <label for="kategori">Kategori</label>
                                     </div>
                                     <div class="col-8">
@@ -61,7 +61,7 @@
                                             </option>
                                         </select>
                                     </div>
-                                    <div class="col-2">
+                                    <div class="col-4 col-md-2">
                                         <button type="button" class="btn btn-success w-100" id="btn_tambah_kategori"
                                             data-toggle="modal" data-target="#tambahKategoriModal">Tambah</button>
                                     </div>
@@ -69,7 +69,7 @@
                             </div>
                             <div class="col-12 mb-2">
                                 <div class="row">
-                                    <div class="col-2 ">
+                                    <div class="col-4 col-md-2 ">
                                         <label for="subKategori">Sub Kategori</label>
                                     </div>
                                     <div class="col-8">
@@ -78,7 +78,7 @@
                                             </option>
                                         </select>
                                     </div>
-                                    <div class="col-2">
+                                    <div class="col-4 col-md-2">
                                         <button type="button" class="btn btn-success w-100" id="btn_tambah_subKategori"
                                             data-toggle="modal" data-target="#tambahSubKategoriModal">Tambah</button>
                                     </div>
@@ -86,17 +86,17 @@
                             </div>
                             <div class="col-12 mb-2">
                                 <div class="row">
-                                    <div class="col-2 ">
+                                    <div class="col-4 col-md-2">
                                         <label for="ket_khusus">Keterangan Khusus</label>
                                     </div>
                                     <div class="col-8">
-                                        <input type="text" class="input w-100" id="ket_khusus" name="ket_khusus">
+                                        <input type="text" class="input w-100" id="ket_khusus" name="ket_khusus" readonly>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12 mb-2">
                                 <div class="row">
-                                    <div class="col-2 ">
+                                    <div class="col-4 col-md-2">
                                         <label for="namaBarang">Nama Barang</label>
                                     </div>
                                     <div class="col-8">
@@ -105,7 +105,7 @@
                                             </option>
                                         </select>
                                     </div>
-                                    <div class="col-2">
+                                    <div class="col-4 col-md-2">
                                         <button type="button" class="btn btn-primary w-100" id="btn_namaBarang"
                                             data-toggle="modal" data-target="#cekNamaBarangModal">Cek</button>
                                     </div>
@@ -113,7 +113,7 @@
                             </div>
                             <div class="col-12 mb-2">
                                 <div class="row">
-                                    <div class="col-2 ">
+                                    <div class="col-4 col-md-2">
                                         <label for="ket_barang">Keterangan Barang</label>
                                     </div>
                                     <div class="col-8">
@@ -123,7 +123,7 @@
                             </div>
                             <div class="col-12 mb-2">
                                 <div class="row">
-                                    <div class="col-2 ">
+                                    <div class="col-4 col-md-2">
                                         <label for="jenisPembelian"">Jenis Pembelian</label>
                                     </div>
                                     <div class="col-8">
@@ -135,7 +135,7 @@
                             </div>
                             <div class="col-12 mb-2">
                                 <div class="row">
-                                    <div class="col-2 ">
+                                    <div class="col-4 col-md-2">
                                     </div>
                                     <div class="col-8">
                                         <div class="row">
@@ -156,7 +156,7 @@
                                                             name="check_jenisPembelian">
                                                         <label for="check_export">Export</label>
                                                     </div>
-                                                    <div class="col-8" id="labelExport">
+                                                    <div class="col-md-8" id="labelExport">
                                                         <p>KALO YANG MINTA KODE BARANG BARU DIVISI EXIM, HARUS DITANYA
                                                             APAKAH HASIL PRODUKSI" & _
                                                             " INI UNTUK EXPORT. KALO IYA, CHECK BOX BARANG EXPORT HARUS
@@ -171,7 +171,7 @@
                             </div>
                             <div class="col-12 mb-2">
                                 <div class="row">
-                                    <div class="col-2 ">
+                                    <div class="col-4 col-md-2">
                                         <label for="org_penjaluk">Orang Penjaluk</label>
                                     </div>
                                     <div class="col-8">
@@ -181,7 +181,7 @@
                             </div>
                             <div class="col-12 mb-2">
                                 <div class="row">
-                                    <div class="col-2 ">
+                                    <div class="col-4 col-md-2">
                                         <label for="satuanPrimer"">Satuan Primer</label>
                                     </div>
                                     <div class="col-8">
@@ -194,7 +194,7 @@
                             </div>
                             <div class="col-12 mb-2">
                                 <div class="row">
-                                    <div class="col-2 ">
+                                    <div class="col-4 col-md-2 ">
                                         <label for="satuanSekunder"">Satuan Sekunder</label>
                                     </div>
                                     <div class="col-8">
@@ -208,7 +208,7 @@
                             </div>
                             <div class="col-12 mb-2">
                                 <div class="row">
-                                    <div class="col-2 ">
+                                    <div class="col-4 col-md-2">
                                         <label for="satuanTritier"">Satuan Tritier</label>
                                     </div>
                                     <div class="col-8">
@@ -222,7 +222,7 @@
                             </div>
                             <div class="col-12 mb-2">
                                 <div class="row">
-                                    <div class="col-2 ">
+                                    <div class="col-4 col-md-2 ">
                                         <label for="satuanUmum"">Satuan Umum</label>
                                     </div>
                                     <div class="col-8">
@@ -303,7 +303,7 @@
                             </div>
                             <div class="col-12 mb-2 d-none" id="groupSpek">
                                 <div class="row">
-                                    <div class="col-2 ">
+                                    <div class="col-4 col-md-2">
                                         <input type="checkbox" class="input" id="check_spek"
                                             name="check_jenisPembelian">
                                         <label for="spek"">Spek</label>
@@ -387,23 +387,23 @@
                                             </table>
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                                id="btn_closeCekBarang">Close</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12 mb-2">
                                 <div class="row">
-                                    <div class="col-2"><button type="button" class="w-100 btn btn-primary"
+                                    <div class="col-4 col-md-2"><button type="button" class="w-100 btn btn-primary"
                                             id="btn_isi">Isi</button></div>
-                                    <div class="col-2"><button type="button" class="w-100 btn btn-secondary"
+                                    <div class="col-4 col-md-2"><button type="button" class="w-100 btn btn-secondary"
                                             id="btn_koreksi">Koreksi</button></div>
-                                    <div class="col-2"><button type="button" class="w-100 btn btn-danger"
+                                    <div class="col-4 col-md-2"><button type="button" class="w-100 btn btn-danger"
                                             id="btn_hapus">Hapus</button></div>
-                                    <div class="col-2"><button type="button" class="w-100 btn btn-success"
+                                    <div class="col-4 col-md-2"><button type="button" class="w-100 btn btn-success"
                                             id="btn_proses">Proses</button></div>
-                                    <div class="col-2"><button type="button" class="w-100 btn btn-info"
+                                    <div class="col-4 col-md-2"><button type="button" class="w-100 btn btn-info"
                                             id="btn_batal">Batal</button></div>
                                 </div>
                             </div>

@@ -37,13 +37,27 @@ let textBox16 = document.getElementById("textBox16");
 let labelExport = document.getElementById("labelExport");
 let groupSpek = document.getElementById("groupSpek");
 let btn_batal = document.getElementById("btn_batal");
+let btn_isi = document.getElementById("btn_isi");
+let btn_koreksi = document.getElementById("btn_koreksi");
+let btn_hapus = document.getElementById("btn_hapus");
+let btn_proses = document.getElementById("btn_proses");
+let btn_tambah_kategoriUtama = document.getElementById(
+    "btn_tambah_kategoriUtama"
+);
+let btn_tambah_kategori = document.getElementById("btn_tambah_kategori");
+let btn_tambah_subKategori = document.getElementById("btn_tambah_subKategori");
 let btn_tambahKategori = document.getElementById("btn_tambahKategori");
 let btn_tambahSubKategori = document.getElementById("btn_tambahSubKategori");
 let btn_namaBarang = document.getElementById("btn_namaBarang");
+let btn_closeCekBarang = document.getElementById("btn_closeCekBarang");
 
 let csrfToken = $('meta[name="csrf-token"]').attr("content");
 
+let dataRes;
+let kdBarangAslinya = "";
+let btnActive = "batal";
 let tamValueNamaBrg = "";
+let indexNamaBarang;
 const SpesifikasiType = {
     Gelondongan: 1097,
     BenangExtruder: 1474,
@@ -61,12 +75,176 @@ const SpesifikasiType = {
 labelExport.style.display = "none";
 groupSpek.style.display = "none";
 
-btn_cari_kdBarang.addEventListener("click", function (event) {
-    cariKodeBarang(kd_barang.value);
+check_barangSama.addEventListener("click", function (event) {
+    if (check_barangSama.checked == true) {
+        select_kategori.disabled = true;
+        select_kategori_utama.disabled = true;
+        select_subKategori.disabled = true;
+    } else {
+        if (select_kategori_utama.selectedIndex == 0) {
+            select_kategori_utama.disabled = false;
+        } else if (select_kategori.selectedIndex == 0) {
+            select_kategori_utama.disabled = false;
+            select_kategori.disabled = false;
+        } else {
+            select_kategori_utama.disabled = false;
+            select_kategori.disabled = false;
+            select_subKategori.disabled = false;
+        }
+    }
 });
+
+btn_isi.addEventListener("click", function () {
+    enableElements();
+    btnActive = "isi";
+    select_namaBarang.disabled = true;
+    btn_isi.disabled = true;
+    btn_koreksi.disabled = true;
+    btn_hapus.disabled = true;
+});
+
+btn_koreksi.addEventListener("click", function () {
+    enableElements();
+    btnActive = "koreksi";
+    btn_isi.disabled = true;
+    btn_koreksi.disabled = true;
+    btn_hapus.disabled = true;
+});
+
+btn_hapus.addEventListener("click", function () {
+    enableElements();
+    btnActive = "hapus";
+    btn_isi.disabled = true;
+    btn_koreksi.disabled = true;
+    btn_hapus.disabled = true;
+});
+
+btn_proses.addEventListener("click", function (event) {
+    if (btnActive == "isi") {
+        let barangSama = "N";
+        let round = "N";
+        let kdSpek = null;
+        let barangEksport = "N";
+        let namaBarang;
+        if (check_barangSama.checked == true) {
+            barangSama = "Y";
+        }
+        if (check_round.checked == true) {
+            round = "Y";
+        }
+        if (check_spek.checked == true) {
+            kdSpek = select_spek.value;
+        }
+        if (check_export.checked == true) {
+            barangEksport = "Y";
+        }
+        for (let i = 0; i < select_namaBarang.options.length; i++) {
+            if (select_namaBarang.options[i].value == select_namaBarang.value) {
+                namaBarang = select_namaBarang.options[i].text;
+            }
+        }
+        console.log(
+            select_kategori_utama.value[0],
+            select_jenisPembelian.value,
+            kd_barang.value.replace(/\s/g, "")
+        );
+        $.ajax({
+            url: "/Maintenance/Isi",
+            type: "POST",
+            headers: {
+                "X-CSRF-TOKEN": csrfToken,
+            },
+            data: {
+                Kriteria: select_kategori_utama.value[0],
+                Jenis_Pembelian: select_jenisPembelian.value,
+                BrgSama: barangSama,
+                KodeBrgAslinya: kd_barang.value.replace(/\s/g, ""),
+                NO_SUB_KATEGORI: select_subKategori.value,
+                NAMA_BRG: namaBarang,
+                KET: ket_barang.value,
+                KET_KHUSUS: ket_khusus.value,
+                ST_TRI: select_satuanTritier.value,
+                ST_SEK: select_satuanSekunder.value,
+                ST_PRIM: select_satuanPrimer.value,
+                NO_SATUAN_UMUM: select_satuanUmum.value,
+                ROUND: round,
+                D_Tek0: textBox1.value,
+                D_Tek1: textBox2.value,
+                D_Tek2: textBox3.value,
+                D_Tek3: textBox4.value,
+                D_Tek4: textBox5.value,
+                D_Tek5: textBox6.value,
+                D_Tek6: textBox7.value,
+                D_Tek7: textBox8.value,
+                D_Tek8: textBox9.value,
+                D_Tek9: textBox10.value,
+                D_Tek10: textBox11.value,
+                D_Tek11: textBox12.value,
+                D_Tek12: textBox13.value,
+                D_Tek13: textBox14.value,
+                Ket_Tek0: textBox15.value,
+                Ket_Tek1: textBox16.value,
+                KdSpec: kdSpek,
+                Penjaluk: org_penjaluk.value,
+                Barang_Export: barangEksport,
+            },
+            success: function (response) {
+                if (barangSama != " N") {
+                    Swal.fire({
+                        icon: "success",
+                        title:
+                            "Data Berhasil DiTambahkan! Kode Barang =" +
+                            select_kategori_utama.value[0] +
+                            select_jenisPembelian.value +
+                            kd_barang.value.replace(/\s/g, "").slice(-7),
+                        showConfirmButton: false,
+                        timer: "5000",
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Data Berhasil DiTambahkan!",
+                        showConfirmButton: false,
+                        timer: "2000",
+                    });
+                }
+
+                clearData();
+                console.log(response);
+            },
+            error: function (error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Data Tidak Berhasil DiTambahkan!",
+                    showConfirmButton: false,
+                    timer: "2000",
+                });
+                console.error("Error Send Data:", error);
+            },
+        });
+    } else if (btnActive == "koreksi") {
+    } else if (btnActive == "hapus") {
+    }
+});
+
+btn_closeCekBarang.addEventListener("click", function (event) {
+    $("#table_cekNamaBarang").DataTable().clear().destroy();
+});
+
+btn_cari_kdBarang.addEventListener("click", function (event) {
+    cariKodeBarang(kd_barang.value.replace(/\s/g, ""));
+    kd_barang.value = kdBarangAslinya;
+});
+
 btn_batal.addEventListener("click", function (event) {
     clearData();
+    btnActive = "batal";
+    disableAll();
+    btn_isi.disabled = false;
+    btn_koreksi.disabled = false;
+    btn_hapus.disabled = false;
 });
+
 btn_tambahKategori.addEventListener("click", function (event) {
     let myValue = select_kategori_utama.value.slice(1);
     $.ajax({
@@ -140,11 +318,14 @@ btn_tambahSubKategori.addEventListener("click", function (event) {
 btn_namaBarang.addEventListener("click", function (event) {
     let namaBarang;
     if (select_namaBarang.selectedIndex == 0) {
-        console.log('asj')
         namaBarang = "";
     } else {
         namaBarang = select_namaBarang.value;
     }
+
+    console.log(select_namaBarang.options[indexNamaBarang]);
+    console.log(namaBarang);
+
     let table = $("#table_cekNamaBarang").DataTable({
         responsive: true,
         processing: true,
@@ -153,7 +334,7 @@ btn_namaBarang.addEventListener("click", function (event) {
             url: "/Maintenance/CekNamaBarang",
             type: "GET",
             data: function (data) {
-                data.nama_brg = namaBarang;
+                data.kd_barang = namaBarang;
             },
         },
         columns: [
@@ -169,7 +350,9 @@ check_export.disabled = true;
 select_kategori_utama.addEventListener("change", function (event) {
     optionClr();
     let myValue = select_kategori_utama.value.slice(1);
-    kategori(myValue, function () {});
+    kategori(myValue, function () {
+        select_kategori.disabled = false;
+    });
 });
 
 select_kategori.addEventListener("change", function (event) {
@@ -178,14 +361,22 @@ select_kategori.addEventListener("change", function (event) {
     select_namaBarang.selectedIndex = 0;
     clearOptions(select_namaBarang);
     let myValue = select_kategori.value;
-    subKategori(myValue, function () {});
+    subKategori(myValue, function () {
+        select_subKategori.disabled = false;
+    });
 });
 
 select_subKategori.addEventListener("change", function (event) {
     select_namaBarang.selectedIndex = 0;
     clearOptions(select_namaBarang);
     let myValue = select_subKategori.value;
-    namaBarang(myValue, function () {});
+    namaBarang(myValue, function () {
+        if (btnActive == "isi") {
+            select_namaBarang.disabled = true;
+        } else {
+            select_namaBarang.disabled = false;
+        }
+    });
 });
 
 function clearOptions(selectElement) {
@@ -244,6 +435,7 @@ function cariKodeBarang(kd_barang) {
     while (kd_barang.length < 9) {
         kd_barang = "0" + kd_barang;
     }
+    kdBarangAslinya = kd_barang;
     $.ajax({
         url: "/Maintenance/KodeBarang",
         type: "GET",
@@ -251,6 +443,7 @@ function cariKodeBarang(kd_barang) {
             kodeBarang: kd_barang,
         },
         success: function (response) {
+            dataRes = response[0];
             console.log(response);
             kategori(response[0].no_kat_utama, function () {
                 for (let i = 0; i < select_kategori.options.length; i++) {
@@ -283,6 +476,7 @@ function cariKodeBarang(kd_barang) {
                         response[0].NAMA_BRG.replace(/\s/g, "")
                     ) {
                         select_namaBarang.selectedIndex = i;
+                        indexNamaBarang = i;
                     }
                 }
             });
@@ -426,6 +620,13 @@ function cariKodeBarang(kd_barang) {
             console.error("Error Fetch Data:", error);
         },
     });
+    select_kategori.disabled = false;
+    select_subKategori.disabled = false;
+    if (btnActive == "isi") {
+        select_namaBarang.disabled = true;
+    } else {
+        select_namaBarang.disabled = false;
+    }
 }
 
 function kategori(MyValue, callback) {
@@ -754,10 +955,12 @@ function PecahGelondongan(TypeBrg) {
             textBox8.value = Keterangan;
             textBox9.value = LReinf;
             textBox10.value = JmlReinf;
-            textBox11.value = WrnReinf + "-" + JmlStripReinf;
-            textBox12.value = JrkReinf;
-            textBox13.value = WrnStrip + "-" + JmlStripReinf2;
-            textBox14.value = Keterangan2;
+            textBox11.value = WrnReinf;
+            textBox12.value = JmlStripReinf;
+            textBox13.value = JrkReinf;
+            textBox14.value = WrnStrip;
+            textBox15.value = JmlStripReinf2;
+            textBox16.value = Keterangan2;
             return;
         } else {
             Keterangan = TypeBrg.substring(MyStart, MyPos).trim();
@@ -772,10 +975,12 @@ function PecahGelondongan(TypeBrg) {
             LReinf = TypeBrg.substring(MyStart).trim();
             textBox9.value = LReinf;
             textBox10.value = JmlReinf;
-            textBox11.value = WrnReinf + "-" + JmlStripReinf;
-            textBox12.value = JrkReinf;
-            textBox13.value = WrnStrip + "-" + JmlStripReinf2;
-            textBox14.value = Keterangan2;
+            textBox11.value = WrnReinf;
+            textBox12.value = JmlStripReinf;
+            textBox13.value = JrkReinf;
+            textBox14.value = WrnStrip;
+            textBox15.value = JmlStripReinf2;
+            textBox16.value = Keterangan2;
             return;
         } else {
             LReinf = TypeBrg.substring(MyStart, MyPos).trim();
@@ -1281,7 +1486,53 @@ function PecahKarungWovenBag(TypeBrg) {
     }
 }
 
+function disableAll() {
+    kd_barang.disabled = true;
+    select_kategori_utama.disabled = true;
+    select_kategori.disabled = true;
+    select_subKategori.disabled = true;
+    ket_khusus.disabled = true;
+    select_namaBarang.disabled = true;
+    ket_barang.disabled = true;
+    select_jenisPembelian.disabled = true;
+    check_barangSama.disabled = true;
+    check_round.disabled = true;
+    org_penjaluk.disabled = true;
+    select_satuanPrimer.disabled = true;
+    select_satuanSekunder.disabled = true;
+    select_satuanTritier.disabled = true;
+    select_satuanUmum.disabled = true;
+    btn_cari_kdBarang.disabled = true;
+    btn_tambah_kategoriUtama.disabled = true;
+    btn_tambah_kategori.disabled = true;
+    btn_tambah_subKategori.disabled = true;
+    btn_namaBarang.disabled = true;
+    btn_proses.disabled = true;
+    btn_batal.disabled = true;
+}
+function enableElements() {
+    kd_barang.disabled = false;
+    select_kategori_utama.disabled = false;
+    ket_khusus.disabled = false;
+    ket_barang.disabled = false;
+    select_jenisPembelian.disabled = false;
+    check_barangSama.disabled = false;
+    check_round.disabled = false;
+    org_penjaluk.disabled = false;
+    select_satuanPrimer.disabled = false;
+    select_satuanSekunder.disabled = false;
+    select_satuanTritier.disabled = false;
+    select_satuanUmum.disabled = false;
+    btn_cari_kdBarang.disabled = false;
+    btn_tambah_kategoriUtama.disabled = false;
+    btn_namaBarang.disabled = false;
+    btn_proses.disabled = false;
+    btn_batal.disabled = false;
+}
+
 $(document).ready(function () {
+    disableAll();
+
     $.ajax({
         url: "/Maintenance/Data",
         type: "GET",

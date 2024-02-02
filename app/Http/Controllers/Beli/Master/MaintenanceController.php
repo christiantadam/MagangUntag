@@ -123,16 +123,101 @@ class MaintenanceController extends Controller
     }
     public function cekNamaBarang(Request $request)
     {
-        $nama_brg = $request->input('nama_brg');
-        if($nama_brg == null){
-            $nama_brg = '';
+        $kd_barang = $request->input('kd_barang');
+        if ($kd_barang == null) {
+            $kd_barang = '';
         }
         try {
-            $data = DB::connection('ConnPurchase')->select('exec spCek_Nama_Barang  @nama_brg = ?', [$nama_brg]);
+            $data = DB::connection('ConnPurchase')
+                ->table('Y_BARANG')
+                ->select('Y_BARANG.KD_BRG', 'Y_BARANG.NAMA_BRG', 'Y_KATEGORI_SUB.nama_sub_kategori')
+                ->join('Y_KATEGORI_SUB', 'Y_BARANG.NO_SUB_KATEGORI', '=', 'Y_KATEGORI_SUB.no_sub_kategori')
+                ->where('Y_BARANG.KD_BRG', 'like', $kd_barang . '%');
+            // dd($data);
             return datatables($data)->make(true);
         } catch (\Throwable $Error) {
             return Response()->json($Error);
         }
+    }
+    public function isi(Request $request)
+    {
+        $USERINPUT = '1001';
+        $Kriteria = $request->input('Kriteria');
+        $Jenis_Pembelian = $request->input('Jenis_Pembelian');
+        $BrgSama = $request->input('BrgSama');
+        $KodeBrgAslinya = $request->input('KodeBrgAslinya');
+        $NO_SUB_KATEGORI = $request->input('NO_SUB_KATEGORI');
+        $NAMA_BRG = $request->input('NAMA_BRG');
+        $KET = $request->input('KET');
+        $KET_KHUSUS = $request->input('KET_KHUSUS');
+        $ST_TRI = $request->input('ST_TRI');
+        $ST_SEK = $request->input('ST_SEK');
+        $ST_PRIM = $request->input('ST_PRIM');
+        $NO_SATUAN_UMUM = $request->input('NO_SATUAN_UMUM');
+        $ROUND = $request->input('ROUND');
+        $D_Tek0 = $request->input('D_Tek0');
+        $D_Tek1 = $request->input('D_Tek1');
+        $D_Tek2 = $request->input('D_Tek2');
+        $D_Tek3 = $request->input('D_Tek3');
+        $D_Tek4 = $request->input('D_Tek4');
+        $D_Tek5 = $request->input('D_Tek5');
+        $D_Tek6 = $request->input('D_Tek6');
+        $D_Tek7 = $request->input('D_Tek7');
+        $D_Tek8 = $request->input('D_Tek8');
+        $D_Tek9 = $request->input('D_Tek9');
+        $D_Tek10 = $request->input('D_Tek10');
+        $D_Tek11 = $request->input('D_Tek11');
+        $D_Tek12 = $request->input('D_Tek12');
+        $D_Tek13 = $request->input('D_Tek13');
+        $Ket_Tek0 = $request->input('Ket_Tek0');
+        $Ket_Tek1 = $request->input('Ket_Tek1');
+        $KdSpec = $request->input('KdSpec');
+        $Penjaluk = $request->input('Penjaluk');
+        $Barang_Export = $request->input('Barang_Export');
 
+        if ($Kriteria != null && $Jenis_Pembelian != null) {
+            try {
+                $data = DB::connection('ConnPurchase')->statement('exec SpInsert_TypeBarang_dotNet @USERINPUT =?, @Kriteria =?,@Jenis_Pembelian =?,@BrgSama =?,@KodeBrgAslinya =?,@NO_SUB_KATEGORI =?,@NAMA_BRG =?,@KET =?,@KET_KHUSUS =?,@ST_TRI =?,@ST_SEK =?,@ST_PRIM =?,@NO_SATUAN_UMUM =?,@ROUND =?,@D_Tek0 =?,@D_Tek1 =?,@D_Tek2 =?,@D_Tek3 =?,@D_Tek4 =?,@D_Tek5 =?,@D_Tek6 =?,@D_Tek7 =?,@D_Tek8 =?,@D_Tek9 =?,@D_Tek10 =?,@D_Tek11 =?,@D_Tek12 =?,@D_Tek13 =?,@Ket_Tek0 =?,@Ket_Tek1 =?,@KdSpec =?,@Penjaluk =?,@Barang_Export =?', [
+                    $USERINPUT,
+                    $Kriteria,
+                    $Jenis_Pembelian,
+                    $BrgSama,
+                    $KodeBrgAslinya,
+                    $NO_SUB_KATEGORI,
+                    $NAMA_BRG,
+                    $KET,
+                    $KET_KHUSUS,
+                    $ST_TRI,
+                    $ST_SEK,
+                    $ST_PRIM,
+                    $NO_SATUAN_UMUM,
+                    $ROUND,
+                    $D_Tek0,
+                    $D_Tek1,
+                    $D_Tek2,
+                    $D_Tek3,
+                    $D_Tek4,
+                    $D_Tek5,
+                    $D_Tek6,
+                    $D_Tek7,
+                    $D_Tek8,
+                    $D_Tek9,
+                    $D_Tek10,
+                    $D_Tek11,
+                    $D_Tek12,
+                    $D_Tek13,
+                    $Ket_Tek0,
+                    $Ket_Tek1,
+                    $KdSpec,
+                    $Penjaluk,
+                    $Barang_Export
+                ]);
+                return response()->json(['message' => 'Data berhasil ditambahkan']);
+            } catch (\Throwable $Error) {
+                return response()->json($Error);
+            }
+        } else {
+            return response()->json('Parameter harus diisi');
+        }
     }
 }

@@ -49,6 +49,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/Maintenance/NamaBarang', 'App\Http\Controllers\Beli\Master\MaintenanceController@namaBarang')->name('maintenancekodebarang.namabarang');
     Route::get('/Maintenance/CekNamaBarang', 'App\Http\Controllers\Beli\Master\MaintenanceController@cekNamaBarang')->name('maintenancekodebarang.ceknamabarang');
     Route::post('/Maintenance/TambahKategori', 'App\Http\Controllers\Beli\Master\MaintenanceController@tambahKategori')->name('maintenancekodebarang.tambahkateegori');
+    Route::post('/Maintenance/Isi', 'App\Http\Controllers\Beli\Master\MaintenanceController@isi')->name('maintenancekodebarang.isi');
     Route::post('/Maintenance/TambahSubKategori', 'App\Http\Controllers\Beli\Master\MaintenanceController@tambahSubKategori')->name('maintenancekodebarang.tambahsubkategori');
     Route::resource('BatalTransfer', App\Http\Controllers\Beli\Master\BatalTransferController::class);
     Route::post('/BatalTransfer/Proses', 'App\Http\Controllers\Beli\Master\BatalTransferController@batal')->name('bataltransfer.proses');
