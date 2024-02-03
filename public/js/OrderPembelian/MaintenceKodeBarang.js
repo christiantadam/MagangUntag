@@ -75,6 +75,22 @@ const SpesifikasiType = {
 labelExport.style.display = "none";
 groupSpek.style.display = "none";
 
+kd_barang.addEventListener("input", function (event) {
+    setInputFilter(
+        document.getElementById("kd_barang"),
+        function (value) {
+            return /^\d*$/.test(value);
+        },
+        "Tidak boleh character, harus angka"
+    );
+
+    if (kd_barang.value != "") {
+        btn_proses.disabled = false;
+    } else {
+        btn_proses.disabled = true;
+    }
+});
+
 check_barangSama.addEventListener("click", function (event) {
     if (check_barangSama.checked == true) {
         select_kategori.disabled = true;
@@ -143,11 +159,7 @@ btn_proses.addEventListener("click", function (event) {
                 namaBarang = select_namaBarang.options[i].text;
             }
         }
-        console.log(
-            select_kategori_utama.value[0],
-            select_jenisPembelian.value,
-            kd_barang.value.replace(/\s/g, "")
-        );
+
         $.ajax({
             url: "/Maintenance/Isi",
             type: "POST",
@@ -208,9 +220,12 @@ btn_proses.addEventListener("click", function (event) {
                         timer: "2000",
                     });
                 }
-
                 clearData();
-                console.log(response);
+                btnActive = "batal";
+                disableAll();
+                btn_isi.disabled = false;
+                btn_koreksi.disabled = false;
+                btn_hapus.disabled = false;
             },
             error: function (error) {
                 Swal.fire({
@@ -223,7 +238,126 @@ btn_proses.addEventListener("click", function (event) {
             },
         });
     } else if (btnActive == "koreksi") {
+        let round = "N";
+        let kdSpek = null;
+        let barangEksport = "N";
+        let namaBarang;
+
+        if (check_round.checked == true) {
+            round = "Y";
+        }
+        if (check_spek.checked == true) {
+            kdSpek = select_spek.value;
+        }
+        if (check_export.checked == true) {
+            barangEksport = "Y";
+        }
+        for (let i = 0; i < select_namaBarang.options.length; i++) {
+            if (select_namaBarang.options[i].value == select_namaBarang.value) {
+                namaBarang = select_namaBarang.options[i].text;
+            }
+        }
+
+        $.ajax({
+            url: "/Maintenance/Koreksi",
+            type: "POST",
+            headers: {
+                "X-CSRF-TOKEN": csrfToken,
+            },
+            data: {
+                KD_BRG: kd_barang.value.replace(/\s/g, ""),
+                NO_SUB_KATEGORI: select_subKategori.value,
+                NAMA_BRG: namaBarang,
+                KET: ket_barang.value,
+                KET_KHUSUS: ket_khusus.value,
+                ST_TRI: select_satuanTritier.value,
+                ST_SEK: select_satuanSekunder.value,
+                ST_PRIM: select_satuanPrimer.value,
+                NO_SATUAN_UMUM: select_satuanUmum.value,
+                ROUND: round,
+                D_Tek0: textBox1.value,
+                D_Tek1: textBox2.value,
+                D_Tek2: textBox3.value,
+                D_Tek3: textBox4.value,
+                D_Tek4: textBox5.value,
+                D_Tek5: textBox6.value,
+                D_Tek6: textBox7.value,
+                D_Tek7: textBox8.value,
+                D_Tek8: textBox9.value,
+                D_Tek9: textBox10.value,
+                D_Tek10: textBox11.value,
+                D_Tek11: textBox12.value,
+                D_Tek12: textBox13.value,
+                D_Tek13: textBox14.value,
+                Ket_Tek0: textBox15.value,
+                Ket_Tek1: textBox16.value,
+                KdSpec: kdSpek,
+                Penjaluk: org_penjaluk.value,
+                Barang_Export: barangEksport,
+            },
+            success: function (response) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Data Berhasil DiTambahkan!",
+                    showConfirmButton: false,
+                    timer: "2000",
+                });
+
+                clearData();
+                btnActive = "batal";
+                disableAll();
+                btn_isi.disabled = false;
+                btn_koreksi.disabled = false;
+                btn_hapus.disabled = false;
+                console.log(response);
+            },
+            error: function (error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Data Tidak Berhasil DiTambahkan!",
+                    showConfirmButton: false,
+                    timer: "2000",
+                });
+                console.error("Error Send Data:", error);
+            },
+        });
     } else if (btnActive == "hapus") {
+        console.log(kd_barang.value.replace(/\s/g, ""));
+        $.ajax({
+            url: "/Maintenance/ProsesHapus",
+            type: "POST",
+            headers: {
+                "X-CSRF-TOKEN": csrfToken,
+            },
+            data: {
+                KD_BRG0: kd_barang.value.replace(/\s/g, ""),
+            },
+            success: function (response) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Data Berhasil DiTambahkan!",
+                    showConfirmButton: false,
+                    timer: "2000",
+                });
+
+                clearData();
+                btnActive = "batal";
+                disableAll();
+                btn_isi.disabled = false;
+                btn_koreksi.disabled = false;
+                btn_hapus.disabled = false;
+                console.log(response);
+            },
+            error: function (error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Data Tidak Berhasil DiTambahkan!",
+                    showConfirmButton: false,
+                    timer: "2000",
+                });
+                console.error("Error Send Data:", error);
+            },
+        });
     }
 });
 
@@ -322,9 +456,6 @@ btn_namaBarang.addEventListener("click", function (event) {
     } else {
         namaBarang = select_namaBarang.value;
     }
-
-    console.log(select_namaBarang.options[indexNamaBarang]);
-    console.log(namaBarang);
 
     let table = $("#table_cekNamaBarang").DataTable({
         responsive: true,
@@ -630,7 +761,6 @@ function cariKodeBarang(kd_barang) {
 }
 
 function kategori(MyValue, callback) {
-    console.log(MyValue);
     $.ajax({
         url: "/Maintenance/Kategori",
         type: "GET",
@@ -638,7 +768,6 @@ function kategori(MyValue, callback) {
             MyValue: MyValue,
         },
         success: function (response) {
-            console.log(response);
             response.forEach(function (data) {
                 let option = document.createElement("option");
                 option.value = data.no_kategori;
@@ -1526,7 +1655,6 @@ function enableElements() {
     btn_cari_kdBarang.disabled = false;
     btn_tambah_kategoriUtama.disabled = false;
     btn_namaBarang.disabled = false;
-    btn_proses.disabled = false;
     btn_batal.disabled = false;
 }
 

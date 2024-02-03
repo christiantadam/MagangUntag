@@ -193,12 +193,20 @@ class PurchaseOrderController extends Controller
             return Response()->json('Parameter harus di isi');
         }
     }
+
     //Store a newly created resource in storage.
     public function store(Request $request)
     {
     }
     public function show($id)
     {
+        $access = (new HakAksesController)->HakAksesFiturMaster('Beli');
+        $result = (new HakAksesController)->HakAksesFitur('Close / Cancel PO');
+        if ($result > 0) {
+            return view('Beli.TransaksiBeli.PurchaseOrder.CancelPO', compact('access'));
+        } else {
+            abort(404);
+        }
     }
     //Display the specified resource.
     public function redisplay(Request $request)

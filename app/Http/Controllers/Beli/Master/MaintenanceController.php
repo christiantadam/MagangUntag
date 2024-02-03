@@ -220,4 +220,99 @@ class MaintenanceController extends Controller
             return response()->json('Parameter harus diisi');
         }
     }
+    public function koreksi(Request $request)
+    {
+        $USERKOREKSI = '1001';
+        $KD_BRG = $request->input('KD_BRG');
+        $NO_SUB_KATEGORI = $request->input('NO_SUB_KATEGORI');
+        $NAMA_BRG = $request->input('NAMA_BRG');
+        $KET = $request->input('KET');
+        $KET_KHUSUS = $request->input('KET_KHUSUS');
+        $ST_TRI = $request->input('ST_TRI');
+        $ST_SEK = $request->input('ST_SEK');
+        $ST_PRIM = $request->input('ST_PRIM');
+        $NO_SATUAN_UMUM = $request->input('NO_SATUAN_UMUM');
+        $ROUND = $request->input('ROUND');
+        $D_Tek0 = $request->input('D_Tek0');
+        $D_Tek1 = $request->input('D_Tek1');
+        $D_Tek2 = $request->input('D_Tek2');
+        $D_Tek3 = $request->input('D_Tek3');
+        $D_Tek4 = $request->input('D_Tek4');
+        $D_Tek5 = $request->input('D_Tek5');
+        $D_Tek6 = $request->input('D_Tek6');
+        $D_Tek7 = $request->input('D_Tek7');
+        $D_Tek8 = $request->input('D_Tek8');
+        $D_Tek9 = $request->input('D_Tek9');
+        $D_Tek10 = $request->input('D_Tek10');
+        $D_Tek11 = $request->input('D_Tek11');
+        $D_Tek12 = $request->input('D_Tek12');
+        $D_Tek13 = $request->input('D_Tek13');
+        $Ket_Tek0 = $request->input('Ket_Tek0');
+        $Ket_Tek1 = $request->input('Ket_Tek1');
+        $KdSpec = $request->input('KdSpec');
+        $Penjaluk = $request->input('Penjaluk');
+        $Barang_Export = $request->input('Barang_Export');
+
+        if ($KD_BRG != null) {
+            try {
+                $data = DB::connection('ConnPurchase')->statement('exec spKoreksi_TypeBarang_dotNet @USERKOREKSI =?,@KD_BRG =?,@NO_SUB_KATEGORI =?,@NAMA_BRG =?,@KET =?,@KET_KHUSUS =?,@ST_TRI =?,@ST_SEK =?,@ST_PRIM =?,@NO_SATUAN_UMUM =?,@ROUND =?,@D_Tek0 =?,@D_Tek1 =?,@D_Tek2 =?,@D_Tek3 =?,@D_Tek4 =?,@D_Tek5 =?,@D_Tek6 =?,@D_Tek7 =?,@D_Tek8 =?,@D_Tek9 =?,@D_Tek10 =?,@D_Tek11 =?,@D_Tek12 =?,@D_Tek13 =?,@Ket_Tek0 =?,@Ket_Tek1 =?,@KdSpec =?,@Penjaluk =?,@Barang_Export =?', [
+                    $USERKOREKSI,
+                    $KD_BRG,
+                    $NO_SUB_KATEGORI,
+                    $NAMA_BRG,
+                    $KET,
+                    $KET_KHUSUS,
+                    $ST_TRI,
+                    $ST_SEK,
+                    $ST_PRIM,
+                    $NO_SATUAN_UMUM,
+                    $ROUND,
+                    $D_Tek0,
+                    $D_Tek1,
+                    $D_Tek2,
+                    $D_Tek3,
+                    $D_Tek4,
+                    $D_Tek5,
+                    $D_Tek6,
+                    $D_Tek7,
+                    $D_Tek8,
+                    $D_Tek9,
+                    $D_Tek10,
+                    $D_Tek11,
+                    $D_Tek12,
+                    $D_Tek13,
+                    $Ket_Tek0,
+                    $Ket_Tek1,
+                    $KdSpec,
+                    $Penjaluk,
+                    $Barang_Export
+                ]);
+                return response()->json(['message' => 'Data berhasil ditambahkan']);
+            } catch (\Throwable $Error) {
+                return response()->json($Error);
+            }
+        } else {
+            return response()->json('Parameter harus diisi');
+        }
+    }
+    public function prosesHapus(Request $request)
+    {
+        $USERDELETE = '1001';
+        $KD_BRG0 = $request->input('KD_BRG0');
+
+        if ($KD_BRG0 != null) {
+            try {
+                $data = DB::connection('ConnPurchase')->statement('exec spDelete2_TypeBarang_dotNet @USERDELETE =?,@KD_BRG0 =?', [
+                    $USERDELETE,
+                    $KD_BRG0
+
+                ]);
+                return response()->json(['message' => 'Data berhasil dihapus']);
+            } catch (\Throwable $Error) {
+                return response()->json($Error);
+            }
+        } else {
+            return response()->json('Parameter harus diisi');
+        }
+    }
 }
