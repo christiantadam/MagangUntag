@@ -48,21 +48,6 @@ class KoreksiStatusBeliController extends Controller
         //
     }
 
-    public function searchData(Request $request)
-    {
-        $nm_brg = $request->input('nm_brg');
-        $kd = 3;
-        if ($nm_brg != null) {
-            try {
-                $search = DB::connection('ConnPurchase')->select('exec spSelect_CariTypeBarang_dotNet @nm_brg = ?, @kd = ?', [$nm_brg, $kd]);
-                return datatables($search)->make(true);
-            } catch (\Throwable $Error) {
-                return Response()->json($Error);
-            }
-        } else {
-            return Response()->json('Parameter harus di isi');
-        }
-    }
     //Store a newly created resource in storage.
     public function store(Request $request)
     {
@@ -82,9 +67,22 @@ class KoreksiStatusBeliController extends Controller
     }
 
     //Update the specified resource in storage.
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $noTrans = $request->input('noTrans');
+        $kd = 18;
+        $stBeli = $request->input('stBeli');
+
+        if (($noTrans != null) && ($stBeli != null)) {
+            try {
+                $data = DB::connection('ConnPurchase')->statement('exec SP_5409_SAVE_ORDER @noTrans=?, @stBeli = ?, @kd = ?', [$noTrans,$stBeli, $kd]);
+                return Response()->json("Data Berhasil Di Update");
+            } catch (\Throwable $Error) {
+                return Response()->json($Error);
+            }
+        } else {
+            return Response()->json('Parameter harus di isi');
+        }
     }
 
     //Remove the specified resource from storage.

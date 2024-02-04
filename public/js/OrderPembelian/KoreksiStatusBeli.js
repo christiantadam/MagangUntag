@@ -1,28 +1,17 @@
 let redisplay = document.getElementById("button_redisplay");
 let formCekRedisplay = document.getElementById("formCekRedisplay");
 let formUpdate = document.getElementById("formUpdate");
-let supplier_select = document.getElementById("supplier_select");
-let matauang_select = document.getElementById("matauang_select");
-let ppn_select = document.getElementById("ppn_select");
-let ppn = document.getElementById("ppn");
-let kurs = document.getElementById("kurs");
-let harga_unit = document.getElementById("harga_unit");
-let harga_sub_total = document.getElementById("harga_sub_total");
-let idr_sub_total = document.getElementById("idr_sub_total");
-let idr_ppn = document.getElementById("idr_ppn");
-let harga_total = document.getElementById("harga_total");
-let idr_harga_total = document.getElementById("idr_harga_total");
-let qty_delay = document.getElementById("qty_delay");
-let qty_order = document.getElementById("qty_order");
-let btn_clear = document.getElementById("btn_clear");
 let btn_update = document.getElementById("btn_update");
 let no_po = document.getElementById("no_po");
 
 let csrfToken = $('meta[name="csrf-token"]').attr("content");
 
+btn_update.disabled = true;
+redisplay.disabled = true;
 formCekRedisplay.addEventListener("change", function (event) {
     redisplay.disabled = !radioButtonIsSelected();
 });
+
 redisplay.addEventListener("click", function (event) {
     if (radioButtonIsSelected()) {
         let radioButtonChecked = radioButtonIsSelected();
@@ -75,6 +64,7 @@ function redisplayData(noTrans, requester, kd) {
         responsive: true,
         processing: true,
         serverSide: true,
+        searching : false,
         ajax: {
             url: "/StatusBeli/Redisplay",
             type: "GET",
@@ -104,6 +94,11 @@ function redisplayData(noTrans, requester, kd) {
                 ).checked = data.StatusPembelian === "Pengadaan Pembelian";
                 document.getElementById("status_beliBeliSendiri").checked =
                     data.StatusPembelian === "Beli Sendiri";
+                if (no_po.value != "") {
+                    btn_update.disabled = false;
+                } else {
+                    btn_update.disabled = true;
+                }
             });
         },
     });
@@ -125,4 +120,46 @@ function redisplayData(noTrans, requester, kd) {
 
 function clearData() {
     no_po.value = "";
+    btn_update.disabled = true;
 }
+
+btn_update.addEventListener("click", function (event) {
+    let stBeli;
+    if (
+        document.getElementById("status_beliPengadaanPembelian").checked == true
+    ) {
+        stBeli = 1;
+    } else {
+        stBeli = 0;
+    }
+    $.ajax({
+        url: "/StatusBeli/Update",
+        type: "POST",
+        headers: {
+            "X-CSRF-TOKEN": csrfToken,
+        },
+        data: {
+            noTrans: no_po.value,
+            stBeli: stBeli,
+        },
+        success: function (response) {
+            Swal.fire({
+                icon: "success",
+                title: "Data Berhasil DiUpdate!",
+                showConfirmButton: false,
+                timer: "2000",
+            });
+            clearData();
+            $("#table_koreksi").DataTable().ajax.reload();
+        },
+        error: function (error) {
+            Swal.fire({
+                icon: "error",
+                title: "Data Tidak Berhasil DiUpdate!",
+                showConfirmButton: false,
+                timer: "2000",
+            });
+            console.error("Error Send Data:", error);
+        },
+    });
+});

@@ -75,7 +75,7 @@
                         </div>
                         <div class="mt-4" id="formUpdate">
                             <div class="row">
-                                <div class="col-md-4 col-xl-2 ">
+                                <div class="col-md-4 ">
                                     <div class="col-12">
                                         <label for="no_po">Nomor Order</label>
                                     </div>
@@ -84,7 +84,7 @@
                                             readonly>
                                     </div>
                                 </div>
-                                <div class="col-xl-8 col-md-6 ">
+                                <div class="col-md-8 col-xl-6 ">
                                     <div class="col-12">
                                         <label for="status_beli">Status Beli</label>
                                     </div>
@@ -101,10 +101,9 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-2">
-                                    <div class="col-12 mt-4">
-                                        <button class="btn btn-success" id="btn_update">Approve</button>
-                                    </div>
+                                <div class="col-2 mt-4">
+                                    <button class="btn btn-success w-100" id="btn_update">Update</button>
+
                                 </div>
                             </div>
                         </div>

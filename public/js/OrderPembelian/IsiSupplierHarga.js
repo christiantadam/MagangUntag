@@ -237,6 +237,7 @@ function redisplayData(noTrans, requester, kd) {
         responsive: true,
         processing: true,
         serverSide: true,
+        searching : false,
         ajax: {
             url: "/IsiSupplierHarga/" + id + "/Redisplay",
             type: "GET",
