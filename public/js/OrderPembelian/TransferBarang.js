@@ -90,14 +90,25 @@ function redisplayData(Kd_Div, noBTTB, kd) {
                 const classList = event.currentTarget.classList;
 
                 if (classList.contains("selected")) {
-                    console.log("response");
-                    const url =
-                        "/TransferBarang/TransferBTTB" +
-                        "?No_PO=" +
-                        data.No_PO +
-                        "&No_BTTB=" +
-                        data.No_BTTB;
-                    window.location.href = url;
+                    if (check_koreksi.checked == true) {
+                        const url =
+                            "/TransferBarang/TransferBTTB" +
+                            "?No_PO=" +
+                            data.No_PO +
+                            "&No_BTTB=" +
+                            data.No_BTTB +
+                            "&koreksi="+1;
+                        window.location.href = url;
+                    } else {
+                        const url =
+                            "/TransferBarang/TransferBTTB" +
+                            "?No_PO=" +
+                            data.No_PO +
+                            "&No_BTTB=" +
+                            data.No_BTTB +
+                            "&koreksi="+0;
+                        window.location.href = url;
+                    }
                 } else {
                     table
                         .rows(".selected")

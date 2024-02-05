@@ -322,7 +322,7 @@ btn_proses.addEventListener("click", function (event) {
             },
         });
     } else if (btnActive == "hapus") {
-        console.log(kd_barang.value.replace(/\s/g, ""));
+
         $.ajax({
             url: "/Maintenance/ProsesHapus",
             type: "POST",

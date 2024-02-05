@@ -2,7 +2,9 @@
 @section('content')
     <link href="{{ asset('css/TransferBarang.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-
+    <script>
+        let koreksi = {!! json_encode($koreksi) !!};
+    </script>
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-10 RDZMobilePaddingLR0">
@@ -19,7 +21,7 @@
                     <div class="card-header">Create Purchase Order</div>
                     <div class="card-body">
                         <div class="row align-items-center">
-                            <div class="col-6 col-xl-4">
+                            <div class="col-md-6 col-xl-4 mb-2">
                                 <div class="row align-items-center">
                                     <div class="col-2">
                                         <label for="nomor_purchaseOrder">No. PO</label>
@@ -30,20 +32,18 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6 col-xl-4">
+                            <div class="col-md-6 col-xl-4 mb-2">
                                 <div class="row align-items-center">
                                     <div class="col-2">
-                                        <label for="supplier">Supplier</label>
+                                        <label for="No BTTB">No BTTB</label>
                                     </div>
                                     <div class="col-10">
-                                        <div class="col-10">
-                                            <input type="text" name="no_bttb" id="no_bttb" class="input w-100"
-                                                value="{{ $No_BTTB }}" readonly>
-                                        </div>
+                                        <input type="text" name="no_bttb" id="no_bttb" class="input w-100"
+                                            value="{{ $No_BTTB }}" readonly>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-6 col-xl-4">
+                            <div class="col-md-6 col-xl-4 mb-2">
                                 <div class="row align-items-center">
                                     <div class="col-2">
                                         <label for="tanggal">Tanggal</label>
@@ -132,11 +132,11 @@
                                                 </div>
                                                 <div class="col-6">
                                                     <input type="text" name="qty_terima" id="qty_terima"
-                                                        class="input w-100" readonly>
+                                                        class="input w-100" value="0" readonly>
                                                 </div>
                                                 <div class="col-2">
                                                     <input type="text" name="ket_qtyTerima" id="ket_qtyTerima"
-                                                        class="input w-100" readonly>
+                                                        class="input w-100" value="NULL" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -147,11 +147,11 @@
                                                 </div>
                                                 <div class="col-6">
                                                     <input type="text" name="qty_premier" id="qty_premier"
-                                                        class="input w-100">
+                                                        value="0" class="input w-100" readonly>
                                                 </div>
                                                 <div class="col-2">
                                                     <input type="text" name="ket_qtyPremier" id="ket_qtyPremier"
-                                                        class="input w-100" readonly>
+                                                        class="input w-100" value="NULL" readonly>
                                                 </div>
 
                                             </div>
@@ -163,12 +163,12 @@
                                                 </div>
                                                 <div class="col-6">
                                                     <input type="text" name="qty_sekunder" id="qty_sekunder"
-                                                        class="input w-100">
+                                                        value="0" class="input w-100" readonly>
                                                 </div>
 
                                                 <div class="col-2">
                                                     <input type="text" name="ket_qtySekunder" id="ket_qtySekunder"
-                                                        class="input w-100" readonly>
+                                                        class="input w-100" value="NULL" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -179,11 +179,11 @@
                                                 </div>
                                                 <div class="col-6">
                                                     <input type="text" name="qty_tertier" id="qty_tertier"
-                                                        class="input w-100">
+                                                        value="0" class="input w-100" readonly>
                                                 </div>
                                                 <div class="col-2">
                                                     <input type="text" name="ket_qtyTertier" id="ket_qtyTertier"
-                                                        class="input w-100" readonly>
+                                                        class="input w-100" value="NULL" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -202,8 +202,8 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-2">
-                                                    <input type="text" name="ket_divisi"
-                                                        id="ket_divisi" class="input w-100" readonly>
+                                                    <input type="text" name="ket_divisi" id="ket_divisi"
+                                                        class="input w-100" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -219,8 +219,8 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-2">
-                                                    <input type="text" name="ket_objek"
-                                                        id="ket_objek" class="input w-100" readonly>
+                                                    <input type="text" name="ket_objek" id="ket_objek"
+                                                        class="input w-100" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -231,14 +231,13 @@
                                                 </div>
 
                                                 <div class="col-6 col-md-8">
-                                                    <input type="text" name="kelompok_utama"
-                                                        id="kelompok_utama" class="input w-100"
-                                                        readonly>
+                                                    <input type="text" name="kelompok_utama" id="kelompok_utama"
+                                                        class="input w-100" readonly>
 
                                                 </div>
                                                 <div class="col-2">
-                                                    <input type="text" name="ket_kelompokUtama"
-                                                        id="ket_kelompokUtama" class="input w-100" readonly>
+                                                    <input type="text" name="ket_kelompokUtama" id="ket_kelompokUtama"
+                                                        class="input w-100" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -254,8 +253,8 @@
 
                                                 </div>
                                                 <div class="col-2">
-                                                    <input type="text" name="ket_kelompok"
-                                                        id="ket_kelompok" class="input w-100" readonly>
+                                                    <input type="text" name="ket_kelompok" id="ket_kelompok"
+                                                        class="input w-100" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -270,8 +269,8 @@
                                                         class="input w-100" readonly>
                                                 </div>
                                                 <div class="col-2">
-                                                    <input type="text" name="ket_subKelompok"
-                                                        id="ket_subKelompok" class="input w-100" readonly>
+                                                    <input type="text" name="ket_subKelompok" id="ket_subKelompok"
+                                                        class="input w-100" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -281,14 +280,11 @@
                                                     <label for="idType">Id Type</label>
                                                 </div>
 
-                                                <div class="col-6 col-md-8">
+                                                <div class="col-8 col-md-10">
                                                     <input type="text" name="idType" id="idType"
                                                         class="input w-100" readonly>
                                                 </div>
-                                                <div class="col-2">
-                                                    <input type="text" name="ket_idType"
-                                                        id="ket_idType" class="input w-100" readonly>
-                                                </div>
+
                                             </div>
                                         </div>
                                         <div class="col-12 mb-2">
@@ -301,8 +297,8 @@
                                                         class="input w-100" readonly>
                                                 </div>
                                                 <div class="col-2">
-                                                    <input type="text" name="ket_saldoPremier"
-                                                        id="ket_saldoPremier" class="input w-100" readonly>
+                                                    <input type="text" name="ket_saldoPremier" id="ket_saldoPremier"
+                                                        class="input w-100" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -316,8 +312,8 @@
                                                         class="input w-100" readonly>
                                                 </div>
                                                 <div class="col-2">
-                                                    <input type="text" name="ket_saldoSekunder"
-                                                        id="ket_saldoSekunder" class="input w-100" readonly>
+                                                    <input type="text" name="ket_saldoSekunder" id="ket_saldoSekunder"
+                                                        class="input w-100" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -331,8 +327,8 @@
                                                         class="input w-100" readonly>
                                                 </div>
                                                 <div class="col-2">
-                                                    <input type="text" name="ket_saldoTertier"
-                                                        id="ket_saldoTertier" class="input w-100" readonly>
+                                                    <input type="text" name="ket_saldoTertier" id="ket_saldoTertier"
+                                                        class="input w-100" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -341,7 +337,7 @@
                             </div>
                             <div class="col-12">
                                 <button class="btn btn-success" id="btn_transfer">Transfer</button>
-                                <button class="btn btn-info" id="btn_exit">Exit</button>
+                                <button class="btn btn-success" id="btn_koreksi">Koreksi</button>
                             </div>
                         </div>
 

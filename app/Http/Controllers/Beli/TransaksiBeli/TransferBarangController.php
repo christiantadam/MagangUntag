@@ -75,11 +75,174 @@ class TransferBarangController extends Controller
         $access = (new HakAksesController)->HakAksesFiturMaster('Beli');
         $No_PO = $request->query('No_PO');
         $No_BTTB = $request->query('No_BTTB');
-        // dd($No_BTTB,$No_PO);
-        return view('Beli.TransaksiBeli.TransferBarang.TransferBTTB', compact('access', 'No_PO','No_BTTB'));
-        // return Response()->json('kjsks');
+        $koreksi = $request->query('koreksi');
+        // dd($No_BTTB,$No_PO,$koreksi);
+        return view('Beli.TransaksiBeli.TransferBarang.TransferBTTB', compact('access', 'No_PO', 'No_BTTB', 'koreksi'));
     }
 
+    public function loadData(Request $request)
+    {
+        $noBTTB = $request->input('noBTTB');
+        $koreksi = $request->input('koreksi');
+        if (($noBTTB != null) && ($koreksi != null)) {
+            try {
+                if ($koreksi == 1) {
+                    $data = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @noBTTB = ?, @kd = ?', [$noBTTB, 34]);
+                } else if ($koreksi == 0) {
+                    $data = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @noBTTB = ?, @kd = ?', [$noBTTB, 19]);
+                }
+
+                return datatables($data)->make(true);
+            } catch (\Throwable $Error) {
+                return Response()->json($Error);
+            }
+        } else {
+            return Response()->json('Parameter harus di isi');
+        }
+    }
+    public function loadSatuan(Request $request)
+    {
+        $kd = 20;
+        $kdbrg = $request->input('kdbrg');
+        if ($kdbrg != null) {
+            try {
+                $data = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kdbrg = ?, @kd = ?', [$kdbrg, $kd]);
+                return Response()->json($data);
+            } catch (\Throwable $Error) {
+                return Response()->json($Error);
+            }
+        } else {
+            return Response()->json('Parameter harus di isi');
+        }
+    }
+    public function divisiBTTB(Request $request)
+    {
+        $Type = 12;
+        $KodeBarang = $request->input('KodeBarang');
+        if ($KodeBarang != null) {
+            try {
+                $data = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi @KodeBarang = ?, @Type = ?', [$KodeBarang, $Type]);
+                return Response()->json($data);
+            } catch (\Throwable $Error) {
+                return Response()->json($Error);
+            }
+        } else {
+            return Response()->json('Parameter harus di isi');
+        }
+    }
+    public function objek(Request $request)
+    {
+        $Type = 6;
+        $KodeBarang = $request->input('KodeBarang');
+        $XIdDivisi = $request->input('XIdDivisi');
+        if (($KodeBarang != null) && ($XIdDivisi != null)) {
+            try {
+                $data = DB::connection('ConnInventory')->select('exec SP_1003_INV_User_Objek @KodeBarang = ?, @Type = ?,@XIdDivisi=?', [$KodeBarang, $Type, $XIdDivisi]);
+                return Response()->json($data);
+            } catch (\Throwable $Error) {
+                return Response()->json($Error);
+            }
+        } else {
+            return Response()->json('Parameter harus di isi');
+        }
+    }
+    public function loadKelomDLL(Request $request)
+    {
+        $Type = 11;
+        $KodeBarang = $request->input('KodeBarang');
+        $idObjek = $request->input('idObjek');
+        if (($KodeBarang != null) && ($idObjek != null)) {
+            try {
+                $data = DB::connection('ConnInventory')->select('exec SP_1003_INV_UserDivisi @KodeBarang = ?, @Type = ?,@idObjek=?', [$KodeBarang, $Type, $idObjek]);
+                return Response()->json($data);
+            } catch (\Throwable $Error) {
+                return Response()->json($Error);
+            }
+        } else {
+            return Response()->json('Parameter harus di isi');
+        }
+    }
+
+    public function koreksi(Request $request)
+    {
+
+        $IdType = $request->input('IdType');
+        $MasukPrimer = $request->input('MasukPrimer');
+        $MasukSekunder = $request->input('MasukSekunder');
+        $MasukTritier = $request->input('MasukTritier');
+        $User_id = '1001';
+        $SubKel = $request->input('SubKel');
+        $NoTransTmp = $request->input('NoTransTmp');
+        $ket = $request->input('ket');
+        if (
+            $IdType !== null &&
+            $MasukPrimer !== null &&
+            $MasukSekunder !== null &&
+            $MasukTritier !== null &&
+            $SubKel !== null &&
+            $NoTransTmp !== null
+        ) {
+            try {
+                $data = DB::connection('ConnPurchase')->statement('exec SP_1273_PBL_KOREKSI_TRANSFER_TMPTRANSAKSI @IdType = ?, @MasukPrimer = ?,@MasukSekunder = ?, @MasukTritier = ?, @User_id = ?,@SubKel = ?,@NoTransTmp = ?, @ket = ?', [
+                    $IdType,
+                    $MasukPrimer,
+                    $MasukSekunder,
+                    $MasukTritier,
+                    $User_id,
+                    $SubKel,
+                    $NoTransTmp,
+                    $ket
+                ]);
+                return Response()->json(['message' => 'Data Berhasil Di Koreksi']);
+            } catch (\Throwable $Error) {
+                return Response()->json($Error);
+            }
+        } else {
+            return Response()->json('Parameter harus di isi');
+        }
+    }
+    public function transfer(Request $request)
+    {
+        $kd = 1;
+        $IdType = $request->input('IdType');
+        $MasukPrimer = $request->input('MasukPrimer');
+        $MasukSekunder = $request->input('MasukSekunder');
+        $MasukTritier = $request->input('MasukTritier');
+        $User_id = '1001';
+        $SubKel = $request->input('SubKel');
+        $NoTerima = $request->input('NoTerima');
+        $ket = $request->input('ket');
+        $YTanggal = $request->input('YTanggal');
+        if (
+            $IdType !== null &&
+            $MasukPrimer !== null &&
+            $MasukSekunder !== null &&
+            $MasukTritier !== null &&
+            $SubKel !== null &&
+            $NoTerima !== null &&
+            $YTanggal !== null
+        ) {
+            try {
+                $data = DB::connection('ConnPurchase')->statement('exec SP_7775_PBL_TRANSFER_TMPTRANSAKSI @kd = ?, @IdType = ?, @MasukPrimer = ?,@MasukSekunder = ?, @MasukTritier = ?, @User_id = ?,@SubKel = ?,@NoTerima = ?, @ket = ? , @YTanggal = ?', [
+                    $kd,
+                    $IdType,
+                    $MasukPrimer,
+                    $MasukSekunder,
+                    $MasukTritier,
+                    $User_id,
+                    $SubKel,
+                    $NoTerima,
+                    $ket,
+                    $YTanggal
+                ]);
+                return Response()->json(['message' => 'Data Berhasil Di Transfer']);
+            } catch (\Throwable $Error) {
+                return Response()->json($Error);
+            }
+        } else {
+            return Response()->json('Parameter harus di isi');
+        }
+    }
     //Show the form for editing the specified resource.
     public function edit($id)
     {

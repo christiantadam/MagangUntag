@@ -53,7 +53,7 @@ alasan_reject.addEventListener("input", function (event) {
 btn_reject.addEventListener("click", function (event) {
     $.ajax({
         url: "/IsiSupplierHarga/" + id + "/Reject",
-        type: "POST",
+        type: "PUT",
         headers: {
             "X-CSRF-TOKEN": csrfToken,
         },
@@ -68,6 +68,7 @@ btn_reject.addEventListener("click", function (event) {
                 showConfirmButton: false,
                 timer: "2000",
             });
+            console.log(response)
             clearData();
             $("#table_IsiHarga").DataTable().ajax.reload();
         },
@@ -140,7 +141,7 @@ btn_clear.addEventListener("click", function (event) {
 btn_approve.addEventListener("click", function (event) {
     $.ajax({
         url: "/IsiSupplierHarga/" + id + "/Approve",
-        type: "POST",
+        type: "PUT",
         headers: {
             "X-CSRF-TOKEN": csrfToken,
         },
@@ -169,6 +170,7 @@ btn_approve.addEventListener("click", function (event) {
                 showConfirmButton: false,
                 timer: "2000",
             });
+            console.log(response)
             clearData();
             $("#table_IsiHarga").DataTable().ajax.reload();
         },

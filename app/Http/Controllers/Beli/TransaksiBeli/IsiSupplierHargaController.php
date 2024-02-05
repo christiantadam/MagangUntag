@@ -111,7 +111,7 @@ class IsiSupplierHargaController extends Controller
         if (($noTrans != null) || ($kd != null) || ($Qty != null) || ($QtyDelay != null) || ($idsup != null) || ($mtUang != null) || ($kurs != null) || ($pUnit != null) || ($pSub != null) || ($idPPN != null) || ($pPPN != null) || ($pTOT != null) || ($pIDRUnit != null) || ($pIDRSub != null) || ($pIDRPPN != null) || ($pIDRTot != null) || ($jns_beli != null)) {
             try {
                 $approve = DB::connection('ConnPurchase')->statement('exec SP_5409_SAVE_ORDER @Operator = ?, @kd = ?, @Qty = ?, @QtyDelay = ?, @idsup = ?, @kurs = ?, @pUnit = ?, @pSub = ?, @idPPN = ?, @pPPN = ?, @pTOT = ?, @pIDRUnit = ?, @pIDRSub = ?, @pIDRPPN = ?, @pIDRTot = ?, @jns_beli = ?, @mtUang = ?, @noTrans = ?', [$Operator, $kd, $Qty, $QtyDelay, $idsup, $kurs, $pUnit, $pSub, $idPPN, $pPPN, $pTOT, $pIDRUnit, $pIDRSub, $pIDRPPN, $pIDRTot, $jns_beli, $mtUang, $noTrans]);
-                return Response()->json($approve);
+                return Response()->json(['message' => 'Data Berhasil DiApprove']);
             } catch (\Throwable $Error) {
                 return Response()->json($Error);
             }
@@ -129,7 +129,7 @@ class IsiSupplierHargaController extends Controller
         if (($noTrans != null) || ($alasan != null)) {
             try {
                 $reject = DB::connection('ConnPurchase')->statement('exec SP_5409_SAVE_ORDER @Operator = ?, @kd = ?, @noTrans = ?, @alasan = ?', [$Operator, $kd, $noTrans, $alasan]);
-                return Response()->json($reject);
+                return Response()->json(['message' => 'Data Berhasil DiReject']);
             } catch (\Throwable $Error) {
                 return Response()->json($Error);
             }

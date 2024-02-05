@@ -217,7 +217,7 @@ table.on("click", "tbody tr", (e) => {
 btn_update.addEventListener("click", function (event) {
     $.ajax({
         url: "/openFormCreateSPPB/create/Update",
-        type: "POST",
+        type: "PUT",
         headers: {
             "X-CSRF-TOKEN": csrfToken,
         },
@@ -246,6 +246,7 @@ btn_update.addEventListener("click", function (event) {
                 showConfirmButton: false,
                 timer: "2000",
             });
+            console.log(response)
             clearData();
             location.reload(true);
         },
@@ -263,7 +264,7 @@ btn_update.addEventListener("click", function (event) {
 btn_remove.addEventListener("click", function (event) {
     $.ajax({
         url: "/openFormCreateSPPB/create/Remove",
-        type: "POST",
+        type: "PUT",
         headers: {
             "X-CSRF-TOKEN": csrfToken,
         },
@@ -277,6 +278,7 @@ btn_remove.addEventListener("click", function (event) {
                 showConfirmButton: false,
                 timer: "2000",
             });
+            console.log(response)
             clearData();
             location.reload(true);
         },
@@ -294,7 +296,7 @@ btn_remove.addEventListener("click", function (event) {
 btn_reject.addEventListener("click", function (event) {
     $.ajax({
         url: "/openFormCreateSPPB/create/Reject",
-        type: "POST",
+        type: "PUT",
         headers: {
             "X-CSRF-TOKEN": csrfToken,
         },
@@ -309,7 +311,7 @@ btn_reject.addEventListener("click", function (event) {
                 showConfirmButton: false,
                 timer: "2000",
             });
-
+            console.log(response)
             clearData();
             location.reload(true);
         },
@@ -327,7 +329,7 @@ btn_reject.addEventListener("click", function (event) {
 btn_post.addEventListener("click", function (event) {
     $.ajax({
         url: "/openFormCreateSPPB/create/Post",
-        type: "POST",
+        type: "PUT",
         headers: {
             "X-CSRF-TOKEN": csrfToken,
         },
@@ -347,6 +349,7 @@ btn_post.addEventListener("click", function (event) {
                 timer: "2000",
             });
             table.row(".selected").remove().draw(false);
+            console.log(response)
             clearData();
         },
         error: function (error) {
