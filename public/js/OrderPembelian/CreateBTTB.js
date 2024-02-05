@@ -20,6 +20,42 @@ input.addEventListener("keypress", function (event) {
     }
 });
 
+
+    $(document).ready(function () {
+        $("#btn_update").click(function () {
+            // Ambil nilai dari input atau elemen lainnya
+            var idTypeTransaksi = $("#idTypeTransaksi").val();
+            var tanggal = $("#tanggal").val();
+            var idSupplier = $("#idSupplier").val();
+            // ... ambil nilai dari elemen lainnya
+
+            // Data yang akan dikirim
+            var data = {
+                idTypeTransaksi: idTypeTransaksi,
+                tanggal: tanggal,
+                idSupplier: idSupplier,
+                // ... tambahkan data lainnya
+            };
+
+            // Kirim request Ajax
+            $.ajax({
+                type: "POST", // Ganti dengan method yang sesuai
+                url: "/path/to/your/endpoint", // Ganti dengan URL endpoint Anda
+                data: data,
+                success: function (response) {
+                    // Handle respon dari server jika sukses
+                    console.log(response);
+                },
+                error: function (error) {
+                    // Handle error jika terjadi
+                    console.error("Error:", error);
+                }
+            });
+        });
+    });
+
+
+
 let tabelData = $('#tabelcreate').DataTable();
 
 
@@ -53,3 +89,4 @@ function responseData(datas) {
         tabelData.row.add([data.no_kat_utama, data.Kd_brg, data.NAMA_BRG, data.no_sub_kategori, data.Qty, data.NoSatuan, data.QtyRcv, data.QtyShipped, data.QtyRemain, data.PriceUnit, data.PriceSub, data.PPN, data.PriceExt, data.Kurs, data.PriceUnitIDR,data.PriceSubIDR, data.PriceUnitIDR_PPN,data.JumPPN, data.ID_MATAUANG, data.disc, data.harga_disc, data.DiscIDR, data.Qty]).draw();
     });
 }
+
