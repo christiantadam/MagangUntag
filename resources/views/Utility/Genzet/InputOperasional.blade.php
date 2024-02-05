@@ -1,4 +1,5 @@
 @extends('layouts.appUtility')
+@section('title', 'Input Operasional')
 @section('content')
     @include('Utility.Genzet.StatusLog')
     @include('Utility.Genzet.Teknisi')

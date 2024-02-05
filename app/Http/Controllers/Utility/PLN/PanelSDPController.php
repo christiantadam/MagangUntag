@@ -9,9 +9,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\HakAksesController;
 
 
-class PanelSPDController extends Controller
+class PanelSDPController extends Controller
 {
-    public function createSPD(Request $request)
+    public function createSDP(Request $request)
     {
         try {
             $produksi = $request->input('Produksi');
@@ -28,10 +28,10 @@ class PanelSPDController extends Controller
             return redirect()->back()->with('error', 'An error occurred while saving the data. Please try again.');
         }
     }
-    public function updateSPD(Request $request)
+    public function updateSDP(Request $request)
     {
         try {
-            $id = $request->input('NomorSPD');
+            $id = $request->input('NomorSDP');
             $produksi = $request->input('Produksi');
             $tanggal = $request->input('Tanggal');
             $jam = $request->input('Jam');
@@ -48,7 +48,7 @@ class PanelSPDController extends Controller
     }
 
     //Display the specified resource.
-    public function getSPD(Request $request)
+    public function getSDP(Request $request)
     {
         try {
             $bulan = $request->input('bulan');
@@ -65,9 +65,9 @@ class PanelSPDController extends Controller
         }
     }
 
-    public function getSPDById(Request $request)
+    public function getSDPById(Request $request)
     {
-        $id = $request->input('idspd');
+        $id = $request->input('idsdp');
         $data = DB::connection('ConnUtility')->table('PANEL_SPD')->where('NoTransaksi', $id)->first();
 
         if (!$data) {
@@ -79,7 +79,7 @@ class PanelSPDController extends Controller
 
 
 
-    public function deleteSPD(Request $request)
+    public function deleteSDP(Request $request)
     {
         try {
             $nomor = $request->input('NomorSDP');

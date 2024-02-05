@@ -1,4 +1,5 @@
 @extends('layouts.appUtility')
+@section('title', 'Input Gangguan Panel')
 @section('content')
     @include('Utility.PanelInduk.InputKetGangguan')
     <div class="container-fluid">

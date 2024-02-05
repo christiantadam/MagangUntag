@@ -1,4 +1,5 @@
 @extends('layouts.appUtility')
+@section('title', 'Input Perawatan')
 @section('content')
     <div class="container-fluid">
         <div class="row justify-content-center">

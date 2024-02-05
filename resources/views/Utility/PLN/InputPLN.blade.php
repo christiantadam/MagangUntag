@@ -1,6 +1,7 @@
 @extends('layouts.appUtility')
+@section('title', 'Input PLN')
 @section('content')
-    @include('Utility.PLN.PanelSPD')
+    @include('Utility.PLN.PanelSDP')
     @include('Utility.PLN.BeritaAcara')
     <div class="container-fluid">
         <div class="row justify-content-center">

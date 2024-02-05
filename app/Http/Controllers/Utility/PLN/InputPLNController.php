@@ -16,10 +16,10 @@ class InputPLNController extends Controller
     {
 
         $teknisi = DB::connection('ConnUtility')->select('exec SP_LIST_TEKNISI_GENZET');
-        $spd = DB::connection('ConnUtility')->select('exec SP_LIST_PRODUKSI_SPD');
+        $sdp = DB::connection('ConnUtility')->select('exec SP_LIST_PRODUKSI_SPD');
 
         $access = (new HakAksesController)->HakAksesFiturMaster('Utility');
-        return view('Utility.PLN.InputPLN', compact('teknisi','spd', 'access'));
+        return view('Utility.PLN.InputPLN', compact('teknisi','sdp', 'access'));
     }
 
     public function createPLN(Request $request)
