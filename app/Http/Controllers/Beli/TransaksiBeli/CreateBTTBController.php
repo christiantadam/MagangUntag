@@ -44,6 +44,19 @@ class CreateBTTBController extends Controller
 
 
 
+
+        //Display the specified resource.
+        public function post($id)
+        {
+            $noPO = $request->input('noPO');
+            $kd = 16;
+
+            $createbttb = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd=?, @noPO=?',[$kd,$noPO]);
+
+            return response()->json($createbttb);
+        }
+
+
     //Display the specified resource.
     public function show($id)
     {
