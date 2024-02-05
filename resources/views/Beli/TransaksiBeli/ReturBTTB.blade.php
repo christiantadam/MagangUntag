@@ -25,12 +25,7 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="suplier" class="form-label">Suplier</label>
-                                <select name="suplier" class="form-control" id="suplier">
-                                    @foreach ($supplier as $chelsy)
-                                        <option value={{ $chelsy->NO_SUP }}>{{ $chelsy->NM_SUP }}</option>
-                                    @endforeach
-                                </select>
-                                {{-- <input type="text" class="form-control" id="suplier" name="suplier"> --}}
+                                <input type="text" class="form-control" id="suplier" name="suplier">
                             </div>
                             <div class="col-md-4">
                                 <label for="payment" class="form-label">Payment Term</label>
