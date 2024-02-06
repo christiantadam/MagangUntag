@@ -71,9 +71,43 @@ Route::group(['middleware' => ['auth']], function () {
     #Region Utility
     Route::get('Utility', 'App\Http\Controllers\HomeController@Utility');
 
-    // Elektrik
-    // Route::resource('InputGangguanElektrik', App\Http\Controllers\Utility\Elektrik\InputGangguanController::class);
-    Route::resource('ListOrder', App\Http\Controllers\Beli\Transaksi\ListOrderController::class);
+//elektrik
+Route::resource('InputGangguanElektrik', App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikController::class);
+Route::post('/postData', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikController@postData');
+Route::post('/postDataGambar', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikController@postDataGambar');
+Route::get('/selectImage/{id}/{imageName}', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikController@selectImage');
+Route::post('/updateDataElektrik', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikController@updateDataElektrik');
+Route::post('/gangguanBulanan', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikBulananController@gangguanBulanan');
+Route::post('/upload-image', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikController@uploadImage')->name('uploadImage');
+//Route::post('/uploadAndReadFile', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikController@uploadAndReadFile');
+//Route::put('/updateData/{id}', 'Utility\Elektrik\InputGangguanElektrikController@updateData');
+Route::get('/getData', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikController@getData');
+Route::delete('/deleteData', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikController@deleteData');
+Route::get('/getUserId', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikController@getUserId');
+Route::get('/getDataElektrikId', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikController@getDataElektrikId');
+
+
+
+Route::resource('InputGangguanBulanan', App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikBulananController::class);
+Route::get('/getDataBulanan', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikBulananController@getDataBulanan');
+Route::get('/getDataBulananId', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikBulananController@getDataBulananId');
+Route::post('/postDataBulanan', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikBulananController@postDataBulanan');
+Route::put('/updateDataBulanan', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikBulananController@updateDataBulanan');
+Route::resource('TambahGambarElektrik', App\Http\Controllers\Utility\Elektrik\TambahGambarElektrikController::class);
+Route::resource('PrintElektrik', App\Http\Controllers\Utility\Elektrik\PrintElektrikController::class);
+
+
+//project
+Route::resource('InputProject', App\Http\Controllers\Utility\Project\InputProjectController::class);
+Route::post('/postDataProject', 'App\Http\Controllers\Utility\Project\InputProjectController@postDataProject');
+Route::get('/getDataProject', 'App\Http\Controllers\Utility\Project\InputProjectController@getDataProject');
+Route::delete('/deleteDataProject', 'App\Http\Controllers\Utility\Project\InputProjectController@deleteDataProject');
+Route::resource('TambahGambarProject', App\Http\Controllers\Utility\Project\TambahGambarProjectController::class);
+Route::resource('PrintProject', App\Http\Controllers\Utility\Project\PrintProjectController::class);
+Route::get('/getDataProjectId', 'App\Http\Controllers\Utility\Project\InputProjectController@getDataProjectId');
+Route::get('/getDataUserId', 'App\Http\Controllers\Utility\Project\InputProjectController@getDataUserId');
+Route::put('/updateDataProject', 'App\Http\Controllers\Utility\Project\InputProjectController@updateDataProject');
+Route::delete('/deleteDataProject', 'App\Http\Controllers\Utility\Project\InputProjectController@deleteDataProject');
 
     // Compressor
     Route::resource('addCompressor', App\Http\Controllers\Utility\Compressor\InputPerawatanController::class);
@@ -153,6 +187,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('/update-ba', [App\Http\Controllers\Utility\PLN\BeritaAcaraController::class, 'updateBA'])->name('update-ba');
     Route::post('/save-ba', [App\Http\Controllers\Utility\PLN\BeritaAcaraController::class, 'createBA'])->name('save-ba');
     Route::delete('/delete-ba', [App\Http\Controllers\Utility\PLN\BeritaAcaraController::class, 'deleteBA'])->name('delete-ba');
+
+
+
 
     #endRegion
 
