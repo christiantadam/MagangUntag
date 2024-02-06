@@ -75,33 +75,33 @@
     </div>
     <script type="text/javascript">
         function x(No_trans) {
-            var item = document.getElementById(No_trans);
-            var add = document.getElementById("DataCheckbox");
+            let item = document.getElementById(No_trans);
+            let add = document.getElementById("DataCheckbox");
             if (item.checked == true) {
                 //add.innerHTML+="<input type='text' name='checkedBOX[]' value='"+No_trans+"' style='Display: none;'>";
                 add.innerHTML += "<input type='text' id='ID" + No_trans + "' name='checkedBOX[]' value='" + No_trans +
                     "' style='Display: none;'>";
             }
             if (item.checked == false) {
-                var Input = document.getElementById("ID" + No_trans);
+                let Input = document.getElementById("ID" + No_trans);
                 Input.remove();
                 //add.innerHTML+="<input type='text' name='checkedBOX[]' value='"+No_trans+"' style='Display: none;'>";
             }
             console.log(add);
         }
         $('#CheckedAll').on('click', function() {
-            var table = $('#table_Approve').DataTable();
-            var rows = table.rows({
+            let table = $('#table_Approve').DataTable();
+            let rows = table.rows({
                 'search': 'applied'
             }).nodes();
             // Check/uncheck checkboxes for all rows in the table
             $('input[type="checkbox"]', rows).prop('checked', this.checked);
-            var item = document.getElementById("CheckedAll");
-            var add = document.getElementById("DataCheckbox");
-            var Data = {!! json_encode($data, JSON_HEX_TAG) !!};
+            let item = document.getElementById("CheckedAll");
+            let add = document.getElementById("DataCheckbox");
+            let Data = {!! json_encode($data, JSON_HEX_TAG) !!};
             if (item.checked == true) {
 
-                for (var i = 0; i <= Data.length - 1; i++) {
+                for (let i = 0; i <= Data.length - 1; i++) {
                     add.innerHTML += "<input type='text' id='ID" + Data[i].No_trans +
                         "' name='checkedBOX[]' value='" + Data[i].No_trans + "' style='Display: none;'>";
                     console.log("test");
@@ -109,8 +109,8 @@
                 console.log(add);
             }
             if (item.checked == false) {
-                for (var i = 0; i <= Data.length - 1; i++) {
-                    var Input = document.getElementById("ID" + Data[i].No_trans);
+                for (let i = 0; i <= Data.length - 1; i++) {
+                    let Input = document.getElementById("ID" + Data[i].No_trans);
                     Input.remove();
                 }
                 console.log("hapus");

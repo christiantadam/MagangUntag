@@ -1,29 +1,26 @@
 <?php
 
-namespace App\Http\Controllers\Beli\Transaksi;
+namespace APP\HTTP\Controllers\Beli\TransaksiBeli;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Beli\TransBL;
-use App\User;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HakAksesController;
+use App\Models\Beli\TransBL;
 use DB;
 
-
-class FinalApproveController extends Controller
+class FinalApproverOrderController extends Controller
 {
     public function index()
     {
-        $kd = 4;
+        $kd = 36;
         $operator = '1001';
-        $result = (new HakAksesController)->HakAksesFitur('Final Approve');
         $access = (new HakAksesController)->HakAksesFiturMaster('Beli');
+        $result = (new HakAksesController)->HakAksesFitur('Final Approve');
         if ($result > 0) {
-            // $data = TransBL::select()->join('YUSER_ACC_DIR', 'YUSER_ACC_DIR.Kd_div', 'YTRANSBL.Kd_div')->leftjoin('Y_BARANG', 'Y_BARANG.KD_BRG', 'YTRANSBL.Kd_brg')->leftjoin('YUSER', 'YUSER.kd_user', 'YTRANSBL.Operator')->leftjoin('YSATUAN', 'YSATUAN.No_satuan', 'YTRANSBL.NoSatuan')->leftjoin('STATUS_ORDER', 'STATUS_ORDER.KdStatus', 'YTRANSBL.StatusOrder')->where('YUSER_ACC_DIR.Kd_user', strval(Auth::user()->kd_user))->where('StatusOrder', '3')->get();
-            $data = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd = ?, @Operator=?',[$kd,$operator]);
-            return view('Beli.Transaksi.FinalApprove.List', compact('data', 'access'));
+            $data = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd = ?, @Operator=?', [$kd, $operator]);
+            // dd($data);
+            return view('Beli.TransaksiBeli.FinalApproveOrder.List', compact('data', 'access'));
         } else {
             abort(403);
         }
@@ -36,11 +33,19 @@ class FinalApproveController extends Controller
         if (empty($Checked)) {
             echo 'kosong';
             return back()->with('danger', 'Gagal Approve/Reject, Karena Tidak Ada Data yang Dipilih');
-        } else {
-            foreach ($Checked as $item) {
-                TransBL::where('No_trans', $item)->update(['Tgl_Direktur' => $date, 'Direktur' => Auth::user()->kd_user, 'StatusOrder' => '4']);
-            }
-            return back();
+        }
+        switch ($request->input('action')) {
+            case 'Approve':
+                foreach ($Checked as $item) {
+                    TransBL::where('No_trans', $item)->update(['Tgl_Direktur' => $date, 'Direktur' => Auth::user()->kd_user, 'StatusOrder' => '4']);
+                }
+                return back();
+
+            case 'Reject':
+                foreach ($Checked as $item) {
+                    TransBL::where('No_trans', $item)->update(['Tgl_Batal_acc' => $date, 'Batal_acc' => Auth::user()->kd_user, 'StatusOrder' => '0']);
+                }
+                return back();
         }
     }
     public function show($id)
@@ -55,10 +60,17 @@ class FinalApproveController extends Controller
 
     public function update(Request $request, $id)
     {
-        $date = date("Y-m-d H:i:s");
-        TransBL::where('No_trans', $id)->update(['Tgl_Direktur' => $date, 'Direktur' => Auth::user()->kd_user, 'StatusOrder' => '4']);
+        switch ($request->input('action')) {
+            case 'Approve':
+                $date = date("Y-m-d H:i:s");
+                TransBL::where('No_trans', $id)->update(['Tgl_Direktur' => $date, 'Direktur' => Auth::user()->kd_user, 'StatusOrder' => '4']);
+                return back();
 
-        return back();
+            case 'Reject':
+                $date = date("Y-m-d H:i:s");
+                TransBL::where('No_trans', $id)->update(['Tgl_Batal_acc' => $date, 'Batal_acc' => Auth::user()->kd_user, 'StatusOrder' => '0']);
+                return back();
+        }
     }
 
     // public function destroy($id)

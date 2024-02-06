@@ -1,10 +1,12 @@
 @extends('layouts.appOrderPembelian')
 @section('content')
-    @include('Beli/Transaksi/Approve/modalDetailApprove')
-    <script src="{{ asset('js/OrderPembelian/Approve.js') }}"></script>
+    <link href="{{ asset('css/FinalApproveOrder.css') }}" rel="stylesheet">
+
+    @include('Beli/TransaksiBeli/FinalApproveOrder/modalDetailFinalApprove')
+    <script src="{{ asset('js/OrderPembelian/FinalApproveOrder.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $('#table_Approve').DataTable({
+            $('#table_FinalApprove').DataTable({
                 searching: false,
                 order: [
                     [1, 'desc']
@@ -21,8 +23,9 @@
         <div class="row justify-content-center">
             <div class="col-md-10 RDZMobilePaddingLR0">
                 <div class="card">
-                    <div class="card-header">List Approve</div>
-                    <form class="form" method="POST" enctype="multipart/form-data" action="{{ url('/Approve') }}">
+                    <div class="card-header">Final Approve Order Pembelian</div>
+                    <form class="form" method="POST" enctype="multipart/form-data"
+                        action="{{ url('/FinalApproveOrderPembelian') }}">
                         {{ csrf_field() }}
                         <div id="DataCheckbox"></div>
                         <div class="card-body">
@@ -31,45 +34,55 @@
                                     {!! \Session::get('danger') !!}
                                 </div>
                             @endif
-                            <table id="table_Approve" class="table table-bordered table-striped" style="width:100%;">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <!-- <th></th> -->
-                                        <th class="text-center"><input type="checkbox" name="CheckedAll" id="CheckedAll"
-                                                class="RDZCheckBoxSize" /></th>
-                                        <th>No. Trans</th>
-                                        <th class="RDZCenterTable">Tanggal<br><label
-                                                style="font-size: 10px; margin-bottom: 0px;">(MM - DD - YYYY)</label></th>
-                                        <th>Barang</th>
-                                        <th>User</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($data as $index => $item)
-                                        <tr id={{ $index }}>
-                                            <td class="text-center"><input type="checkbox" name="Checked[]"
-                                                    onclick="x('{{ $item->No_trans }}')" value="{{ $item->No_trans }}"
-                                                    id="{{ $item->No_trans }}" style="width: 20px;height: 20px;" />
-                                            </td>
-                                            <td class="RDZPaddingTable"><a class="DetailApprove"
-                                                    data-id="{{ $item->No_trans }}"
-                                                    href="{{ route('approve.update', $item->No_trans) }}">{{ $item->No_trans }}</a>
-                                            </td>
-                                            <td class="RDZPaddingTable RDZCenterTable">
-                                                {{ date('m-d-Y', strtotime($item->Tgl_order)) }}</td>
-                                            <td class="RDZPaddingTable">{{ $item->NAMA_BRG }} <label
-                                                    style="background-color:#00ff00;">{{ $item->Qty }}
-                                                    {{ $item->Nama_satuan }}</label></td>
-                                            <td class="RDZPaddingTable">{{ $item->Nama }}</td>
+                            <div class="acs-form3">
+                                <table id="table_FinalApprove" class="table table-bordered table-striped" style="width:100%;">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th class="text-center"><input type="checkbox" name="CheckedAll" id="CheckedAll"
+                                                    class="RDZCheckBoxSize" /></th>
+                                            <th>No. Trans</th>
+                                            <th class="RDZCenterTable">Tanggal Order<br><label
+                                                    style="font-size: 10px; margin-bottom: 0px;">(MM - DD - YYYY)</label>
+                                            </th>
+                                            <th>Kode Barang</th>
+                                            <th>Nama Barang</th>
+                                            <th>QTY</th>
+                                            <th>Satuan</th>
+                                            <th>Status Order</th>
+                                            <th>User</th>
+                                            <th>Id Div</th>
                                         </tr>
-                                    @endforeach
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($data as $index => $item)
+                                            <tr id={{ $index }}>
+                                                <td class="text-center"><input type="checkbox" name="Checked[]"
+                                                        onclick="x('{{ $item->No_trans }}')" value="{{ $item->No_trans }}"
+                                                        id="{{ $item->No_trans }}" style="width: 20px;height: 20px;" />
+                                                </td>
+                                                <td class="RDZPaddingTable"><a class="DetailFinal"
+                                                        data-id="{{ $item->No_trans }}"
+                                                        href="{{ route('finalapproveorderpembelian.update', $item->No_trans) }}">{{ $item->No_trans }}</a>
+                                                </td>
+                                                <td class="RDZPaddingTable RDZCenterTable">
+                                                    {{ date('m-d-Y', strtotime($item->Tgl_order)) }}</td>
+                                                <td class="RDZPaddingTable">{{ $item->Kd_brg }} </td>
+                                                <td class="RDZPaddingTable">{{ $item->NAMA_BRG }}</td>
+                                                <td class="RDZPaddingTable">{{ $item->Qty }} </td>
+                                                <td class="RDZPaddingTable">{{ $item->Nama_satuan }}</td>
+                                                <td class="RDZPaddingTable">{{ $item->Status }}</td>
+                                                <td class="RDZPaddingTable">{{ $item->Nama }}</td>
+                                                <td class="RDZPaddingTable">{{ $item->Kd_div }}</td>
+                                            </tr>
+                                        @endforeach
 
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <div class="card-footer RDZApproveRejectButton">
                             <button type="submit" class="btn btn-md btn-primary" name="action"
-                                value="Approve">Approve</button>
+                                value="Approve">Final Approve</button>
                             <button type="submit" class="btn btn-md btn-danger" name="action"
                                 value="Reject">Reject</button>
                         </div>
@@ -82,7 +95,7 @@
         function x(No_trans) {
             let item = document.getElementById(No_trans);
             let add = document.getElementById("DataCheckbox");
-            // console.log(item);
+            console.log(item);
             if (item.checked == true) {
                 //add.innerHTML+="<input type='text' name='checkedBOX[]' value='"+No_trans+"' style='Display: none;'>";
                 add.innerHTML += "<input type='text' id='ID" + No_trans + "' name='checkedBOX[]' value='" + No_trans +
@@ -95,7 +108,7 @@
             }
         }
         $('#CheckedAll').on('click', function() {
-            let table = $('#table_Approve').DataTable();
+            let table = $('#table_FinalApprove').DataTable();
             let rows = table.rows({
                 'search': 'applied'
             }).nodes();
@@ -121,6 +134,7 @@
                 console.log("hapus");
             }
         });
+
         function ALL() {
             let item = document.getElementById("CheckedAll");
             let add = document.getElementById("DataCheckbox");
