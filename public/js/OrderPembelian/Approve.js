@@ -86,14 +86,14 @@ $(function () {
         //   console.log('yay');
         },
         error: function(xhr, status, error){
-            var err = eval("(" + xhr.responseText + ")");
+            let err = eval("(" + xhr.responseText + ")");
             alert(err.Message);
         }
     });
 
-    var $url=$(this).attr('href');
+    let $url=$(this).attr('href');
     $(".formDetail").attr('action',"");
-    var action = $('.formDetail').attr('action');
+    let action = $('.formDetail').attr('action');
     $('.formDetail').attr('action', action.replace("",""+$url+""));
 
     $("#loading").show();
@@ -107,9 +107,3 @@ $(function () {
   });
 });
 
-// $(function () {
-//   $('.Detail').on('click', function (e) {
-//     e.preventDefault();
-//     $('#modalDetail').modal({ backdrop: 'static', keyboard: false })
-//   });
-// });
