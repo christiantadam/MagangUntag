@@ -15,6 +15,7 @@ class PurchaseOrderController extends Controller
     {
         $access = (new HakAksesController)->HakAksesFiturMaster('Beli');
         return view('Beli.TransaksiBeli.PurchaseOrder.List', compact('access'));
+
     }
 
     //Show the form for creating a new resource.
@@ -200,13 +201,24 @@ class PurchaseOrderController extends Controller
     }
     public function show($id)
     {
+        $sup = DB::connection('ConnPurchase')->select('exec SP_5409_PBL_SUPPLIER @kd=1');
         $access = (new HakAksesController)->HakAksesFiturMaster('Beli');
         $result = (new HakAksesController)->HakAksesFitur('Close / Cancel PO');
         if ($result > 0) {
-            return view('Beli.TransaksiBeli.PurchaseOrder.CancelPO', compact('access'));
+            return view('Beli.TransaksiBeli.PurchaseOrder.CancelPO', compact('sup','access','result'));
         } else {
             abort(404);
         }
+    }
+
+    public function show1(Request $request)
+    {
+        $idSup = $request->input('idSup');
+        $kd = 15;
+
+        $purchaseorder = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd =?, @idSup =?', [$kd, $idSup]);
+
+        return response()->json($purchaseorder);
     }
     //Display the specified resource.
     public function redisplay(Request $request)

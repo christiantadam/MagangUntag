@@ -1,9 +1,8 @@
 @extends('layouts.appOrderPembelian')
 @section('content')
-
     <div class="container-fluid ">
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/ListOrderPembelian.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/ListOrderPembelian.css') }}" rel="stylesheet">
 
         <div class="row justify-content-center">
             <div class="col-md-10 RDZMobilePaddingLR0">
@@ -30,6 +29,9 @@
                                                 </div>
                                                 <div class="col-8 col-md-10">
                                                     <select name="select_supplier" id="select_supplier" class="input w-100">
+                                                        @foreach ($sup as $bttb)
+                                                            <option value="{{ $bttb->NO_SUP }}">{{ $bttb->NM_SUP }}</option>
+                                                        @endforeach
                                                         <option class="w-100 text-center" selected disabled>-- Pilih
                                                             Supplier --
                                                         </option>
@@ -53,7 +55,8 @@
                                 </div>
                             </div>
                             <div id="div_tablePO" class="acs-form3">
-                                <table id="table_IsiHarga" class="table table-bordered table-striped scrollmenu" style="width:100%">
+                                <table id="table_IsiHarga" class="table table-bordered table-striped scrollmenu"
+                                    style="width:100%">
                                     <thead class="thead-dark">
                                         <tr>
                                             <th>No. Order</th>
