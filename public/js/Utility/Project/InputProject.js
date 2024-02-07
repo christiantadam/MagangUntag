@@ -23,6 +23,9 @@ let ket_gambar2 = document.getElementById("ket_gambar2");
 let user_input = document.getElementById("user_input");
 let keterangan1 = document.getElementById("keterangan1");
 let keterangan2 = document.getElementById("keterangan2");
+let imagePreviewContainer1 = document.getElementById("imagePreviewContainer1");
+let imagePreviewContainer2 = document.getElementById("imagePreviewContainer2");
+let id = document.getElementById("id");
 
 tanggal_mulai.disabled = true;
 tanggal_selesai.disabled = true;
@@ -173,6 +176,8 @@ if (tanggal_mulai && tanggal_selesai) {
 }
 
 $(document).ready(function () {
+    var currentDate = moment().format("YYYY-MM-DD");
+
     $("#prosesButton").click(function (e) {
         e.preventDefault();
         //var Kode = Kode.value;
@@ -212,13 +217,14 @@ $(document).ready(function () {
         formData.append("ketgambar2", ketgambar2Value);
 
         if (idLaporanValue) {
-            requestData.Id = idLaporanValue;
+            formData.append("ID", idLaporanValue);
         }
         console.log("FormData:", formData);
+        console.log(idLaporanValue);
 
         $.ajax({
             url: idLaporanValue ? "/updateDataProject" : "/postDataProject",
-            type: idLaporanValue ? "PUT" : "POST",
+            type: idLaporanValue ? "POST" : "POST",
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
             },
@@ -242,7 +248,6 @@ $(document).ready(function () {
                 // Respons sukses
                 dataTable.ajax.reload();
 
-                $("#id").val("");
                 if (idLaporanValue) {
                     // PUT request
                     Swal.fire({
@@ -258,6 +263,16 @@ $(document).ready(function () {
                         text: "Data added successfully.",
                     });
                 }
+                $("#id").val("");
+                $("#nama_project").val("");
+                $("#nama_mesin").val("");
+                $("#merk_mesin").val("");
+                $("#lokasi_mesin").val("");
+                $("#tahun_pembuatan").val("");
+                $("#tanggal_mulai").val(currentDate);
+                $("#tanggal_selesai").val(currentDate);
+                $("#keterangan_kerusakan").val("");
+                $("#perbaikan").val("");
             },
         });
     });
@@ -357,6 +372,8 @@ $(document).ready(function () {
         $("#keterangan1").val("");
         $("#keterangan2").val("");
         $("#id").val("");
+        $("#hasil_gambar1").removeAttr("src").hide();
+        $("#hasil_gambar2").removeAttr("src").hide();
     });
 
     inputButton.addEventListener("click", function () {
@@ -391,12 +408,12 @@ $(document).ready(function () {
         $("#perbaikan").val("");
         $("#id").val("");
     });
-});
 
-$(document).ready(function () {
     // Inisialisasi DataTable
-    var dataTable = $("#tabel_input_project").DataTable();
     var selectedData;
+
+    var selectedId;
+    var selectedUser;
 
     $("tbody").on("click", ".checkbox_project", function () {
         if ($(this).prop("checked")) {
@@ -410,6 +427,67 @@ $(document).ready(function () {
             hapusButton.disabled = false;
             koreksiButton.disabled = false;
             $("#id").val(id);
+            selectedId = {
+                id: $(this).val(),
+            };
+            var selectedid_laporan = $(this).val();
+
+            id.value = selectedId.id;
+
+            console.log(selectedId.id);
+
+            var imageNames = ["Gambar1", "Gambar2"];
+
+            imageNames.forEach(function (imageName, index) {
+                $.ajax({
+                    url: `/selectImageProject/${selectedId.id}/${imageName}`,
+                    method: "GET",
+                    xhrFields: {
+                        responseType: "blob",
+                    },
+                    success: function (data, status, xhr) {
+                        displayImage(data, `hasil_gambar${index + 1}`);
+                        updateFileInput(gambar1, data["Gambar1"]);
+                        updateFileInput(gambar2, data["Gambar2"]);
+
+                        var keterangan =
+                            xhr.getResponseHeader("Image-Description");
+
+                        if (index === 0) {
+                            ket_gambar1.value = keterangan;
+                        } else if (index === 1) {
+                            ket_gambar2.value = keterangan;
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        //console.error("Error:", status, error);
+                    },
+                });
+            });
+
+            function displayImage(data, containerId) {
+                var blob = new Blob([data], { type: "image/*" });
+                var objectURL = URL.createObjectURL(blob);
+
+                $("#" + containerId).html(
+                    `<img src="${objectURL}" alt="Image">`
+                );
+                $("#" + containerId)
+                    .attr("src", objectURL)
+                    .show();
+            }
+
+            function updateFileInput(fileInput, imageData) {
+                var blob = new Blob([imageData], { type: "image/*" });
+                var fileName = "image.jpg";
+                var file = new File([blob], fileName);
+
+                fileInput = [file];
+            }
+
+            selectedData = {
+                Id_Laporan: selectedid_laporan,
+            };
 
             $.ajax({
                 url: "/getDataProjectId",
@@ -456,6 +534,18 @@ $(document).ready(function () {
                     console.error("Error fetching data:", error);
                 },
             });
+        } else {
+            var currentDate = moment().format("YYYY-MM-DD");
+
+            $("#nama_project").val("");
+            $("#nama_mesin").val("");
+            $("#merk_mesin").val("");
+            $("#lokasi_mesin").val("");
+            $("#tahun_pembuatan").val("");
+            $("#tanggal_mulai").val(currentDate);
+            $("#tanggal_selesai").val(currentDate);
+            $("#keterangan_kerusakan").val("");
+            $("#perbaikan").val("");
         }
     });
 
@@ -474,11 +564,13 @@ $(document).ready(function () {
                     // console.log(response.NomorUser);
                     // console.log(selectedData.UserId);
                     // console.log(selectedData.id_laporan);
-                    var nomorUserFromAPI = response.NomorUser;
-                    //var nomorUserFromAPI = "4378";
+                    //var nomorUserFromAPI = response.NomorUser;
+                    var nomorUserFromAPI = "4384";
+                    console.log(nomorUserFromAPI);
 
                     // Ambil UserId dari selectedData
                     var userIdFromSelectedData = selectedData.UserId;
+                    console.log(userIdFromSelectedData);
 
                     // Periksa apakah NomorUser dari API response sama dengan UserId dari selectedData
                     if (nomorUserFromAPI === userIdFromSelectedData) {

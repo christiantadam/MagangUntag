@@ -394,6 +394,29 @@ $(document).ready(function () {
                     });
                     dataTable.ajax.reload();
                 }
+                $("#id_laporan").val("");
+                $("#divisi_pelapor1").val("");
+                $("#nama_pelapor").val("");
+                $("#penerima_laporan").val("");
+                $("#jam_perbaikan").val("");
+                $("#jam_selesai").val("");
+                $("#tipe_gangguan").val("");
+                $("#penyebab").val("");
+                $("#penyelesaian").val("");
+                $("#keterangan").val("");
+                $("#teknisi").val("");
+                $("#ket_gambar1").val("");
+                $("#gambar1").val("");
+                $("#namagambar1").text("Pilih Gambar 1");
+                $("#hasil_gambar1").removeAttr("src").hide();
+                $("#ket_gambar2").val("");
+                $("#gambar2").val("");
+                $("#namagambar2").text("Pilih Gambar 2");
+                $("#hasil_gambar2").removeAttr("src").hide();
+                var currentDate = moment().format("YYYY-MM-DD");
+                var currentTime = moment().format("HH:mm");
+                $("#tanggal").val(currentDate);
+                $("#jam_lapor").val(currentTime);
             },
             error: function (xhr, status, error) {
                 if (xhr.status === 419) {

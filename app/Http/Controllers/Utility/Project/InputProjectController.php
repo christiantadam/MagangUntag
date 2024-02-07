@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\HakAksesController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Response;
 
 class InputProjectController extends Controller
 {
@@ -65,7 +66,7 @@ class InputProjectController extends Controller
                 $TglMulai,
                 $TglSelesai,
                 $Keterangan,
-                $user_input,
+                '4378',
                 $KeteranganKerja,
                 $Id,
                 $MerkMesin,
@@ -112,7 +113,7 @@ class InputProjectController extends Controller
 
 
             // Execute the stored procedure and fetch data
-            $data = DB::connection('ConnUtility')->select('exec SP_1273_UTY_LIST_PROJECT @Kode=?, @bulan=?, @tahun=?, @Id=?', ['4', $bulan, $tahun, '4378']);
+            $data = DB::connection('ConnUtility')->select('exec SP_1273_UTY_LIST_PROJECT @Kode=?, @bulan=?, @tahun=?, @Id=?', ['4', $bulan, $tahun, $user_input]);
 
             // Jika data ditemukan, kembalikan dalam format yang sesuai
 
@@ -146,7 +147,28 @@ class InputProjectController extends Controller
         }
     }
 
+    public function selectImage($id, $imageName)
+    {
+        // Validate $imageName to make sure it's one of the allowed image names (e.g., 'Gambar1', 'Gambar2')
 
+        $imageData = DB::connection('ConnUtility')
+            ->table('GAMBAR_PROJECT')
+            ->select($imageName, 'Keterangan' . $imageName)
+            ->where('Id', $id)
+            ->first();
+
+        if ($imageData) {
+            $imageContent = $imageData->$imageName;
+            $keterangan = $imageData->{'Keterangan' . $imageName};
+
+            return Response::make($imageContent, 200, [
+                'Content-Type' => 'image/*', // Adjust the content type based on your image format
+                'Content-Disposition' => 'inline; filename="' . $imageName . '.jpg"',
+            ])->header('Image-Description', $keterangan);
+        }
+
+        return response()->json(['message' => 'Image not found']);
+    }
 
     public function getDataProjectId(Request $request)
     {
@@ -176,10 +198,10 @@ class InputProjectController extends Controller
     public function updateDataProject(Request $request)
     {
         try {
-            $Kode = '2';
-            $Id = $request->input('idLaporan');
-            $NamaProject = $request->input('nama_mesin');
-            $NamaMesin = $request->input('nama_project');
+            //$Kode = '2';
+            $Id = $request->input('ID');
+            $NamaProject = $request->input('nama_project');
+            $NamaMesin = $request->input('nama_mesin');
             $TglMulai = $request->input('tanggal_mulai');
             $TglSelesai = $request->input('tanggal_selesai');
             $Keterangan = $request->input('keterangan');
@@ -190,38 +212,83 @@ class InputProjectController extends Controller
             $TahunBuat = $request->input('tahun_pembuatan');
             $Perbaikan = $request->input('perbaikan');
 
+            // $data = DB::connection('ConnUtility')->statement('exec SP_1273_UTY_MAINT_PROJECT ?,?,?,?,?,?,?,?,?,?,?,?,?', [
+            //     $Kode,
+            //     $NamaProject,
+            //     $NamaMesin,
+            //     $TglMulai,
+            //     $TglSelesai,
+            //     $Keterangan,
+            //     $user_input,
+            //     $KeteranganKerja,
+            //     $Id,
+            //     $MerkMesin,
+            //     $LokasiMesin,
+            //     $TahunBuat,
+            //     $Perbaikan,
+            // ]);
 
 
+            $image = $request->file('gambar1data');
+            $imageBinary = null;
+            if ($image) {
+                $binaryReader = fopen($image, 'rb');
+                $imageBinary = fread($binaryReader, $image->getSize());
+                fclose($binaryReader);
+            }
 
+            // gambar 2
+            $image2 = $request->file('gambar2data');
+            $imageBinary2 = null;
+            if ($image2) {
+                $binaryReader2 = fopen($image2, 'rb');
+                $imageBinary2 = fread($binaryReader2, $image2->getSize());
+                fclose($binaryReader2);
+            }
 
-
-            $data = DB::connection('ConnUtility')->statement('exec SP_1273_UTY_MAINT_PROJECT ?,?,?,?,?,?,?,?,?,?,?,?,?', [
-                $Kode,
-                $NamaProject,
-                $NamaMesin,
-                $TglMulai,
-                $TglSelesai,
-                $Keterangan,
-                $user_input,
-                $KeteranganKerja,
-                $Id,
-                $MerkMesin,
-                $LokasiMesin,
-                $TahunBuat,
-                $Perbaikan,
+            $data = DB::connection('ConnUtility')->table('PROJECT')
+            ->where('Id', $Id)
+            ->update([
+                'NamaProject' => $NamaProject,
+                'NamaMesin' => $NamaMesin,
+                'TglMulai' => $TglMulai,
+                'TglSelesai' => $TglSelesai,
+                'Keterangan' => $Keterangan,
+                'KeteranganKerja' => $KeteranganKerja,
+                'UserKoreksi' => $user_input,
+                'MerkMesin' => $MerkMesin,
+                'LokasiMesin' => $LokasiMesin,
+                'TahunPembuatan' => $TahunBuat,
+                'Perbaikan' => $Perbaikan,
             ]);
 
+            // $save = DB::connection('ConnUtility')->table('GAMBAR_ELEKTRIK')->where('IdLaporan', $id);
+
+            // $updateData = [
+            //     'KeteranganGambar1' => $ketGambar1,
+            //     'KeteranganGambar2' => $ketGambar2,
+            //     'UserInput' => $user_input,
+            //     'UserKoreksi' => null,
+            // ];
+            // // Jika ada gambar1 yang diunggah
+            // if ($imageBinary) {
+            //     $updateData['Gambar1'] = DB::raw('0x' . bin2hex($imageBinary));
+            // }
+            // // Jika ada gambar2 yang diunggah
+            // if ($imageBinary2) {
+            //     $updateData['Gambar2'] = DB::raw('0x' . bin2hex($imageBinary2));
+            // }
+            //$save->update($updateData);
 
 
-            if ($data) {
-                return response()->json(['success' => true]);
-            } else {
-                return response()->json(['error' => 'Gagal menyimpan data.'], 500);
-            }
-        } catch (\Throwable $th) {
-            return response()->json(['error' => 'Terjadi kesalahan internal.'], 500);
+
+            //return response()->json(['success' => true, 'data' => $save]);
+        }catch (\Exception $e){
+
         }
+
     }
+
 
     public function create()
     {

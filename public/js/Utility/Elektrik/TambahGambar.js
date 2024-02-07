@@ -31,49 +31,47 @@ let gambar10 = document.getElementById("gambar10");
 let ketgambar10 = document.getElementById("ketgambar10");
 let hasilgambar10 = document.getElementById("imagePreview10");
 
-let tanggal = document.getElementById("bulan");
-let sampaiDengan = document.getElementById("sampaiDengan");
 let divisi_pelapor = document.getElementById("divisi_pelapor");
 
-gambar3.value = "";
-hasilgambar3.value = "";
-gambar3.disabled = true;
-ketgambar3.disabled = true;
+// gambar3.value = "";
+// hasilgambar3.value = "";
+// gambar3.disabled = true;
+// ketgambar3.disabled = true;
 
-gambar4.value = "";
-hasilgambar4.value = "";
-gambar4.disabled = true;
-ketgambar4.disabled = true;
+// gambar4.value = "";
+// hasilgambar4.value = "";
+// gambar4.disabled = true;
+// ketgambar4.disabled = true;
 
-gambar5.value = "";
-hasilgambar5.value = "";
-gambar5.disabled = true;
-ketgambar5.disabled = true;
+// gambar5.value = "";
+// hasilgambar5.value = "";
+// gambar5.disabled = true;
+// ketgambar5.disabled = true;
 
-gambar6.value = "";
-hasilgambar6.value = "";
-gambar6.disabled = true;
-ketgambar6.disabled = true;
+// gambar6.value = "";
+// hasilgambar6.value = "";
+// gambar6.disabled = true;
+// ketgambar6.disabled = true;
 
-gambar7.value = "";
-hasilgambar7.value = "";
-gambar7.disabled = true;
-ketgambar7.disabled = true;
+// gambar7.value = "";
+// hasilgambar7.value = "";
+// gambar7.disabled = true;
+// ketgambar7.disabled = true;
 
-gambar8.value = "";
-hasilgambar8.value = "";
-gambar8.disabled = true;
-ketgambar8.disabled = true;
+// gambar8.value = "";
+// hasilgambar8.value = "";
+// gambar8.disabled = true;
+// ketgambar8.disabled = true;
 
-gambar9.value = "";
-hasilgambar9.value = "";
-gambar9.disabled = true;
-ketgambar9.disabled = true;
+// gambar9.value = "";
+// hasilgambar9.value = "";
+// gambar9.disabled = true;
+// ketgambar9.disabled = true;
 
-gambar10.value = "";
-hasilgambar10.value = "";
-gambar10.disabled = true;
-ketgambar10.disabled = true;
+// gambar10.value = "";
+// hasilgambar10.value = "";
+// gambar10.disabled = true;
+// ketgambar10.disabled = true;
 
 $("#ketgambar3").val("");
 $("#gambar4").val("");
@@ -81,17 +79,13 @@ $("#ketgambar5").val("");
 $("#hasil_gambar3").attr("src", "");
 $("#hasil_gambar4").attr("src", "");
 
+let tanggal = document.getElementById("bulan");
+let sampaiDengan = document.getElementById("sampaiDengan");
+
 if (tanggal && sampaiDengan) {
     var tanggal_akhirOutput = new Date().toISOString().split("T")[0];
-    tanggal.value = tanggal_akhirOutput;
     sampaiDengan.value = tanggal_akhirOutput;
-
-    var currentDateTime = new Date();
-    var hours = currentDateTime.getHours().toString().padStart(2, "0");
-    var minutes = currentDateTime.getMinutes().toString().padStart(2, "0");
-    var timeString = hours + ":" + minutes;
-
-    sampaiDengan.value = currentDate + "T" + timeString;
+    tanggal.value = tanggal_akhirOutput;
 }
 
 // Event listener for Input Button

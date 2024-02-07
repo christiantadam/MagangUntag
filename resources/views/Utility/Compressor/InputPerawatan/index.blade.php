@@ -58,7 +58,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-2 p-4">
+                            <div class="col-2 ">
                                 <div class="d-flex gap-2 justify-content-end flex-wrap pt-4">
                                     <button class="btn btn-primary w-100 mb-2" type="button"
                                         id="inputButton">Input</button>
