@@ -9,9 +9,9 @@
                     <div class="card-header">Input Gangguan</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="row-12 d-flex flex-wrap">
-                            <div class="col-lg-6 p-4">
+                            <div class="col-lg-5 p-4">
                                 <input type="hidden" id="hiddenNomorpanel">
-                                <div class="acs-div-filter pt-4">
+                                <div class="acs-div-filter">
                                     <label for="tanggal">Tanggal</label>
                                     <input type="date" class="form-control" id="tanggal"
                                         placeholder="name@example.com">
@@ -37,8 +37,8 @@
                                         placeholder="name@example.com">
                                 </div>
                             </div>
-                            <div class="col-lg-6 p-4">
-                                <div class="acs-div-filter pt-4">
+                            <div class="col-lg-5 p-4">
+                                <div class="acs-div-filter">
                                     <label for="jam_selesai">Jam Selesai</label>
                                     <input type="time" class="form-control" id="jam_selesai" name="jam_selesai"
                                         placeholder="name@example.com">
@@ -59,15 +59,18 @@
                                         placeholder="...">
                                 </div>
                             </div>
-                            <div class="col-lg-12 p-4">
-                                <div class="d-flex gap-2 pt-4 justify-content-end flex-wrap">
-                                    <button class="btn btn-success mb-2" type="button" id="inputButton">Input</button>
-                                    <button class="btn btn-outline-warning mb-2" type="button"
+                            <div class="col-lg-2 p-4">
+                                <div class="d-flex gap-2 justify-content-end flex-wrap pt-4">
+                                    <button class="btn btn-primary w-100 mb-2" type="button"
+                                        id="inputButton">Input</button>
+                                    <button class="btn btn-primary  w-100 mb-2" type="button"
                                         id="updateButton">Koreksi</button>
-                                    <button class="btn btn-outline-danger mb-2" type="button"
+                                    <button class="btn btn-primary  w-100 mb-2" type="button"
                                         id="deleteButton">Hapus</button>
-                                    <button class="btn btn-primary mb-2" type="button" id="saveButton">Proses</button>
-                                    <button class="btn btn-danger mb-2" type="button" id="cancelButton">Batal</button>
+                                    <button class="btn btn-primary  w-100 mb-2" type="button"
+                                        id="saveButton">Proses</button>
+                                    <button class="btn btn-primary  w-100 mb-2" type="button"
+                                        id="cancelButton">Batal</button>
                                 </div>
                             </div>
                         </div>
@@ -115,7 +118,8 @@
                                 <div class="col-lg-6 p-0">
                                     <div class="d-flex gap-2 pt-4 justify-content-end flex-wrap">
                                         <button class="btn btn-primary mb-2" data-bs-toggle="modal"
-                                            data-bs-target="#KetGangguanModal" id="openmodal" type="button">Tambah Ket.Gangguan</button>
+                                            data-bs-target="#KetGangguanModal" id="openmodal" type="button">Tambah
+                                            Ket.Gangguan</button>
                                     </div>
                                 </div>
                             </div>

@@ -550,8 +550,6 @@ updateButtonStatusLog.addEventListener("click", function () {
 [StatusLog].forEach(function (inputField) {
     inputField.addEventListener("input", function () {
         saveButtonStatusLog.disabled = !checkAllFieldsFilled1();
-        updateButtonStatusLog.disabled = !checkAllFieldsFilled1();
-        deleteButtonStatusLog.disabled = !checkAllFieldsFilled1();
     });
 });
 
@@ -745,8 +743,8 @@ let refreshButtonTeknisi = document.getElementById("refreshButtonTeknisi");
 let Teknisi = document.getElementById("teknisimodalinput");
 
 saveButtonTeknisi.disabled = true;
-updateButtonTeknisi.disabled = true;
-deleteButtonTeknisi.disabled = true;
+updateButtonTeknisi.disabled = false;
+deleteButtonTeknisi.disabled = false;
 
 // Function to check if all fields are filled
 function checkAllFieldsFilled2() {
@@ -777,8 +775,6 @@ updateButtonTeknisi.addEventListener("click", function () {
 [Teknisi].forEach(function (inputField) {
     inputField.addEventListener("input", function () {
         saveButtonTeknisi.disabled = !checkAllFieldsFilled2();
-        updateButtonTeknisi.disabled = !checkAllFieldsFilled2();
-        deleteButtonTeknisi.disabled = !checkAllFieldsFilled2();
     });
 });
 $(document).ready(function () {

@@ -8,9 +8,9 @@
             </div>
             <div class="modal-body">
                 <div class="row-12 d-flex flex-wrap">
-                    <div class="col-lg-6 p-4">
+                    <div class="col-lg-5 p-4">
                         <input type="hidden" id="hiddenNomorBA">
-                        <div class="acs-div-filter pt-4">
+                        <div class="acs-div-filter">
                             <label for="nomor-ba">Nomor</label>
                             <input type="number" class="form-control" id="nomor-ba">
                         </div>
@@ -32,8 +32,8 @@
                         </div>
 
                     </div>
-                    <div class="col-lg-6 p-4">
-                        <div class="acs-div-filter pt-4">
+                    <div class="col-lg-5 p-4">
+                        <div class="acs-div-filter">
                             <label for="kva-ba">KVA Maks.</label>
                             <input type="number" class="form-control" id="kva-ba">
                         </div>
@@ -54,15 +54,15 @@
                             <input type="text" class="form-control" id="pembaca-ba" name="pembaca-ba">
                         </div>
                     </div>
-                    <div class="col-lg-12 p-4">
+                    <div class="col-lg-2 p-4">
                         <div class="d-flex gap-2 pt-4 justify-content-end flex-wrap">
-                            <button class="btn btn-success mb-2" type="button" id="inputButton-ba">Input</button>
-                            <button class="btn btn-outline-warning mb-2" type="button"
+                            <button class="btn btn-primary w-100 mb-2" type="button" id="inputButton-ba">Input</button>
+                            <button class="btn btn-primary w-100 mb-2" type="button"
                                 id="updateButton-ba">Koreksi</button>
-                            <button class="btn btn-outline-danger mb-2" type="button"
+                            <button class="btn btn-primary w-100 mb-2" type="button"
                                 id="deleteButton-ba">Hapus</button>
-                            <button class="btn btn-primary mb-2" type="button" id="saveButton-ba">Proses</button>
-                            <button class="btn btn-danger mb-2" type="button" id="cancelButton-ba">Batal</button>
+                            <button class="btn btn-primary w-100 mb-2" type="button" id="saveButton-ba">Proses</button>
+                            <button class="btn btn-primary w-100 mb-2" type="button" id="cancelButton-ba">Batal</button>
                         </div>
                     </div>
                 </div>

@@ -438,8 +438,6 @@ function checkAllFieldsFilled1() {
 [keterangan_gangguan].forEach(function (inputField) {
     inputField.addEventListener("input", function () {
         saveButtonKeterangan.disabled = !checkAllFieldsFilled1();
-        deleteButtonKeterangan.disabled = !checkAllFieldsFilled1();
-        updateButtonKeterangan.disabled = !checkAllFieldsFilled1();
     });
 });
 

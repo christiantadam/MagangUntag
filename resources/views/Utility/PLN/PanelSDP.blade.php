@@ -8,9 +8,9 @@
             </div>
             <div class="modal-body">
                 <div class="row-12 d-flex flex-wrap">
-                    <div class="col-lg-6 p-4">
+                    <div class="col-lg-5 p-4">
                         <input type="hidden" id="hiddenNomorSDP">
-                        <div class="acs-div-filter pt-4">
+                        <div class="acs-div-filter">
                             <label for="ket_gangguan">Produksi</label>
                             <select class="form-select" aria-label="Default select example" id="produksi-sdp">
                                 <option selected disabled>Pilih...</option>
@@ -29,8 +29,8 @@
                             <input type="time" class="form-control" id="jam-sdp" name="jam-sdp">
                         </div>
                     </div>
-                    <div class="col-lg-6 p-4">
-                        <div class="acs-div-filter pt-4">
+                    <div class="col-lg-5 p-4">
+                        <div class="acs-div-filter">
                             <label for="kwh">KWH</label>
                             <input type="number" class="form-control" id="kwh-sdp" name="kwh"
                                 placeholder="Masukkan KWH...">
@@ -51,15 +51,18 @@
                                 placeholder="Masukkan CT Faktor...">
                         </div>
                     </div>
-                    <div class="col-lg-12 p-4">
+                    <div class="col-lg-2 p-4">
                         <div class="d-flex gap-2 pt-4 justify-content-end flex-wrap">
-                            <button class="btn btn-success mb-2" type="button" id="inputButton-sdp">Input</button>
-                            <button class="btn btn-outline-warning mb-2" type="button"
+                            <button class="btn btn-primary w-100 mb-2" type="button"
+                                id="inputButton-sdp">Input</button>
+                            <button class="btn btn-primary w-100 mb-2" type="button"
                                 id="updateButton-sdp">Koreksi</button>
-                            <button class="btn btn-outline-danger mb-2" type="button"
+                            <button class="btn btn-primary w-100 mb-2" type="button"
                                 id="deleteButton-sdp">Hapus</button>
-                            <button class="btn btn-primary mb-2" type="button" id="saveButton-sdp">Proses</button>
-                            <button class="btn btn-danger mb-2" type="button" id="cancelButton-sdp">Batal</button>
+                            <button class="btn btn-primary w-100 mb-2" type="button"
+                                id="saveButton-sdp">Proses</button>
+                            <button class="btn btn-primary w-100 mb-2" type="button"
+                                id="cancelButton-sdp">Batal</button>
                         </div>
                     </div>
                 </div>
@@ -83,14 +86,16 @@
                                 <label for="tanggal">Produksi</label>
                             </div>
                             <div class="d-flex gap-2">
-                                <select class="form-select" aria-label="Default select example" id="produksiSearch-sdp">
+                                <select class="form-select" aria-label="Default select example"
+                                    id="produksiSearch-sdp">
                                     <option selected value="0">Pilih Semua...</option>
                                     @foreach ($sdp as $data)
                                         <option value="{{ $data->NoProduksi }}">
                                             {{ $data->Produksi }}</option>
                                     @endforeach
                                 </select>
-                                <button type="submit" id="refreshButton-sdp" class="btn btn-primary">Refresh</button>
+                                <button type="submit" id="refreshButton-sdp"
+                                    class="btn btn-primary">Refresh</button>
                             </div>
                         </div>
                     </div>
@@ -113,7 +118,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" id="exitButton-sdp" data-bs-dismiss="modal">Keluar</button>
+                <button type="button" class="btn btn-danger" id="exitButton-sdp"
+                    data-bs-dismiss="modal">Keluar</button>
             </div>
         </div>
     </div>

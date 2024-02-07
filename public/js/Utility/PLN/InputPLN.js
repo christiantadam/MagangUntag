@@ -871,20 +871,6 @@ $(document).ready(function () {
 
     // UpdateButton click
     updateButtonBA.addEventListener("click", function () {
-        mode = "update";
-        nomorBA.disabled = false;
-        tanggalBA.disabled = false;
-        lwbpBA.disabled = false;
-        wbpBA.disabled = false;
-        kvarhBA.disabled = false;
-        kvaBA.disabled = false;
-        posisiJamBA.disabled = false;
-        timeswitchBA.disabled = false;
-        pelangganBA.disabled = false;
-        pembacaBA.disabled = false;
-        inputButtonBA.disabled = true;
-        deleteButtonBA.disabled = true;
-
         var checkboxValues = $(".checkboxba:checked")
             .map(function () {
                 return this.value;
@@ -898,6 +884,19 @@ $(document).ready(function () {
                 text: "Pilih setidaknya satu Berita untuk diperbarui.",
             });
         } else {
+            mode = "update";
+            nomorBA.disabled = false;
+            tanggalBA.disabled = false;
+            lwbpBA.disabled = false;
+            wbpBA.disabled = false;
+            kvarhBA.disabled = false;
+            kvaBA.disabled = false;
+            posisiJamBA.disabled = false;
+            timeswitchBA.disabled = false;
+            pelangganBA.disabled = false;
+            pembacaBA.disabled = false;
+            inputButtonBA.disabled = true;
+            deleteButtonBA.disabled = true;
         }
     });
     $("#saveButton-ba").click(function () {

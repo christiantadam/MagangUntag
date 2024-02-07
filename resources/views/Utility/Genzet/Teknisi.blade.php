@@ -34,8 +34,8 @@
             <div class="modal-footer d-flex justify-content-between">
                 <div>
                     <button type="button" class="btn btn-primary" id="refreshButtonTeknisi">Refresh</button>
-                    <button type="button" class="btn btn-outline-warning" id="updateButtonTeknisi">Koreksi</button>
-                    <button type="button" class="btn btn-outline-danger" id="deleteButtonTeknisi">Hapus</button>
+                    <button type="button" class="btn btn-primary" id="updateButtonTeknisi">Koreksi</button>
+                    <button type="button" class="btn btn-primary" id="deleteButtonTeknisi">Hapus</button>
                 </div>
                 <button type="button text-end" class="btn btn-danger" data-bs-dismiss="modal">Keluar</button>
             </div>

@@ -34,8 +34,8 @@
             <div class="modal-footer d-flex justify-content-between">
                 <div>
                     <button type="button" class="btn btn-primary" id="refreshButtonStatusLog">Refresh</button>
-                    <button type="button" class="btn btn-outline-warning" id="updateButtonStatusLog">Koreksi</button>
-                    <button type="button" class="btn btn-outline-danger" id="deleteButtonStatusLog">Hapus</button>
+                    <button type="button" class="btn btn-primary" id="updateButtonStatusLog">Koreksi</button>
+                    <button type="button" class="btn btn-primary" id="deleteButtonStatusLog">Hapus</button>
                 </div>
                 <button type="button text-end" class="btn btn-danger" data-bs-dismiss="modal">Keluar</button>
             </div>

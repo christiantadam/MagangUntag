@@ -8,7 +8,7 @@
                     <div class="card-header">Input PDAM</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="row-12 d-flex flex-wrap">
-                            <div class="col-lg-6 p-4">
+                            <div class="col-lg-5 p-4">
                                 <input type="hidden" id="hiddenNomorpdam">
                                 <div class="acs-div-filter pt-4">
                                     <label for="tanggal">Tanggal</label>
@@ -30,7 +30,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-6 p-4">
+                            <div class="col-lg-5 p-4">
                                 <div class="acs-div-filter pt-4">
                                     <label for="counter">Counter</label>
                                     <input type="number" class="form-control" id="counter" name="counter"
@@ -42,15 +42,18 @@
                                         placeholder="Masukkan Nama Teknisi...">
                                 </div>
                             </div>
-                            <div class="col-lg-12 p-4">
-                                <div class="d-flex gap-2 ppt-4 justify-content-end flex-wrap">
-                                    <button class="btn btn-success mb-2" type="button" id="inputButton">Input</button>
-                                    <button class="btn btn-outline-warning mb-2" type="button"
+                            <div class="col-lg-2 p-4">
+                                <div class="d-flex gap-2 justify-content-end flex-wrap pt-4">
+                                    <button class="btn btn-primary w-100 mb-2" type="button"
+                                        id="inputButton">Input</button>
+                                    <button class="btn btn-primary  w-100 mb-2" type="button"
                                         id="updateButton">Koreksi</button>
-                                    <button class="btn btn-outline-danger mb-2" type="button"
+                                    <button class="btn btn-primary  w-100 mb-2" type="button"
                                         id="deleteButton">Hapus</button>
-                                    <button class="btn btn-primary mb-2" type="button" id="saveButton">Proses</button>
-                                    <button class="btn btn-danger mb-2" type="button" id="cancelButton">Batal</button>
+                                    <button class="btn btn-primary  w-100 mb-2" type="button"
+                                        id="saveButton">Proses</button>
+                                    <button class="btn btn-primary  w-100 mb-2" type="button"
+                                        id="cancelButton">Batal</button>
                                 </div>
                             </div>
                         </div>

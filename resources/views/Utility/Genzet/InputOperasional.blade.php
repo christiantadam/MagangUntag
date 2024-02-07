@@ -12,7 +12,7 @@
                         <div class="row-12 d-flex flex-wrap">
                             <div class="col-lg-4 p-4">
                                 <input type="hidden" id="hiddenNomorgenzet">
-                                <div class="acs-div-filter pt-4">
+                                <div class="acs-div-filter">
                                     <label for="tanggal">Tanggal</label>
                                     <input type="date" class="form-control" id="tanggal"
                                         placeholder="name@example.com">
@@ -43,8 +43,8 @@
                                         id="operationhours" name="operationhours" placeholder="...">
                                 </div>
                             </div>
-                            <div class="col-lg-4 p-4">
-                                <div class="acs-div-filter pt-4">
+                            <div class="col-lg-3 p-4">
+                                <div class="acs-div-filter">
                                     <label for="lubeoil">Lube Oil (Press Min 1.9)</label>
                                     <input type="number" pattern="[0-9]" min="0" class="form-control" id="lubeoil"
                                         name="lubeoil" placeholder="...">
@@ -70,8 +70,8 @@
                                         name="amp" placeholder="...">
                                 </div>
                             </div>
-                            <div class="col-lg-4 p-4">
-                                <div class="acs-div-filter pt-4">
+                            <div class="col-lg-3 p-4">
+                                <div class="acs-div-filter">
                                     <label for="tambahbbm">Tambah BBM</label>
                                     <input type="number" pattern="[0-9]" min="0" class="form-control" id="tambahbbm"
                                         name="tambahbbm" placeholder="...">
@@ -107,15 +107,18 @@
                                         placeholder="...">
                                 </div>
                             </div>
-                            <div class="col-lg-12 p-4">
-                                <div class="d-flex gap-2 pt-4 justify-content-end flex-wrap">
-                                    <button class="btn btn-success mb-2" type="button" id="inputButton">Input</button>
-                                    <button class="btn btn-outline-warning mb-2" type="button"
+                            <div class="col-lg-2 p-4">
+                                <div class="d-flex gap-2 justify-content-end flex-wrap pt-4">
+                                    <button class="btn btn-primary w-100 mb-2" type="button"
+                                        id="inputButton">Input</button>
+                                    <button class="btn btn-primary  w-100 mb-2" type="button"
                                         id="updateButton">Koreksi</button>
-                                    <button class="btn btn-outline-danger mb-2" type="button"
+                                    <button class="btn btn-primary  w-100 mb-2" type="button"
                                         id="deleteButton">Hapus</button>
-                                    <button class="btn btn-primary mb-2" type="button" id="saveButton">Proses</button>
-                                    <button class="btn btn-danger mb-2" type="button" id="cancelButton">Batal</button>
+                                    <button class="btn btn-primary  w-100 mb-2" type="button"
+                                        id="saveButton">Proses</button>
+                                    <button class="btn btn-primary  w-100 mb-2" type="button"
+                                        id="cancelButton">Batal</button>
                                 </div>
                             </div>
                         </div>
