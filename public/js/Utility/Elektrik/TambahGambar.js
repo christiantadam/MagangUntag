@@ -31,7 +31,7 @@ let gambar10 = document.getElementById("gambar10");
 let ketgambar10 = document.getElementById("ketgambar10");
 let hasilgambar10 = document.getElementById("imagePreview10");
 
-let tanggal = document.getElementById("tanggal");
+let tanggal = document.getElementById("bulan");
 let sampaiDengan = document.getElementById("sampaiDengan");
 let divisi_pelapor = document.getElementById("divisi_pelapor");
 
@@ -90,6 +90,8 @@ if (tanggal && sampaiDengan) {
     var hours = currentDateTime.getHours().toString().padStart(2, "0");
     var minutes = currentDateTime.getMinutes().toString().padStart(2, "0");
     var timeString = hours + ":" + minutes;
+
+    sampaiDengan.value = currentDate + "T" + timeString;
 }
 
 // Event listener for Input Button

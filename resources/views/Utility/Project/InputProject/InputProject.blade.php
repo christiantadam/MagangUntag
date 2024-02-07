@@ -124,7 +124,7 @@
                             <input type="number" pattern="[0-9]" name="tanggal_dibutuhkan" min="0"
                                 id="tahun" class="input mb-3 ml-1 "placeholder="contoh: 2023">
 
-                            <button type="button" style="height: 30px" class="btn btn-primary ml-3"
+                            <button type="button" style="" class="btn btn-primary ml-3"
                                 id="refreshButton">Refresh</button>
                         </div>
                         <div id="div_tablePO" class="acs-form3">

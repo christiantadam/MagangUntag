@@ -18,6 +18,7 @@
     <script src="{{ asset('js/app.js') }}"></script>
     {{-- <script src="https://code.jquery.com/jquery-3.1.0.js"></script> --}}
     <!-- <script src="//code.jquery.com/jquery-1.11.0.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="{{ asset('js/datatables.min.js') }}"></script>
     <script src="{{ asset('js/jquery-dateformat.js') }}"></script>
     <script src="{{ asset('js/RDZ.js') }}"></script>
