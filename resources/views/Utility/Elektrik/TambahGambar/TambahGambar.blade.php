@@ -7,28 +7,30 @@
                     <div class="card-header">Gambar Elektrik</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
 
-                        <label class="">Filter</label>
-                        <div class="row-24 d-flex mt-4">
-
-                            <label for="">Tanggal</label>
-                            <input type="date" name="tanggal_dibutuhkan" id="tanggal" class="input mb-3 ml-1">
-                            <label for=""class="ml-3">S/D</label>
-                            <input type="date" name="tanggal_dibutuhkan" id="sampaiDengan" class="input mb-3 ml-1 ">
-                            <label for="" class="ml-3">Divisi Pelapor</label>
-                            <select name="divisi_pelapor" id="divisi_pelapor" class="form-control mb-2 ml-1"
-                                style="width: 270px;">
-                                <option value="pilih divisi">
+                        <div class=" col-md-8 mt-2">
+                            <div class="d-flex gap-2 mb-2">
+                                <label for="tanggal">Filter</label>
+                            </div>
+                            <div class="d-flex gap-2 align-items-center">
+                                <h6 class="mt-2">Tanggal</h6>
+                                <input type="date" class="form-control" id="bulan" name="date1"
+                                    style="width:150px">
+                                <h6 class="mt-2">S/D</h6>
+                                <input type="date" class="form-control" id="sampaiDengan" name="date2"
+                                    style="width:150px">
+                                <h6 class="mt-2" style="white-space: nowrap;">Divisi Pelapor </h6>
+                                <select class="form-select" aria-label="Default select example" name="divisi_pelapor"
+                                    id="divisi_pelapor2">
+                                    <option selected value="0">Pilih Divisi Pelapor</option>
                                     @foreach ($divisi as $divisi_pelapor)
-                                <option value="{{ $divisi_pelapor->Id_divisi }}">
-                                    {{ $divisi_pelapor->Nama_divisi }}</option>
-                                @endforeach
-                                </option>
-
-                            </select>
-                            <button type="button" style="height: 30px" class="btn btn-primary ml-3"
-                                id="refreshButton">Refresh</button>
+                                        <option value="{{ $divisi_pelapor->Id_divisi }}">
+                                            {{ $divisi_pelapor->Nama_divisi }}</option>
+                                    @endforeach
+                                </select>
+                                <button id="refreshButton" class="btn btn-primary">Refresh</button>
+                            </div>
                         </div>
-                        <div id="div_tablePO" class="acs-form3">
+                        <div id="div_tablePO" class="acs-form3 mt-4">
                             <table class="table" id="tabel_gambar">
                                 <thead class="thead-dark">
                                     <tr>

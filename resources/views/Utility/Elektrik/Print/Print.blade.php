@@ -15,7 +15,7 @@
                             <label for=""class="ml-3">S/D</label>
                             <input type="date" name="tanggal_dibutuhkan" id="sampaiDengan" class="input mb-3 ml-1 ">
                             <label for="" class="ml-3">Divisi Pelapor</label>
-                            <select name="divisi_pelapor" id="divisi_pelapor" class="form-control mb-2 ml-1"
+                            <select name="divisi_pelapor" id="divisi_pelapor" class="form-select mb-2 ml-1"
                                 style="width: 250px;">
                                 <option value="pilih divisi">
                                     @foreach ($divisi as $divisi_pelapor)
@@ -24,7 +24,7 @@
                                 @endforeach
                                 </option>
                             </select>
-                            <button type="button" style="height: 30px" class="btn btn-primary ml-3"
+                            <button type="button" style="" class="btn btn-primary ml-3"
                                 id="refreshButton">Refresh</button>
                         </div>
                         <div id="div_tablePO" class="acs-form3">
