@@ -101,11 +101,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('FinalApproveOrderPembelian', App\Http\Controllers\Beli\TransaksiBeli\FinalApproverOrderController::class);
     Route::get('/FinalApproveOrderPembelian/{id}/show', 'App\Http\Controllers\Beli\TransaksiBeli\FinalApproverOrderController@show')->name('finalapproveorderpembelian.show');
     Route::post('/FinalApproveOrderPembelian/{id}/up', 'App\Http\Controllers\Beli\TransaksiBeli\FinalApproverOrderController@update')->name('finalapproveorderpembelian.update');
+    Route::resource('ListOrderSudahAppManager', App\Http\Controllers\Beli\TransaksiBeli\ListOrderAppManagerController::class);
 
     //transaksi
     Route::resource('OrderPembelian', App\Http\Controllers\Beli\Transaksi\OrderPembelianController::class);
     Route::resource('ListOrder', App\Http\Controllers\Beli\Transaksi\ListOrderController::class);
-    Route::get('/ListOrder/{id}/show', 'App\Http\Controllers\Transaksi\Beli\ListOrderController@show')->name('listorder.show');
+    Route::get('/ListOrder/{id}/show', 'App\Http\Controllers\Beli\Transaksi\ListOrderController@show')->name('listorder.show');
     Route::get('/ListOrder/{divisi}/{tglAwal}/{tglAkhir}/{Me}/Filter', 'App\Http\Controllers\Beli\Transaksi\ListOrderController@Filter')->name('listorder.filter');
     Route::resource('Approve', App\Http\Controllers\Beli\Transaksi\ApproveController::class);
     Route::get('/Approve/{id}/show', 'App\Http\Controllers\Beli\Transaksi\ApproveController@show')->name('approve.show');
