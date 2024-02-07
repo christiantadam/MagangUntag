@@ -86,14 +86,20 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/getUserId', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikController@getUserId');
     Route::get('/getDataElektrikId', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikController@getDataElektrikId');
 
-
-
-    Route::resource('InputGangguanBulanan', App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikBulananController::class);
+    // Route::resource('InputGangguanBulanan', App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikBulananController::class);
+    Route::resource('InputGangguanBulananElektrik', App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikBulananController::class);
     Route::get('/getDataBulanan', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikBulananController@getDataBulanan');
     Route::get('/getDataBulananId', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikBulananController@getDataBulananId');
+    Route::get('/selectImageBulanan/{id}/{imageName}', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikBulananController@selectImageBulanan');
     Route::post('/postDataBulanan', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikBulananController@postDataBulanan');
-    Route::put('/updateDataBulanan', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikBulananController@updateDataBulanan');
+    Route::post('/updateDataBulanan', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikBulananController@updateDataBulanan');
+    Route::delete('/deleteDataBulanan', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikBulananController@deleteDataBulanan');
+    // Tambah Gambar Elektrik
     Route::resource('TambahGambarElektrik', App\Http\Controllers\Utility\Elektrik\TambahGambarElektrikController::class);
+    Route::post('/postTambahGambar', 'App\Http\Controllers\Utility\Elektrik\TambahGambarElektrikController@postDataGambar');
+    Route::post('/updateTambahGambar', 'App\Http\Controllers\Utility\Elektrik\TambahGambarElektrikController@updateDataGambar');
+    Route::get('/SelectImages/{id}/{imageName}', 'App\Http\Controllers\Utility\Elektrik\TambahGambarElektrikController@SelectImages');
+    Route::get('checkData', 'App\Http\Controllers\Utility\Elektrik\TambahGambarElektrikController@checkData');
     Route::resource('PrintElektrik', App\Http\Controllers\Utility\Elektrik\PrintElektrikController::class);
 
 
@@ -103,12 +109,20 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/selectImageProject/{id}/{imageName}', 'App\Http\Controllers\Utility\Project\InputProjectController@selectImage');
     Route::get('/getDataProject', 'App\Http\Controllers\Utility\Project\InputProjectController@getDataProject');
     Route::delete('/deleteDataProject', 'App\Http\Controllers\Utility\Project\InputProjectController@deleteDataProject');
-    Route::resource('TambahGambarProject', App\Http\Controllers\Utility\Project\TambahGambarProjectController::class);
-    Route::resource('PrintProject', App\Http\Controllers\Utility\Project\PrintProjectController::class);
     Route::get('/getDataProjectId', 'App\Http\Controllers\Utility\Project\InputProjectController@getDataProjectId');
     Route::get('/getDataUserId', 'App\Http\Controllers\Utility\Project\InputProjectController@getDataUserId');
     Route::post('/updateDataProject', 'App\Http\Controllers\Utility\Project\InputProjectController@updateDataProject');
     Route::delete('/deleteDataProject', 'App\Http\Controllers\Utility\Project\InputProjectController@deleteDataProject');
+    // Tambah Gambar Project
+    Route::resource('TambahGambarProject', App\Http\Controllers\Utility\Project\TambahGambarProjectController::class);
+    Route::post('/postTambahGambarProject', 'App\Http\Controllers\Utility\Project\TambahGambarProjectController@postDataGambarProject');
+    Route::post('/updateTambahGambarProject', 'App\Http\Controllers\Utility\Project\TambahGambarProjectController@updateDataGambarProject');
+    Route::get('/SelectImagesProject/{id}/{imageName}', 'App\Http\Controllers\Utility\Project\TambahGambarProjectController@SelectImagesProject');
+    Route::get('checkDataProject', 'App\Http\Controllers\Utility\Project\TambahGambarProjectController@checkDataProject');
+
+    // Print Project
+    Route::resource('PrintProject', App\Http\Controllers\Utility\Project\PrintProjectController::class);
+
 
     // Compressor
     Route::resource('addCompressor', App\Http\Controllers\Utility\Compressor\InputPerawatanController::class);
