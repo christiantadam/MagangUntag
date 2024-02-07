@@ -33,3 +33,12 @@ suplier.addEventListener("change", function (event) {
         });
     }
 });
+function responseData (datas) {
+    let tabelData = $('#table_IsiHarga').DataTable();
+    tabelData.clear();
+    datas.forEach(function (data) {
+        tabelData.row.add([data.kd_brg, data.NAMA_BRG, data.nama_sub_kategori, data.Qty, data.No_BTTB]).draw();
+    });
+}
+
+

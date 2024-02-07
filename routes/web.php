@@ -80,6 +80,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/GETReturBTTB', 'App\Http\Controllers\Beli\TransaksiBeli\ReturBTTBController@po');
     Route::get('/GETBTTB', 'App\Http\Controllers\Beli\TransaksiBeli\ReturBTTBController@display');
     Route::get('/GETRetur', 'App\Http\Controllers\Beli\TransaksiBeli\ReturBTTBController@kdbrg');
+    Route::get('/PostRetur', 'App\Http\Controllers\Beli\TransaksiBeli\ReturBTTBController@post');
+
+
+
+
     Route::get('/Retur', 'App\Http\Controllers\Beli\TransaksiBeli\ReturBTTBController@kode');
     Route::get('/Create', 'App\Http\Controllers\Beli\TransaksiBeli\CreateBTTBController@createbttb');
     Route::resource('IsiBeaImpor', App\Http\Controllers\Beli\TransaksiBeli\IsiBeaController::class);

@@ -64,8 +64,16 @@ class ReturBTTBController extends Controller
         $kodebarang = $request->input('kodebarang');
         $kd = 11;
 
-        $returbttb = DB::connection('ConnInventory')
-            ->select('exec SP_1003_INV_LIST_TYPE @Kode = ?, @kodebarang = ?', [$kd, $kodebarang]);
+        $returbttb = DB::connection('ConnInventory') ->select('exec SP_1003_INV_LIST_TYPE @Kode = ?, @kodebarang = ?', [$kd, $kodebarang]);
+
+        return response()->json($returbttb);
+    }
+
+
+    public function post()
+    {
+        $kd = 14;
+        $returbttb = DB::connection('ConnPurchase')->select('exec SP_5409_MAINT_PO @kd=?',[$kd]);
 
         return response()->json($returbttb);
     }

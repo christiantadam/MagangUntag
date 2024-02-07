@@ -87,6 +87,50 @@ $('#tabelretur tbody').on('dblclick', 'tr', function () {
 });
 
 
+$(document).ready(function() {
+    // Tambahkan event click pada tombol POST
+    $('#postButton').click(function() {
+        // Ambil data dari input form
+        var id = $('#id').val();
+        var qtyRetur = $('#returprimer').val();
+        var tanggalRetur = $('#tanggalretur').val();
+        var alasan = $('#alasan').val();
+        var noBTTB = $('#bttb').val();
+        var noSJ = $('#sj').val();
+        var idTerima = $('#id_terima').val();
+        var qtyTerima = $('#qty_terima').val();
+
+        // Kirim data ke server menggunakan AJAX
+        $.ajax({
+            url: '/PostRetur',
+            type: 'POST',
+            data: {
+                id: id,
+                qty_retur: qtyRetur,
+                tanggal_retur: tanggalRetur,
+                alasan: alasan,
+                no_bttb: noBTTB,
+                no_sj: noSJ,
+                id_terima: idTerima,
+                qty_terima: qtyTerima,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                // Tindakan jika update berhasil
+                alert('Data retur berhasil diupdate!');
+            },
+            error: function(xhr, status, error) {
+                // Tindakan jika terjadi kesalahan
+                alert('Terjadi kesalahan: ' + error);
+            }
+        });
+    });
+});
+
+
+
+
+
 $.ajax({
     type: 'GET',
     url: '/Retur', // Sesuaikan dengan URL rute Anda

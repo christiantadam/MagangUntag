@@ -1,5 +1,6 @@
 @extends('layouts.appOrderPembelian')
 @section('content')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="{{ asset('css/ReturBTTB.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
@@ -172,10 +173,9 @@
                     <!-- Buttons -->
                     <div class="row align-items-center">
                         <div class="col-md-12 d-flex justify-content-end">
-                            <button type="button" class="btn  btn-lg btn-success mr-3">POST</button>
+                            <button type="button " id="postbutton" class="btn  btn-lg btn-success mr-3">POST</button>
                             <button type="button" class="btn btn-danger">EXIT</button>
                         </div>
-
                     </div>
 
                 </div>
