@@ -220,6 +220,17 @@ class PurchaseOrderController extends Controller
 
         return response()->json($purchaseorder);
     }
+
+    public function showtbl(Request $request)
+    {
+        $noPO = $request->input('noPO');
+        $kd = 16;
+
+        $purchaseorder = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd =?, @noPO =?', [$kd, $noPO]);
+
+        return response()->json($purchaseorder);
+    }
+
     //Display the specified resource.
     public function redisplay(Request $request)
     {

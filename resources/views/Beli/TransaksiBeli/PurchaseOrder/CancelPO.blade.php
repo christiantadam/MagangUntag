@@ -46,7 +46,8 @@
                                                 </div>
                                                 <div class="col-8 col-md-10">
                                                     <select name="select_noPO" id="select_noPO" class="input w-100">
-                                                        <option class="w-100" selected disabled></option>
+                                                        <option class="w-100" >
+                                                        </option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -55,7 +56,7 @@
                                 </div>
                             </div>
                             <div id="div_tablePO" class="acs-form3">
-                                <table id="table_IsiHarga" class="table table-bordered table-striped scrollmenu"
+                                <table id="tableharga" class="table table-bordered table-striped scrollmenu"
                                     style="width:100%">
                                     <thead class="thead-dark">
                                         <tr>
@@ -114,10 +115,10 @@
                                 <div class="col-12 mb-2">
                                     <div class="row align-items-center">
                                         <div class="col-4 col-md-2">
-                                            <label for="nama_barang">Sub Kategori</label>
+                                            <label for="subkategori">Sub Kategori</label>
                                         </div>
                                         <div class="col-8 col-md-10">
-                                            <input type="text" name="nama_barang" id="nama_barang" class="input w-100"
+                                            <input type="text" name="subkategori" id="subkategori" class="input w-100"
                                                 readonly>
                                         </div>
                                     </div>
