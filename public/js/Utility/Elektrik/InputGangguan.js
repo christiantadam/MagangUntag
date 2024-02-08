@@ -81,6 +81,29 @@ function clearForm() {
     $("#jam_lapor").val(currentTime);
 }
 
+function disableForm() {
+    tanggal.disabled = true;
+    divisi_pelapor1.disabled = true;
+    nama_pelapor.disabled = true;
+    penerima_laporan.disabled = true;
+    jam_lapor.disabled = true;
+    jam_perbaikan.disabled = true;
+    jam_selesai.disabled = true;
+    tipe_gangguan.disabled = true;
+    penyebab.disabled = true;
+    penyelesaian.disabled = true;
+    keterangan.disabled = true;
+    teknisi.disabled = true;
+    gambar1.disabled = true;
+    ket_gambar1.disabled = true;
+    hasil_gambar1.disabled = true;
+    gambar2.disabled = true;
+    ket_gambar2.disabled = true;
+    hasil_gambar2.disabled = true;
+    prosesButton.disabled = true;
+    agree.disabled = true;
+}
+
 // Initially disable all form elements
 tanggal.disabled = true;
 divisi_pelapor1.disabled = true;
@@ -302,12 +325,12 @@ function checkAllFieldsFilled() {
     });
 });
 
-if (tanggal) {
-    var currentDateTime = new Date();
-    var hours = currentDateTime.getHours().toString().padStart(2, "0");
-    var minutes = currentDateTime.getMinutes().toString().padStart(2, "0");
-    var timeString = hours + ":" + minutes;
-}
+// if (tanggal) {
+//     var currentDateTime = new Date();
+//     var hours = currentDateTime.getHours().toString().padStart(2, "0");
+//     var minutes = currentDateTime.getMinutes().toString().padStart(2, "0");
+//     var timeString = hours + ":" + minutes;
+// }
 
 $(document).ready(function () {
     $("#prosesButton").click(function (e) {
@@ -385,6 +408,10 @@ $(document).ready(function () {
                         text: "Data updated successfully.",
                     });
                     dataTable.ajax.reload();
+                    disableForm();
+                    clearForm();
+                    koreksiButton.disabled = false;
+                    hapusButton.disabled = false;
                 } else {
                     // POST request
                     Swal.fire({
@@ -393,30 +420,12 @@ $(document).ready(function () {
                         text: "Data added successfully.",
                     });
                     dataTable.ajax.reload();
+                    disableForm();
+                    clearForm();
+                    koreksiButton.disabled = false;
+                    hapusButton.disabled = false;
+                    inputButton.disabled = false;
                 }
-                $("#id_laporan").val("");
-                $("#divisi_pelapor1").val("");
-                $("#nama_pelapor").val("");
-                $("#penerima_laporan").val("");
-                $("#jam_perbaikan").val("");
-                $("#jam_selesai").val("");
-                $("#tipe_gangguan").val("");
-                $("#penyebab").val("");
-                $("#penyelesaian").val("");
-                $("#keterangan").val("");
-                $("#teknisi").val("");
-                $("#ket_gambar1").val("");
-                $("#gambar1").val("");
-                $("#namagambar1").text("Pilih Gambar 1");
-                $("#hasil_gambar1").removeAttr("src").hide();
-                $("#ket_gambar2").val("");
-                $("#gambar2").val("");
-                $("#namagambar2").text("Pilih Gambar 2");
-                $("#hasil_gambar2").removeAttr("src").hide();
-                var currentDate = moment().format("YYYY-MM-DD");
-                var currentTime = moment().format("HH:mm");
-                $("#tanggal").val(currentDate);
-                $("#jam_lapor").val(currentTime);
             },
             error: function (xhr, status, error) {
                 if (xhr.status === 419) {
@@ -440,6 +449,7 @@ $(document).ready(function () {
         processing: true,
         serverSide: true,
         responsive: true,
+        scrollX: true,
         ajax: {
             url: "/getData",
             type: "GET",
@@ -634,6 +644,8 @@ $(document).ready(function () {
             });
         } else {
             clearForm();
+            inputButton.disabled = false;
+            hapusButton.disabled = false;
 
             console.log("Checkbox is unchecked. Form cleared.");
         }

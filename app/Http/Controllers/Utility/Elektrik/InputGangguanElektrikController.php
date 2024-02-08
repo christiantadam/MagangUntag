@@ -40,10 +40,15 @@ class InputGangguanElektrikController extends Controller
             $penyelesaian = $request->input('penyelesaian');
             $keterangan = $request->input('keterangan');
             $teknisi = $request->input('teknisi');
+            $user_input = Auth::user()->NomorUser;
             $lanjut = $request->input('agree');
             $ketGambar1 = $request->input('ketgambar1');
             $ketGambar2 = $request->input('ketgambar2');
-            $user_input = Auth::user()->NomorUser;
+
+            $datetimeNow = now();
+            $datetimeWithTime1 = $datetimeNow->toDateString() . ' ' . $jamlapor;
+            $datetimeWithTime2 = $datetimeNow->toDateString() . ' ' . $jampelaksanaan;
+            $datetimeWithTime3 = $datetimeNow->toDateString() . ' ' . $jamselesai;
 
             $image = $request->file('gambar1data');
             $imageBinary = null;
@@ -67,16 +72,16 @@ class InputGangguanElektrikController extends Controller
                 $l_div_pelapor,
                 $nama_pelapor,
                 $penerima_laporan,
-                $jamlapor,
-                $jampelaksanaan,
-                $jamselesai,
+                $datetimeWithTime1,
+                $datetimeWithTime2,
+                $datetimeWithTime3,
                 $Type_gangguan,
                 $penyebab,
                 $penyelesaian,
                 $keterangan,
                 $teknisi,
-                $lanjut,
-                $user_input
+                $user_input,
+                $lanjut
             ]);
 
             $insertedId = DB::connection('ConnUtility')->getPdo()->lastInsertId();

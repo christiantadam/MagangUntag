@@ -1,7 +1,7 @@
 //button
 let inputButton = document.getElementById("inputButton");
 let koreksiButton = document.getElementById("koreksiButton");
-let hapusinputButton = document.getElementById("hapusButton");
+let hapusButton = document.getElementById("hapusButton");
 let prosesButton = document.getElementById("prosesButton");
 let batalButton = document.getElementById("batalButton");
 let refreshButton = document.getElementById("refreshButton");
@@ -30,121 +30,181 @@ let hasilgambar9 = document.getElementById("imagePreview9");
 let gambar10 = document.getElementById("gambar10");
 let ketgambar10 = document.getElementById("ketgambar10");
 let hasilgambar10 = document.getElementById("imagePreview10");
+let Id_Gambar = document.getElementById("id_tambahGambar");
 
+let tanggal = document.getElementById("tanggal");
+let sampaiDengan = document.getElementById("sampaiDengan");
 let divisi_pelapor = document.getElementById("divisi_pelapor");
 
-// gambar3.value = "";
-// hasilgambar3.value = "";
 // gambar3.disabled = true;
 // ketgambar3.disabled = true;
-
-// gambar4.value = "";
-// hasilgambar4.value = "";
 // gambar4.disabled = true;
 // ketgambar4.disabled = true;
-
-// gambar5.value = "";
-// hasilgambar5.value = "";
 // gambar5.disabled = true;
 // ketgambar5.disabled = true;
-
-// gambar6.value = "";
-// hasilgambar6.value = "";
 // gambar6.disabled = true;
 // ketgambar6.disabled = true;
-
-// gambar7.value = "";
-// hasilgambar7.value = "";
 // gambar7.disabled = true;
 // ketgambar7.disabled = true;
-
-// gambar8.value = "";
-// hasilgambar8.value = "";
 // gambar8.disabled = true;
 // ketgambar8.disabled = true;
-
-// gambar9.value = "";
-// hasilgambar9.value = "";
 // gambar9.disabled = true;
 // ketgambar9.disabled = true;
-
-// gambar10.value = "";
-// hasilgambar10.value = "";
 // gambar10.disabled = true;
 // ketgambar10.disabled = true;
 
-$("#ketgambar3").val("");
-$("#gambar4").val("");
-$("#ketgambar5").val("");
-$("#hasil_gambar3").attr("src", "");
-$("#hasil_gambar4").attr("src", "");
+function clearForm() {
+    gambar3.value = "";
+    ketgambar3.value = "";
+    $("#imagePreview3").removeAttr("src").hide();
+    $("#namagambar3").text("Pilih Gambar 3");
+    gambar4.value = "";
+    ketgambar4.value = "";
+    $("#imagePreview4").removeAttr("src").hide();
+    $("#namagambar4").text("Pilih Gambar 4");
 
-let tanggal = document.getElementById("bulan");
-let sampaiDengan = document.getElementById("sampaiDengan");
+    gambar5.value = "";
+    ketgambar5.value = "";
+    $("#namagambar5").text("Pilih Gambar 5");
+    $("#imagePreview5").removeAttr("src").hide();
+    gambar6.value = "";
+    ketgambar6.value = "";
+    imagePreview6.value = "";
+    $("#namagambar6").text("Pilih Gambar 6");
+    $("#imagePreview6").removeAttr("src").hide();
+    gambar7.value = "";
+    ketgambar7.value = "";
+    $("#namagambar7").text("Pilih Gambar 7");
+    $("#imagePreview7").removeAttr("src").hide();
+    gambar8.value = "";
+    ketgambar8.value = "";
+    $("#namagambar8").text("Pilih Gambar 8");
+    $("#imagePreview8").removeAttr("src").hide();
+    gambar9.value = "";
+    ketgambar9.value = "";
+    $("#namagambar9").text("Pilih Gambar 9");
+    $("#imagePreview9").removeAttr("src").hide();
+    gambar10.value = "";
+    ketgambar10.value = "";
+    $("#namagambar10").text("Pilih Gambar 10");
+    $("#imagePreview10").removeAttr("src").hide();
+}
+
+function disabledForm() {
+    gambar3.disabled = true;
+    ketgambar3.disabled = true;
+    gambar4.disabled = true;
+    ketgambar4.disabled = true;
+    gambar5.disabled = true;
+    ketgambar5.disabled = true;
+    gambar6.disabled = true;
+    ketgambar6.disabled = true;
+    gambar7.disabled = true;
+    ketgambar7.disabled = true;
+    gambar8.disabled = true;
+    ketgambar8.disabled = true;
+    gambar9.disabled = true;
+    ketgambar9.disabled = true;
+    gambar10.disabled = true;
+    ketgambar10.disabled = true;
+}
+
+function enabledForm() {
+    gambar3.disabled = false;
+    ketgambar3.disabled = false;
+    gambar4.disabled = false;
+    ketgambar4.disabled = false;
+    gambar5.disabled = false;
+    ketgambar5.disabled = false;
+    gambar6.disabled = false;
+    ketgambar6.disabled = false;
+    gambar7.disabled = false;
+    ketgambar7.disabled = false;
+    gambar8.disabled = false;
+    ketgambar8.disabled = false;
+    gambar9.disabled = false;
+    ketgambar9.disabled = false;
+    gambar10.disabled = false;
+    ketgambar10.disabled = false;
+    Id_Gambar.value = "";
+}
+
+for (var i = 3; i <= 10; i++) {
+    // Mendapatkan ID gambar dan button sesuai dengan iterasi
+    var imageId = "gambar" + i;
+    var buttonClass = ".btn-" + i;
+
+    // Menambahkan event listener untuk gambar ke-i
+    (function (currentImageId, currentButtonClass) {
+        document
+            .getElementById(currentImageId)
+            .addEventListener("change", function () {
+                var fileInput = this;
+                var fileName = fileInput.value.split("\\").pop();
+
+                // Menampilkan nama file yang dipilih di label
+                document.querySelector(currentButtonClass).textContent =
+                    fileName;
+
+                // Membaca file gambar yang dipilih
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var imagePreview = document.getElementById(
+                        "imagePreview" + currentImageId.split("gambar")[1]
+                    );
+                    // Menetapkan sumber gambar saat file berhasil dibaca
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.width = "200px";
+                    imagePreview.style.height = "100px";
+                    imagePreview.style.objectFit = "cover";
+                    imagePreview.style.display = "block"; // Menampilkan elemen gambar
+                };
+                reader.readAsDataURL(fileInput.files[0]); // Membaca file sebagai URL data
+            });
+    })(imageId, buttonClass);
+}
 
 if (tanggal && sampaiDengan) {
     var tanggal_akhirOutput = new Date().toISOString().split("T")[0];
-    sampaiDengan.value = tanggal_akhirOutput;
     tanggal.value = tanggal_akhirOutput;
+    sampaiDengan.value = tanggal_akhirOutput;
+
+    var currentDateTime = new Date();
+    var hours = currentDateTime.getHours().toString().padStart(2, "0");
+    var minutes = currentDateTime.getMinutes().toString().padStart(2, "0");
+    var timeString = hours + ":" + minutes;
 }
 
 // Event listener for Input Button
 inputButton.addEventListener("click", function () {
-    $("#ketgambar1").val("");
-    $("#gambar1").val("");
-    $("#gambar2").val("");
-    $("#ketgambar2").val("");
-    $("#hasil_gambar2").attr("src", "");
-    $("#hasil_gambar1").attr("src", "");
+    enabledForm();
+    clearForm();
+    koreksiButton.disabled = true;
 });
 
 batalButton.addEventListener("click", function () {
-    // Disable all input fields and buttons
-    prosesButton.disabled = true;
-    inputButton.disabled = false;
     koreksiButton.disabled = false;
-    hapusinputButton.disabled = false;
-    tanggal.disabled = true;
-    divisi_pelapor1.disabled = true;
-    nama_pelapor.disabled = true;
-    penerima_laporan.disabled = true;
-    jam_lapor.disabled = true;
-    jam_perbaikan.disabled = true;
-    jam_selesai.disabled = true;
-    tipe_gangguan.disabled = true;
-    penyebab.disabled = true;
-    penyelesaian.disabled = true;
-    keterangan.disabled = true;
-    teknisi.disabled = true;
-    gambar1.disabled = true;
-    ket_gambar1.disabled = true;
-    gambar2.disabled = true;
-    ket_gambar2.disabled = true;
-    agree.checked = false;
-    checkbox_tabel.checked = false;
-    agree.disabled = true;
-
-    // $("#id_laporan").val("");
-    //$("#tanggal").val("");
-    $("#divisi_pelapor1").val("");
-    $("#nama_pelapor").val("");
-    $("#penerima_laporan").val("");
-    //$("#jam_lapor").val("");
-    $("#jam_perbaikan").val("");
-    $("#jam_selesai").val("");
-    $("#tipe_gangguan").val("");
-    $("#penyebab").val("");
-    $("#penyelesaian").val("");
-    $("#keterangan").val("");
-    $("#teknisi").val("");
-    $("#ket_gambar1").val("");
-    $("#gambar1").val("");
-    $("#gambar2").val("");
-    $("#ket_gambar2").val("");
-    $("#hasil_gambar2").attr("src", "");
-    $("#hasil_gambar1").attr("src", "");
+    disabledForm();
+    clearForm();
 });
+var requestMethod = "POST";
 
+koreksiButton.addEventListener("click", function () {
+    var checkedCheckboxes = $(".checkboxgambar:checked");
+
+    if (checkedCheckboxes.length === 0) {
+        disabledForm();
+        Swal.fire(
+            "Pilih data yang akan dikoreksi terlebih dahulu",
+            "",
+            "warning"
+        );
+        return;
+    } else {
+        enabledForm();
+        requestMethod = "UPDATE";
+    }
+});
 $(document).ready(function () {
     var timeRenderer = function (data, type, full, meta) {
         var date = new Date(data);
@@ -213,14 +273,118 @@ $(document).ready(function () {
         console.log(dataTable);
     });
 
+    var id;
+
     $("tbody").on("click", ".checkboxgambar", function () {
         if ($(this).prop("checked")) {
-            hapusButton.disabled = false;
             koreksiButton.disabled = false;
-            var id = $(this).val();
+            id = {
+                idTambahGambar: $(this).val(),
+            };
+            var id_tambahGambar = $(this).val();
+            console.log(id_tambahGambar);
 
-            console.log(id);
+            var imageNames = [
+                "Gambar3",
+                "Gambar4",
+                "Gambar5",
+                "Gambar6",
+                "Gambar7",
+                "Gambar8",
+                "Gambar9",
+                "Gambar10",
+            ];
+
+            $.ajax({
+                type: "GET",
+                url: "/checkData",
+                data: { Id: id.idTambahGambar },
+                success: function (response) {
+                    // console.log(response);
+                    if (response.status === 404) {
+                        Swal.fire({
+                            icon: "warning",
+                            title: response.message,
+                            showConfirmButton: false,
+                            timer: 1500,
+                        });
+                        clearForm();
+                        disabledForm();
+                        Id_Gambar.value = "";
+                        $(".checkboxgambar:checked").prop("checked", false);
+                    } else {
+                        $(".checkboxgambar:checked").prop("checked", true);
+                    }
+                },
+            });
+
+            imageNames.forEach(function (imageName, index) {
+                $.ajax({
+                    url: `/SelectImages/${id.idTambahGambar}/${imageName}`,
+                    method: "GET",
+                    xhrFields: {
+                        responseType: "blob",
+                    },
+                    success: function (data, status, xhr) {
+                        displayImage(data, `imagePreview${index + 3}`);
+                        updateFileInput(gambar3, data["Gambar3"]);
+                        updateFileInput(gambar4, data["Gambar4"]);
+                        updateFileInput(gambar5, data["Gambar5"]);
+                        updateFileInput(gambar6, data["Gambar6"]);
+                        updateFileInput(gambar7, data["Gambar7"]);
+                        updateFileInput(gambar8, data["Gambar8"]);
+                        updateFileInput(gambar9, data["Gambar9"]);
+                        updateFileInput(gambar10, data["Gambar10"]);
+
+                        var keterangan =
+                            xhr.getResponseHeader("Image-Description");
+
+                        if (index === 0) {
+                            ketgambar3.value = keterangan;
+                        } else if (index === 1) {
+                            ketgambar4.value = keterangan;
+                        } else if (index === 2) {
+                            ketgambar5.value = keterangan;
+                        } else if (index === 3) {
+                            ketgambar6.value = keterangan;
+                        } else if (index === 4) {
+                            ketgambar7.value = keterangan;
+                        } else if (index === 5) {
+                            ketgambar8.value = keterangan;
+                        } else if (index === 6) {
+                            ketgambar9.value = keterangan;
+                        } else if (index === 7) {
+                            ketgambar10.value = keterangan;
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error:", status, error);
+                    },
+                });
+            });
+
+            function displayImage(data, containerId) {
+                var blob = new Blob([data], { type: "image/*" });
+                var objectURL = URL.createObjectURL(blob);
+
+                $("#" + containerId).html(
+                    `<img src="${objectURL}" alt="Image">`
+                );
+
+                $("#" + containerId)
+                    .attr("src", objectURL)
+                    .show();
+            }
+
+            function updateFileInput(_fileInput, imageData) {
+                var blob = new Blob([imageData], { type: "image/*" });
+                var fileName = "image.jpg";
+                var file = new File([blob], fileName);
+
+                _fileInput = [file];
+            }
         } else {
+            clearForm();
         }
     });
 
@@ -228,24 +392,25 @@ $(document).ready(function () {
         e.preventDefault();
 
         // Ambil nilai-nilai form
-        var ketgambar3Value = $("#ket_gambar3").val();
-        var ketgambar4Value = $("#ket_gambar4").val();
-        var ketgambar3Value = $("#ket_gambar5").val();
-        var ketgambar4Value = $("#ket_gambar6").val();
-        var ketgambar3Value = $("#ket_gambar7").val();
-        var ketgambar4Value = $("#ket_gambar8").val();
-        var ketgambar3Value = $("#ket_gambar9").val();
-        var ketgambar4Value = $("#ket_gambar10").val();
+        var idValue = id.idTambahGambar;
+        var ketgambar3Value = $("#ketgambar3").val();
+        var ketgambar4Value = $("#ketgambar4").val();
+        var ketgambar5Value = $("#ketgambar5").val();
+        var ketgambar6Value = $("#ketgambar6").val();
+        var ketgambar7Value = $("#ketgambar7").val();
+        var ketgambar8Value = $("#ketgambar8").val();
+        var ketgambar9Value = $("#ketgambar9").val();
+        var ketgambar10Value = $("#ketgambar10").val();
 
         // Ambil file gambar
         var gambar3data = document.getElementById("gambar3").files[0];
         var gambar4data = document.getElementById("gambar4").files[0];
-        var gambar3data = document.getElementById("gambar5").files[0];
-        var gambar4data = document.getElementById("gambar6").files[0];
-        var gambar3data = document.getElementById("gambar7").files[0];
-        var gambar4data = document.getElementById("gambar8").files[0];
-        var gambar3data = document.getElementById("gambar9").files[0];
-        var gambar4data = document.getElementById("gambar10").files[0];
+        var gambar5data = document.getElementById("gambar5").files[0];
+        var gambar6data = document.getElementById("gambar6").files[0];
+        var gambar7data = document.getElementById("gambar7").files[0];
+        var gambar8data = document.getElementById("gambar8").files[0];
+        var gambar9data = document.getElementById("gambar9").files[0];
+        var gambar10data = document.getElementById("gambar10").files[0];
 
         // Buat objek FormData
         var formData = new FormData();
@@ -266,32 +431,47 @@ $(document).ready(function () {
         formData.append("gambar10data", gambar10data);
         formData.append("ketgambar10", ketgambar10Value);
 
-        if (id_laporanValue) {
-            requestData.Idlaporan = id_laporanValue;
+        if (idValue) {
+            formData.append("Id", idValue);
         }
         console.log("FormData:", formData);
 
         // Membuat permintaan AJAX
         $.ajax({
-            url: id_laporanValue ? "/updateDataGambar" : "/postDataGambar",
-            type: id_laporanValue ? "PUT" : "POST",
+            url:
+                requestMethod === "UPDATE"
+                    ? "/updateTambahGambar"
+                    : "/postTambahGambar",
+            type: requestMethod === "UPDATE" ? "POST" : "POST",
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
             },
             data: formData,
             processData: false,
             contentType: false,
-
             success: function (response) {
-                console.log(response);
+                // console.log(response);
+                clearForm();
                 dataTable.ajax.reload();
-                console.log("Gambar berhasil disimpan.");
+                // console.log("Gambar berhasil disimpan.");
+                requestMethod === "UPDATE"
+                    ? Swal.fire({
+                          icon: "success",
+                          title: response.message,
+                          showConfirmButton: false,
+                          timer: 1500,
+                      })
+                    : Swal.fire({
+                          icon: "success",
+                          title: response.message,
+                          showConfirmButton: false,
+                          timer: 1500,
+                      });
             },
             error: function (xhr, status, error) {
                 if (xhr.status === 419) {
                     console.log("Sesi tidak valid. Silakan login kembali.");
                 } else {
-                    // Penanganan kesalahan lainnya
                     console.log("Terjadi kesalahan saat menyimpan gambar.");
                 }
             },

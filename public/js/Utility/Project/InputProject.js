@@ -21,8 +21,8 @@ let ket_gambar1 = document.getElementById("ket_gambar1");
 let gambar2 = document.getElementById("gambar2");
 let ket_gambar2 = document.getElementById("ket_gambar2");
 let user_input = document.getElementById("user_input");
-let keterangan1 = document.getElementById("keterangan1");
-let keterangan2 = document.getElementById("keterangan2");
+let keterangan_selesai = document.getElementById("keterangan_selesai");
+let keterangan_progress = document.getElementById("keterangan_progress");
 let imagePreviewContainer1 = document.getElementById("imagePreviewContainer1");
 let imagePreviewContainer2 = document.getElementById("imagePreviewContainer2");
 let id = document.getElementById("id");
@@ -40,8 +40,8 @@ gambar1.disabled = true;
 ket_gambar1.disabled = true;
 ket_gambar2.disabled = true;
 gambar2.disabled = true;
-keterangan1.disabled = true;
-keterangan2.disabled = true;
+keterangan_selesai.disabled = true;
+keterangan_progress.disabled = true;
 prosesButton.disabled = true;
 
 function checkAllFieldsFilled() {
@@ -57,6 +57,68 @@ function checkAllFieldsFilled() {
         perbaikan.value.trim() !== ""
     );
 }
+
+function clearForm() {
+    var currentDate = moment().format("YYYY-MM-DD");
+
+    $("#id").val("");
+    $("#nama_project").val("");
+    $("#nama_mesin").val("");
+    $("#merk_mesin").val("");
+    $("#lokasi_mesin").val("");
+    $("#tahun_pembuatan").val("");
+    $("#tanggal_mulai").val(currentDate);
+    $("#tanggal_selesai").val(currentDate);
+    $("#keterangan_kerusakan").val("");
+    $("#perbaikan").val("");
+    $("#ket_gambar1").val("");
+    $("#ket_gambar2").val("");
+    $("#hasil_gambar1").removeAttr("src").hide();
+    $("#hasil_gambar2").removeAttr("src").hide();
+}
+
+function disabled() {
+    tanggal_mulai.disabled = true;
+    tanggal_selesai.disabled = true;
+    nama_project.disabled = true;
+    nama_mesin.disabled = true;
+    merk_mesin.disabled = true;
+    lokasi_mesin.disabled = true;
+    tahun_pembuatan.disabled = true;
+    keterangan_kerusakan.disabled = true;
+    perbaikan.disabled = true;
+    gambar1.disabled = true;
+    ket_gambar1.disabled = true;
+    ket_gambar2.disabled = true;
+    gambar2.disabled = true;
+    keterangan1.disabled = true;
+    keterangan2.disabled = true;
+    prosesButton.disabled = true;
+}
+
+function toggleFormAndCheckbox() {
+    // Check if all forms are enabled
+    const isAllFormsEnabled =
+        !tanggal_mulai.disabled &&
+        !tanggal_selesai.disabled &&
+        !nama_project.disabled &&
+        !nama_mesin.disabled &&
+        !merk_mesin.disabled &&
+        !lokasi_mesin.disabled &&
+        !tahun_pembuatan.disabled &&
+        !keterangan_kerusakan.disabled &&
+        !perbaikan.disabled &&
+        !gambar1.disabled &&
+        !ket_gambar1.disabled &&
+        !ket_gambar2.disabled &&
+        !gambar2.disabled &&
+        !keterangan1.disabled &&
+        !keterangan2.disabled;
+
+    // Toggle checkbox_project based on the status of all forms
+    $(".checkbox_project").prop("disabled", isAllFormsEnabled);
+}
+toggleFormAndCheckbox();
 
 // Add event listeners to enable/disable prosesButton based on input field values
 [
@@ -78,8 +140,8 @@ function checkAllFieldsFilled() {
 $(document).ready(function () {
     $("#koreksiButton").click(function (e) {
         console.log("koreksi Button Clicked");
-        // inputButton.disabled = true;
-        // hapusButton.disabled = true;
+        inputButton.disabled = true;
+        hapusButton.disabled = true;
         tanggal_mulai.disabled = false;
         tanggal_selesai.disabled = false;
         nama_project.disabled = false;
@@ -93,8 +155,8 @@ $(document).ready(function () {
         gambar2.disabled = false;
         ket_gambar2.disabled = false;
         ket_gambar1.disabled = false;
-        keterangan1.disabled = false;
-        keterangan2.disabled = false;
+        keterangan_selesai.disabled = false;
+        keterangan_progress.disabled = false;
 
         var checkedCheckboxes = $(".checkbox_project:checked");
 
@@ -114,8 +176,8 @@ $(document).ready(function () {
             gambar2.disabled = true;
             ket_gambar2.disabled = true;
             ket_gambar1.disabled = true;
-            keterangan1.disabled = true;
-            keterangan2.disabled = true;
+            keterangan_selesai.disabled = true;
+            keterangan_progress.disabled = true;
             Swal.fire(
                 "Pilih data yang akan dikoreksi terlebih dahulu",
                 "",
@@ -199,6 +261,9 @@ $(document).ready(function () {
         var ketgambar1Value = $("#ket_gambar1").val();
         var ketgambar2Value = $("#ket_gambar2").val();
 
+        keteranganValue =
+            keteranganValue !== undefined ? keteranganValue : null;
+
         var formData = new FormData();
 
         formData.append("nama_project", nama_projectValue);
@@ -263,16 +328,11 @@ $(document).ready(function () {
                         text: "Data added successfully.",
                     });
                 }
-                $("#id").val("");
-                $("#nama_project").val("");
-                $("#nama_mesin").val("");
-                $("#merk_mesin").val("");
-                $("#lokasi_mesin").val("");
-                $("#tahun_pembuatan").val("");
-                $("#tanggal_mulai").val(currentDate);
-                $("#tanggal_selesai").val(currentDate);
-                $("#keterangan_kerusakan").val("");
-                $("#perbaikan").val("");
+                clearForm();
+                disabled();
+                inputButton.disabled = false;
+                hapusButton.disabled = false;
+                koreksiButton.disabled = false;
             },
         });
     });
@@ -288,6 +348,8 @@ $(document).ready(function () {
         processing: true,
         serverSide: true,
         responsive: true,
+        scrollX: true,
+
         ajax: {
             url: "/getDataProject",
             type: "GET",
@@ -357,23 +419,13 @@ $(document).ready(function () {
         ket_gambar1.disabled = true;
         gambar2.disabled = true;
         ket_gambar2.disabled = true;
-        keterangan1.disabled = true;
-        keterangan2.disabled = true;
+        keterangan_selesai.disabled = true;
+        keterangan_progress.disabled = true;
+        document.getElementById("keterangan_progress").checked = false;
+        document.getElementById("keterangan_selesai").checked = false;
+
         dataTable.clear().draw();
-        //$("#tanggal_mulai").val("");
-        //$("#tanggal_selesai").val("");
-        $("#nama_project").val("");
-        $("#nama_mesin").val("");
-        $("#merk_mesin").val("");
-        $("#lokasi_mesin").val("");
-        $("#tahun_pembuatan").val("");
-        $("#keterangan_kerusakan").val("");
-        $("#perbaikan").val("");
-        $("#keterangan1").val("");
-        $("#keterangan2").val("");
-        $("#id").val("");
-        $("#hasil_gambar1").removeAttr("src").hide();
-        $("#hasil_gambar2").removeAttr("src").hide();
+        clearForm();
     });
 
     inputButton.addEventListener("click", function () {
@@ -393,20 +445,13 @@ $(document).ready(function () {
         gambar2.disabled = false;
         ket_gambar2.disabled = false;
         ket_gambar1.disabled = false;
-        keterangan1.disabled = false;
-        keterangan2.disabled = false;
-        dataTable.clear().draw();
+        keterangan_selesai.disabled = false;
+        keterangan_progress.disabled = false;
+        //dataTable.clear().draw();
+        $(".checkbox_project").prop("checked", false);
+        $(".checkbox_project").prop("disabled", true);
 
-        // $("#tanggal_mulai").val("");
-        // $("#tanggal_selesai").val("");
-        $("#nama_project").val("");
-        $("#nama_mesin").val("");
-        $("#merk_mesin").val("");
-        $("#lokasi_mesin").val("");
-        $("#tahun_pembuatan").val("");
-        $("#keterangan_kerusakan").val("");
-        $("#perbaikan").val("");
-        $("#id").val("");
+        clearForm();
     });
 
     // Inisialisasi DataTable
@@ -497,10 +542,11 @@ $(document).ready(function () {
                     var TglMulai = new Date(data.TglMulai);
                     var offset = TglMulai.getTimezoneOffset();
                     TglMulai.setMinutes(TglMulai.getMinutes() - offset);
-
+                    var keteranganValue = data.Keterangan;
                     var TglSelesai = new Date(data.TglSelesai);
                     var offset = TglSelesai.getTimezoneOffset();
                     TglSelesai.setMinutes(TglSelesai.getMinutes() - offset);
+
                     $("#nama_project").val(data.NamaProject);
                     $("#nama_mesin").val(data.NamaMesin);
                     $("#merk_mesin").val(data.MerkMesin);
@@ -515,6 +561,24 @@ $(document).ready(function () {
                     $("#keterangan_kerusakan").val(data.KeteranganKerja);
                     $("#perbaikan").val(data.Perbaikan);
 
+                    if (keteranganValue === "Selesai") {
+                        $("#keterangan_selesai").prop("checked", true);
+                    } else if (keteranganValue === "Progress") {
+                        $("#keterangan_progress").prop("checked", true);
+                    } else {
+                        // Handle the case where data.Keterangan is neither 'selesai' nor 'progress'
+                        console.error(
+                            "Invalid value for data.Keterangan:",
+                            keteranganValue
+                        );
+                    }
+                    $("input[name='keterangan']").change(function () {
+                        // Update data.Keterangan based on the selected radio button
+                        data.Keterangan = $(
+                            "input[name='keterangan']:checked"
+                        ).val();
+                        console.log("Selected Keterangan: ", data.Keterangan);
+                    });
                     console.log(
                         "Selected id_laporan: ",
                         id,
@@ -535,17 +599,10 @@ $(document).ready(function () {
                 },
             });
         } else {
-            var currentDate = moment().format("YYYY-MM-DD");
+            document.getElementById("keterangan_progress").checked = false;
+            document.getElementById("keterangan_selesai").checked = false;
 
-            $("#nama_project").val("");
-            $("#nama_mesin").val("");
-            $("#merk_mesin").val("");
-            $("#lokasi_mesin").val("");
-            $("#tahun_pembuatan").val("");
-            $("#tanggal_mulai").val(currentDate);
-            $("#tanggal_selesai").val(currentDate);
-            $("#keterangan_kerusakan").val("");
-            $("#perbaikan").val("");
+            clearForm();
         }
     });
 
@@ -565,7 +622,7 @@ $(document).ready(function () {
                     // console.log(selectedData.UserId);
                     // console.log(selectedData.id_laporan);
                     //var nomorUserFromAPI = response.NomorUser;
-                    var nomorUserFromAPI = "4384";
+                    var nomorUserFromAPI = "4378";
                     console.log(nomorUserFromAPI);
 
                     // Ambil UserId dari selectedData

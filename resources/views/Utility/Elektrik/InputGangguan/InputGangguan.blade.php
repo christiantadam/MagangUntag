@@ -3,7 +3,7 @@
     <div class="container-fluid">
         {{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
         <div class="row justify-content-center">
-            <div class="col-md-10 RDZMobilePaddingLR0">
+            <div class="col-md-20 RDZMobilePaddingLR0">
                 <div class="card">
                     <div class="card-header">Gangguan Elektrik</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
@@ -29,12 +29,11 @@
                                         <input type="text" name="nama_pelapor" id="penerima_laporan"
                                             class="form-control mb-2" placeholder="">
                                         <div class="jam_lapor mb-2">Jam Lapor</div>
-                                        <input type="time" name="tanggal_dibutuhkan" id="jam_lapor" class="input mb-3">
+                                        <input type="time" name="jam_lapor" id="jam_lapor" class="input mb-3">
                                         <div class="jam_lapor mb-2">Jam Perbaikan</div>
-                                        <input type="time" name="tanggal_dibutuhkan" id="jam_perbaikan"
-                                            class="input mb-3">
+                                        <input type="time" name="jam_perbaikan" id="jam_perbaikan" class="input mb-3">
                                         <div class="jam_lapor mb-2">Jam Selesai</div>
-                                        <input type="time" name="tanggal_dibutuhkan" id="jam_selesai" class="input mb-3">
+                                        <input type="time" name="jam_selesai" id="jam_selesai" class="input mb-3">
                                     </div>
                                 </div>
                                 <div class="col-3 p-4">
@@ -121,7 +120,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div>
+                        <div class="table-responsive">
                             <table class="table" id="tabel_input_gangguan">
                                 <thead class="thead-dark">
                                     <tr>

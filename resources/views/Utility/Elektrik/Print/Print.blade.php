@@ -27,7 +27,7 @@
                             <button type="button" style="" class="btn btn-primary ml-3"
                                 id="refreshButton">Refresh</button>
                         </div>
-                        <div id="div_tablePO" class="acs-form3">
+                        <div class="table-responsive">
                             <table class="table" id="tabel_print">
                                 <thead class="thead-dark">
                                     <tr>

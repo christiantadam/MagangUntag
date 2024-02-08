@@ -115,6 +115,7 @@ $(document).ready(function () {
         processing: true,
         serverSide: true,
         responsive: true,
+        // scrollX: true,
         ajax: {
             url: "/getDataBulanan",
             method: "GET",

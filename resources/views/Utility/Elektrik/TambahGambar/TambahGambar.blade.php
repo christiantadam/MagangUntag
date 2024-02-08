@@ -30,7 +30,7 @@
                                 <button id="refreshButton" class="btn btn-primary">Refresh</button>
                             </div>
                         </div>
-                        <div id="div_tablePO" class="acs-form3 mt-4">
+                        <div class="acs-form3 mt-4">
                             <table class="table" id="tabel_gambar">
                                 <thead class="thead-dark">
                                     <tr>

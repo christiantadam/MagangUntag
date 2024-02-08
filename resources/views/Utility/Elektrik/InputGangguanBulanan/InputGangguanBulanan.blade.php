@@ -57,23 +57,26 @@
                                     </div>
                                 </div>
                             </div>
-                            <table class="table" id="table-elektrik-bulanan">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th scope="col"><input type="checkbox" name="" id=""></th>
-                                        <th scope="col">Bulan </th>
-                                        <th scope="col">Nama </th>
-                                        <th scope="col">Pabrik</th>
-                                        <th scope="col">Masalah</th>
-                                        <th scope="col">Solusi</th>
-                                        <th scope="col">Status</th>
+                            <div class="table-responsive">
 
-                                    </tr>
-                                </thead>
-                                <tbody>
+                                <table class="table" id="table-elektrik-bulanan">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th scope="col"><input type="checkbox" name="" id=""></th>
+                                            <th scope="col">Bulan </th>
+                                            <th scope="col">Nama </th>
+                                            <th scope="col">Pabrik</th>
+                                            <th scope="col">Masalah</th>
+                                            <th scope="col">Solusi</th>
+                                            <th scope="col">Status</th>
 
-                                </tbody>
-                            </table>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
                             <div class="row-12 d-flex flex-wrap">
                                 <div class="col-12">
                                     <div class="d-flex  p-2 justify-content-end">
