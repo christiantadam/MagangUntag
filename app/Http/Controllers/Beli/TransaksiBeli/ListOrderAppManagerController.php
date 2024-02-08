@@ -21,25 +21,30 @@ class ListOrderAppManagerController extends Controller
     }
     public function redisplay(Request $request)
     {
-        $noTrans = $request->input('noTrans');
-        $kd = $request->input('kd');
-        $requester = $request->input('requester');
-
-        if (($noTrans != null) || ($kd != null) || ($requester != null)) {
+        $kd = 10;
+        $Kd_Div = $request->input('Kd_Div');
+        $stBeli = $request->input('stBeli');
+        $MinDate = $request->input('MinDate');
+        $MaxDate = $request->input('MaxDate');
+        if (($Kd_Div != null) && ($stBeli != null) && ($MinDate != null) && ($MaxDate != null)) {
             try {
-                if ($kd == 11) {
-                    $redisplay = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @noTrans = ?, @kd = ?', [$noTrans, $kd]);
-                } else if ($kd == 23) {
-                    $redisplay = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @requester = ?, @kd = ?', [$requester, $kd]);
-                } else if ($kd == 24) {
-                    $redisplay = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd = ?', [$kd]);
-                }
+                $redisplay = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @stBeli=?, @Kd_Div = ?, @kd = ?, @MinDate = ?, @MaxDate = ?', [$stBeli, $Kd_Div, $kd, $MinDate, $MaxDate]);
                 return datatables($redisplay)->make(true);
-            } catch (\Throwable $Error) {
+              } catch (\Throwable $Error) {
                 return Response()->json($Error);
             }
         } else {
             return Response()->json('Parameter harus di isi');
+        }
+    }
+    public function divisi()
+    {
+        $Operator = '1001';
+        try {
+            $data = DB::connection('ConnPurchase')->select('exec spSelect_UserDivisi_dotNet @Operator = ?, @kd = ?', [$Operator, 1]);
+            return Response()->json($data);
+        } catch (\Throwable $Error) {
+            return Response()->json($Error);
         }
     }
     //Show the form for creating a new resource.
@@ -69,7 +74,6 @@ class ListOrderAppManagerController extends Controller
     //Update the specified resource in storage.
     public function update(Request $request)
     {
-
     }
 
     //Remove the specified resource from storage.
