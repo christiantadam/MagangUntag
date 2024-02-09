@@ -59,69 +59,41 @@
                                     <!-- Bagian formulir dan pratinjau gambar -->
                                     <div class="col-4">
                                         @for ($i = 3; $i <= 6; $i++)
-                                            <form id="uploadForm{{ $i }}" action="/upload" method="post"
-                                                enctype="multipart/form-data" class="mb-1">
-                                                @csrf
-                                                <label for="fileInput{{ $i }}" class="btn btn-link mt-2">Pilih
-                                                    Gambar
-                                                    {{ $i }}</label>
-                                                <input type="file" id="fileInput{{ $i }}"
-                                                    name="fileInput{{ $i }}" style="display: none;"
-                                                    accept="image/*">
-                                            </form>
+                                            <label for="gambar{{ $i }} " id="namagambar{{ $i }}"
+                                                class="btn btn-link btn-{{ $i }} mt-2">Pilih
+                                                Gambar
+                                                {{ $i }}</label>
+                                            <input type="file" id="gambar{{ $i }}"
+                                                name="gambar{{ $i }}" style="display: none;" accept="image/*">
+
                                             <div id="imagePreviewContainer{{ $i }}">
                                                 <img id="imagePreview{{ $i }}" src=""
                                                     alt="Preview {{ $i }}"
                                                     style="display: none; max-width: 100%; height: auto;">
                                             </div>
-                                            <div class="nama_pelapor">Ket. Gambar {{ $i }}</div>
-                                            <input type="text" name="nama_pelapor{{ $i }}"
-                                                id="nama_pelapor{{ $i }}" class="mb-1">
-                                            <script>
-                                                // Event listener untuk Gambar {{ $i }}
-                                                (function(i) {
-                                                    document.getElementById('fileInput{{ $i }}').addEventListener('change', function() {
-                                                        var fileInput = this;
-                                                        var fileName = fileInput.value.split('\\').pop();
-
-                                                        // Menampilkan nama file yang dipilih di label
-                                                        document.querySelector('.btn-link').textContent = fileName;
-
-                                                        // Membaca file gambar yang dipilih
-                                                        var reader = new FileReader();
-                                                        reader.onload = function(e) {
-                                                            var imagePreview = document.getElementById('imagePreview{{ $i }}');
-                                                            // Menetapkan sumber gambar saat file berhasil dibaca
-                                                            imagePreview.src = e.target.result;
-                                                            imagePreview.style.display = 'block'; // Menampilkan elemen gambar
-                                                        };
-                                                        reader.readAsDataURL(fileInput.files[0]); // Membaca file sebagai URL data
-                                                    });
-                                                })({{ $i }});
-                                            </script>
+                                            <div class="ketgambar">Ket. Gambar {{ $i }}</div>
+                                            <input type="text" name="ketgambar{{ $i }}"
+                                                id="ketgambar{{ $i }}" class="mb-1">
                                         @endfor
                                     </div>
 
                                     <div class="col-4">
                                         @for ($i = 7; $i <= 10; $i++)
-                                            <form id="uploadForm{{ $i }}" action="/upload" method="post"
-                                                enctype="multipart/form-data" class="mb-1">
-                                                @csrf
-                                                <label for="fileInput{{ $i }}" class="btn btn-link mt-2">Pilih
-                                                    Gambar
-                                                    {{ $i }}</label>
-                                                <input type="file" id="fileInput{{ $i }}"
-                                                    name="fileInput{{ $i }}" style="display: none;"
-                                                    accept="image/*">
-                                            </form>
-                                            <div class="nama_pelapor">Ket. Gambar {{ $i }}</div>
-                                            <input type="text" name="nama_pelapor{{ $i }}"
-                                                id="nama_pelapor{{ $i }}" class="mb-1">
+                                            <label for="gambar{{ $i }} " id="namagambar{{ $i }}"
+                                                class="btn btn-link btn-{{ $i }} mt-2">Pilih
+                                                Gambar
+                                                {{ $i }}</label>
+                                            <input type="file" id="gambar{{ $i }}"
+                                                name="gambar{{ $i }}" style="display: none;" accept="image/*">
+
                                             <div id="imagePreviewContainer{{ $i }}">
                                                 <img id="imagePreview{{ $i }}" src=""
                                                     alt="Preview {{ $i }}"
                                                     style="display: none; max-width: 100%; height: auto;">
                                             </div>
+                                            <div class="ketgambar">Ket. Gambar {{ $i }}</div>
+                                            <input type="text" name="ketgambar{{ $i }}"
+                                                id="ketgambar{{ $i }}" class="mb-1">
                                         @endfor
                                     </div>
                                     <div class="col-2">

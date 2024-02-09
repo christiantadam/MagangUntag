@@ -442,7 +442,7 @@ $(document).ready(function () {
         processing: true,
         serverSide: true,
         responsive: true,
-        scrollX: true,
+        // scrollX: true,
         ajax: {
             url: "/getData",
             type: "GET",

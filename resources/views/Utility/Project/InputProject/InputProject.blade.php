@@ -129,7 +129,7 @@
                             <button type="button" style="" class="btn btn-primary ml-3"
                                 id="refreshButton">Refresh</button>
                         </div>
-                        <div id="div_tablePO" class="acs-form3">
+                        <div id="div_tablePO" class="table-responsive">
                             <table class="table" id="tabel_input_project">
                                 <thead class="thead-dark">
                                     <tr>
