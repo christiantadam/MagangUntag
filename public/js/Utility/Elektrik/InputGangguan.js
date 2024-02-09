@@ -75,10 +75,6 @@ function clearForm() {
     $("#gambar2").val("");
     $("#namagambar2").text("Pilih Gambar 2");
     $("#hasil_gambar2").removeAttr("src").hide();
-    var currentDate = moment().format("YYYY-MM-DD");
-    var currentTime = moment().format("HH:mm");
-    $("#tanggal").val(currentDate);
-    $("#jam_lapor").val(currentTime);
 }
 
 function disableForm() {
@@ -153,8 +149,6 @@ inputButton.addEventListener("click", function () {
     tabel_input_gangguan.disabled = true;
     agree.disabled = false;
     clearForm();
-    $(".checkbox_elektrik").prop("checked", false);
-    $(".checkbox_elektrik").prop("disabled", true);
 });
 
 batalButton.addEventListener("click", function () {
@@ -183,8 +177,6 @@ batalButton.addEventListener("click", function () {
     checkbox_tabel.checked = false;
     agree.disabled = true;
     clearForm();
-    $(".checkbox_elektrik").prop("checked", false);
-    $(".checkbox_elektrik").prop("disabled", false);
 });
 
 koreksiButton.addEventListener("click", function () {
@@ -216,15 +208,13 @@ koreksiButton.addEventListener("click", function () {
         );
         return; // Stop the function execution
     } else {
-        tanggal.disabled = true;
-        divisi_pelapor1.disabled = true;
-        nama_pelapor.disabled = true;
-        penerima_laporan.disabled = true;
-        jam_lapor.disabled = true;
-
-        inputButton.disabled = true;
         prosesButton.disabled = false;
         hapusButton.disabled = true;
+        tanggal.disabled = false;
+        divisi_pelapor1.disabled = false;
+        nama_pelapor.disabled = false;
+        penerima_laporan.disabled = false;
+        jam_lapor.disabled = false;
         jam_perbaikan.disabled = false;
         jam_selesai.disabled = false;
         tipe_gangguan.disabled = false;
@@ -426,6 +416,9 @@ $(document).ready(function () {
                     hapusButton.disabled = false;
                     inputButton.disabled = false;
                 }
+                clearForm();
+                dataTable.ajax.reload();
+                console.log("Data berhasil disimpan.");
             },
             error: function (xhr, status, error) {
                 if (xhr.status === 419) {
@@ -503,7 +496,6 @@ $(document).ready(function () {
     });
 
     var selectedId;
-    var selectedUser;
 
     $("tbody").on("click", ".checkbox_elektrik", function () {
         if ($(this).prop("checked")) {
@@ -622,26 +614,6 @@ $(document).ready(function () {
                 selectedData.Keterangan,
                 selectedData.Teknisi
             );
-
-            $.ajax({
-                url: "/getDataElektrikId",
-                type: "GET",
-                data: { UP: selectedData.Id_Laporan },
-                success: function (data) {
-                    console.log("Data received:", data);
-                    console.log(
-                        "Selected user pelapor: ",
-
-                        data.User_pelapor
-                    );
-                    selectedUser = {
-                        user_pelapor: data.User_pelapor,
-                    };
-                },
-                error: function (xhr, status, error) {
-                    console.error("Error fetching data:", error);
-                },
-            });
         } else {
             clearForm();
             inputButton.disabled = false;
@@ -653,107 +625,57 @@ $(document).ready(function () {
 
     // Menangani klik pada checkbox di setiap baris
 
-    $(document).ready(function () {
-        // Inisialisasi DataTable
-        var dataTable = $("#tabel_input_gangguan").DataTable();
+    // Menangani klik pada tombol hapus
+    $("#hapusButton").click(function (e) {
+        var Token = $('meta[name="csrf-Token"]').attr("content");
+        // Dapatkan checkbox tercentang di dalam baris yang dipilih
+        var checkboxValues = $(".checkbox_elektrik:checked")
+            .map(function () {
+                return this.value;
+            })
+            .get();
+        if (checkboxValues.length > 0) {
+            Swal.fire({
+                title: "Anda yakin untuk menghapus data?",
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: "Ya",
+                denyButtonText: "Tidak",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    var requestData = {
+                        id: checkboxValues,
+                    };
 
-        $("tbody").on("click", ".checkbox_elektrik", function () {
-            if ($(this).prop("checked")) {
-                //var id = $(this).val();
-                var user_pelapor = $(this).data("user_pelapor");
-                selectedData = {
-                    User: user_pelapor,
-                    //id_laporan: id,
-                };
-
-                hapusButton.disabled = false;
-                koreksiButton.disabled = false;
-                //$("#id").val(id);
-            }
-        });
-
-        // Menangani klik pada tombol hapus
-        $("#hapusButton").click(function (e) {
-            var Token = $('meta[name="csrf-Token"]').attr("content");
-            // Dapatkan checkbox tercentang di dalam baris yang dipilih
-
-            if (selectedUser) {
-                $.ajax({
-                    url: "/getUserId", // Gantilah dengan endpoint yang sesuai
-                    method: "GET",
-                    success: function (response) {
-                        // console.log(response.NomorUser);
-                        // console.log(selectedData.UserId);
-                        // console.log(selectedData.id_laporan);
-                        let nomorUserFromAPI = response.NomorUser.trim();
-                        //var nomorUserFromAPI = "4384";
-
-                        // Ambil UserId dari selectedData
-                        var userIdFromSelectedData = selectedUser.user_pelapor;
-                        console.log(userIdFromSelectedData);
-                        console.log(nomorUserFromAPI, ",");
-
-                        // Periksa apakah NomorUser dari API response sama dengan UserId dari selectedData
-                        if (nomorUserFromAPI === userIdFromSelectedData) {
-                            console.log("nomorUser dan userID sama");
-                            Swal.fire({
-                                title: "Anda yakin untuk menghapus data?",
-                                showDenyButton: true,
-                                showCancelButton: true,
-                                confirmButtonText: "Ya",
-                                denyButtonText: "Tidak",
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    var requestData = {
-                                        UP: selectedData.user_pelapor,
-                                    };
-                                    $.ajax({
-                                        url: "/deleteData",
-                                        method: "DELETE",
-                                        data: requestData,
-                                        headers: {
-                                            "X-CSRF-TOKEN": $(
-                                                'meta[name="csrf-token"]'
-                                            ).attr("content"),
-                                        },
-                                        success: function (response) {
-                                            dataTable.ajax.reload();
-                                            Swal.fire(
-                                                "Data berhasil dihapus!",
-                                                "",
-                                                "success"
-                                            );
-                                        },
-                                        error: function (error) {
-                                            console.error(error);
-                                        },
-                                    });
-                                } else if (result.isDenied) {
-                                    Swal.fire("Data tidak dihapus", "", "info");
-                                }
-                            });
-                        } else {
-                            console.log(
-                                "nomerUser dan user_pelapor tidak sama"
-                            );
-                            Swal.fire(
-                                "Anda tidak memiliki izin untuk menghapus data ini",
-                                "",
-                                "warning"
-                            );
-                        }
-                    },
-                    error: function (error) {
-                        console.error(error);
-                    },
-                });
-            } else {
-                Swal.fire(
-                    "Pilih data yang akan dihapus terlebih dahulu",
-                    "",
-                    "warning"
-                );
-            }
-        });
+                    $.ajax({
+                        url: "/deleteData",
+                        method: "DELETE",
+                        data: requestData,
+                        headers: {
+                            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                                "content"
+                            ),
+                        },
+                        success: function (response) {
+                            console.log(response);
+                            clearForm();
+                            dataTable.ajax.reload();
+                            Swal.fire("Data berhasil dihapus!", "", "success");
+                        },
+                        error: function (error) {
+                            console.error(error);
+                        },
+                    });
+                } else if (result.isDenied) {
+                    Swal.fire("Data tidak dihapus", "", "info");
+                }
+            });
+        } else {
+            Swal.fire(
+                "Pilih data yang akan dihapus terlebih dahulu",
+                "",
+                "warning"
+            );
+        }
     });
 });

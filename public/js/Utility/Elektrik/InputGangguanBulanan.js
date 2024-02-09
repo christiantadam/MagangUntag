@@ -2,8 +2,8 @@ let bulan = document.getElementById("bulan");
 let nama = document.getElementById("nama");
 let pabrik = document.getElementById("pabrik");
 let masalah = document.getElementById("masalah");
-let gambar1 = document.getElementById("gambar1");
-let gambar2 = document.getElementById("gambar2");
+let gambarGangguan = document.getElementById("gambar1");
+let gambarSelesai = document.getElementById("gambar2");
 let RadioSelesai = document.getElementById("RadioSelesai");
 let RadioBelumSelesai = document.getElementById("RadioBelumSelesai");
 let solusi = document.getElementById("solusi");
@@ -28,6 +28,12 @@ function emptyForm() {
     masalah.value = "";
     solusi.value = "";
     id.value = "";
+    $("#gambar1").val("");
+    $("#namagambar1").text("Pilih Gambar Gangguan");
+    $("#imagePreview1").removeAttr("src").hide();
+    $("#gambar2").val("");
+    $("#namagambar2").text("Pilih Gambar Selesai");
+    $("#imagePreview2").removeAttr("src").hide();
 }
 function disableForm() {
     bulan.disabled = true;
@@ -35,6 +41,8 @@ function disableForm() {
     pabrik.disabled = true;
     masalah.disabled = true;
     solusi.disabled = true;
+    gambarGangguan.disabled = true;
+    gambarSelesai.disabled = true;
 }
 
 function enabledForm() {
@@ -42,7 +50,7 @@ function enabledForm() {
     nama.disabled = false;
     pabrik.disabled = false;
     masalah.disabled = false;
-    solusi.disabled = false;
+    gambarGangguan.disabled = false;
 }
 
 $(inputButton).click(function (e) {
@@ -50,6 +58,8 @@ $(inputButton).click(function (e) {
 
     enabledForm();
     emptyForm();
+    gambarSelesai.disabled = true;
+    solusi.disabled = true;
 
     inputButton.style.display = "none";
     prosesButton.style.display = "block";
@@ -58,13 +68,27 @@ $(inputButton).click(function (e) {
 $(changeButton).click(function (e) {
     e.preventDefault();
     enabledForm();
+    gambarSelesai.disabled = false;
+    solusi.disabled = false;
     inputButton.style.display = "none";
     prosesButton.style.display = "block";
+    var checkedCheckboxes = $(".checkbox_elektrik_bulanan:checked");
+
+    if (checkedCheckboxes.length === 0) {
+        disableForm();
+        Swal.fire(
+            "Pilih data yang akan dikoreksi terlebih dahulu",
+            "",
+            "warning"
+        );
+        return; // Stop the function execution
+    } else {
+        enabledForm();
+    }
 });
 
 $(cancelButton).click(function (e) {
     e.preventDefault();
-
     emptyForm();
     disableForm();
 
@@ -78,7 +102,7 @@ document.getElementById("gambar1").addEventListener("change", function () {
     var fileName = fileInput.value.split("\\").pop();
 
     // Menampilkan nama file yang dipilih di label
-    document.querySelector(".btn-link").textContent = fileName;
+    document.querySelector(".btn-1").textContent = fileName;
 
     // Membaca file gambar yang dipilih
     var reader = new FileReader();
@@ -97,15 +121,15 @@ document.getElementById("gambar2").addEventListener("change", function () {
     var fileName = fileInput.value.split("\\").pop();
 
     // Menampilkan nama file yang dipilih di label
-    document.querySelector(".btn-link").textContent = fileName;
+    document.querySelector(".btn-2").textContent = fileName;
 
     // Membaca file gambar yang dipilih
     var reader = new FileReader();
     reader.onload = function (e) {
-        var imagePreview = document.getElementById("imagePreview2");
+        var imagePreview1 = document.getElementById("imagePreview2");
         // Menetapkan sumber gambar saat file berhasil dibaca
-        imagePreview.src = e.target.result;
-        imagePreview.style.display = "block"; // Menampilkan elemen gambar
+        imagePreview1.src = e.target.result;
+        imagePreview1.style.display = "block"; // Menampilkan elemen gambar
     };
     reader.readAsDataURL(fileInput.files[0]); // Membaca file sebagai URL data
 });
@@ -136,8 +160,8 @@ $(document).ready(function () {
             { data: "Nama" },
             { data: "Pabrik" },
             { data: "Masalah" },
-            { data: "Solusi" },
             { data: "Status" },
+            { data: "Solusi" },
         ],
         order: [
             [1, "asc"],
@@ -153,9 +177,10 @@ $(document).ready(function () {
         var pabrikValue = pabrik.value;
         var masalahValue = masalah.value;
         var solusiValue = solusi.value;
-        var idValue = id.value;
-        var gambar1Value = gambar1.files[0];
+        var gambar1Value = gambarGangguan.files[0];
+        var gambar2Value = gambarSelesai.files[0];
         var selectedStatus = $("input[name='status']:checked").val();
+        var idValue = id.value;
 
         var formData = new FormData();
         formData.append("bulan", bulanValue);
@@ -163,46 +188,25 @@ $(document).ready(function () {
         formData.append("pabrik", pabrikValue);
         formData.append("masalah", masalahValue);
         formData.append("gambar1", gambar1Value);
-        formData.append("solusi", solusiValue);
+        formData.append("gambar2", gambar2Value);
         formData.append("status", selectedStatus);
 
-        if (!gambar1Value) {
-            // Handle the case where no file is selected
-            console.error("No file selected.");
-            return;
+        if (idValue) {
+            formData.append("ID", idValue);
+            formData.append("gambar2", gambar2Value);
+            formData.append("solusi", solusiValue);
         }
-
-        if (!(gambar1Value instanceof Blob)) {
-            console.error("Invalid file object.");
-            return;
-        }
-
-        var requestData = {
-            bulan: bulanValue,
-            nama: namaValue,
-            pabrik: pabrikValue,
-            masalah: masalahValue,
-            gambar1: gambar1Value,
-            solusi: solusiValue,
-            status: selectedStatus,
-        };
-
-        // if (idValue) {
-        //     requestData.id = idValue;
-        // }
-        console.log(formData);
+        console.log(idValue);
         $.ajax({
             url: idValue ? "/updateDataBulanan" : "/postDataBulanan",
-            method: idValue ? "PUT" : "POST",
+            method: idValue ? "POST" : "POST",
             data: formData,
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
             },
             processData: false,
             contentType: false,
-            // dataType: "json",
             success: function (response) {
-                dataTable.ajax.reload();
                 console.log(formData);
                 console.log(response);
                 Swal.fire({
@@ -212,6 +216,7 @@ $(document).ready(function () {
                     timer: 1500,
                 });
                 emptyForm();
+                dataTable.ajax.reload();
             },
             error: function (xhr, status, error) {
                 if (xhr.status === 419) {
@@ -229,6 +234,8 @@ $(document).ready(function () {
     $("tbody").on("click", ".checkbox_elektrik_bulanan", function () {
         if ($(this).prop("checked")) {
             var id = $(this).val();
+
+            $("#id_bulanan").val(id);
             $.ajax({
                 url: "/getDataBulananId",
                 type: "GET",
@@ -236,22 +243,62 @@ $(document).ready(function () {
                 success: function (data) {
                     console.log(data);
 
-                    // Assuming 'gambar' is the field containing the image data
-                    var imageDataUri = data.gambar;
-
-                    // Display the image in an <img> tag
-                    $("#imagePreview1").attr(
-                        "src",
-                        "data:image/jpeg;base64,".imageDataUri
-                    );
-
-                    // Set other form fields
-                    $("#id").val(data.No);
                     $("#bulan").val(data.Bulan);
                     $("#nama").val(data.Nama);
-                    $("#pabrik").val(data.Pabrik);
+                    $("#pabrik").val(data.Pabrik.trim());
                     $("#masalah").val(data.Masalah);
                     $("#solusi").val(data.Solusi);
+                    $(
+                        "#status" +
+                            data.Status.replace(/\s+/g, "").toLowerCase()
+                    ).prop("checked", true);
+                    console.log();
+
+                    var imageNames = ["GambarGangguan", "GambarSelesai"];
+
+                    imageNames.forEach(function (imageName, index) {
+                        $.ajax({
+                            url: `/selectImageBulanan/${id}/${imageName}`,
+                            method: "GET",
+                            xhrFields: {
+                                responseType: "blob",
+                            },
+                            success: function (data, status, xhr) {
+                                displayImage(data, `imagePreview${index + 1}`);
+                                updateFileInput(
+                                    gambarGangguan,
+                                    data["GambarGangguan"]
+                                );
+                                updateFileInput(
+                                    gambarSelesai,
+                                    data["GambarSelesai"]
+                                );
+                            },
+                            error: function (xhr, status, error) {
+                                console.error("Error:", status, error);
+                            },
+                        });
+                    });
+
+                    function displayImage(data, containerId) {
+                        var blob = new Blob([data], { type: "image/*" });
+                        var objectURL = URL.createObjectURL(blob);
+
+                        $("#" + containerId).html(
+                            `<img src="${objectURL}" alt="${data}">`
+                        );
+                        $("#" + containerId)
+                            .attr("src", objectURL)
+                            .show();
+                    }
+
+                    function updateFileInput(fileInput, imageData) {
+                        var blob = new Blob([imageData], { type: "image/*" });
+                        var fileName = "image.jpg";
+                        var file = new File([blob], fileName);
+
+                        fileInput = [file];
+                    }
                 },
                 error: function (xhr, status, error) {
                     console.error("Error fetching data:", error);
@@ -259,6 +306,7 @@ $(document).ready(function () {
             });
         } else {
             // Handle unchecked checkbox if needed
+            emptyForm();
         }
     });
 
