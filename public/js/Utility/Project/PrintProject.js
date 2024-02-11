@@ -12,7 +12,7 @@ $(document).ready(function () {
         processing: true,
         serverSide: true,
         responsive: true,
-        scrollX: true,
+        //scrollX: true,
 
         ajax: {
             url: "/getDataProject",
@@ -84,12 +84,15 @@ $(document).ready(function () {
                             "  }" +
                             "  #previewData {" +
                             "    position: absolute;" +
-                            "    left: 0;" +
+                            "    left: 1;" +
                             "    top: 0;" +
+                            //"    width: 210mm;" +
+                            "    width: 257mm;" +
+                            "    height: 297mm;" +
                             "  }" +
                             "}" +
                             "</style>" +
-                            '<div class="preview-item border p-10 mb-4 rounded">' +
+                            // '<div class="preview-item border p-10 mb-4 rounded">' +
                             '<h1 class="mb-4 text-center">Serah Terima Permintaan Jasa Teknik</h1>' +
                             '<h1 class="mb-4 text-center">PT. KERTARAJASA RAYA</h1>' +
                             '<h3 class="mb-5 text-center">JL. Raya Tropodo No.1 Waru - SIDOARJO</h3>' +
@@ -104,7 +107,7 @@ $(document).ready(function () {
                             '<p class="mb-2"><strong>Lokasi Mesin:</strong> ' +
                             data.LokasiMesin +
                             "</p>" +
-                            "<p><strong>Tahun Pembuatan:</strong> " +
+                            '<p class="mb-5"><strong>Tahun Pembuatan:</strong> ' +
                             data.TahunPembuatan +
                             "</p>" +
                             "</div>" +
@@ -143,7 +146,7 @@ $(document).ready(function () {
                             "</td>" +
                             "</tr>" +
                             "</tbody>" +
-                            '<tfoot colspan="3">' +
+                            '<tfoot  colspan="3">' +
                             '<tr class="text-center">' +
                             '<th   colspan="2">' +
                             "<p ><strong> Gambar1 </strong></p> " +
@@ -154,7 +157,7 @@ $(document).ready(function () {
                             "</tr>" +
                             "</tfoot>" +
                             "</table>" +
-                            '<div class="row text-center" >' +
+                            '<div class="row text-center mt-5" >' +
                             '<div class="col-md-4 mb-5">' +
                             "<p><strong>Pelaksana,</strong> " +
                             "</p>" +

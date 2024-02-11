@@ -1,9 +1,10 @@
 @extends('layouts.appUtility')
+@section('title', 'Gangguan Elektrik')
 @section('content')
     <div class="container-fluid">
         {{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
         <div class="row justify-content-center">
-            <div class="col-md-20 RDZMobilePaddingLR0">
+            <div class="col-md-10 RDZMobilePaddingLR0">
                 <div class="card">
                     <div class="card-header">Gangguan Elektrik</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
@@ -99,7 +100,7 @@
                                 <div class="col-md-6 d-flex gap-2 mb-2">
                                     <label for="tanggal">Filter</label>
                                 </div>
-                                <div class="col-md-6 d-flex gap-2 align-items-center">
+                                <div class="col-md-15 d-flex gap-2 align-items-center">
                                     <h6 class="mt-2">Tanggal</h6>
                                     <input type="date" class="form-control" id="bulan" name="date1"
                                         style="width:150px">

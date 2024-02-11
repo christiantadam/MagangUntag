@@ -148,15 +148,35 @@ for (var i = 3; i <= 10; i++) {
     })(imageId, buttonClass);
 }
 // Event listener for Input Button
+batalButton.addEventListener("click", function () {
+    disabledForm();
+    clearForm();
+    koreksiButton.disabled = false;
+});
 inputButton.addEventListener("click", function () {
     enabledForm();
     clearForm();
     koreksiButton.disabled = true;
 });
 
-batalButton.addEventListener("click", function () {
+inputButton.addEventListener("click", function () {
+    var checkedCheckboxes = $(".checkbox_project:checked");
+
+    if (checkedCheckboxes.length === 0) {
+        disabledForm();
+        Swal.fire(
+            "Pilih data yang akan diinput terlebih dahulu",
+            "",
+            "warning"
+        );
+        return;
+    } else {
+        enabledForm();
+        //requestMethod = "UPDATE";
+    }
+
     koreksiButton.disabled = false;
-    disabledForm();
+    //disabledForm();
     clearForm();
 });
 var requestMethod = "POST";

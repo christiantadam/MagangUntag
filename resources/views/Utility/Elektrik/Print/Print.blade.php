@@ -1,8 +1,9 @@
 @extends('layouts.appUtility')
+@section('title', 'Print Elektrik')
 @section('content')
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-md-20 RDZMobilePaddingLR0">
+            <div class="col-md-10 RDZMobilePaddingLR0">
                 <div class="card">
                     <div class="card-header">Print Elektrik</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">

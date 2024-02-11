@@ -30,9 +30,9 @@ let hasilgambar9 = document.getElementById("imagePreview9");
 let gambar10 = document.getElementById("gambar10");
 let ketgambar10 = document.getElementById("ketgambar10");
 let hasilgambar10 = document.getElementById("imagePreview10");
-let Id_Gambar = document.getElementById("id_tambahGambar");
+let Id_Gambar = document.getElementById("idTambahGambar");
 
-let tanggal = document.getElementById("tanggal");
+let tanggal = document.getElementById("bulan");
 let sampaiDengan = document.getElementById("sampaiDengan");
 let divisi_pelapor = document.getElementById("divisi_pelapor");
 
@@ -170,9 +170,6 @@ if (tanggal && sampaiDengan) {
     sampaiDengan.value = tanggal_akhirOutput;
 
     var currentDateTime = new Date();
-    var hours = currentDateTime.getHours().toString().padStart(2, "0");
-    var minutes = currentDateTime.getMinutes().toString().padStart(2, "0");
-    var timeString = hours + ":" + minutes;
 }
 
 // Event listener for Input Button
@@ -190,7 +187,7 @@ batalButton.addEventListener("click", function () {
 var requestMethod = "POST";
 
 koreksiButton.addEventListener("click", function () {
-    var checkedCheckboxes = $(".checkboxgambar:checked");
+    var checkedCheckboxes = $(".checkbox_tabel:checked");
 
     if (checkedCheckboxes.length === 0) {
         disabledForm();
@@ -221,9 +218,9 @@ $(document).ready(function () {
             url: "/getData",
             type: "GET",
             data: function (d) {
-                d.tanggal1 = $("#tanggal").val();
+                d.tanggal1 = $("#bulan").val();
                 d.tanggal2 = $("#sampaiDengan").val();
-                d.divisi = $("#divisi_pelapor").val();
+                d.divisi = $("#divisi_pelapor2").val();
             },
         },
 
@@ -232,7 +229,7 @@ $(document).ready(function () {
                 data: "Id_Laporan",
                 render: function (data, type, full, meta) {
                     return (
-                        '<input type="checkbox" class="checkboxgambar" value="' +
+                        '<input type="checkbox" class="checkbox_tabel" value="' +
                         data +
                         '">'
                     );
@@ -275,7 +272,7 @@ $(document).ready(function () {
 
     var id;
 
-    $("tbody").on("click", ".checkboxgambar", function () {
+    $("tbody").on("click", ".checkbox_tabel", function () {
         if ($(this).prop("checked")) {
             koreksiButton.disabled = false;
             id = {
@@ -311,9 +308,9 @@ $(document).ready(function () {
                         clearForm();
                         disabledForm();
                         Id_Gambar.value = "";
-                        $(".checkboxgambar:checked").prop("checked", false);
+                        $(".checkbox_tabel:checked").prop("checked", false);
                     } else {
-                        $(".checkboxgambar:checked").prop("checked", true);
+                        $(".checkbox_tabel:checked").prop("checked", true);
                     }
                 },
             });

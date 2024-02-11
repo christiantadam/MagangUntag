@@ -1,4 +1,5 @@
 @extends('layouts.appUtility')
+@section('title', 'Gambar Project')
 @section('content')
     <div class="container-fluid">
         <div class="row justify-content-center">
@@ -65,10 +66,10 @@
                                                 {{ $i }}</label>
                                             <input type="file" id="gambar{{ $i }}"
                                                 name="gambar{{ $i }}" style="display: none;" accept="image/*">
-                                            <div class="ketgambar">Ket. Gambar {{ $i }}</div>
-                                            <input type="text" name="ketgambar{{ $i }}"
-                                                id="ketgambar{{ $i }}" class="mb-1">
                                             <div id="imagePreviewContainer{{ $i }}">
+                                                <div class="ketgambar">Ket. Gambar {{ $i }}</div>
+                                                <input type="text" name="ketgambar{{ $i }}"
+                                                    id="ketgambar{{ $i }}" class="mb-1">
                                                 <img id="imagePreview{{ $i }}" src=""
                                                     alt="Preview {{ $i }}"
                                                     style="display: none; max-width: 100%; height: auto;">

@@ -49,7 +49,7 @@ class TambahGambarElektrikController extends Controller
         if ($existingData) {
             return response()->json(['status' => 200, 'message' => 'Data ada.']);
         } else {
-            return response()->json(['status' => 404, 'message' => 'Data tidak lengkap. Gambar1 dan Gambar2 harus terisi.']);
+            return response()->json(['status' => 404, 'message' => 'Data tidak lengkap. Gambar 1 dan Gambar 2 harus terisi.']);
         }
     }
 

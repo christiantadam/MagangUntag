@@ -1,4 +1,5 @@
 @extends('layouts.appUtility')
+@section('title', 'Print Project')
 @section('content')
     <link href="{{ asset('css/printProject.css') }}" rel="stylesheet">
     <div class="container-fluid">
