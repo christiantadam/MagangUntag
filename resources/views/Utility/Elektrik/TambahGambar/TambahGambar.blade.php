@@ -104,8 +104,7 @@
                                         id="inputButton">Input</button>
                                     <button type="button"
                                         class="btn btn-primary w-100 mt-2"id="koreksiButton">Koreksi</button>
-                                    <button type="button"
-                                        class="btn btn-primary w-100 mt-2"id="hapusButton">Hapus</button>
+
 
                                     <button type="button"
                                         class="btn btn-primary w-100 mt-5"id="prosesButton">Proses</button>

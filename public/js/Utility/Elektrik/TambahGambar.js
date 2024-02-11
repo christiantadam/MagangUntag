@@ -174,15 +174,33 @@ if (tanggal && sampaiDengan) {
 
 // Event listener for Input Button
 inputButton.addEventListener("click", function () {
-    enabledForm();
-    clearForm();
+    var checkedCheckboxes = $(".checkbox_tabel:checked");
+
+    if (checkedCheckboxes.length === 0) {
+        disabledForm();
+        Swal.fire(
+            "Pilih data yang akan diinput terlebih dahulu",
+            "",
+            "warning"
+        );
+        return;
+    } else {
+        enabledForm();
+        //requestMethod = "UPDATE";
+    }
+
     koreksiButton.disabled = true;
+    //disabledForm();
+    clearForm();
 });
 
 batalButton.addEventListener("click", function () {
     koreksiButton.disabled = false;
     disabledForm();
     clearForm();
+    $(".checkbox_tabel:checked").prop("checked", false);
+
+    //$(".checkbox_tabel:checked").prop("checked", true);
 });
 var requestMethod = "POST";
 

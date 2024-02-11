@@ -152,11 +152,7 @@ batalButton.addEventListener("click", function () {
     disabledForm();
     clearForm();
     koreksiButton.disabled = false;
-});
-inputButton.addEventListener("click", function () {
-    enabledForm();
-    clearForm();
-    koreksiButton.disabled = true;
+    $(".checkbox_project:checked").prop("checked", false);
 });
 
 inputButton.addEventListener("click", function () {
