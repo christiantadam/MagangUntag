@@ -30,8 +30,9 @@ class InputGangguanElektrikBulananController extends Controller
             $nama = $request->input('nama');
             $masalah = $request->input('masalah');
             $pabrik = $request->input('pabrik');
-            $status = $request->input('status');
             $image = $request->file('gambar1');
+            $solusi = $request->file('solusi');
+            $status = $request->input('status');
             $imageBinary = null;
             if ($image) {
                 $binaryReader = fopen($image, 'rb');
@@ -46,7 +47,7 @@ class InputGangguanElektrikBulananController extends Controller
                 'Masalah' => $masalah,
                 'GambarGangguan' => $imageBinary ? DB::raw('0x' . bin2hex($imageBinary)) : null,
                 'Status' => $status,
-                'Solusi' => null,
+                'Solusi' =>null,
                 'GambarSelesai' => null,
             ]);
             return response()->json(['success' => true, 'data' => $data]);

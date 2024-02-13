@@ -469,7 +469,7 @@ $(document).ready(function () {
                 render: function (data, type, full, meta) {
                     var localDate = moment.utc(data).local();
 
-                    return localDate.format("DD-MM-YYYY");
+                    return localDate.format("DD/MM/YYYY");
                 },
             },
             { data: "L_div_pelapor" },
@@ -618,6 +618,13 @@ $(document).ready(function () {
             clearForm();
             inputButton.disabled = false;
             hapusButton.disabled = false;
+
+            var currentDate = moment().format("YYYY-MM-DD");
+            var currentTime = moment().format("HH:mm");
+
+            // Update the date and time input fields
+            $("#tanggal").val(currentDate);
+            $("#jam_lapor").val(currentTime);
 
             console.log("Checkbox is unchecked. Form cleared.");
         }

@@ -27,28 +27,28 @@
                                         <div class="masalah">Jenis Masalah</div>
                                         <input type="text" name="masalah" id="masalah" class="form-control mb-2"
                                             placeholder="">
-                                        <label for="gambar1" class="btn btn-link ">Gambar Gangguan</label>
-                                        <input type="file" id="gambar1" name="fileInput" style="display: none;"
+                                        <label for="gambar1" class="btn btn-link btn-1 ">Gambar Gangguan</label>
+                                        <input type="file" id="gambar1" name="gambar1" style="display: none;"
                                             accept="image/*">
                                         <div id="imagePreviewContainer1">
                                             <img id="imagePreview1" src="" alt="Preview 1"
                                                 style="display: none; max-width: 100%; height: auto;">
                                         </div>
                                         <div class="div">
-                                            <label for="">Status</label>
+                                            <label for="status">Status</label>
                                         </div>
                                         <label>
-                                            <input type="radio" name="status" value="Selesai">
+                                            <input type="radio" name="status" value="Selesai" id="selesai">
                                             Selesai
                                         </label>
                                         <label>
-                                            <input type="radio" name="status" value="Belum Selesai">
+                                            <input type="radio" name="status" value="Belum_Selesai" id="belum_selesai">
                                             Belum Selesai
                                         </label>
                                         <div class="solusi">Solusi</div>
                                         <input type="text" name="solusi" id="solusi" class="form-control mb-2"
                                             placeholder="">
-                                        <label for="fileInput2" class="btn btn-link ">Gambar Selesai</label>
+                                        <label for="fileInput2" class="btn btn-link btn-2 ">Gambar Selesai</label>
                                         <input type="file" id="gambar2" name="fileInput" style="display: none;"
                                             accept="image/*">
                                         <div id="imagePreviewContainer2">
@@ -83,7 +83,8 @@
                                     <div class="d-flex  p-2 justify-content-end">
                                         <button type="button" id="ProsesButton"
                                             class="btn btn-primary  ml-2">Proses</button>
-                                        <button type="button" id="InputButton" class="btn btn-primary  ml-2">Input</button>
+                                        <button type="button" id="InputButton"
+                                            class="btn btn-primary  ml-2">Input</button>
                                         <button type="button" id="ChangeButton"
                                             class="btn btn-primary  ml-2">Ubah</button>
                                         <button type="button" id="DeleteButton"

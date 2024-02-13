@@ -129,7 +129,7 @@ function enabledForm() {
     Id_Gambar.value = "";
 }
 
-for (var i = 3; i <= 10; i++) {
+for (let i = 3; i <= 10; i++) {
     // Mendapatkan ID gambar dan button sesuai dengan iterasi
     var imageId = "gambar" + i;
     var buttonClass = ".btn-" + i;
@@ -257,14 +257,9 @@ $(document).ready(function () {
             {
                 data: "tanggal",
                 render: function (data, type, full, meta) {
-                    var date = new Date(data);
-                    var day = date.getDate();
-                    var month = date.getMonth() + 1;
-                    var year = date.getFullYear();
+                    var localDate = moment.utc(data).local();
 
-                    day = day < 10 ? "0" + day : day;
-                    month = month < 10 ? "0" + month : month;
-                    return day + "-" + month + "-" + year;
+                    return localDate.format("DD/MM/YYYY");
                 },
             },
 

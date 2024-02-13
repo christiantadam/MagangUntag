@@ -147,7 +147,7 @@ for (var i = 3; i <= 10; i++) {
             });
     })(imageId, buttonClass);
 }
-// Event listener for Input Button
+
 batalButton.addEventListener("click", function () {
     disabledForm();
     clearForm();

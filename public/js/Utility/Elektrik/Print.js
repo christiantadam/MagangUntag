@@ -51,14 +51,9 @@ $(document).ready(function () {
             {
                 data: "tanggal",
                 render: function (data, type, full, meta) {
-                    var date = new Date(data);
-                    var day = date.getDate();
-                    var month = date.getMonth() + 1;
-                    var year = date.getFullYear();
+                    var localDate = moment.utc(data).local();
 
-                    day = day < 10 ? "0" + day : day;
-                    month = month < 10 ? "0" + month : month;
-                    return day + "-" + month + "-" + year;
+                    return localDate.format("DD/MM/YYYY");
                 },
             },
 

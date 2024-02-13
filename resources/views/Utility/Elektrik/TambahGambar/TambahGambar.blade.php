@@ -59,10 +59,9 @@
                         </div>
                         <div class="form">
                             <div class="row-24 d-flex">
-                                <!-- Bagian formulir dan pratinjau gambar -->
-                                <div class="col-4">
+                                <div class="col-5">
                                     @for ($i = 3; $i <= 6; $i++)
-                                        <label for="gambar{{ $i }} " id="namagambar{{ $i }}"
+                                        <label for="gambar{{ $i }}" id="namagambar{{ $i }}"
                                             class="btn btn-link btn-{{ $i }} mt-2">Pilih
                                             Gambar
                                             {{ $i }}</label>
@@ -79,20 +78,18 @@
                                         </div>
                                     @endfor
                                 </div>
-
-                                <div class="col-4">
+                                <div class="col-5">
                                     @for ($i = 7; $i <= 10; $i++)
-                                        <label for="gambar{{ $i }} " id="namagambar{{ $i }}"
+                                        <label for="gambar{{ $i }}" id="namagambar{{ $i }}"
                                             class="btn btn-link btn-{{ $i }} mt-2">Pilih
                                             Gambar
                                             {{ $i }}</label>
                                         <input type="file" id="gambar{{ $i }}"
                                             name="gambar{{ $i }}" style="display: none;" accept="image/*">
-                                        <div class="ketgambar">Ket. Gambar {{ $i }}</div>
-                                        <input type="text" name="ketgambar{{ $i }}"
-                                            id="ketgambar{{ $i }}" class="mb-1">
-
                                         <div id="imagePreviewContainer{{ $i }}">
+                                            <div class="ketgambar">Ket. Gambar {{ $i }}</div>
+                                            <input type="text" name="ketgambar{{ $i }}"
+                                                id="ketgambar{{ $i }}" class="mb-1">
                                             <img id="imagePreview{{ $i }}" src=""
                                                 alt="Preview {{ $i }}"
                                                 style="display: none; max-width: 100%; height: auto;">
