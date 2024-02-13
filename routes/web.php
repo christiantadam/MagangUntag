@@ -106,6 +106,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/FinalApproveOrderPembelian/{id}/show', 'App\Http\Controllers\Beli\TransaksiBeli\FinalApproverOrderController@show')->name('finalapproveorderpembelian.show');
     Route::post('/FinalApproveOrderPembelian/{id}/up', 'App\Http\Controllers\Beli\TransaksiBeli\FinalApproverOrderController@update')->name('finalapproveorderpembelian.update');
     Route::resource('ListOrderSudahAppManager', App\Http\Controllers\Beli\TransaksiBeli\ListOrderAppManagerController::class);
+    Route::get('/ListOrderAppManager/Redisplay', 'App\Http\Controllers\Beli\TransaksiBeli\ListOrderAppManagerController@redisplay')->name('listordersudahappmanager.redisplay');
+    Route::get('/ListOrderAppManager/Divisi', 'App\Http\Controllers\Beli\TransaksiBeli\ListOrderAppManagerController@divisi')->name('listordersudahappmanager.divisi');
 
     //transaksi
     Route::resource('OrderPembelian', App\Http\Controllers\Beli\Transaksi\OrderPembelianController::class);
