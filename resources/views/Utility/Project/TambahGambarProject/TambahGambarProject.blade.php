@@ -82,7 +82,7 @@
                                         <button type="button"
                                             class="btn btn-primary w-100 mt-2"id="koreksiButton">Koreksi</button>
                                         <button type="button"
-                                            class="btn btn-primary w-100 mt-2"id="prosesButton">Proses</button>
+                                            class="btn btn-primary w-100 mt-5"id="prosesButton">Proses</button>
                                         <button type="button"
                                             class="btn btn-primary w-100 mt-2"id="batalButton">Batal</button>
                                     </div>

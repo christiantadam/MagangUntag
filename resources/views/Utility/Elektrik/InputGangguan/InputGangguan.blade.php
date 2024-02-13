@@ -97,10 +97,10 @@
                         </div>
                         <div class="col-lg-12 p-4">
                             <div class="row-12 mt-2">
-                                <div class="col-md-6 d-flex gap-2 mb-2">
+                                <div class=" d-flex gap-2 mb-2">
                                     <label for="tanggal">Filter</label>
                                 </div>
-                                <div class="col-md-15 d-flex gap-2 align-items-center">
+                                <div class=" d-flex gap-2 align-items-center">
                                     <h6 class="mt-2">Tanggal</h6>
                                     <input type="date" class="form-control" id="bulan" name="date1"
                                         style="width:150px">
