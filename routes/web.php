@@ -1,9 +1,6 @@
 <?php
 
-use function foo\func;
-use App\Http\Controllers\Beli\Master\MaintenanceController;
 use Illuminate\Support\Facades\Route;
-use function PHPUnit\Framework\assertDirectoryIsReadable;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,13 +11,15 @@ use function PHPUnit\Framework\assertDirectoryIsReadable;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
 Route::get('/', function () {
-    if (Auth::guest())
+    if (Auth::guest()) {
         return view('auth/login');
-    else
+    } else {
         return redirect('/home');
+    }
+
 });
 
 //Auth::routes();
@@ -83,12 +82,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/GETBTTB', 'App\Http\Controllers\Beli\TransaksiBeli\ReturBTTBController@display');
     Route::get('/GETRetur', 'App\Http\Controllers\Beli\TransaksiBeli\ReturBTTBController@kdbrg');
     Route::get('/PostRetur', 'App\Http\Controllers\Beli\TransaksiBeli\ReturBTTBController@post');
-
-
-
-
     Route::get('/Retur', 'App\Http\Controllers\Beli\TransaksiBeli\ReturBTTBController@kode');
     Route::get('/Create', 'App\Http\Controllers\Beli\TransaksiBeli\CreateBTTBController@createbttb');
+    Route::get('/Drop1', 'App\Http\Controllers\Beli\TransaksiBeli\CreateBTTBController@drop1');
+    Route::get('/Drop', 'App\Http\Controllers\Beli\TransaksiBeli\CreateBTTBController@dropdown');
     Route::resource('IsiBeaImpor', App\Http\Controllers\Beli\TransaksiBeli\IsiBeaController::class);
     Route::resource('CreateBTTB', App\Http\Controllers\Beli\TransaksiBeli\CreateBTTBController::class);
     Route::resource('TransferBarang', App\Http\Controllers\Beli\TransaksiBeli\TransferBarangController::class);
