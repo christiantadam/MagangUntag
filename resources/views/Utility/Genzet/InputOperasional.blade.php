@@ -14,8 +14,7 @@
                                 <input type="hidden" id="hiddenNomorgenzet">
                                 <div class="acs-div-filter">
                                     <label for="tanggal">Tanggal</label>
-                                    <input type="date" class="form-control" id="tanggal"
-                                        placeholder="name@example.com">
+                                    <input type="date" class="form-control" id="tanggal">
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="Mesin">Mesin</label>
@@ -29,57 +28,55 @@
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="jam_awal">Jam Awal Produksi</label>
-                                    <input type="time" class="form-control" id="jam_awal" name="jam_awal"
-                                        placeholder="name@example.com">
+                                    <input type="time" class="form-control" id="jam_awal" name="jam_awal">
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="jam_akhir">Jam Akhir Produksi</label>
-                                    <input type="time" class="form-control" id="jam_akhir" name="jam_akhir"
-                                        placeholder="name@example.com">
+                                    <input type="time" class="form-control" id="jam_akhir" name="jam_akhir">
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="operationhours">Operation Hours</label>
                                     <input type="number" pattern="[0-9]" min="0" class="form-control"
-                                        id="operationhours" name="operationhours" placeholder="...">
+                                        id="operationhours" name="operationhours">
                                 </div>
                             </div>
                             <div class="col-lg-3 p-4">
                                 <div class="acs-div-filter">
                                     <label for="lubeoil">Lube Oil (Press Min 1.9)</label>
                                     <input type="number" pattern="[0-9]" min="0" class="form-control" id="lubeoil"
-                                        name="lubeoil" placeholder="...">
+                                        name="lubeoil">
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="coolwater">Cool Water (Temp Max 95* celcius)</label>
                                     <input type="number" pattern="[0-9]" min="0" class="form-control" id="coolwater"
-                                        name="coolwater" placeholder="...">
+                                        name="coolwater">
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="volt">Volt 380 (10%)</label>
                                     <input type="number" pattern="[0-9]" min="0" class="form-control" id="volt"
-                                        name="volt" placeholder="...">
+                                        name="volt">
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="hz">Hz (45-51)</label>
                                     <input type="number" pattern="[0-9]" min="0" class="form-control" id="hz"
-                                        name="hz" placeholder="...">
+                                        name="hz">
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="amp">Amp (Max 650 A)</label>
                                     <input type="number" pattern="[0-9]" min="0" class="form-control" id="amp"
-                                        name="amp" placeholder="...">
+                                        name="amp">
                                 </div>
                             </div>
                             <div class="col-lg-3 p-4">
                                 <div class="acs-div-filter">
                                     <label for="tambahbbm">Tambah BBM</label>
                                     <input type="number" pattern="[0-9]" min="0" class="form-control" id="tambahbbm"
-                                        name="tambahbbm" placeholder="...">
+                                        name="tambahbbm">
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="tambahoil">Tambah Oil</label>
-                                    <input type="number" pattern="[0-9]" min="0" class="form-control"
-                                        id="tambahoil" name="tambahoil" placeholder="...">
+                                    <input type="number" pattern="[0-9]" min="0" class="form-control" id="tambahoil"
+                                        name="tambahoil">
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="status">Status Log</label>
@@ -103,8 +100,7 @@
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="keterangan">Keterangan</label>
-                                    <input type="text" class="form-control" id="keterangan" name="keterangan"
-                                        placeholder="...">
+                                    <input type="text" class="form-control" id="keterangan" name="keterangan">
                                 </div>
                             </div>
                             <div class="col-lg-2 p-4">
@@ -130,11 +126,9 @@
                                     </div>
                                     <div class="d-flex gap-2">
                                         <h6 class="mt-2">Tanggal</h6>
-                                        <input type="date" class="form-control" id="tanggal-awal" name="date1"
-                                            placeholder="name@example.com">
+                                        <input type="date" class="form-control" id="tanggal-awal" name="date1">
                                         <h6 class="mt-2">S/D</h6>
-                                        <input type="date" class="form-control" id="tanggal-akhir" name="date2"
-                                            placeholder="name@example.com">
+                                        <input type="date" class="form-control" id="tanggal-akhir" name="date2">
                                     </div>
                                 </div>
                                 <div class="col-md-6 mt-2">

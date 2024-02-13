@@ -32,8 +32,7 @@
                     <div class="col-lg-5 p-4">
                         <div class="acs-div-filter">
                             <label for="kwh">KWH</label>
-                            <input type="number" class="form-control" id="kwh-sdp" name="kwh"
-                                placeholder="Masukkan KWH...">
+                            <input type="number" class="form-control" id="kwh-sdp" name="kwh">
                         </div>
                         <div class="acs-div-filter pt-4">
                             <label for="ket_gangguan">Teknisi</label>
@@ -47,8 +46,7 @@
                         </div>
                         <div class="acs-div-filter pt-4">
                             <label for="ct_faktor">CT Faktor</label>
-                            <input type="number" class="form-control" id="ct_faktor-sdp" name="ct_faktor"
-                                placeholder="Masukkan CT Faktor...">
+                            <input type="number" class="form-control" id="ct_faktor-sdp" name="ct_faktor">
                         </div>
                     </div>
                     <div class="col-lg-2 p-4">
@@ -74,11 +72,9 @@
                             </div>
                             <div class="d-flex gap-2">
                                 <h6 class="mt-2">Bulan</h6>
-                                <input type="number" class="form-control" id="bulan-sdp" name="bulan-sdp"
-                                    placeholder="name@example.com">
+                                <input type="number" class="form-control" id="bulan-sdp" name="bulan-sdp">
                                 <h6 class="mt-2">Tahun</h6>
-                                <input type="number" class="form-control" id="tahun-sdp" name="tahun-sdp"
-                                    placeholder="name@example.com">
+                                <input type="number" class="form-control" id="tahun-sdp" name="tahun-sdp">
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -86,16 +82,14 @@
                                 <label for="tanggal">Produksi</label>
                             </div>
                             <div class="d-flex gap-2">
-                                <select class="form-select" aria-label="Default select example"
-                                    id="produksiSearch-sdp">
+                                <select class="form-select" aria-label="Default select example" id="produksiSearch-sdp">
                                     <option selected value="0">Pilih Semua...</option>
                                     @foreach ($sdp as $data)
                                         <option value="{{ $data->NoProduksi }}">
                                             {{ $data->Produksi }}</option>
                                     @endforeach
                                 </select>
-                                <button type="submit" id="refreshButton-sdp"
-                                    class="btn btn-primary">Refresh</button>
+                                <button type="submit" id="refreshButton-sdp" class="btn btn-primary">Refresh</button>
                             </div>
                         </div>
                     </div>

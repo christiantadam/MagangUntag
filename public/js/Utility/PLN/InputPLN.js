@@ -759,7 +759,7 @@ let refreshButtonBA = document.getElementById("refreshButton-ba");
 
 function clearFormBA() {
     nomorBA.value = "";
-    tanggalBA.value = "";
+    // tanggalBA.value = "";
     lwbpBA.value = "";
     wbpBA.value = "";
     kvarhBA.value = "";

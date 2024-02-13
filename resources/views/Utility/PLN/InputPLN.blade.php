@@ -14,35 +14,29 @@
                                 <input type="hidden" id="hiddenNomorpln">
                                 <div class="acs-div-filter">
                                     <label for="tanggal">Tanggal</label>
-                                    <input type="date" class="form-control" id="tanggal"
-                                        placeholder="name@example.com">
+                                    <input type="date" class="form-control" id="tanggal">
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="jam">Jam</label>
-                                    <input type="time" class="form-control" id="jam" name="jam"
-                                        placeholder="name@example.com">
+                                    <input type="time" class="form-control" id="jam" name="jam">
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="lwbp">LWBP</label>
-                                    <input type="number" class="form-control" id="lwbp" name="lwbp"
-                                        placeholder="Masukkan LWBP...">
+                                    <input type="number" class="form-control" id="lwbp" name="lwbp">
                                 </div>
                             </div>
                             <div class="col-lg-5 p-4">
                                 <div class="acs-div-filter">
                                     <label for="wbp">WBP</label>
-                                    <input type="number" class="form-control" id="wbp" name="wbp"
-                                        placeholder="Masukkan WBP...">
+                                    <input type="number" class="form-control" id="wbp" name="wbp">
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="kvar">KVAR</label>
-                                    <input type="number" class="form-control" id="kvar" name="kvar"
-                                        placeholder="Masukkan KVAR...">
+                                    <input type="number" class="form-control" id="kvar" name="kvar">
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="teknisi">Teknisi</label>
-                                    <input type="text" class="form-control" id="teknisi" name="teknisi"
-                                        placeholder="Masukkan Nama Teknisi...">
+                                    <input type="text" class="form-control" id="teknisi" name="teknisi">
                                 </div>
                             </div>
                             <div class="col-lg-2 p-4">
@@ -94,8 +88,8 @@
                             </div>
                             <div class="col-lg-12 p-0 mt-4">
                                 <div class="d-flex justify-content-between flex-wrap">
-                                    <button class="btn btn-primary mb-2" data-bs-toggle="modal"
-                                        data-bs-target="#modalPanel" type="button">Panel SDP</button>
+                                    <button class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#modalPanel"
+                                        type="button">Panel SDP</button>
                                     <button class="btn btn-primary mb-2" data-bs-toggle="modal"
                                         data-bs-target="#modalBerita" type="button">Berita Acara</button>
                                 </div>

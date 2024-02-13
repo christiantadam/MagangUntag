@@ -62,7 +62,8 @@
                             <button class="btn btn-primary w-100 mb-2" type="button"
                                 id="deleteButton-ba">Hapus</button>
                             <button class="btn btn-primary w-100 mb-2" type="button" id="saveButton-ba">Proses</button>
-                            <button class="btn btn-primary w-100 mb-2" type="button" id="cancelButton-ba">Batal</button>
+                            <button class="btn btn-primary w-100 mb-2" type="button"
+                                id="cancelButton-ba">Batal</button>
                         </div>
                     </div>
                 </div>
@@ -74,8 +75,7 @@
                             </div>
                             <div class="d-flex gap-2">
                                 <h6 class="mt-2">Tahun</h6>
-                                <input type="number" class="form-control" id="tahun-ba" name="tahun-ba"
-                                    placeholder="masukan tahun...">
+                                <input type="number" class="form-control" id="tahun-ba" name="tahun-ba">
                                 <div class="d-flex gap-2">
                                     <button type="submit" id="refreshButton-ba"
                                         class="btn btn-primary">Refresh</button>

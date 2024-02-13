@@ -13,13 +13,12 @@
                             <div class="col-lg-4 p-4">
                                 <div class="acs-div-filter">
                                     <label for="tanggal">Tanggal</label>
-                                    <input type="date" class="form-control" id="tanggal"
-                                        placeholder="name@example.com">
+                                    <input type="date" class="form-control" id="tanggal">
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="Mesin">Mesin</label>
                                     <select class="form-select" aria-label="Default select example" id="mesin">
-                                        <option selected>Pilih Mesin..</option>
+                                        <option selected disabled>Pilih Mesin..</option>
                                         @foreach ($mesin as $data)
                                             <option value="{{ $data->NoMesin }}">
                                                 {{ $data->NamaMesin }}</option>
@@ -28,61 +27,54 @@
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="jam">Jam</label>
-                                    <input type="time" class="form-control" id="jam" name="jam"
-                                        placeholder="name@example.com">
+                                    <input type="time" class="form-control" id="jam" name="jam">
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="temp">Temperatur</label>
                                     <input type="number" pattern="[0-9]" min="0" class="form-control" id="temp"
-                                        name="temp" placeholder="120 celcius">
+                                        name="temp">
                                 </div>
-
                             </div>
                             <div class="col-lg-3 p-4">
                                 <div class="acs-div-filter">
                                     <label for="bar">Bar</label>
                                     <input type="number" pattern="[0-9]" min="0" class="form-control" id="bar"
-                                        name="bar" placeholder="...">
+                                        name="bar">
                                 </div>
-
                                 <div class="acs-div-filter pt-4">
                                     <label for="rm_hours">RM Hours</label>
                                     <input type="number" pattern="[0-9]" min="0" class="form-control" id="rm_hours"
-                                        name="rm_hours" placeholder="...">
+                                        name="rm_hours">
                                 </div>
-
                                 <div class="acs-div-filter pt-4">
                                     <label for="lm_hours">LM Hours</label>
                                     <input type="number" pattern="[0-9]" min="0" class="form-control" id="lm_hours"
-                                        name="lm_hours" placeholder="...">
+                                        name="lm_hours">
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="r_hours">R Hours</label>
                                     <input type="number" pattern="[0-9]" min="0" class="form-control" id="r_hours"
-                                        name="r_hours" placeholder="...">
+                                        name="r_hours">
                                 </div>
-
                             </div>
                             <div class="col-lg-3 p-4">
                                 <div class="acs-div-filter">
                                     <label for="l_hours">L Hours</label>
                                     <input type="number" pattern="[0-9]" min="0" class="form-control" id="l_hours"
-                                        name="l_hours" placeholder="...">
+                                        name="l_hours">
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="efs">Efs</label>
                                     <input type="number" pattern="[0-9]" min="0" class="form-control" id="efs"
-                                        name="efs" placeholder="...">
+                                        name="efs">
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="tech">Tech</label>
-                                    <input type="text" class="form-control" id="tech" name="tech"
-                                        placeholder="...">
+                                    <input type="text" class="form-control" id="tech" name="tech">
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="keterangan">Keterangan</label>
-                                    <input type="text" class="form-control" id="keterangan" name="keterangan"
-                                        placeholder="...">
+                                    <input type="text" class="form-control" id="keterangan" name="keterangan">
                                 </div>
                             </div>
                             <div class="col-lg-2 p-4">
@@ -108,11 +100,9 @@
                                     </div>
                                     <div class="d-flex gap-2">
                                         <h6 class="mt-2">Tanggal</h6>
-                                        <input type="date" class="form-control" id="tanggal-awal"
-                                            placeholder="name@example.com">
+                                        <input type="date" class="form-control" id="tanggal-awal">
                                         <h6 class="mt-2">S/D</h6>
-                                        <input type="date" class="form-control" id="tanggal-akhir"
-                                            placeholder="name@example.com">
+                                        <input type="date" class="form-control" id="tanggal-akhir">
                                     </div>
                                 </div>
                                 <div class="col-md-6 mt-2">

@@ -13,8 +13,7 @@
                                 <input type="hidden" id="hiddenNomorpanel">
                                 <div class="acs-div-filter">
                                     <label for="tanggal">Tanggal</label>
-                                    <input type="date" class="form-control" id="tanggal"
-                                        placeholder="name@example.com">
+                                    <input type="date" class="form-control" id="tanggal">
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="feeder">Feeder Line</label>
@@ -33,15 +32,13 @@
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="jam_gangguan">Jam Gangguan</label>
-                                    <input type="time" class="form-control" id="jam_gangguan" name="jam_gangguan"
-                                        placeholder="name@example.com">
+                                    <input type="time" class="form-control" id="jam_gangguan" name="jam_gangguan">
                                 </div>
                             </div>
                             <div class="col-lg-5 p-4">
                                 <div class="acs-div-filter">
                                     <label for="jam_selesai">Jam Selesai</label>
-                                    <input type="time" class="form-control" id="jam_selesai" name="jam_selesai"
-                                        placeholder="name@example.com">
+                                    <input type="time" class="form-control" id="jam_selesai" name="jam_selesai">
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="ket_gangguan">Ket. Gangguan</label>
@@ -55,8 +52,7 @@
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="keterangan">Keterangan</label>
-                                    <input type="text" class="form-control" id="keterangan" name="keterangan"
-                                        placeholder="...">
+                                    <input type="text" class="form-control" id="keterangan" name="keterangan">
                                 </div>
                             </div>
                             <div class="col-lg-2 p-4">

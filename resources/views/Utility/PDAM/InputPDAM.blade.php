@@ -12,13 +12,11 @@
                                 <input type="hidden" id="hiddenNomorpdam">
                                 <div class="acs-div-filter pt-4">
                                     <label for="tanggal">Tanggal</label>
-                                    <input type="date" class="form-control" id="tanggal"
-                                        placeholder="name@example.com">
+                                    <input type="date" class="form-control" id="tanggal">
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="jam">Jam</label>
-                                    <input type="time" class="form-control" id="jam" name="jam"
-                                        placeholder="name@example.com">
+                                    <input type="time" class="form-control" id="jam" name="jam">
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="nometer">No Meter</label>
@@ -33,13 +31,11 @@
                             <div class="col-lg-5 p-4">
                                 <div class="acs-div-filter pt-4">
                                     <label for="counter">Counter</label>
-                                    <input type="number" class="form-control" id="counter" name="counter"
-                                        placeholder="Masukkan Counter...">
+                                    <input type="number" class="form-control" id="counter" name="counter">
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="teknisi">Teknisi</label>
-                                    <input type="text" class="form-control" id="teknisi" name="teknisi"
-                                        placeholder="Masukkan Nama Teknisi...">
+                                    <input type="text" class="form-control" id="teknisi" name="teknisi">
                                 </div>
                             </div>
                             <div class="col-lg-2 p-4">
@@ -65,11 +61,9 @@
                                     </div>
                                     <div class="d-flex gap-2">
                                         <h6 class="mt-2">Tanggal</h6>
-                                        <input type="date" class="form-control" id="tanggal-awal" name="date1"
-                                            placeholder="name@example.com">
+                                        <input type="date" class="form-control" id="tanggal-awal" name="date1">
                                         <h6 class="mt-2">S/D</h6>
-                                        <input type="date" class="form-control" id="tanggal-akhir" name="date2"
-                                            placeholder="name@example.com">
+                                        <input type="date" class="form-control" id="tanggal-akhir" name="date2">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -77,8 +71,7 @@
                                         <label for="tanggal">No Meter</label>
                                     </div>
                                     <div class="d-flex gap-2">
-                                        <input type="text" class="form-control" id="nometersearch" name="nometersearch"
-                                            placeholder="Masukkan No Meter...">
+                                        <input type="text" class="form-control" id="nometersearch" name="nometersearch">
                                         <button type="submit" id="refreshButton" class="btn btn-primary">Refresh</button>
                                     </div>
                                 </div>

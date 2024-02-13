@@ -9,8 +9,7 @@
             <div class="modal-body">
                 <div class="row-lg-12 mb-2">
                     <div class="col-lg-12 d-flex">
-                        <input type="text" class="form-control" id="statuslogmodalinput"
-                            placeholder="Tambahkan Status Log...">
+                        <input type="text" class="form-control" id="statuslogmodalinput">
                         <div class="ms-2">
                             <button type="button" class="btn btn-primary" id="saveButtonStatusLog">Proses</button>
                         </div>
