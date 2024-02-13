@@ -9,8 +9,7 @@ function clearOptions(selectElement) {
     }
 }
 
-supplierDropdown.addEventListener("change", function(event) {
-    // Reset dropdown No PO to its default state
+supplierDropdown.addEventListener("change", function (event) {
     if (supplierDropdown.selectedIndex != 0) {
         clearOptions(noPODropdown);
         let selectedSupplierId = supplierDropdown.value;
@@ -21,16 +20,17 @@ supplierDropdown.addEventListener("change", function(event) {
             data: {
                 idSup: supplierDropdown.value,
             },
-            success: function(response) {
+            success: function (response) {
                 // console.log(response)
-                response.forEach(function(data) {  console.log(data)
+                response.forEach(function (data) {
+                    console.log(data)
                     let option = document.createElement("option");
                     option.value = data.NO_PO;
                     option.text = data.NO_PO;
                     noPODropdown.add(option);
                 });
             },
-            error: function(error) {
+            error: function (error) {
                 console.error("Error Fetch Data:", error);
             },
         });
@@ -40,8 +40,6 @@ supplierDropdown.addEventListener("change", function(event) {
     }
 });
 
-
-// Event listener untuk dropdown No PO
 noPODropdown.addEventListener("change", function(event) {
     $('#tableharga').DataTable().clear();
     $.ajax({
@@ -61,8 +59,8 @@ noPODropdown.addEventListener("change", function(event) {
 
 function responseData(datas) {
     let tableData = $('#tableharga').DataTable();
-    tableData.clear().destroy();
-    datas.forEach(function(data) {
+    tableData.clear().destroy()
+    datas.forEach(function (data) {
         tableData.row.add([data.No_trans, data.Kd_brg, data.NAMA_BRG, data.nama_sub_kategori, data.Qty, data.Nama_satuan, data.QtyRcv, data.QtyRemain, data.JumPPN, data.Status]).draw();
     });
 }
@@ -71,7 +69,6 @@ let tabelData = $('#tableharga').DataTable();
 $('#tableharga tbody').on('dblclick', 'tr', function () {
     var rowData = tabelData.row(this).data();
 
-    // Check if rowData exists and has sufficient length
     if (rowData && rowData.length >= 8) {
         document.getElementById('no_po').value = rowData[0] || '';
         document.getElementById('kd_barang').value = rowData[1] || '';
@@ -83,7 +80,6 @@ $('#tableharga tbody').on('dblclick', 'tr', function () {
         document.getElementById('qty_received').value = rowData[6] || '';
         document.getElementById('qty_cancel').value = rowData[7] || '';
     } else {
-        // Handle the case when rowData is not valid or doesn't have enough length
         console.error("Invalid rowData or insufficient length");
     }
 });

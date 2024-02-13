@@ -1,68 +1,67 @@
-var input = document.getElementById("po");
-input.addEventListener("keypress", function (event) {
-    if (event.key === "Enter") {
-        event.preventDefault();
+let supplier = document.getElementById("supplier")
+let POdropdown = document.getElementById("po")
+
+function clearOptions(selectElement) {
+    let length = selectElement.options.length;
+
+    for (let i = length - 1; i > 0; i--) {
+        selectElement.remove(i);
+    }
+}
+
+supplier.addEventListener("change", function(event) {
+    if (supplier.selectedIndex != 0) {
+        clearOptions(POdropdown);
+        let selectedSupplierId = supplier.value;
+        console.log(POdropdown)
         $.ajax({
-            method: "GET",
-            url: "/Create",
+            url: "/Drop1",
+            type: "GET",
             data: {
-                noPO: input.value,
+                idSup: supplier.value,
             },
-            success: function (response) {
-                console.log('Data successfully sent to the server');
-                console.log('Server response:', response);
-                responseData(response)
+            success: function(response) {
+                // console.log(response)
+                response.forEach(function(data) {  console.log(data)
+                    let option = document.createElement("option");
+                    option.value = data.NO_PO;
+                    option.text = data.NO_PO;
+                    POdropdown.add(option);
+                });
             },
-            error: function (error) {
-                console.error('Error sending data to the server:', error);
-            }
+            error: function(error) {
+                console.error("Error Fetch Data:", error);
+            },
         });
+    } else {
+        POdropdown = true;
     }
 });
 
 
-    $(document).ready(function () {
-        $("#btn_update").click(function () {
-            // Ambil nilai dari input atau elemen lainnya
-            var idTypeTransaksi = $("#idTypeTransaksi").val();
-            var tanggal = $("#tanggal").val();
-            var idSupplier = $("#idSupplier").val();
-            // ... ambil nilai dari elemen lainnya
-
-            // Data yang akan dikirim
-            var data = {
-                idTypeTransaksi: idTypeTransaksi,
-                tanggal: tanggal,
-                idSupplier: idSupplier,
-                // ... tambahkan data lainnya
-            };
-
-            // Kirim request Ajax
-            $.ajax({
-                type: "POST", // Ganti dengan method yang sesuai
-                url: "/path/to/your/endpoint", // Ganti dengan URL endpoint Anda
-                data: data,
-                success: function (response) {
-                    // Handle respon dari server jika sukses
-                    console.log(response);
-                },
-                error: function (error) {
-                    // Handle error jika terjadi
-                    console.error("Error:", error);
-                }
-            });
-        });
+POdropdown.addEventListener("change", function(event) {
+    $('#tabelcreate').DataTable().clear();
+    $.ajax({
+        url: "/Create",
+        type: "GET",
+        data: {
+            noPO: POdropdown.value,
+        },
+        success: function(response) {
+            responseData(response);
+        },
+        error: function(error) {
+            console.error("Error Fetch Data:", error);
+            responseData(response);
+        },
     });
-
+});
 
 
 let tabelData = $('#tabelcreate').DataTable();
-
-
 $('#tabelcreate tbody').on('click', 'tr', function () {
     var rowData = tabelData.row(this).data();
 
-    // Mengisi nilai ke elemen formulir
     $('#nomororder').val(rowData[0]);
     $('#kurs').val(rowData[13]);
     $('#matauang').val(rowData[20]);

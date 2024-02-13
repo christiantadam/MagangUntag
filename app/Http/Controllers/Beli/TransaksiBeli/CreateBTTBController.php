@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Beli\TransaksiBeli;
 
-use Illuminate\Http\Request;
-use App\User;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HakAksesController;
 use DB;
+use Illuminate\Http\Request;
 
 class CreateBTTBController extends Controller
 {
@@ -17,7 +16,7 @@ class CreateBTTBController extends Controller
         $po = DB::connection('ConnPurchase')->select('exec SP_5409_PBL_SUPPLIER @kd=1');
         $ppn = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_PPN');
         $access = (new HakAksesController)->HakAksesFiturMaster('Beli');
-        return view('Beli.TransaksiBeli.CreateBTTB', compact('nosup','po','ppn','access'));
+        return view('Beli.TransaksiBeli.CreateBTTB', compact('nosup', 'po', 'ppn', 'access'));
     }
 
     //Show the form for creating a new resource.
@@ -37,27 +36,31 @@ class CreateBTTBController extends Controller
         $noPO = $request->input('noPO');
         $kd = 16;
 
-        $createbttb = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd=?, @noPO=?',[$kd,$noPO]);
+        $createbttb = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd=?, @noPO=?', [$kd, $noPO]);
 
         return response()->json($createbttb);
     }
 
+    public function drop1(Request $request)
+    {
+        $idSup = $request->input('idSup');
+        $kd = 15;
+
+        $purchaseorder = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd =?, @idSup =?', [$kd, $idSup]);
+
+        return response()->json($purchaseorder);
+    }
 
 
+    public function dropdown(Request $request)
+    {
+        $NM_SUP = $request->input('NM_SUP');
+        $kd = 1;
 
-        //Display the specified resource.
-        public function post($id)
-        {
-            $noPO = $request->input('noPO');
-            $kd = 16;
+        $purchaseorder = DB::connection('ConnPurchase')->select('exec SP_5409_PBL_SUPPLIER @kd =?, @NM_SUP =?', [$kd, $NM_SUP]);
+        return response()->json($purchaseorder);
 
-            $createbttb = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd=?, @noPO=?',[$kd,$noPO]);
-
-            return response()->json($createbttb);
-        }
-
-
-    //Display the specified resource.
+    }
     public function show($id)
     {
         //
