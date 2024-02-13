@@ -58,7 +58,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="table-responsive">
+                            <div class="table-responsive mt-5">
 
                                 <table class="table" id="table-elektrik-bulanan">
                                     <thead class="thead-dark">

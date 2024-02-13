@@ -118,19 +118,18 @@
 
                         </div>
                         <label class="mt-3">Filter</label>
-                        <div class="row-24 d-flex mt-1">
-
-                            <label for="">Bulan</label>
+                        <div class=" d-flex gap-2 align-items-center">
+                            <h6 class="mt-2">Bulan</h6>
                             <input type="number" name="tanggal_dibutuhkan" pattern="[0-9]" min="0"
-                                id="bulan" placeholder="contoh: 1,2,3" class="input mb-3 ml-1">
-                            <label for=""class="ml-3">Tahun</label>
+                                id="bulan" placeholder="contoh: 1,2,3" class="input ">
+                            <h6 class="mt-2">Tanggal</h6>
                             <input type="number" pattern="[0-9]" name="tanggal_dibutuhkan" min="0"
-                                id="tahun" class="input mb-3 ml-1 "placeholder="contoh: 2023">
+                                id="tahun" class="input ml-1" placeholder="contoh: 2023">
 
-                            <button type="button" style="" class="btn btn-primary ml-3"
-                                id="refreshButton">Refresh</button>
+                            <button id="refreshButton" class="btn btn-primary">Refresh</button>
                         </div>
-                        <div id="div_tablePO" class="table-responsive">
+
+                        <div id="div_tablePO" class="table-responsive mt-3">
                             <table class="table" id="tabel_input_project">
                                 <thead class="thead-dark">
                                     <tr>
