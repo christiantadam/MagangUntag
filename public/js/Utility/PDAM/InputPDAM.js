@@ -31,7 +31,6 @@ let saveButton = document.getElementById("saveButton");
 let refreshButton = document.getElementById("refreshButton");
 
 function clearForm() {
-    // tanggal.value = "";
     jam.value = "";
     nometer.value = "";
     counter.value = "";
@@ -74,6 +73,7 @@ inputButton.addEventListener("click", function () {
     teknisi.disabled = false;
     updateButton.disabled = true;
     deleteButton.disabled = true;
+    $(".checkboxpdam").prop("checked", false);
 });
 
 // CancelButton click
@@ -86,9 +86,8 @@ cancelButton.addEventListener("click", function () {
     updateButton.disabled = false;
     deleteButton.disabled = false;
     inputButton.disabled = false;
-    // Clear Form
     clearForm();
-
+    $(".checkboxpdam").prop("checked", false);
     saveButton.disabled = true;
 });
 
@@ -123,6 +122,7 @@ updateButton.addEventListener("click", function () {
 // Reload Window
 window.addEventListener("beforeunload", function () {
     clearForm();
+    $(".checkboxpdam").prop("checked", false);
     nometersearch.value = "";
     saveButton.disabled = true;
 });
@@ -220,8 +220,8 @@ $(document).ready(function () {
             {
                 data: "tanggal",
                 render: function (data, type, full, meta) {
-                    var date = new Date(data).toISOString().split("T")[0];
-                    return date;
+                    var date = moment.utc(data).local();
+                    return date.format("DD/MM/YYYY");
                 },
             },
             {
@@ -254,10 +254,11 @@ $(document).ready(function () {
         if ($(this).prop("checked")) {
             deleteButton.disabled = false;
             updateButton.disabled = false;
-
             var selectedRow = $(this).closest("tr");
-
             var selectedDate = selectedRow.find("td:eq(1)").text();
+            var formattanggal = moment(selectedDate, "DD/MM/YYYY").format(
+                "YYYY-MM-DD"
+            );
             var selectedJam = selectedRow.find("td:eq(2)").text();
             var selectedNoMeter = selectedRow.find("td:eq(3)").text();
             var selectedCounter = selectedRow.find("td:eq(4)").text();
@@ -266,7 +267,7 @@ $(document).ready(function () {
             var selectedNomorpdam = $(this).val();
 
             $("#hiddenNomorpdam").val(selectedNomorpdam);
-            $("#tanggal").val(selectedDate);
+            $("#tanggal").val(formattanggal);
             $("#jam").val(selectedJam);
             $("#nometer").val(selectedNoMeter);
             $("#counter").val(selectedCounter);
@@ -294,7 +295,6 @@ $(document).ready(function () {
             });
             return;
         }
-
         // Use SweetAlert for confirmation
         Swal.fire({
             title: "Konfirmasi",
