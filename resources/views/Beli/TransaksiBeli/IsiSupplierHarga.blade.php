@@ -95,12 +95,12 @@
                                         <div class="row align-items-center">
                                             <div class="col-6">
                                                 <input type="radio" name="status_beliRadioButton"
-                                                    id="status_beliPengadaanPembelian" class="input" checked>Pengadaan
+                                                    id="status_beliPengadaanPembelian" class="input" disabled checked>Pengadaan
                                                 Pembelian
                                             </div>
                                             <div style="col-6">
                                                 <input type="radio" name="status_beliRadioButton"
-                                                    id="status_beliBeliSendiri" class="input">Beli Sendiri
+                                                    id="status_beliBeliSendiri" class="input" disabled>Beli Sendiri
                                             </div>
                                         </div>
                                     </div>

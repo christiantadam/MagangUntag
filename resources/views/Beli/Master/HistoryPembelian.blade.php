@@ -71,7 +71,7 @@
                                             Nama Barang
                                         </label>
                                         <div class="col-md-10">
-                                            <input type="text" name="search_nama_barang" class="form-control">
+                                            <input type="text" name="search_nama_barang" id="search_kode_barang" class="form-control">
                                         </div>
                                     </div>
                                     <div class="row mb-3">

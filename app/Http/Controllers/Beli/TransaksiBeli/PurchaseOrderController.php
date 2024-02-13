@@ -7,6 +7,7 @@ use App\Http\Controllers\HakAksesController;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class PurchaseOrderController extends Controller
 {
@@ -174,7 +175,7 @@ class PurchaseOrderController extends Controller
         $Operator = '1001';
         $idpay = $request->input('idpay');
         $jumCetak = 1;
-        $Tgl_Dibutuhkan = $request->input('Tgl_Dibutuhkan');
+        $Tgl_Dibutuhkan = Carbon::parse($request->input('Tgl_Dibutuhkan'));
         $idSup = $request->input('idSup');
 
         if (($noTrans !== null) ||

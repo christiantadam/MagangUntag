@@ -10,6 +10,10 @@ formCari.addEventListener("input", function (event) {
     search.disabled = !getInputValue();
 });
 
+formCari.addEventListener("change", function (event) {
+    search.focus();
+});
+
 search.addEventListener("click", function (event) {
     if (getInputValue()) {
         let value = getInputValue();

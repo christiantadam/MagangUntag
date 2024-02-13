@@ -48,6 +48,9 @@ btn_remove.disabled = true;
 btn_reject.disabled = true;
 btn_post.disabled = true;
 
+alasan_reject.addEventListener("change", function () {
+    btn_reject.focus();
+});
 function clearData() {
     tanggal_purchaseOrder.valueAsDate = new Date();
     tanggal_mohonKirim.valueAsDate = new Date();
@@ -246,7 +249,7 @@ btn_update.addEventListener("click", function (event) {
                 showConfirmButton: false,
                 timer: "2000",
             });
-            console.log(response)
+            console.log(response);
             clearData();
             location.reload(true);
         },
@@ -278,7 +281,7 @@ btn_remove.addEventListener("click", function (event) {
                 showConfirmButton: false,
                 timer: "2000",
             });
-            console.log(response)
+            console.log(response);
             clearData();
             location.reload(true);
         },
@@ -311,7 +314,7 @@ btn_reject.addEventListener("click", function (event) {
                 showConfirmButton: false,
                 timer: "2000",
             });
-            console.log(response)
+            console.log(response);
             clearData();
             location.reload(true);
         },
@@ -349,7 +352,7 @@ btn_post.addEventListener("click", function (event) {
                 timer: "2000",
             });
             table.row(".selected").remove().draw(false);
-            console.log(response)
+            console.log(response);
             clearData();
         },
         error: function (error) {
@@ -368,20 +371,20 @@ $(document).ready(function () {
     console.log(loadPermohonanData);
 
     qty_delay.addEventListener("input", function (event) {
-        let qtyDelay = parseInt(fixValueQTYOrder - qty_delay.value);
+        let qtyDelay = parseFloat(fixValueQTYOrder - qty_delay.value);
 
         setInputFilter(
             document.getElementById("qty_delay"),
             function (value) {
                 return (
-                    /^\d*$/.test(value) &&
-                    (value === "" || parseInt(value) <= fixValueQTYOrder)
+                    /^-?\d*[.,]?\d*$$/.test(value) &&
+                    (value === "" || parseFloat(value) <= fixValueQTYOrder)
                 );
             },
             `Tidak boleh ketik character dan angka dibawah 0, harus angka diatas 0 dan tidak boleh lebih dari angka awal`
         );
         if (qtyDelay <= fixValueQTYOrder && qtyDelay >= 0) {
-            qty_order.value = qtyDelay;
+            qty_order.value = qtyDelay.toFixed(2);
         }
         updateIdrUnit();
         updateSubTotal();
@@ -395,19 +398,19 @@ $(document).ready(function () {
     });
 
     qty_order.addEventListener("input", function (event) {
-        let qtyOrder = parseInt(fixValueQTYOrder - qty_order.value);
+        let qtyOrder = parseFloat(fixValueQTYOrder - qty_order.value);
         setInputFilter(
             document.getElementById("qty_order"),
             function (value) {
                 return (
-                    /^\d*$/.test(value) &&
-                    (value === "" || parseInt(value) <= fixValueQTYOrder)
+                    /^-?\d*[.,]?\d*$/.test(value) &&
+                    (value === "" || parseFloat(value) <= fixValueQTYOrder)
                 );
             },
             `Tidak boleh ketik character dan angka dibawah 0, harus angka diatas 0 dan tidak boleh lebih dari angka awal`
         );
         if (qtyOrder <= fixValueQTYOrder && qtyOrder >= 0) {
-            qty_delay.value = qtyOrder;
+            qty_delay.value = qtyOrder.toFixed(2);
         }
         updateIdrUnit();
         updateSubTotal();

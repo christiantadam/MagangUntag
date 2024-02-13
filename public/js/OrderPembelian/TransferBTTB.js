@@ -269,8 +269,8 @@ function loadSatuan(KodeBarang) {
         },
         success: function (response) {
             console.log(response);
-            qty_premier.value = response[0].ST_PRIM;
-            qty_sekunder.value = response[0].ST_SEK;
+            qty_premier.value = parseFloat(response[0].ST_PRIM);
+            qty_sekunder.value = parseFloat(response[0].ST_SEK);
             ket_qtyPremier.value = response[0].Primer.replace(/\s/g, "");
             ket_qtySekunder.value = response[0].Sekunder.replace(/\s/g, "");
             ket_qtyTertier.value = response[0].Tertier.replace(/\s/g, "");
@@ -325,7 +325,7 @@ $(document).ready(function () {
                 no_terima.value = data.No_terima;
                 kode_barang.value = data.Kd_brg;
                 nama_barang.value = data.NAMA_BRG;
-                qty_terima.value = data.Qty_Terima;
+                qty_terima.value = parseFloat(data.Qty_Terima);
                 ket_qtyTerima.value = data.Nama_satuan;
                 divisi(data.Kd_brg.trim());
                 loadSatuan(data.Kd_brg.trim());

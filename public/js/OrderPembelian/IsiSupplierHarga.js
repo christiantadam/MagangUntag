@@ -41,6 +41,7 @@ tanggal_dibutuhkan.valueAsDate = new Date();
 redisplay.disabled = true;
 formCekRedisplay.addEventListener("change", function (event) {
     redisplay.disabled = !radioButtonIsSelected();
+    redisplay.focus();
 });
 btn_reject.disabled = true;
 alasan_reject.addEventListener("input", function (event) {
@@ -50,6 +51,11 @@ alasan_reject.addEventListener("input", function (event) {
         btn_reject.disabled = true;
     }
 });
+
+alasan_reject.addEventListener("change", function (event) {
+    btn_reject.focus();
+});
+
 btn_reject.addEventListener("click", function (event) {
     $.ajax({
         url: "/IsiSupplierHarga/" + id + "/Reject",
@@ -68,7 +74,7 @@ btn_reject.addEventListener("click", function (event) {
                 showConfirmButton: false,
                 timer: "2000",
             });
-            console.log(response)
+            console.log(response);
             clearData();
             $("#table_IsiHarga").DataTable().ajax.reload();
         },
@@ -170,7 +176,7 @@ btn_approve.addEventListener("click", function (event) {
                 showConfirmButton: false,
                 timer: "2000",
             });
-            console.log(response)
+            console.log(response);
             clearData();
             $("#table_IsiHarga").DataTable().ajax.reload();
         },
@@ -239,7 +245,7 @@ function redisplayData(noTrans, requester, kd) {
         responsive: true,
         processing: true,
         serverSide: true,
-        searching : false,
+        searching: false,
         ajax: {
             url: "/IsiSupplierHarga/" + id + "/Redisplay",
             type: "GET",
@@ -287,7 +293,7 @@ function redisplayData(noTrans, requester, kd) {
                 kode_barang.value = data.Kd_brg;
                 nama_barang.value = data.NAMA_BRG;
                 sub_kategori.value = data.nama_sub_kategori;
-                qty_order.value = parseFloat(data.Qty) ;
+                qty_order.value = parseFloat(data.Qty);
                 user_input.value = data.Nama;
                 keterangan_order.value = data.keterangan;
                 keterangan_internal.value = data.Ket_Internal;
@@ -346,20 +352,20 @@ $(document).ready(function () {
     });
 
     qty_delay.addEventListener("input", function (event) {
-        let qtyDelay = parseInt(fixValueQTYOrder - qty_delay.value);
+        let qtyDelay = parseFloat(fixValueQTYOrder - qty_delay.value);
 
         setInputFilter(
             document.getElementById("qty_delay"),
             function (value) {
                 return (
-                    /^\d*$/.test(value) &&
-                    (value === "" || parseInt(value) <= fixValueQTYOrder)
+                    /^-?\d*[.,]?\d*$/.test(value) &&
+                    (value === "" || parseFloat(value) <= fixValueQTYOrder)
                 );
             },
             `Tidak boleh ketik character dan angka dibawah 0, harus angka diatas 0 dan tidak boleh lebih dari angka awal`
         );
         if (qtyDelay <= fixValueQTYOrder && qtyDelay >= 0) {
-            qty_order.value = qtyDelay;
+            qty_order.value = qtyDelay.toFixed(2);
         }
         updateIdrUnit();
         updateSubTotal();
@@ -371,19 +377,19 @@ $(document).ready(function () {
     });
 
     qty_order.addEventListener("input", function (event) {
-        let qtyOrder = parseInt(fixValueQTYOrder - qty_order.value);
+        let qtyOrder = parseFloat(fixValueQTYOrder - qty_order.value);
         setInputFilter(
             document.getElementById("qty_order"),
             function (value) {
                 return (
-                    /^\d*$/.test(value) &&
-                    (value === "" || parseInt(value) <= fixValueQTYOrder)
+                    /^-?\d*[.,]?\d*$/.test(value) &&
+                    (value === "" || parseFloat(value) <= fixValueQTYOrder)
                 );
             },
             `Tidak boleh ketik character dan angka dibawah 0, harus angka diatas 0 dan tidak boleh lebih dari angka awal`
         );
         if (qtyOrder <= fixValueQTYOrder && qtyOrder >= 0) {
-            qty_delay.value = qtyOrder;
+            qty_delay.value = qtyOrder.toFixed(2);
         }
         updateIdrUnit();
         updateSubTotal();

@@ -91,6 +91,10 @@ kd_barang.addEventListener("input", function (event) {
     }
 });
 
+kd_barang.addEventListener("change", function (event) {
+    btn_cari_kdBarang.focus();
+});
+
 check_barangSama.addEventListener("click", function (event) {
     if (check_barangSama.checked == true) {
         select_kategori.disabled = true;
@@ -322,7 +326,6 @@ btn_proses.addEventListener("click", function (event) {
             },
         });
     } else if (btnActive == "hapus") {
-
         $.ajax({
             url: "/Maintenance/ProsesHapus",
             type: "POST",
@@ -483,6 +486,8 @@ select_kategori_utama.addEventListener("change", function (event) {
     let myValue = select_kategori_utama.value.slice(1);
     kategori(myValue, function () {
         select_kategori.disabled = false;
+        select_subKategori.disabled = true;
+        select_namaBarang.disabled = true;
     });
 });
 
@@ -494,6 +499,7 @@ select_kategori.addEventListener("change", function (event) {
     let myValue = select_kategori.value;
     subKategori(myValue, function () {
         select_subKategori.disabled = false;
+        select_namaBarang.disabled = true;
     });
 });
 
@@ -576,175 +582,194 @@ function cariKodeBarang(kd_barang) {
         success: function (response) {
             dataRes = response[0];
             console.log(response);
-            kategori(response[0].no_kat_utama, function () {
-                for (let i = 0; i < select_kategori.options.length; i++) {
-                    if (
-                        select_kategori.options[i].text.replace(/\s/g, "") ===
-                        response[0].nama_kategori.replace(/\s/g, "")
-                    ) {
-                        select_kategori.selectedIndex = i;
+            if (response.length == 0) {
+                alert(`Kode barang ${kd_barang} tidak dapat ditemukan`);
+            } else {
+                kategori(response[0].no_kat_utama, function () {
+                    for (let i = 0; i < select_kategori.options.length; i++) {
+                        if (
+                            select_kategori.options[i].text.replace(
+                                /\s/g,
+                                ""
+                            ) === response[0].nama_kategori.replace(/\s/g, "")
+                        ) {
+                            select_kategori.selectedIndex = i;
+                        }
                     }
-                }
-            });
+                });
 
-            subKategori(response[0].no_kategori, function () {
-                for (let i = 0; i < select_subKategori.options.length; i++) {
+                subKategori(response[0].no_kategori, function () {
+                    for (
+                        let i = 0;
+                        i < select_subKategori.options.length;
+                        i++
+                    ) {
+                        if (
+                            select_subKategori.options[i].text.replace(
+                                /\s/g,
+                                ""
+                            ) ===
+                            response[0].nama_sub_kategori.replace(/\s/g, "")
+                        ) {
+                            select_subKategori.selectedIndex = i;
+                        }
+                    }
+                });
+
+                namaBarang(response[0].no_sub_kategori, function () {
+                    for (let i = 0; i < select_namaBarang.options.length; i++) {
+                        if (
+                            select_namaBarang.options[i].text.replace(
+                                /\s/g,
+                                ""
+                            ) === response[0].NAMA_BRG.replace(/\s/g, "")
+                        ) {
+                            select_namaBarang.selectedIndex = i;
+                            indexNamaBarang = i;
+                        }
+                    }
+                });
+
+                for (let i = 0; i < select_kategori_utama.options.length; i++) {
                     if (
-                        select_subKategori.options[i].text.replace(
+                        select_kategori_utama.options[i].text.replace(
                             /\s/g,
                             ""
-                        ) === response[0].nama_sub_kategori.replace(/\s/g, "")
+                        ) === response[0].nama.replace(/\s/g, "")
                     ) {
-                        select_subKategori.selectedIndex = i;
+                        select_kategori_utama.selectedIndex = i;
                     }
                 }
-            });
+                if (response[0].KDSPEC != null) {
+                    check_spek.checked = true;
+                    for (let i = 0; i < select_spek.options.length; i++) {
+                        if (
+                            select_spek.options[i].value.replace(/\s/g, "") ===
+                            response[0].KDSPEC.replace(/\s/g, "")
+                        ) {
+                            select_spek.selectedIndex = i;
+                        }
+                    }
+                } else {
+                    check_spek.checked = false;
+                    select_spek.selectedIndex = 0;
+                }
+                ket_khusus.value = response[0].KET_KHUSUS;
+                ket_barang.value = response[0].KET;
+                org_penjaluk.value = response[0].PENJALUK;
+                if (response[0].kriteria != 0) {
+                    select_jenisPembelian.selectedIndex = 1;
+                } else {
+                    select_jenisPembelian.selectedIndex = 0;
+                }
 
-            namaBarang(response[0].no_sub_kategori, function () {
-                for (let i = 0; i < select_namaBarang.options.length; i++) {
+                if (response[0].no_kategori == "011") {
+                    check_export.disabled = false;
+                    labelExport.style.display = "block";
+                } else {
+                    check_export.disabled = true;
+                    labelExport.style.display = "none";
+                }
+                if (response[0].Barang_Eksport == "Y") {
+                    check_export.checked = true;
+                } else {
+                    check_export.checked = false;
+                }
+                if (response[0].ROUND == "Y") {
+                    check_round.checked = true;
+                } else {
+                    check_round.checked = false;
+                }
+                for (let i = 0; i < select_satuanPrimer.options.length; i++) {
                     if (
-                        select_namaBarang.options[i].text.replace(/\s/g, "") ===
-                        response[0].NAMA_BRG.replace(/\s/g, "")
+                        select_satuanPrimer.options[i].value ===
+                        response[0].ST_PRIM
                     ) {
-                        select_namaBarang.selectedIndex = i;
-                        indexNamaBarang = i;
+                        select_satuanPrimer.selectedIndex = i;
                     }
                 }
-            });
-
-            for (let i = 0; i < select_kategori_utama.options.length; i++) {
-                if (
-                    select_kategori_utama.options[i].text.replace(/\s/g, "") ===
-                    response[0].nama.replace(/\s/g, "")
-                ) {
-                    select_kategori_utama.selectedIndex = i;
-                }
-            }
-            if (response[0].KDSPEC != null) {
-                check_spek.checked = true;
-                for (let i = 0; i < select_spek.options.length; i++) {
+                for (let i = 0; i < select_satuanSekunder.options.length; i++) {
                     if (
-                        select_spek.options[i].value.replace(/\s/g, "") ===
-                        response[0].KDSPEC.replace(/\s/g, "")
+                        select_satuanSekunder.options[i].value ===
+                        response[0].ST_SEK
                     ) {
-                        select_spek.selectedIndex = i;
+                        select_satuanSekunder.selectedIndex = i;
                     }
                 }
-            } else {
-                check_spek.checked = false;
-                select_spek.selectedIndex = 0;
-            }
-            ket_khusus.value = response[0].KET_KHUSUS;
-            ket_barang.value = response[0].KET;
-            org_penjaluk.value = response[0].PENJALUK;
-            if (response[0].kriteria != 0) {
-                select_jenisPembelian.selectedIndex = 1;
-            } else {
-                select_jenisPembelian.selectedIndex = 0;
-            }
-
-            if (response[0].no_kategori == "011") {
-                check_export.disabled = false;
-                labelExport.style.display = "block";
-            } else {
-                check_export.disabled = true;
-                labelExport.style.display = "none";
-            }
-            if (response[0].Barang_Eksport == "Y") {
-                check_export.checked = true;
-            } else {
-                check_export.checked = false;
-            }
-            if (response[0].ROUND == "Y") {
-                check_round.checked = true;
-            } else {
-                check_round.checked = false;
-            }
-            for (let i = 0; i < select_satuanPrimer.options.length; i++) {
-                if (
-                    select_satuanPrimer.options[i].value === response[0].ST_PRIM
-                ) {
-                    select_satuanPrimer.selectedIndex = i;
+                for (let i = 0; i < select_satuanTritier.options.length; i++) {
+                    if (
+                        select_satuanTritier.options[i].value ===
+                        response[0].ST_TRI
+                    ) {
+                        select_satuanTritier.selectedIndex = i;
+                    }
                 }
-            }
-            for (let i = 0; i < select_satuanSekunder.options.length; i++) {
-                if (
-                    select_satuanSekunder.options[i].value ===
-                    response[0].ST_SEK
-                ) {
-                    select_satuanSekunder.selectedIndex = i;
+                for (let i = 0; i < select_satuanUmum.options.length; i++) {
+                    if (
+                        select_satuanUmum.options[i].value ===
+                        response[0].NO_SATUAN_UMUM
+                    ) {
+                        select_satuanUmum.selectedIndex = i;
+                    }
                 }
-            }
-            for (let i = 0; i < select_satuanTritier.options.length; i++) {
-                if (
-                    select_satuanTritier.options[i].value === response[0].ST_TRI
-                ) {
-                    select_satuanTritier.selectedIndex = i;
+                MySpesifikasi = parseInt(response[0].no_sub_kategori);
+                switch (MySpesifikasi) {
+                    case SpesifikasiType.BenangExtruder:
+                        PecahBenang(response[0].NAMA_BRG.replace(/\s/g, ""));
+                        break;
+                    case SpesifikasiType.Gelondongan:
+                        PecahGelondongan(
+                            response[0].NAMA_BRG.replace(/\s/g, "")
+                        );
+                        break;
+                    case SpesifikasiType.InnerGelondongan:
+                        PecahInnerGelondongan(
+                            response[0].NAMA_BRG.replace(/\s/g, "")
+                        );
+                        break;
+                    case SpesifikasiType.PolybagGelondonganLDPE:
+                        PecahInnerGelondongan(
+                            response[0].NAMA_BRG.replace(/\s/g, "")
+                        );
+                        break;
+                    case SpesifikasiType.PolybagGelondonganLLDPE:
+                        PecahInnerGelondongan(
+                            response[0].NAMA_BRG.replace(/\s/g, "")
+                        );
+                        break;
+                    case SpesifikasiType.PolybagHDPE:
+                        PecahInnerHasilPotong(
+                            response[0].NAMA_BRG.replace(/\s/g, "")
+                        );
+                        break;
+                    case SpesifikasiType.PolybagLDPE:
+                        PecahInnerHasilPotong(
+                            response[0].NAMA_BRG.replace(/\s/g, "")
+                        );
+                        break;
+                    case SpesifikasiType.PolybagLDPP:
+                        PecahInnerHasilPotong(
+                            response[0].NAMA_BRG.replace(/\s/g, "")
+                        );
+                        break;
+                    case SpesifikasiType.PolybagLLDPE:
+                        PecahInnerHasilPotong(
+                            response[0].NAMA_BRG.replace(/\s/g, "")
+                        );
+                        break;
+                    case SpesifikasiType.PolybagPE:
+                        PecahInnerHasilPotong(
+                            response[0].NAMA_BRG.replace(/\s/g, "")
+                        );
+                        break;
+                    case SpesifikasiType.KarungWovenBag:
+                        PecahKarungWovenBag(
+                            response[0].NAMA_BRG.replace(/\s/g, "")
+                        );
+                        break;
+                    default:
+                        break;
                 }
-            }
-            for (let i = 0; i < select_satuanUmum.options.length; i++) {
-                if (
-                    select_satuanUmum.options[i].value ===
-                    response[0].NO_SATUAN_UMUM
-                ) {
-                    select_satuanUmum.selectedIndex = i;
-                }
-            }
-            MySpesifikasi = parseInt(response[0].no_sub_kategori);
-            switch (MySpesifikasi) {
-                case SpesifikasiType.BenangExtruder:
-                    PecahBenang(response[0].NAMA_BRG.replace(/\s/g, ""));
-                    break;
-                case SpesifikasiType.Gelondongan:
-                    PecahGelondongan(response[0].NAMA_BRG.replace(/\s/g, ""));
-                    break;
-                case SpesifikasiType.InnerGelondongan:
-                    PecahInnerGelondongan(
-                        response[0].NAMA_BRG.replace(/\s/g, "")
-                    );
-                    break;
-                case SpesifikasiType.PolybagGelondonganLDPE:
-                    PecahInnerGelondongan(
-                        response[0].NAMA_BRG.replace(/\s/g, "")
-                    );
-                    break;
-                case SpesifikasiType.PolybagGelondonganLLDPE:
-                    PecahInnerGelondongan(
-                        response[0].NAMA_BRG.replace(/\s/g, "")
-                    );
-                    break;
-                case SpesifikasiType.PolybagHDPE:
-                    PecahInnerHasilPotong(
-                        response[0].NAMA_BRG.replace(/\s/g, "")
-                    );
-                    break;
-                case SpesifikasiType.PolybagLDPE:
-                    PecahInnerHasilPotong(
-                        response[0].NAMA_BRG.replace(/\s/g, "")
-                    );
-                    break;
-                case SpesifikasiType.PolybagLDPP:
-                    PecahInnerHasilPotong(
-                        response[0].NAMA_BRG.replace(/\s/g, "")
-                    );
-                    break;
-                case SpesifikasiType.PolybagLLDPE:
-                    PecahInnerHasilPotong(
-                        response[0].NAMA_BRG.replace(/\s/g, "")
-                    );
-                    break;
-                case SpesifikasiType.PolybagPE:
-                    PecahInnerHasilPotong(
-                        response[0].NAMA_BRG.replace(/\s/g, "")
-                    );
-                    break;
-                case SpesifikasiType.KarungWovenBag:
-                    PecahKarungWovenBag(
-                        response[0].NAMA_BRG.replace(/\s/g, "")
-                    );
-                    break;
-                default:
-                    break;
             }
         },
         error: function (error) {

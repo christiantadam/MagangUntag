@@ -60,3 +60,6 @@
 .red-label {
     color: red;
 }
+td {
+    cursor: pointer;
+}

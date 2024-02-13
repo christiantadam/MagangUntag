@@ -18,6 +18,10 @@ formCekRedisplay.addEventListener("input", function (event) {
     }
 });
 
+no_bttb.addEventListener("change", function (event) {
+    redisplay.focus();
+});
+
 redisplay.addEventListener("click", function (event) {
     if (radioButtonIsSelected()) {
         let radioButtonChecked = radioButtonIsSelected();
@@ -97,7 +101,8 @@ function redisplayData(Kd_Div, noBTTB, kd) {
                             data.No_PO +
                             "&No_BTTB=" +
                             data.No_BTTB +
-                            "&koreksi="+1;
+                            "&koreksi=" +
+                            1;
                         window.location.href = url;
                     } else {
                         const url =
@@ -106,7 +111,8 @@ function redisplayData(Kd_Div, noBTTB, kd) {
                             data.No_PO +
                             "&No_BTTB=" +
                             data.No_BTTB +
-                            "&koreksi="+0;
+                            "&koreksi=" +
+                            0;
                         window.location.href = url;
                     }
                 } else {
