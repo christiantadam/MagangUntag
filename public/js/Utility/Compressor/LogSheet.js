@@ -85,6 +85,8 @@ inputButton.addEventListener("click", function () {
     deleteButton.disabled = true;
     saveButton.disabled = false;
     clearForm();
+    $(".checkboxlogsheet").prop("checked", false);
+
 });
 
 // UpdateButton click
@@ -245,6 +247,7 @@ $(document).ready(function () {
                           timer: "2000",
                       });
                 clearForm();
+                dataTable.ajax.reload();
             },
             error: function (error) {
                 console.error("Error saving data:", error);
@@ -280,14 +283,8 @@ $(document).ready(function () {
             {
                 data: "Tanggal",
                 render: function (data, type, full, meta) {
-                    var date = new Date(data);
-                    var day = date.getDate();
-                    var month = date.getMonth() + 1;
-                    var year = date.getFullYear();
-
-                    day = day < 10 ? "0" + day : day;
-                    month = month < 10 ? "0" + month : month;
-                    return day + "-" + month + "-" + year;
+                    var date = moment.utc(data).local();
+                    return date.format("DD/MM/YYYY");
                 },
             },
             {

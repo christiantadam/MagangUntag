@@ -25,7 +25,6 @@
                                         <option value="Mlr Gi-Nganjuk">Mlr Gi-Nganjuk</option>
                                         <option value="Mlr Gi-Ngluyu">Mlr Gi-Ngluyu</option>
                                         <option value="MJS Gi-Tarik">MJS Gi-Tarik</option>
-                                        <option value="MJS Gi-Tarik">MJS Gi-Tarik</option>
                                         <option value="MJS Gi-Ngoro">MJS Gi-Ngoro</option>
                                         <option value="Njekek Gi-Kertosono">Njekek Gi-Kertosono</option>
                                     </select>

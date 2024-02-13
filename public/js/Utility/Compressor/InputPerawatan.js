@@ -34,7 +34,6 @@ let refreshButton = document.getElementById("refreshButton");
 let checkboxperawatan = document.getElementsByClassName("checkboxperawatan");
 
 function clearForm() {
-    // tanggal.value = "";
     mesin.value = "";
     jam.value = "";
     part.value = "";
@@ -42,9 +41,6 @@ function clearForm() {
     teknisi.value = "";
     id.value = "";
 
-    // var selectKeterangan = $("#select_keterangan");
-    // selectKeterangan.empty().append("<option selected disabled>Pilih keterangan...</option>");
-    // selectKeterangan.prop("disabled", false);
 }
 
 saveButton.disabled = true;
@@ -93,6 +89,8 @@ inputButton.addEventListener("click", function () {
         .empty()
         .append("<option selected disabled>Pilih keterangan...</option>");
     selectKeterangan.prop("disabled", false);
+    $(".checkboxperawatan").prop("checked", false);
+
 });
 
 // UpdateButton click
@@ -138,10 +136,9 @@ cancelButton.addEventListener("click", function () {
         .empty()
         .append("<option selected disabled>Pilih keterangan...</option>");
     selectKeterangan.prop("disabled", true);
-
+    $(".checkboxperawatan").prop("checked", false);
     // Clear Form
     clearForm();
-
     // Disable saveButton
     saveButton.disabled = true;
 });
@@ -149,7 +146,7 @@ cancelButton.addEventListener("click", function () {
 // Reload Window
 window.addEventListener("beforeunload", function () {
     clearForm();
-
+    $(".checkboxperawatan").prop("checked", false);
     // Disable saveButton
     saveButton.disabled = true;
 });
@@ -219,9 +216,8 @@ $(document).ready(function () {
             {
                 data: "Tanggal",
                 render: function (data, type, full, meta) {
-                    var date = new Date(data + "Z");
-                    var date1 = new Date(date).toISOString().split("T")[0];
-                    return date1;
+                    var date = moment.utc(data).local();
+                    return date.format("DD/MM/YYYY");
                 },
             },
             { data: "NamaMesin" },
@@ -379,7 +375,6 @@ $(document).ready(function () {
             });
             return; // Abort further processing
         }
-
         // Use SweetAlert for confirmation
         Swal.fire({
             title: "Konfirmasi",

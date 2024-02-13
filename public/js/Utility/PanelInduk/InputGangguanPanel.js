@@ -30,11 +30,8 @@ let deleteButton = document.getElementById("deleteButton");
 let saveButton = document.getElementById("saveButton");
 let refreshButton = document.getElementById("refreshButton");
 
-// Checkbox
-// let checkboxpdam = document.getElementsByClassName("checkboxpdam");
 
 function clearForm() {
-    // tanggal.value = "";
     feeder.value = "";
     jam_gangguan.value = "";
     jam_selesai.value = "";
@@ -83,6 +80,8 @@ inputButton.addEventListener("click", function () {
     keterangan.disabled = false;
     updateButton.disabled = true;
     deleteButton.disabled = true;
+    $(".checkboxpanel").prop("checked", false);
+
 });
 
 // UpdateButton click
@@ -125,12 +124,13 @@ cancelButton.addEventListener("click", function () {
     deleteButton.disabled = false;
     clearForm();
     saveButton.disabled = true;
+    $(".checkboxpanel").prop("checked", false);
 });
 
 // Reload Window
 window.addEventListener("beforeunload", function () {
     clearForm();
-
+    $(".checkboxpanel").prop("checked", false);
     saveButton.disabled = true;
 });
 
@@ -228,8 +228,8 @@ $(document).ready(function () {
             {
                 data: "tanggal",
                 render: function (data, type, full, meta) {
-                    var date = new Date(data).toISOString().split("T")[0];
-                    return date;
+                    var date = moment.utc(data).local();
+                    return date.format("DD/MM/YYYY");
                 },
             },
             { data: "Feeder_line" },
@@ -292,7 +292,7 @@ $(document).ready(function () {
                     var date = new Date(data.tanggal + "Z");
                     tanggal.value = date.toISOString().split("T")[0];
 
-                    feeder.value = data.Feeder_line;
+                    feeder.value = data.Feeder_line.trim();
 
                     var startHours = new Date(data.Start_time + "Z")
                         .getUTCHours()
@@ -372,7 +372,6 @@ $(document).ready(function () {
                         "X-CSRF-TOKEN": csrfToken,
                     },
                     success: function (response) {
-                        dataTable.ajax.reload();
                         Swal.fire({
                             icon: "success",
                             title: "Terhapus!",
@@ -381,6 +380,7 @@ $(document).ready(function () {
                             timer: 2000,
                         });
                         clearForm();
+                        dataTable.ajax.reload();
                     },
                     error: function (error) {
                         console.error(

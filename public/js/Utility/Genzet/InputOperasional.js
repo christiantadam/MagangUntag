@@ -204,9 +204,7 @@ cancelButton.addEventListener("click", function () {
     inputButton.disabled = false;
     // Clear Form
     clearForm();
-
     $(".checkboxgenzet").prop("checked", false);
-
     // Disable saveButton
     saveButton.disabled = true;
 });
@@ -240,9 +238,8 @@ $(document).ready(function () {
             {
                 data: "Tanggal",
                 render: function (data, type, full, meta) {
-                    var date = new Date(data + "Z");
-                    var date1 = new Date(date).toISOString().split("T")[0];
-                    return date1;
+                    var date = moment.utc(data).local();
+                    return date.format("DD/MM/YYYY");
                 },
             },
             { data: "NamaMesin" },
@@ -297,6 +294,7 @@ $(document).ready(function () {
 
     $("#refreshButton").click(function () {
         dataTable.ajax.reload();
+        $(".checkboxgenzet").prop("checked", false);
     });
 
     // Save Data
@@ -349,7 +347,6 @@ $(document).ready(function () {
                 "X-CSRF-TOKEN": csrfToken,
             },
             success: function (response) {
-                console.log(requestData);
                 nomorgenzetValue
                     ? Swal.fire({
                           icon: "success",
@@ -364,6 +361,7 @@ $(document).ready(function () {
                           timer: "2000",
                       });
                 clearForm();
+                dataTable.ajax.reload();
             },
             error: function (error) {
                 Swal.fire({
@@ -391,8 +389,6 @@ $(document).ready(function () {
                 type: "GET",
                 data: { nomorGenzet: selectedNomorgenzet },
                 success: function (data) {
-                    console.log(data);
-
                     var date = new Date(data.Tanggal + "Z");
                     tanggal.value = date.toISOString().split("T")[0];
                     mesingenzet.value = data.NoMesin;
@@ -481,7 +477,6 @@ $(document).ready(function () {
                         "X-CSRF-TOKEN": csrfToken,
                     },
                     success: function (response) {
-                        console.log(requestData);
                         Swal.fire({
                             icon: "success",
                             title: "Terhapus!",
@@ -489,10 +484,7 @@ $(document).ready(function () {
                             showConfirmButton: false,
                             timer: 2000,
                         });
-                        console.log(
-                            "data Genzet delete successfully",
-                            response
-                        );
+
                         dataTable.ajax.reload();
                         clearForm();
                     },
@@ -700,7 +692,6 @@ $(document).ready(function () {
                 "X-CSRF-TOKEN": csrfToken,
             },
             success: function (response) {
-                console.log(requestData);
                 nomorIdValue
                     ? Swal.fire({
                           icon: "success",
@@ -830,9 +821,6 @@ $(document).ready(function () {
 
             $("#teknisimodalinput").val(selectedTeknisi);
             $("#hiddenIdTeknisi").val(selectedId);
-
-            console.log("Selected Id: ", selectedId);
-            console.log("Selected Teknisi: ", selectedTeknisi);
         } else {
             $("#teknisimodalinput").val("");
             $("#hiddenIdTeknisi").val("");
@@ -883,7 +871,6 @@ $(document).ready(function () {
                         "X-CSRF-TOKEN": csrfToken,
                     },
                     success: function (response) {
-                        console.log(requestData);
                         dataTableTeknisi.ajax.reload();
                         Swal.fire({
                             icon: "success",
@@ -894,8 +881,6 @@ $(document).ready(function () {
                         });
                         $("#teknisimodalinput").val("");
                         $("#hiddenIdTeknisi").val("");
-
-                        console.log("data delete successfully", response);
                     },
                     error: function (error) {
                         console.error(
@@ -929,7 +914,6 @@ $(document).ready(function () {
                 "X-CSRF-TOKEN": csrfToken,
             },
             success: function (response) {
-                console.log(requestData);
                 Swal.fire({
                     icon: "success",
                     title: "Data Berhasil Disimpan!",
