@@ -46,7 +46,7 @@
                                                 </div>
                                                 <div class="col-8 col-md-10">
                                                     <select name="select_noPO" id="select_noPO" class="input w-100">
-                                                        <option class="w-100" >
+                                                        <option class="w-100">
                                                         </option>
                                                     </select>
                                                 </div>
@@ -177,7 +177,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 mb-2">
+                                <div class="col-12 mb-9">
                                     <div class="row align-items-center">
                                         <div class="col-4 col-md-2">
                                             <label for="alasan_cancel">Alasan Cancel</label>
@@ -187,14 +187,17 @@
                                                 class="input w-100" readonly>
                                         </div>
                                     </div>
+                                    <div class="col-md-12 d-flex justify-content-end pb-4">
+                                        <button type="button" class="btn btn-danger btn-lg mr-3 mb-6" id="removebutton"
+                                            onclick="removeData()"> Close PO</button>
+                                    </div>
                                 </div>
                             </div>
+
+
                         </div>
-
-
                     </div>
                 </div>
             </div>
-        </div>
-        <script src="{{ asset('js/OrderPembelian/CancelPO.js') }}"></script>
-    @endsection
+            <script src="{{ asset('js/OrderPembelian/CancelPO.js') }}"></script>
+        @endsection
