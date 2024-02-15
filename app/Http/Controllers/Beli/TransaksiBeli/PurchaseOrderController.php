@@ -46,6 +46,57 @@ class PurchaseOrderController extends Controller
         return response()->json($data);
     }
 
+    public function getPermohonanDivisiNyantol($stBeli, $Kd_Div)
+    {
+        $data = db::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd = ?, @stBeli = ?, @Kd_Div = ?', [38, $stBeli, $Kd_Div]);
+        return response()->json($data);
+    }
+
+    public function getPermohonanUserNyantol($requester)
+    {
+        $data = db::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd = ?, @requester = ?', [39, $requester]);
+        return response()->json($data);
+    }
+
+    public function getPermohonanOrderNyantol($noTrans)
+    {
+        $data = db::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd = ?, @noTrans = ?', [40, $noTrans]);
+        return response()->json($data);
+    }
+
+    public function closeOrder(Request $request)
+    {
+        $kd = 16;
+        $noTrans = $request->input('noTrans');
+        $QtyCancel = $request->input('QtyCancel');
+        $alasan = "Dianggap lunas di order sebelumnya";
+        $Operator = '1001';
+        if (($noTrans != null) || ($QtyCancel != null)) {
+            try {
+                $data = DB::connection('ConnPurchase')->statement('exec SP_5409_MAINT_PO @Operator = ?, @kd = ?, @noTrans = ?, @alasan = ?, @QtyCancel = ?', [$Operator, $kd, $noTrans, $alasan,$QtyCancel]);
+                return Response()->json(['message' => 'Data Berhasil DiClose Order',"data" => $data]);
+            } catch (\Throwable $Error) {
+                return Response()->json($Error);
+            }
+        } else {
+            return Response()->json('Parameter harus di isi');
+        }
+    }
+    public function backCreatePO(Request $request)
+    {
+        $kd = 15;
+        $noTrans = $request->input('noTrans');
+        if (($noTrans != null)) {
+            try {
+                $data = DB::connection('ConnPurchase')->statement('exec SP_5409_MAINT_PO @kd = ?, @noTrans = ?', [$kd, $noTrans]);
+                return Response()->json(['message' => 'Data Berhasil DiBack Create PO',"data" => $data]);
+            } catch (\Throwable $Error) {
+                return Response()->json($Error);
+            }
+        } else {
+            return Response()->json('Parameter harus di isi');
+        }
+    }
     public function openFormCreateSPPB(Request $request)
     {
         $access = (new HakAksesController)->HakAksesFiturMaster('Beli');

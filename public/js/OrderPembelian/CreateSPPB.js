@@ -352,8 +352,8 @@ btn_post.addEventListener("click", function (event) {
                 timer: "2000",
             });
             table.row(".selected").remove().draw(false);
-            console.log(response);
-            clearData();
+            print(supplier_select.value, no_po.value)
+            clearData()
         },
         error: function (error) {
             Swal.fire({
@@ -366,6 +366,162 @@ btn_post.addEventListener("click", function (event) {
         },
     });
 });
+
+function print(noSup,noTrans){
+    const print = `
+    <div class="print-layout">
+        <header>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+        </header>
+        <main>
+            <div class="page-main">
+                <div class="page-headerChild">
+                    <h1>Issued To : </h1>
+                    <br>
+                    <p>nm sup</p>
+                    <p>alamat 1</p>
+                    <p>kota 1</p>
+                    <p>negara1</p>
+                    <br>
+                    <h1>Delivery To :</h1>
+                    <br>
+                    <p>PT. Kerta Rajasa Raya</p>
+                    <p>Jl. Raya Tropodo No. 1</p>
+                    <p>Waru - Sidoarjo 61256 East Java, Indonesia</p>
+                </div>
+                <div class="page-headerChild">
+                    <div class="page-header">
+                        <div class="page-headerChild2">
+                            <h1>Number</h1>
+                        </div>
+                        <div class="page-headerChil1">
+                            <p>/p>
+                        </div>
+                    </div>
+                    <div class="page-header">
+                        <div class="page-headerChild2">
+                            <h1>Date</h1>
+                        </div>
+                        <div class="page-headerChil1">
+                            <p>:</p>
+                        </div>
+                    </div>
+                    <div class="page-header">
+                        <div class="page-headerChild2">
+                            <h1>Delivery Date</h1>
+                        </div>
+                        <div class="page-headerChil1">
+                            <p>: </p>
+                        </div>
+                    </div>
+                    <div class="page-header">
+                        <div class="page-headerChild2">
+                            <h1>payment Term</p>
+                        </div>
+                        <div class="page-headerChil1">
+                            <p>: </p>
+                        </div>
+                    </div>
+                    <div class="page-header">
+                        <div class="page-headerChild2">
+                            <h1>Divisi</h1>
+                        </div>
+                        <div class="page-headerChil1">
+                            <p>: no po</p>
+                        </div>
+                    </div>
+                    <div class="page-header">
+                        <div class="page-headerChild2">
+                            <h1>Requester</h1>
+                        </div>
+                        <div class="page-headerChil1">
+                            <p>: no po</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="details">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Item Number</th>
+                            <th>Description</th>
+                            <th>Qty</th>
+                            <th>Unit</th>
+                            <th>Unit Price IDR</th>
+                            <th>Disc. IDR</th>
+                            <th>Amount IDR</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="page-main">
+                <div class="page-headerChild">
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium illum, expedita numquam
+                        aliquid libero alias perspiciatis facilis quaerat. Amet beatae numquam deserunt quasi facilis
+                        eaque porro inventore, delectus dolorem alias?
+                    </p>
+                </div>
+                <div class="page-headerChild">
+                    <div class="page-main">
+                        <div class="page-headerChild" style="margin-right: 3rem">
+                            <h1>Sub Total</h1>
+                        </div>
+                        <div class="page-headerChild" style="border-bottom: 1px solid">
+                            <p>tes</p>
+                        </div>
+                    </div>
+                    <div class="page-main">
+                        <div class="page-headerChild" style="margin-right: 3rem">
+                            <h1>VAT</h1>
+                        </div>
+                        <div class="page-headerChild" style="border-bottom: 1px solid">
+                            <p>tes</p>
+                        </div>
+                    </div>
+                    <div class="page-main">
+                        <div class="page-headerChild" style="margin-right: 3rem">
+                            <h1>Total</h1>
+                        </div>
+                        <div class="page-headerChild" style="border-bottom: 1px solid">
+                            <p>tes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer>
+        </footer>
+    </div>
+`;
+}
 
 $(document).ready(function () {
     console.log(loadPermohonanData);

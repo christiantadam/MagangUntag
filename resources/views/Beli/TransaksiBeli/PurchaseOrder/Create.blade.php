@@ -74,17 +74,23 @@
                                     <input type="radio" name="filter_radioButton" id="filter_radioButton2" value="User"
                                         class="radio-button">User
                                 </div>
-                                <input class="w-100" type="text" name="filter_radioButtonUserInput" id="filter_radioButtonUserInput">
+                                <input class="w-100" type="text" name="filter_radioButtonUserInput"
+                                    id="filter_radioButtonUserInput">
                             </div>
                             <div class="col-md-3 h-auto mb-4 mb-md-0">
                                 <div class="w-100 h-auto">
                                     <input type="radio" name="filter_radioButton" id="filter_radioButton3" value="Order"
                                         class="radio-button"> Order
                                 </div>
-                                <input class="w-100" type="text" name="filter_radioButtonOrderInput" id="filter_radioButtonOrderInput">
+                                <input class="w-100" type="text" name="filter_radioButtonOrderInput"
+                                    id="filter_radioButtonOrderInput">
                             </div>
                             <div class="w-auto h-auto pt-3 pl-2 pl-md-0">
-                                <button class="w-full btn btn-success" id="redisplay">Redisplay</button>
+                                <div class="">
+                                    <input type="checkbox" id="check_nyantol">
+                                    <label for="">No. Order Nyantol</label>
+                                </div>
+                                <button class="w-full btn btn-success" id="redisplay" style="display: block">Redisplay</button>
                             </div>
                         </div>
                         <div id="div_tablePO" class="acs-form3">
@@ -120,14 +126,22 @@
                             </table>
                         </div>
                         <div class="button-align-right">
-                            <div>
-                                <input type="checkbox" name="checkbox_centangSemuaBaris"
-                                    id="checkbox_centangSemuaBaris">Centang Semua
+                            <div style="display: block">
+                                <div class="">
+                                    <input type="checkbox" name="checkbox_centangSemuaBaris"
+                                        id="checkbox_centangSemuaBaris">Centang Semua
+                                </div>
+                                <div class="">
+                                    <button class="btn btn-danger" id="btn_close">Close Order</button>
+                                </div>
                             </div>
 
                             <form action="{{ url('openFormCreateSPPB/create') }}" id="form_createSPPB" method="GET">
                                 <button class="btn btn-success" id="create_po">Create PO</button>
                             </form>
+                            <div class="" id="backGroup">
+                                <button class="btn btn-success" id="btn_backCreatePO">Back Create PO</button>
+                            </div>
                         </div>
                     </div>
                 </div>

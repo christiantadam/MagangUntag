@@ -39,45 +39,89 @@ btn_save.addEventListener("click", function (event) {
     } else {
         stBeli = 0;
     }
-    $.ajax({
-        url: "/MaintenanceOrderPembeliann/Save",
-        type: "POST",
-        headers: {
-            "X-CSRF-TOKEN": csrfToken,
-        },
-        data: {
-            kd: 0,
-            Kd_div: divisi.value.trim(),
-            Kd_brg: kd_barang.value,
-            keterangan: ket_order.value,
-            Qty: qty_order.value,
-            Pemesan: pemesan.value,
-            NoSatuan: select_satuanUmum.value.trim(),
-            Tgl_Dibutuhkan: tgl_mohonKirim.value,
-            stBeli: stBeli,
-            ketIn: ket_internal.value,
-        },
-        success: function (response) {
-            Swal.fire({
-                icon: "success",
-                title: response.message + " Dengan No. Order " + response.data,
-                showConfirmButton: false,
-                timer: "2000",
-            });
-            no_order.value = response.data;
-            btn_save.disabled = true;
-            btn_submit.disabled = true;
-        },
-        error: function (error) {
-            Swal.fire({
-                icon: "error",
-                title: "Data Tidak Berhasil DiTambahkan!",
-                showConfirmButton: false,
-                timer: "2000",
-            });
-            console.error("Error Send Data:", error);
-        },
-    });
+    if (statusKoreksi == null) {
+        $.ajax({
+            url: "/MaintenanceOrderPembeliann/Save",
+            type: "POST",
+            headers: {
+                "X-CSRF-TOKEN": csrfToken,
+            },
+            data: {
+                kd: 0,
+                Kd_div: divisi.value.trim(),
+                Kd_brg: kd_barang.value,
+                keterangan: ket_order.value,
+                Qty: qty_order.value,
+                Pemesan: pemesan.value,
+                NoSatuan: select_satuanUmum.value.trim(),
+                Tgl_Dibutuhkan: tgl_mohonKirim.value,
+                stBeli: stBeli,
+                ketIn: ket_internal.value,
+            },
+            success: function (response) {
+                Swal.fire({
+                    icon: "success",
+                    title:
+                        response.message + " Dengan No. Order " + response.data,
+                    showConfirmButton: false,
+                    timer: "2000",
+                });
+                no_order.value = response.data;
+                btn_save.disabled = true;
+                btn_submit.disabled = true;
+            },
+            error: function (error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Data Tidak Berhasil DiTambahkan!",
+                    showConfirmButton: false,
+                    timer: "2000",
+                });
+                console.error("Error Send Data:", error);
+            },
+        });
+    } else {
+        $.ajax({
+            url: "/MaintenanceOrderPembeliann/Submit",
+            type: "PUT",
+            headers: {
+                "X-CSRF-TOKEN": csrfToken,
+            },
+            data: {
+                kd: 0,
+                Kd_div: divisi.value.trim(),
+                Kd_brg: kd_barang.value,
+                keterangan: ket_order.value,
+                Qty: qty_order.value,
+                Pemesan: pemesan.value,
+                NoSatuan: select_satuanUmum.value.trim(),
+                Tgl_Dibutuhkan: tgl_mohonKirim.value,
+                stBeli: stBeli,
+                ketIn: ket_internal.value,
+                noTrans: no_order.value.trim(),
+            },
+            success: function (response) {
+                Swal.fire({
+                    icon: "success",
+                    title: response.message,
+                    showConfirmButton: false,
+                    timer: "2000",
+                });
+                btn_save.disabled = true;
+                btn_submit.disabled = true;
+                btn_delete.disabled = true;
+            },
+            error: function (error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Data Tidak Berhasil DiUpdate!",
+                    showConfirmButton: false,
+                    timer: "2000",
+                });
+                console.error("Error Send Data:", error);
+            },
+        });
+    }
 });
 
 btn_submit.addEventListener("click", function (event) {
@@ -89,39 +133,116 @@ btn_submit.addEventListener("click", function (event) {
     } else {
         stBeli = 0;
     }
+    if (statusKoreksi == null) {
+        $.ajax({
+            url: "/MaintenanceOrderPembeliann/Save",
+            type: "POST",
+            headers: {
+                "X-CSRF-TOKEN": csrfToken,
+            },
+            data: {
+                kd: 1,
+                Kd_div: divisi.value.trim(),
+                Kd_brg: kd_barang.value,
+                keterangan: ket_order.value,
+                Qty: qty_order.value,
+                Pemesan: pemesan.value,
+                NoSatuan: select_satuanUmum.value.trim(),
+                Tgl_Dibutuhkan: tgl_mohonKirim.value,
+                stBeli: stBeli,
+                ketIn: ket_internal.value,
+            },
+            success: function (response) {
+                Swal.fire({
+                    icon: "success",
+                    title:
+                        response.message + " Dengan No. Order " + response.data,
+                    showConfirmButton: false,
+                    timer: "2000",
+                });
+                no_order.value = response.data;
+                btn_save.disabled = true;
+                btn_submit.disabled = true;
+            },
+            error: function (error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Data Tidak Berhasil DiTambahkan!",
+                    showConfirmButton: false,
+                    timer: "2000",
+                });
+                console.error("Error Send Data:", error);
+            },
+        });
+    } else {
+        $.ajax({
+            url: "/MaintenanceOrderPembeliann/Submit",
+            type: "PUT",
+            headers: {
+                "X-CSRF-TOKEN": csrfToken,
+            },
+            data: {
+                kd: 1,
+                Kd_div: divisi.value.trim(),
+                Kd_brg: kd_barang.value,
+                keterangan: ket_order.value,
+                Qty: qty_order.value,
+                Pemesan: pemesan.value,
+                NoSatuan: select_satuanUmum.value.trim(),
+                Tgl_Dibutuhkan: tgl_mohonKirim.value,
+                stBeli: stBeli,
+                ketIn: ket_internal.value,
+                noTrans: no_order.value.trim(),
+            },
+            success: function (response) {
+                Swal.fire({
+                    icon: "success",
+                    title: response.message,
+                    showConfirmButton: false,
+                    timer: "2000",
+                });
+                btn_save.disabled = true;
+                btn_submit.disabled = true;
+                btn_delete.disabled = true;
+            },
+            error: function (error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Data Tidak Berhasil DiUpdate!",
+                    showConfirmButton: false,
+                    timer: "2000",
+                });
+                console.error("Error Send Data:", error);
+            },
+        });
+    }
+});
+
+btn_delete.addEventListener("click", function (event) {
     $.ajax({
-        url: "/MaintenanceOrderPembeliann/Save",
-        type: "POST",
+        url: "/MaintenanceOrderPembeliann/Delete",
+        type: "DELETE",
         headers: {
             "X-CSRF-TOKEN": csrfToken,
         },
         data: {
-            kd: 1,
-            Kd_div: divisi.value.trim(),
-            Kd_brg: kd_barang.value,
-            keterangan: ket_order.value,
-            Qty: qty_order.value,
-            Pemesan: pemesan.value,
-            NoSatuan: select_satuanUmum.value.trim(),
-            Tgl_Dibutuhkan: tgl_mohonKirim.value,
-            stBeli: stBeli,
-            ketIn: ket_internal.value,
+            noTrans: no_order.value.trim(),
         },
         success: function (response) {
             Swal.fire({
                 icon: "success",
-                title: response.message + " Dengan No. Order " + response.data,
+                title: "No. Order "+ data + response.message,
                 showConfirmButton: false,
-                timer: "2000",
+                timer: "3000",
             });
-            no_order.value = response.data;
-            btn_save.disabled = true;
-            btn_submit.disabled = true;
+            setTimeout(function() {
+                window.location.href = "/ListOrder";
+            }, 4000);
         },
         error: function (error) {
             Swal.fire({
                 icon: "error",
-                title: "Data Tidak Berhasil DiTambahkan!",
+                title: "Data Tidak Berhasil DiHapus!",
                 showConfirmButton: false,
                 timer: "2000",
             });
@@ -288,9 +409,13 @@ function clearData() {
     select_namaBarang.disabled = true;
     optionClr();
     select_satuanUmum.selectedIndex = 0;
-    btn_save.disabled = false;
-    btn_submit.disabled = false;
-    if (statusOrder == "u") {
+    if (statusKoreksi == null) {
+        btn_save.disabled = false;
+        btn_submit.disabled = false;
+    }
+    if (statusKoreksi == "u") {
+        btn_save.disabled = false;
+        btn_submit.disabled = false;
         btn_delete.disabled = false;
     }
 }
@@ -361,7 +486,6 @@ function cariKodeBarang(kd_barang) {
                             ) === response.data[0].NAMA_BRG.replace(/\s/g, "")
                         ) {
                             select_namaBarang.selectedIndex = i;
-                            indexNamaBarang = i;
                         }
                     }
                 });
@@ -532,21 +656,57 @@ $(document).ready(function () {
     console.log(statusKoreksi, idUser, data);
     if (statusKoreksi != null) {
         $.ajax({
-            url: "/ListOrderr/Koreksi",
+            url: "/MaintenanceOrderPembeliann/CekNoTrans",
             type: "GET",
             data: {
-                No_trans: data,
+                No_trans: data.trim(),
             },
             success: function (response) {
-                console.log('tes'+response)
-                if (statusKoreksi == "u") {
-                    btn_submit.disabled = false;
-                    btn_save.disabled = false;
-                    btn_delete.disabled = false;
-                }else{
-                    btn_submit.disabled = true;
-                    btn_save.disabled = true;
-                    btn_delete.disabled = true;
+                if (response.length != 0) {
+                    console.log("tes", response);
+                    pemesan.value = response[0].Pemesan;
+                    no_order.value = data.trim();
+                    if (response[0].StatusBeli == 1) {
+                        document.getElementById(
+                            "status_beliPengadaanPembelian"
+                        ).checked = true;
+                    } else {
+                        document.getElementById(
+                            "status_beliBeliSendiri"
+                        ).checked = true;
+                    }
+                    divisi.value = response[0].Kd_div.trim();
+                    for (let i = 0; i < select_divisi.options.length; i++) {
+                        if (
+                            select_divisi.options[i].value.replace(
+                                /\s/g,
+                                ""
+                            ) === response[0].Kd_div.replace(/\s/g, "")
+                        ) {
+                            select_divisi.selectedIndex = i;
+                        }
+                    }
+
+                    tgl_mohonKirim.value =
+                        response[0].Tgl_Dibutuhkan.split(" ")[0];
+
+                    kd_barang.value = response[0].Kd_brg.trim();
+                    ket_internal.value = response[0].Ket_Internal;
+                    ket_order.value = response[0].keterangan;
+                    qty_order.value = parseFloat(response[0].Qty);
+                    cariKodeBarang(response[0].Kd_brg.trim());
+
+                    if (statusKoreksi == "u") {
+                        btn_submit.disabled = false;
+                        btn_save.disabled = false;
+                        btn_delete.disabled = false;
+                    } else {
+                        btn_submit.disabled = true;
+                        btn_save.disabled = true;
+                        btn_delete.disabled = true;
+                    }
+                } else {
+                    alert("No Trans Tidak Ditemukan");
                 }
             },
             error: function (error) {

@@ -118,7 +118,7 @@ $(function () {
 });
 
 $(function () {
-    let datas
+    let datas;
     $(".Filter").change(function () {
         let ValDivisi = document.getElementById("divisi").value;
         let ValTglAwal = document.getElementById("tglAwal").value;
@@ -142,7 +142,7 @@ $(function () {
             data: "_token = <?php echo csrf_token() ?>", // Remember that you need to have your csrf token included
             success: function (data) {
                 console.log(data);
-                datas =data.data;
+                datas = data.data;
                 let table = $("#table_ListOrder").DataTable();
                 table.clear().draw();
                 //   console.log(data.data.length);
@@ -180,40 +180,30 @@ $(function () {
                 const classList = e.currentTarget.classList;
 
                 if (classList.contains("selected")) {
-                    console.log(datas)
-                    const selectedDataId = $(e.currentTarget)
+                    console.log(datas);
+                    const NoTrans = $(e.currentTarget)
                         .find(".Detail_ListOrder")
                         .data("id");
-                    // $.ajax({
-                    //     url: "/ListOrderr/Koreksi",
-                    //     type: "GET",
-                    //     data: {
-                    //         No_trans: selectedDataId,
-                    //     },
-                    //     success: function (response) {
-                    //         if (response[0].KdStatus == 0) {
-                    //             const data = response[0];
-                    //             let status = 'r'
-                    //             if (data.kd_user == idUser) {
-                    //                 status = 'u'
-                    //             }
-                    //             const url =
-                    //                     "/MaintenanceOrderPembelian" +
-                    //                     "?d=" +
-                    //                     data.No_trans +
-                    //                     "&s="+status;
-                    //                 window.location.href = url;
-
-                    //         } else {
-                    //             alert(
-                    //                 "Data Tidak Dapat Dikoreksi Karena Status Order Bukan Saved"
-                    //             );
-                    //         }
-                    //     },
-                    //     error: function (error) {
-                    //         console.error("Error Send Data:", error);
-                    //     },
-                    // });
+                    const cariData = datas.filter(
+                        (data) => data.No_trans.trim() === NoTrans.trim()
+                    );
+                    if (cariData[0].StatusOrder == 0) {
+                        let status = "r";
+                        if (cariData[0].kd_user == idUser) {
+                            status = "u";
+                        }
+                        const url =
+                            "/MaintenanceOrderPembelian" +
+                            "?d=" +
+                            NoTrans +
+                            "&s=" +
+                            status;
+                        window.location.href = url;
+                    } else {
+                        alert(
+                            "Data Tidak Dapat Dikoreksi Karena Status Order Bukan Saved"
+                        );
+                    }
                 } else {
                     $("#table_ListOrder")
                         .DataTable()

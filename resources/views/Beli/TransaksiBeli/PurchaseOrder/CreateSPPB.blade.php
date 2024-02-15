@@ -2,6 +2,8 @@
 @section('content')
     <link href="{{ asset('css/CreateSPPB.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/PrintSPPB.css') }}" rel="stylesheet">
+
     <script>
         let loadPermohonanData = {!! json_encode($loadPermohonan) !!};
         let loadHeaderData = {!! json_encode($loadHeader) !!};

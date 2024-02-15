@@ -32,7 +32,6 @@ buttonRedisplay.addEventListener("click", function (event) {
         statusPembelian = 0;
     }
     $("#table_ListOrder").DataTable().clear().destroy();
-
     $.ajax({
         url: "/ListOrderAppManager/Redisplay",
         method: "GET",
@@ -70,12 +69,11 @@ function initializeDataTable(response) {
             {
                 data: "Tgl_acc",
                 render: function (data) {
-                    let date = new Date(data);
-                    let hours = ("0" + currentDate.getHours()).slice(-2);
-                    let minutes = ("0" + currentDate.getMinutes()).slice(-2);
-                    let seconds = ("0" + currentDate.getSeconds()).slice(-2);
-                    let time = hours + ":" + minutes + ":" + seconds;
-                    return date.toISOString().split("T")[0] + " " + time;
+                    return (
+                        data.split(" ")[0] +
+                        " " +
+                        data.split(" ")[1].slice(0, 8)
+                    );
                 },
             },
             { data: "StatusBeli" },
@@ -89,8 +87,7 @@ function initializeDataTable(response) {
             {
                 data: "Tgl_Dibutuhkan",
                 render: function (data) {
-                    let date = new Date(data);
-                    return date.toISOString().split("T")[0];
+                    return data.split(" ")[0];
                 },
             },
             { data: "keterangan" },
@@ -108,20 +105,55 @@ checkedAll.addEventListener("click", function (event) {
         .nodes();
     if (checkedAll.checked == true) {
         $('input[type="checkbox"]', rows).prop("checked", true);
-    } else{
+    } else {
         $('input[type="checkbox"]', rows).prop("checked", false);
-
     }
-
 });
 btnPrint.addEventListener("click", function () {
-    let checkedValues = [];
+    let checkedRowData = [];
     let checkboxes = document.querySelectorAll('input[name="checked"]:checked');
-    checkboxes.forEach(function(checkbox) {
-        checkedValues.push(checkbox.value);
-    });
+    checkboxes.forEach(function (checkbox) {
+        let rowData = [];
+        let row = checkbox.parentNode.parentNode;
+        row.querySelectorAll("td").forEach(function (cell, index) {
+            if (index > 0 && index != 3) {
+                let cellText = cell.textContent.trim();
+                cellText = cellText.replace(/,/g, ".");
+                rowData.push(cellText);
+            }
+        });
 
-    console.log("Nilai kotak centang yang dicentang:", checkedValues);
+        checkedRowData.push(rowData);
+    });
+    if (checkedRowData.length > 0 && checkedRowData[0].length > 0) {
+        let headerRow = [
+            "No. Order",
+            "Tgl_Jam Acc",
+            "Kode Barang",
+            "NAMA Barang",
+            "Sub Kategori",
+            "Qty",
+            "Satuan",
+            "User",
+            "DIV",
+            "Tgl Dibutuhkan",
+            "Ket. Order",
+            "Ket. Internal",
+        ];
+        checkedRowData.unshift(headerRow);
+
+        let wb = XLSX.utils.book_new();
+        let ws = XLSX.utils.aoa_to_sheet(checkedRowData);
+        ws["!cols"] = [];
+        headerRow.forEach(function (_, index) {
+            ws["!cols"][index] = { wch: 10, s: { wrapText: true } };
+        });
+        XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+
+        XLSX.writeFile(wb, "data.xlsx");
+    } else {
+     alert('Pilih Data Yang Akan DiPrint Terlebih Dahulu')
+    }
 });
 
 $(document).ready(function () {

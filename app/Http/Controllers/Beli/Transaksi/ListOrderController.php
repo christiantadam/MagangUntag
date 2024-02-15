@@ -69,18 +69,5 @@ class ListOrderController extends Controller
         return compact('data');
     }
 
-    public function koreksi(Request $request)
-    {
-        $No_trans = $request->input('No_trans');
-        if ($No_trans != null) {
-            try {
-                $data = TransBL::select('YTRANSBL.No_trans','STATUS_ORDER.KdStatus','YUSER.kd_user')->leftjoin('YUSER', 'YUSER.kd_user', 'YTRANSBL.Operator')->leftjoin('STATUS_ORDER', 'STATUS_ORDER.KdStatus', 'YTRANSBL.StatusOrder')->where('YTRANSBL.No_trans', $No_trans)->get();
-                return Response()->json($data);
-            } catch (\Throwable $Error) {
-                return Response()->json($Error);
-            }
-        } else {
-            return Response()->json('Parameter harus di isi');
-        }
-    }
+
 }
