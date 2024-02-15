@@ -57,6 +57,39 @@ noPODropdown.addEventListener("change", function(event) {
     });
 });
 
+$('#btnRemove').on('click', function() {
+    var noTrans = $('#lblNoOrder').text();
+    var kd = ($(this).text() === "CANCEL PO") ? 16 : 17;
+    var Operator = ($('#btnRemove').text() === "CANCEL PO") ? "SystemInformation.UserName" : "";
+    var QtyCancel = parseFloat($('#txtCancel').val());
+    var alasan = $('#txtAlasan').val();
+
+    $.ajax({
+        url: '/YourController/CancelOrder',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            noTrans: noTrans,
+            kd: kd,
+            Operator: Operator,
+            QtyCancel: QtyCancel,
+            alasan: alasan
+        },
+        success: function(response) {
+            if (response.success) {
+                alert(response.message);
+                clear(); // Memanggil fungsi clear untuk membersihkan UI setelah sukses
+                loadDataAfter($('#txtPO').val()); // Memanggil fungsi loadDataAfter untuk memuat data setelah sukses
+            } else {
+                alert(response.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            alert("Terjadi kesalahan: " + error);
+        }
+    });
+});
+
 function responseData(datas) {
     let tableData = $('#tableharga').DataTable();
     tableData.clear().destroy()

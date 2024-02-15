@@ -283,6 +283,31 @@ class PurchaseOrderController extends Controller
         return response()->json($purchaseorder);
     }
 
+
+    public function cancel(Request $request)
+    {
+        $noTrans = $request->input('noTrans');
+        $kd= 15;
+
+        $purchaseorder = DB::connection('ConnPurchase')->select('exec SP_5409_MAINT_PO @kd=?, @noTrans=?,' , [$kd, $noTrans]);
+
+        return response()->json($purchaseorder);
+    }
+
+    public function cancel1(Request $request)
+    {
+        $Operator = $request->input('Operator');
+        $QtyCancel = $request->input('QtyCancel');
+        $alasan = $request->input('alasan');
+        $noTrans = $request->input('noTrans');
+        $kd = 16;
+
+        $purchaseorder = DB::connection('ConnPurchase')->select('exec SP_5409_MAINT_PO @kd=?, @Operator=?, @QtyCancel=?, @alasan=?, @noTrans=?' ,  [$kd, $Operator, $QtyCancel, $alasan, $noTrans]);
+
+        return response()->json($purchaseorder);
+    }
+
+
     //Display the specified resource.
     public function redisplay(Request $request)
     {

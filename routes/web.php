@@ -63,6 +63,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/GETOrder', 'App\Http\Controllers\Beli\TransaksiBeli\PurchaseOrderController@display');
     Route::get('/GETPost', 'App\Http\Controllers\Beli\TransaksiBeli\PurchaseOrderController@show1');
     Route::get('/GETabel', 'App\Http\Controllers\Beli\TransaksiBeli\PurchaseOrderController@showtbl');
+    Route::get('/Cancel', 'App\Http\Controllers\Beli\TransaksiBeli\PurchaseOrderController@cancel');
+    Route::get('/Cancel1', 'App\Http\Controllers\Beli\TransaksiBeli\PurchaseOrderController@cancel1');
     Route::get('/get/dataPermohonanDivisi/{stBeli}/{Kd_Div}', 'App\Http\Controllers\Beli\TransaksiBeli\PurchaseOrderController@getPermohonanDivisi');
     Route::get('/get/dataPermohonanUser/{requester}', 'App\Http\Controllers\Beli\TransaksiBeli\PurchaseOrderController@getPermohonanUser');
     Route::get('/get/dataPermohonanOrder/{noTrans}', 'App\Http\Controllers\Beli\TransaksiBeli\PurchaseOrderController@getPermohonanOrder');
@@ -91,7 +93,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/Retur', 'App\Http\Controllers\Beli\TransaksiBeli\ReturBTTBController@kode');
     Route::get('/Create', 'App\Http\Controllers\Beli\TransaksiBeli\CreateBTTBController@createbttb');
     Route::get('/Drop1', 'App\Http\Controllers\Beli\TransaksiBeli\CreateBTTBController@drop1');
-    Route::get('/Drop', 'App\Http\Controllers\Beli\TransaksiBeli\CreateBTTBController@dropdown');
+    Route::get('/GetTabel', 'App\Http\Controllers\Beli\TransaksiBeli\CreateBTTBController@drop1');
     Route::resource('IsiBeaImpor', App\Http\Controllers\Beli\TransaksiBeli\IsiBeaController::class);
     Route::resource('CreateBTTB', App\Http\Controllers\Beli\TransaksiBeli\CreateBTTBController::class);
     Route::resource('TransferBarang', App\Http\Controllers\Beli\TransaksiBeli\TransferBarangController::class);
@@ -112,8 +114,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/FinalApproveOrderPembelian/{id}/show', 'App\Http\Controllers\Beli\TransaksiBeli\FinalApproverOrderController@show')->name('finalapproveorderpembelian.show');
     Route::post('/FinalApproveOrderPembelian/{id}/up', 'App\Http\Controllers\Beli\TransaksiBeli\FinalApproverOrderController@update')->name('finalapproveorderpembelian.update');
     Route::resource('ListOrderSudahAppManager', App\Http\Controllers\Beli\TransaksiBeli\ListOrderAppManagerController::class);
-    Route::get('/ListOrderAppManager/Redisplay', 'App\Http\Controllers\Beli\TransaksiBeli\ListOrderAppManagerController@redisplay')->name('listordersudahappmanager.redisplay');
-    Route::get('/ListOrderAppManager/Divisi', 'App\Http\Controllers\Beli\TransaksiBeli\ListOrderAppManagerController@divisi')->name('listordersudahappmanager.divisi');
 
     //transaksi
     Route::resource('OrderPembelian', App\Http\Controllers\Beli\Transaksi\OrderPembelianController::class);

@@ -113,7 +113,6 @@
                                             <th>Disc H</th>
                                             <th>DiscIDR</th>
                                             <th>QtyRetc</th>
-
                                         </tr>
                                     </thead>
                                 </table>
@@ -190,8 +189,8 @@
                             </div>
                             <div class="col-md-12 d-flex justify-content-end pb-4">
                                 <div class="col-md-12 d-flex justify-content-end">
-                                    <button type="button" class="btn btn-primary btn-lg mr-3" onclick="updateData()">Update</button>
-                                    <button type="button" class="btn btn-danger btn-lg mr-3" onclick="removeData()">Remove</button>
+                                    <button type="button" class="btn btn-primary btn-lg mr-3" id="updatedata" onclick="updateData()">Update</button>
+                                    <button type="button" class="btn btn-danger btn-lg mr-3"  id="removebutton" onclick="removeData()"> Remove</button>
                                     <button type="button" class="btn btn-success btn-lg mr-3" onclick="postBTTB()">Post BTTB</button>
                                     <button type="button" class="btn btn-secondary btn-lg" onclick="exit()">Exit</button>
                                 </div>
