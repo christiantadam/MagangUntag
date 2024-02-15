@@ -38,7 +38,7 @@ class FinalApproveController extends Controller
             return back()->with('danger', 'Gagal Approve/Reject, Karena Tidak Ada Data yang Dipilih');
         } else {
             foreach ($Checked as $item) {
-                TransBL::where('No_trans', $item)->update(['Tgl_Direktur' => $date, 'Direktur' => Auth::user()->kd_user, 'StatusOrder' => '4']);
+                TransBL::where('No_trans', $item)->update(['Tgl_Direktur' => $date, 'Direktur' => trim(Auth::user()->NomorUser), 'StatusOrder' => '4']);
             }
             return back();
         }
@@ -56,7 +56,7 @@ class FinalApproveController extends Controller
     public function update(Request $request, $id)
     {
         $date = date("Y-m-d H:i:s");
-        TransBL::where('No_trans', $id)->update(['Tgl_Direktur' => $date, 'Direktur' => Auth::user()->kd_user, 'StatusOrder' => '4']);
+        TransBL::where('No_trans', $id)->update(['Tgl_Direktur' => $date, 'Direktur' => trim(Auth::user()->NomorUser), 'StatusOrder' => '4']);
 
         return back();
     }

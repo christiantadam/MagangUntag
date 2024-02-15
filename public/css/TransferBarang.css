@@ -44,3 +44,6 @@
     overflow-x: auto;
     overflow-y: auto;
 }
+td {
+    cursor: pointer;
+}

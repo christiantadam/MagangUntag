@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HakAksesController;
 use DB;
-use GuzzleHttp\Psr7\Response;
+use Carbon\Carbon;
 
 class TransferBarangController extends Controller
 {
@@ -212,7 +212,7 @@ class TransferBarangController extends Controller
         $SubKel = $request->input('SubKel');
         $NoTerima = $request->input('NoTerima');
         $ket = $request->input('ket');
-        $YTanggal = $request->input('YTanggal');
+        $YTanggal = Carbon::parse($request->input('YTanggal'));
         if (
             $IdType !== null &&
             $MasukPrimer !== null &&

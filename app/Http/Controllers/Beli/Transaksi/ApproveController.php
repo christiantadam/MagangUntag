@@ -39,13 +39,13 @@ class ApproveController extends Controller
         switch ($request->input('action')) {
             case 'Approve':
                 foreach ($Checked as $item) {
-                    TransBL::where('No_trans', $item)->update(['Tgl_acc' => $date, 'Manager' => Auth::user()->kd_user, 'StatusOrder' => '2']);
+                    TransBL::where('No_trans', $item)->update(['Tgl_acc' => $date, 'Manager' => trim(Auth::user()->NomorUser), 'StatusOrder' => '2']);
                 }
                 return back();
 
             case 'Reject':
                 foreach ($Checked as $item) {
-                    TransBL::where('No_trans', $item)->update(['Tgl_Batal_acc' => $date, 'Batal_acc' => Auth::user()->kd_user, 'StatusOrder' => '0']);
+                    TransBL::where('No_trans', $item)->update(['Tgl_Batal_acc' => $date, 'Batal_acc' => trim(Auth::user()->NomorUser), 'StatusOrder' => '0']);
                 }
                 return back();
         }

@@ -1,11 +1,14 @@
 let redisplay = document.getElementById("redisplay");
 let formDaftarHarga = document.getElementById("formDaftarHarga");
 let tabelData = document.getElementById("tabelData");
+let kdbarang = document.getElementById("search_kode_barang");
 
+let kdBarangAslinya;
 tabelData.style.display = "none";
 redisplay.disabled = true;
 formDaftarHarga.addEventListener("change", function (event) {
     redisplay.disabled = !radioButtonIsSelected();
+    redisplay.focus();
 });
 
 redisplay.addEventListener("click", function (event) {
@@ -14,10 +17,8 @@ redisplay.addEventListener("click", function (event) {
         let value = getSelectedInputValue();
         if (radioButtonChecked === "kode_barang") {
             $("#tabelData").DataTable().clear().destroy();
-            while (value.length < 9) {
-                value = "0" + value;
-            }
             redisplayData(null, null, null, value);
+            kdbarang.value = kdBarangAslinya;
         } else if (radioButtonChecked === "nama_barang") {
             $("#tabelData").DataTable().clear().destroy();
             redisplayData(value, null, null, null);
@@ -29,7 +30,7 @@ redisplay.addEventListener("click", function (event) {
             redisplayData(null, value, null, null);
         }
     } else {
-        alert("Silahkan Mengisi Form");
+        alert("Silahkan Form Dahulu");
     }
 });
 
@@ -60,7 +61,13 @@ function getSelectedInputValue() {
 
 function redisplayData(nm_brg, req, sup, kdbrg) {
     tabelData.style.display = "block";
+    if (kdbrg != null) {
+        while (kdbrg.length < 9) {
+            kdbrg = "0" + kdbrg;
+        }
 
+        kdBarangAslinya = kdbrg;
+    }
     $("#tabelData").DataTable({
         responsive: true,
         processing: true,

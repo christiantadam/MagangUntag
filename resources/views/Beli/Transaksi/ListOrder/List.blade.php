@@ -5,6 +5,7 @@
     @include('Beli/Transaksi/ListOrder/modalDetailListOrder')
     <script src="{{ asset('js/OrderPembelian/ListOrder.js') }}"></script>
     <script>
+        let idUser = {!! json_encode($idUser) !!};
         $(document).ready(function() {
             $('#table_ListOrder').DataTable({
                 searching: false,
@@ -13,12 +14,10 @@
                 ],
 
             });
-
-
-            var today = new Date();
-            var dd = String(today.getDate()).padStart(2, '0');
-            var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-            var yyyy = today.getFullYear();
+            let today = new Date();
+            let dd = String(today.getDate()).padStart(2, '0');
+            let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            let yyyy = today.getFullYear();
 
             // today1 = mm + '/' + dd + '/' + yyyy;
             today1 = yyyy + '-' + mm + '-' + dd;

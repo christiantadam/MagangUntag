@@ -1,6 +1,5 @@
 @extends('layouts.appOrderPembelian')
 @section('content')
-    <link href="{{ asset('css/ReturBTTB.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
     <div class="container-fluid">

@@ -26,6 +26,13 @@ let proses = 0;
 let jnsBeli = 0;
 let selectedRows = [];
 
+filter_radioButtonOrderInput.addEventListener("change", function (event) {
+    redisplay.focus();
+});
+
+filter_radioButtonUserInput.addEventListener("change", function (event) {
+    redisplay.focus();
+});
 
 redisplay.addEventListener("click", function (event) {
     event.preventDefault();

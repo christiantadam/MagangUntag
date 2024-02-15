@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\HakAksesController;
 use DB;
 
-class MaintenanceController extends Controller
+class MaintenanceKodeBarangController extends Controller
 
 {
     // Display a listing of the resource.
@@ -132,7 +132,7 @@ class MaintenanceController extends Controller
                 ->table('Y_BARANG')
                 ->select('Y_BARANG.KD_BRG', 'Y_BARANG.NAMA_BRG', 'Y_KATEGORI_SUB.nama_sub_kategori')
                 ->join('Y_KATEGORI_SUB', 'Y_BARANG.NO_SUB_KATEGORI', '=', 'Y_KATEGORI_SUB.no_sub_kategori')
-                ->where('Y_BARANG.KD_BRG', 'like', $kd_barang . '%');
+                ->where('Y_BARANG.KD_BRG', 'like', $kd_barang . '%')->get();
             // dd($data);
             return datatables($data)->make(true);
         } catch (\Throwable $Error) {

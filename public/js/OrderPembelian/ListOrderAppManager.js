@@ -9,8 +9,10 @@ let buttonRedisplay = document.getElementById("button_redisplay");
 let tableListOrder = document.getElementById("table_ListOrder");
 let checkedAll = document.getElementById("CheckedAll");
 let btnPrint = document.getElementById("btn_print");
+let checked = document.getElementsByName("checked");
 
 let currentDate = new Date();
+checkedAll.disabled = true;
 tglAwal.valueAsDate = currentDate;
 jamAwal.value =
     ("0" + currentDate.getHours()).slice(-2) +
@@ -31,25 +33,39 @@ buttonRedisplay.addEventListener("click", function (event) {
     }
     $("#table_ListOrder").DataTable().clear().destroy();
 
+    $.ajax({
+        url: "/ListOrderAppManager/Redisplay",
+        method: "GET",
+        data: {
+            Kd_Div: selectDivisi.value,
+            stBeli: statusPembelian,
+            MinDate: tglAwal.value + " " + jamAwal.value,
+            MaxDate: tglAkhir.value + " " + jamAkhir.value,
+        },
+        success: function (response) {
+            if (response.recordTotal != 0) {
+                checkedAll.disabled = false;
+            }
+            initializeDataTable(response.data);
+        },
+        error: function (xhr, status, error) {
+            console.error("Error fetching data from server:", error);
+        },
+    });
+});
+
+function initializeDataTable(response) {
     let table = $("#table_ListOrder").DataTable({
         responsive: true,
-        processing: true,
-        serverSide: true,
-        ajax: {
-            url: "/ListOrderAppManager/Redisplay",
-            type: "GET",
-            data: function (data) {
-                (data.Kd_Div = selectDivisi.value),
-                    (data.stBeli = statusPembelian),
-                    (data.MinDate = tglAwal.value + " " + jamAwal.value),
-                    (data.MaxDate = tglAkhir.value + " " + jamAkhir.value);
-            },
-        },
+        data: response,
         columns: [
-            { data: "No_trans",
-                render: function(data){
-                return `<input type="checkbox" name="Checked[]" value="${data}" id="${data}" style="width: 20px;height: 20px;" />`;
-            }  },
+            {
+                data: "No_trans",
+                render: function (data) {
+                    return `<input type="checkbox" name="checked" value="${data}" id="${data}" style="width: 20px;height: 20px;" />`;
+                },
+                orderable: false,
+            },
             { data: "No_trans" },
             {
                 data: "Tgl_acc",
@@ -81,6 +97,31 @@ buttonRedisplay.addEventListener("click", function (event) {
             { data: "Ket_Internal" },
         ],
     });
+}
+
+checkedAll.addEventListener("click", function (event) {
+    let table = $("#table_ListOrder").DataTable();
+    let rows = table
+        .rows({
+            search: "applied",
+        })
+        .nodes();
+    if (checkedAll.checked == true) {
+        $('input[type="checkbox"]', rows).prop("checked", true);
+    } else{
+        $('input[type="checkbox"]', rows).prop("checked", false);
+
+    }
+
+});
+btnPrint.addEventListener("click", function () {
+    let checkedValues = [];
+    let checkboxes = document.querySelectorAll('input[name="checked"]:checked');
+    checkboxes.forEach(function(checkbox) {
+        checkedValues.push(checkbox.value);
+    });
+
+    console.log("Nilai kotak centang yang dicentang:", checkedValues);
 });
 
 $(document).ready(function () {

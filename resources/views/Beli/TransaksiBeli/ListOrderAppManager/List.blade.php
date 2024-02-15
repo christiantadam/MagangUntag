@@ -92,8 +92,7 @@
                                 </div>
                             </div>
                             <div class="acs-form3">
-                                <table id="table_ListOrder" class="table table-bordered table-striped"
-                                    style="width:100%">
+                                <table id="table_ListOrder" class="table table-bordered table-striped" style="width:100%">
                                     <thead class="thead-dark">
                                         <tr>
                                             <th><input type="checkbox" name="CheckedAll" id="CheckedAll"
