@@ -344,23 +344,20 @@ $(document).ready(function () {
     };
 
     var dataTable = $("#tabel_input_project").DataTable({
-        //var Token = $('meta[name="csrf-Token"]').attr("content"),
         processing: true,
         serverSide: true,
         responsive: true,
-        //scrollX: true,
 
         ajax: {
             url: "/getDataProject",
             type: "GET",
             data: function (d) {
-                // d.kode = ;
                 d.bulan = $("#bulan").val();
                 d.tahun = $("#tahun").val();
             },
         },
         moment: {
-            timezone: "Asia/Jakarta", // Sesuaikan dengan zona waktu yang sesuai
+            timezone: "Asia/Jakarta",
         },
         columns: [
             {
@@ -378,8 +375,6 @@ $(document).ready(function () {
             {
                 data: "TglMulai",
                 render: function (data, type, full, meta) {
-                    // Assuming data is in UTC format, adjust it to the local timezone
-
                     var localDate = moment.utc(data).local();
                     return localDate.format("DD-MM-YYYY");
                 },
@@ -387,25 +382,23 @@ $(document).ready(function () {
             {
                 data: "TglSelesai",
                 render: function (data, type, full, meta) {
-                    // Assuming data is in UTC format, adjust it to the local timezone
                     var localDate = moment.utc(data).local();
 
-                    // Check if Keterangan is "Progress"
                     if (full.Keterangan === "Progress") {
-                        return ""; // Jika "Progress", kembalikan string kosong
+                        return "";
                     } else {
-                        return localDate.format("DD-MM-YYYY"); // Jika bukan "Progress", kembalikan tanggal yang diformat
+                        return localDate.format("DD-MM-YYYY");
                     }
                 },
             },
             { data: "KeteranganKerja" },
             { data: "Keterangan" },
-            { data: "UserId" },
+            { data: "Nama" },
         ],
     });
+
     $("#refreshButton").click(function () {
         dataTable.ajax.reload();
-        console.log(dataTable);
     });
 
     batalButton.addEventListener("click", function () {
@@ -471,18 +464,17 @@ $(document).ready(function () {
         if ($(this).prop("checked")) {
             var selectedRow = $(this).closest("tr");
             var id = $(this).val();
-            // selectedData = {
-            //     UserId: selectedRow.find("td:eq(7)").text(),
-            //     id_laporan: id,
-            // };
-
-            hapusButton.disabled = false;
-            koreksiButton.disabled = false;
             $("#id").val(id);
+            selectedData = {
+                UserId: selectedRow.find("td:eq(7)").text(),
+                id_laporan: id,
+            };
             selectedId = {
                 id: $(this).val(),
             };
-            var selectedid_laporan = $(this).val();
+
+            hapusButton.disabled = false;
+            koreksiButton.disabled = false;
 
             id.value = selectedId.id;
 
