@@ -22,6 +22,13 @@ var tanggal_akhirInput = document.getElementById("tanggal-akhir");
 var tanggal_akhirOutput = new Date().toISOString().split("T")[0];
 tanggal_akhirInput.value = tanggal_akhirOutput;
 
+var currentDateTime = new Date();
+var hours = currentDateTime.getHours().toString().padStart(2, "0");
+var minutes = currentDateTime.getMinutes().toString().padStart(2, "0");
+var timeString = hours + ":" + minutes;
+
+jam.value = timeString;
+
 // Form Button
 let inputButton = document.getElementById("inputButton");
 let cancelButton = document.getElementById("cancelButton");
@@ -31,7 +38,6 @@ let saveButton = document.getElementById("saveButton");
 let refreshButton = document.getElementById("refreshButton");
 
 function clearForm() {
-    jam.value = "";
     nometer.value = "";
     counter.value = "";
     teknisi.value = "";

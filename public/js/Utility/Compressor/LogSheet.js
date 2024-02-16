@@ -29,6 +29,13 @@ var tanggal_akhirInput = document.getElementById("tanggal-akhir");
 var tanggal_akhirOutput = new Date().toISOString().split("T")[0];
 tanggal_akhirInput.value = tanggal_akhirOutput;
 
+var currentDateTime = new Date();
+var hours = currentDateTime.getHours().toString().padStart(2, "0");
+var minutes = currentDateTime.getMinutes().toString().padStart(2, "0");
+var timeString = hours + ":" + minutes;
+
+jam_operasi.value = timeString;
+
 // Form Button
 let inputButton = document.getElementById("inputButton");
 let cancelButton = document.getElementById("cancelButton");
@@ -54,7 +61,6 @@ keterangan.disabled = true;
 function clearForm() {
     // tanggal.value = "";
     mesin.value = "";
-    jam_operasi.value = "";
     temp.value = "";
     bar.value = "";
     rm_hours.value = "";
@@ -86,7 +92,6 @@ inputButton.addEventListener("click", function () {
     saveButton.disabled = false;
     clearForm();
     $(".checkboxlogsheet").prop("checked", false);
-
 });
 
 // UpdateButton click

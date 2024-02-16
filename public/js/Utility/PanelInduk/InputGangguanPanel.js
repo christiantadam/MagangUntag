@@ -22,6 +22,13 @@ var tanggal_akhirInput = document.getElementById("tanggal-akhir");
 var tanggal_akhirOutput = new Date().toISOString().split("T")[0];
 tanggal_akhirInput.value = tanggal_akhirOutput;
 
+var currentDateTime = new Date();
+var hours = currentDateTime.getHours().toString().padStart(2, "0");
+var minutes = currentDateTime.getMinutes().toString().padStart(2, "0");
+var timeString = hours + ":" + minutes;
+
+jam_gangguan.value = timeString;
+
 // Form Button
 let inputButton = document.getElementById("inputButton");
 let cancelButton = document.getElementById("cancelButton");
@@ -33,7 +40,6 @@ let refreshButton = document.getElementById("refreshButton");
 
 function clearForm() {
     feeder.value = "";
-    jam_gangguan.value = "";
     jam_selesai.value = "";
     ket_gangguan.value = "";
     keterangan.value = "";

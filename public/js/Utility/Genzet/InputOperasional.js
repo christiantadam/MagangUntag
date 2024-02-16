@@ -39,6 +39,13 @@ let teknisi = document.getElementById("teknisi");
 let keterangan = document.getElementById("keterangan");
 let id = document.getElementById("hiddenNomorgenzet");
 
+var currentDateTime = new Date();
+var hours = currentDateTime.getHours().toString().padStart(2, "0");
+var minutes = currentDateTime.getMinutes().toString().padStart(2, "0");
+var timeString = hours + ":" + minutes;
+
+jam_awal.value = timeString;
+
 tanggal.disabled = true;
 mesingenzet.disabled = true;
 jam_awal.disabled = true;
@@ -61,7 +68,6 @@ saveButton.disabled = true;
 function clearForm() {
     // tanggal.value = "";
     mesingenzet.value = "";
-    jam_awal.value = "";
     jam_akhir.value = "";
     operationhours.value = "";
     lubeoil.value = "";

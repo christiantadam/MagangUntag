@@ -21,6 +21,13 @@ var tanggal_akhirInput = document.getElementById("tanggal-akhir");
 var tanggal_akhirOutput = new Date().toISOString().split("T")[0];
 tanggal_akhirInput.value = tanggal_akhirOutput;
 
+var currentDateTime = new Date();
+var hours = currentDateTime.getHours().toString().padStart(2, "0");
+var minutes = currentDateTime.getMinutes().toString().padStart(2, "0");
+var timeString = hours + ":" + minutes;
+
+jam.value = timeString;
+
 // Form Button
 let inputButton = document.getElementById("inputButton");
 let cancelButton = document.getElementById("cancelButton");
@@ -35,7 +42,7 @@ let nomorpln = document.getElementById("hiddenNomorpln");
 function clearForm() {
     // tanggal.value = "";
     nomorpln.value = "";
-    jam.value = "";
+    // jam.value = "";
     lwbp.value = "";
     wbp.value = "";
     kvar.value = "";
@@ -375,6 +382,9 @@ var tanggal_Input = document.getElementById("tanggal-sdp");
 var tanggal_Output = new Date().toISOString().split("T")[0];
 tanggal_Input.value = tanggal_Output;
 
+// jam form
+jamsdp.value = timeString;
+
 // Form Button
 let inputButtonsdp = document.getElementById("inputButton-sdp");
 let cancelButtonsdp = document.getElementById("cancelButton-sdp");
@@ -387,8 +397,8 @@ let refreshButtonsdp = document.getElementById("refreshButton-sdp");
 let nomorsdp = document.getElementById("hiddenNomorSDP");
 
 function clearFormsdp() {
-    produksisdp.value = "";
-    jamsdp.value = "";
+    // produksisdp.value = "";
+    // jamsdp.value = "";
     kwhsdp.value = "";
     ct_faktorsdp.value = "";
     teknisisdp.value = "";
@@ -747,6 +757,10 @@ let pembacaBA = document.getElementById("pembaca-ba");
 // tanggal form
 var tanggal_Output = new Date().toISOString().split("T")[0];
 tanggalBA.value = tanggal_Output;
+
+//jam form
+posisiJamBA.value = timeString;
+timeswitchBA.value = timeString;
 
 // Form Button
 let inputButtonBA = document.getElementById("inputButton-ba");
