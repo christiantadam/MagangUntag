@@ -195,6 +195,7 @@ $(document).ready(function () {
                 wbp.disabled = true;
                 kvar.disabled = true;
                 teknisi.disabled = true;
+                updateButton.disabled = false;
                 dataTable.ajax.reload();
             },
             error: function (error) {

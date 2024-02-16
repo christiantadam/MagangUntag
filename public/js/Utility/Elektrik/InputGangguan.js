@@ -685,7 +685,7 @@ $(document).ready(function () {
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 var requestData = {
-                                    UP: selectedData.user_pelapor,
+                                    UP: selectedUser.user_pelapor,
                                 };
                                 $.ajax({
                                     url: "/deleteData",
