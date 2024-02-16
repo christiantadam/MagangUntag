@@ -47,13 +47,13 @@ class StatusLogController extends Controller
     public function deleteStatusLog(Request $request)
     {
         try {
-            $Id = $request->input('id');
+            $Id = $request->input('Nomor');
 
             foreach ($Id as $id) {
                 DB::connection('ConnUtility')->statement('exec SP_HAPUS_STATUSLOG_GENZET @NoStatusLog = ?', [$id]);
             }
 
-            return response()->json(['success' => true]);
+            return response()->json(['success' => true, 'message' =>'Data Berhasil dihapus!']);
         } catch (\Exception $e) {
             return response()->json(['error' => 'An error occurred while deleting the data. Please try again.']);
         }
