@@ -28,23 +28,17 @@
                                         <input type="text" name="nama_pelapor" id="tahun_pembuatan"
                                             class="form-control mb-2" placeholder="">
                                         <div class="jam_lapor">Tanggal Mulai</div>
-                                        <input type="date" name="tanggal_dibutuhkan" id="tanggal_mulai"
-                                            class="input mb-3">
+                                        <input type="date" class="form-control mb-2" name="tanggal_dibutuhkan"
+                                            id="tanggal_mulai" class="input mb-3">
                                         <div class="jam_lapor">Tanggal Selesai</div>
-                                        <input type="date" name="tanggal_dibutuhkan" id="tanggal_selesai"
-                                            class="input mb-3">
+                                        <input type="date" class="form-control mb-2" name="tanggal_dibutuhkan"
+                                            id="tanggal_selesai" class="input mb-3">
                                         <div class="nama_pelapor">Keterangan Kerusakan</div>
                                         <input type="text" name="nama_pelapor" id="keterangan_kerusakan"
                                             class="form-control mb-2" placeholder="">
                                         <div class="nama_pelapor">Perbaikan</div>
                                         <input type="text" name="nama_pelapor" id="perbaikan" class="form-control mb-2"
                                             placeholder="">
-
-
-
-
-
-
                                     </div>
                                 </div>
                                 <div class="col-4">
@@ -53,7 +47,7 @@
                                             <label>Keterangan</label>
                                             <label>
                                                 <input type="radio" name="keterangan" value="Progress"
-                                                    id="keterangan_progress">
+                                                    id="keterangan_progress" checked>
                                                 Progress
                                             </label>
                                             <label>
