@@ -18,10 +18,10 @@
                             <label for="" class="ml-3">Divisi Pelapor</label>
                             <select name="divisi_pelapor" id="divisi_pelapor" class="form-select mb-2 ml-1"
                                 style="width: 250px;">
-                                <option value="pilih divisi">
-                                    @foreach ($divisi as $divisi_pelapor)
-                                <option value="{{ $divisi_pelapor->Id_divisi }}">
-                                    {{ $divisi_pelapor->Nama_divisi }}</option>
+                                <option selected disabled>Pilih Divisi Pelapor</option>..</option>
+                                @foreach ($divisi as $divisi_pelapor)
+                                    <option value="{{ $divisi_pelapor->Id_divisi }}">
+                                        {{ $divisi_pelapor->Nama_divisi }}</option>
                                 @endforeach
                                 </option>
                             </select>

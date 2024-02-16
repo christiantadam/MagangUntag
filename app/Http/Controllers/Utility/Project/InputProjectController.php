@@ -66,7 +66,7 @@ class InputProjectController extends Controller
                 $TglMulai,
                 $TglSelesai,
                 $Keterangan,
-                '4378',
+                $user_input,
                 $KeteranganKerja,
                 $Id,
                 $MerkMesin,
@@ -174,6 +174,17 @@ class InputProjectController extends Controller
     {
         $id = $request->input('id');
         $data = DB::connection('ConnUtility')->table('PROJECT')->where('Id', $id)->first();
+
+        if (!$data) {
+            return response()->json(['message' => 'Data not found'], 404);
+        }
+
+        return response()->json($data, 200);
+    }
+    public function getNamaUser(Request $request)
+    {
+        $nama_user = $request->input('nama_user');
+        $data = DB::connection('EDP')->table('UserMaster')->where('NamaUser', $nama_user)->first();
 
         if (!$data) {
             return response()->json(['message' => 'Data not found'], 404);

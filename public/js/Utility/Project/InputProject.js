@@ -91,8 +91,8 @@ function disabled() {
     ket_gambar1.disabled = true;
     ket_gambar2.disabled = true;
     gambar2.disabled = true;
-    keterangan1.disabled = true;
-    keterangan2.disabled = true;
+    keterangan_selesai.disabled = true;
+    keterangan_progress.disabled = true;
     prosesButton.disabled = true;
 }
 
@@ -389,7 +389,13 @@ $(document).ready(function () {
                 render: function (data, type, full, meta) {
                     // Assuming data is in UTC format, adjust it to the local timezone
                     var localDate = moment.utc(data).local();
-                    return localDate.format("DD-MM-YYYY");
+
+                    // Check if Keterangan is "Progress"
+                    if (full.Keterangan === "Progress") {
+                        return ""; // Jika "Progress", kembalikan string kosong
+                    } else {
+                        return localDate.format("DD-MM-YYYY"); // Jika bukan "Progress", kembalikan tanggal yang diformat
+                    }
                 },
             },
             { data: "KeteranganKerja" },
@@ -421,8 +427,8 @@ $(document).ready(function () {
         ket_gambar2.disabled = true;
         keterangan_selesai.disabled = true;
         keterangan_progress.disabled = true;
-        document.getElementById("keterangan_progress").checked = false;
-        document.getElementById("keterangan_selesai").checked = false;
+        //document.getElementById("keterangan_progress").checked = false;
+        //document.getElementById("keterangan_selesai").checked = false;
 
         dataTable.clear().draw();
         clearForm();
@@ -459,15 +465,16 @@ $(document).ready(function () {
 
     var selectedId;
     var selectedUser;
+    var selectedIdProject;
 
     $("tbody").on("click", ".checkbox_project", function () {
         if ($(this).prop("checked")) {
             var selectedRow = $(this).closest("tr");
             var id = $(this).val();
-            selectedData = {
-                UserId: selectedRow.find("td:eq(7)").text(),
-                id_laporan: id,
-            };
+            // selectedData = {
+            //     UserId: selectedRow.find("td:eq(7)").text(),
+            //     id_laporan: id,
+            // };
 
             hapusButton.disabled = false;
             koreksiButton.disabled = false;
@@ -530,9 +537,9 @@ $(document).ready(function () {
                 fileInput = [file];
             }
 
-            selectedData = {
-                Id_Laporan: selectedid_laporan,
-            };
+            // selectedData = {
+            //     Id_Laporan: data.UserId,
+            // };
 
             $.ajax({
                 url: "/getDataProjectId",
@@ -546,7 +553,7 @@ $(document).ready(function () {
                     var TglSelesai = new Date(data.TglSelesai);
                     var offset = TglSelesai.getTimezoneOffset();
                     TglSelesai.setMinutes(TglSelesai.getMinutes() - offset);
-
+                    var idUser = data.UserId;
                     $("#nama_project").val(data.NamaProject);
                     $("#nama_mesin").val(data.NamaMesin);
                     $("#merk_mesin").val(data.MerkMesin);
@@ -567,10 +574,11 @@ $(document).ready(function () {
                         $("#keterangan_progress").prop("checked", true);
                     } else {
                         // Handle the case where data.Keterangan is neither 'selesai' nor 'progress'
-                        console.error(
-                            "Invalid value for data.Keterangan:",
-                            keteranganValue
-                        );
+                        console
+                            .error
+                            //"Invalid value for data.Keterangan:"
+                            //keteranganValue
+                            ();
                     }
                     $("input[name='keterangan']").change(function () {
                         // Update data.Keterangan based on the selected radio button
@@ -579,6 +587,10 @@ $(document).ready(function () {
                         ).val();
                         console.log("Selected Keterangan: ", data.Keterangan);
                     });
+
+                    selectedIdProject = {
+                        id: idUser,
+                    };
                     console.log(
                         "Selected id_laporan: ",
                         id,
@@ -613,7 +625,7 @@ $(document).ready(function () {
         var Token = $('meta[name="csrf-Token"]').attr("content");
         // Dapatkan checkbox tercentang di dalam baris yang dipilih
 
-        if (selectedData) {
+        if (selectedIdProject) {
             $.ajax({
                 url: "/getDataUserId", // Gantilah dengan endpoint yang sesuai
                 method: "GET",
@@ -626,8 +638,9 @@ $(document).ready(function () {
                     console.log(nomorUserFromAPI);
 
                     // Ambil UserId dari selectedData
-                    var userIdFromSelectedData = selectedData.UserId;
+                    var userIdFromSelectedData = selectedIdProject.id;
                     console.log(userIdFromSelectedData);
+                    console.log("ini nomer user:", nomorUserFromAPI, "");
 
                     // Periksa apakah NomorUser dari API response sama dengan UserId dari selectedData
                     if (nomorUserFromAPI === userIdFromSelectedData) {

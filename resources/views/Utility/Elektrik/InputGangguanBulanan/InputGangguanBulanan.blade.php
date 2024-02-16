@@ -19,7 +19,7 @@
                                         <input type="text" name="nama" id="nama" class="form-control mb-2"
                                             placeholder="">
                                         <div class="pabrik">Pabrik Pengecek</div>
-                                        <select name="pabrik" id="pabrik" class="form-control mb-2">
+                                        <select name="pabrik" id="pabrik" class="form-select mb-2">
                                             <option value="Mojosari">Mojosari </option>
                                             <option value="Tropodo">Tropodo </option>
                                             <option value="Mlora">Mlora </option>
@@ -38,7 +38,7 @@
                                             <label for="status">Status</label>
                                         </div>
                                         <label>
-                                            <input type="radio" name="status" value="Selesai" id="selesai">
+                                            <input type="radio" name="status" value="Selesai" id="selesai" checked>
                                             Selesai
                                         </label>
                                         <label>

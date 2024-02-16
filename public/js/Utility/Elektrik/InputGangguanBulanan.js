@@ -19,6 +19,9 @@ nama.disabled = true;
 pabrik.disabled = true;
 masalah.disabled = true;
 solusi.disabled = true;
+document.getElementById("selesai").disabled = true;
+document.getElementById("belum_selesai").disabled = true;
+
 prosesButton.style.display = "none";
 
 function emptyForm() {
@@ -43,6 +46,8 @@ function disableForm() {
     solusi.disabled = true;
     gambarGangguan.disabled = true;
     gambarSelesai.disabled = true;
+    document.getElementById("selesai").disabled = true;
+    document.getElementById("belum_selesai").disabled = true;
 }
 
 function enabledForm() {
@@ -63,6 +68,8 @@ $(inputButton).click(function (e) {
 
     inputButton.style.display = "none";
     prosesButton.style.display = "block";
+    document.getElementById("selesai").disabled = false;
+    document.getElementById("belum_selesai").disabled = false;
 });
 
 $(changeButton).click(function (e) {
@@ -95,9 +102,6 @@ $(cancelButton).click(function (e) {
     inputButton.style.display = "block";
     prosesButton.style.display = "none";
     $(".table-elektrik-bulanan").prop("checked", false);
-
-    document.getElementById("selesai").checked = false;
-    document.getElementById("belum_selesai").checked = false;
 });
 
 // Event listener untuk Gambar 1

@@ -48,8 +48,14 @@ $(document).ready(function () {
                 data: "TglSelesai",
                 render: function (data, type, full, meta) {
                     // Assuming data is in UTC format, adjust it to the local timezone
-                    var date = new Date(data + "Z").toLocaleDateString();
-                    return date;
+                    var localDate = moment.utc(data).local();
+
+                    // Check if Keterangan is "Progress"
+                    if (full.Keterangan === "Progress") {
+                        return ""; // Jika "Progress", kembalikan string kosong
+                    } else {
+                        return localDate.format("DD-MM-YYYY"); // Jika bukan "Progress", kembalikan tanggal yang diformat
+                    }
                 },
             },
             { data: "KeteranganKerja" },

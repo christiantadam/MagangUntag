@@ -16,12 +16,12 @@
                                         <label class="tanggal">Tanggal</label>
                                         <input type="date" name="tanggal_dibutuhkan" id="tanggal"
                                             class="form-control mb-2">
-                                        <div class="divisi_pelapor mb-2">Divisi Pelapor</div>
+                                        <label class="divisi_pelapor mb-2">Divisi Pelapor</label>
                                         <select name="divisi_pelapor" id="divisi_pelapor1" class="form-select mb-2">
-                                            <option value="pilih divisi">
-                                                @foreach ($divisi as $divisi_pelapor)
-                                            <option value="{{ $divisi_pelapor->Id_divisi }}">
-                                                {{ $divisi_pelapor->Nama_divisi }}</option>
+                                            <option selected disabled>Pilih Divisi Pelapor</option>..</option>
+                                            @foreach ($divisi as $divisi_pelapor)
+                                                <option value="{{ $divisi_pelapor->Id_divisi }}">
+                                                    {{ $divisi_pelapor->Nama_divisi }}</option>
                                             @endforeach
                                         </select>
                                         <div class="nama_pelapor mb-2">Nama Pelapor</div>
