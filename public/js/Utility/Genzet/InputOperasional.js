@@ -655,11 +655,12 @@ $(document).ready(function () {
                         "X-CSRF-TOKEN": csrfToken,
                     },
                     success: function (response) {
+                        console.log(response.message);
                         dataTableStatusLog.ajax.reload();
                         Swal.fire({
                             icon: "success",
                             title: "Terhapus!",
-                            text: "Data Berhasil Dihapus!",
+                            text: response.message,
                             showConfirmButton: false,
                             timer: "2000",
                         });
