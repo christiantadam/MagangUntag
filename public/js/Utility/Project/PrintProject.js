@@ -60,7 +60,7 @@ $(document).ready(function () {
             },
             { data: "KeteranganKerja" },
             { data: "Keterangan" },
-            { data: "UserId" },
+            { data: "Nama" },
         ],
     });
     $("#refreshButton").click(function () {
@@ -72,6 +72,7 @@ $(document).ready(function () {
     $("tbody").on("click", ".checkbox_project", function () {
         if ($(this).prop("checked")) {
             var id = $(this).val();
+            var selectedRow = $(this).closest("tr");
 
             $.ajax({
                 url: "/getDataProjectId",
@@ -107,6 +108,9 @@ $(document).ready(function () {
                             .attr("src", objectURL)
                             .show();
                     }
+                    var selectedData = {
+                        Nama: selectedRow.find("td:eq(7)").text(),
+                    };
                     var htmlCode = `
                     <style>
                     #previewData {
@@ -220,7 +224,7 @@ $(document).ready(function () {
                         <div class="row mt-5 print-footer justify-content-between">
                             <div class="col-3">
                                 <strong>Pelaksana,</strong>
-                                <div class="data">${data.UserId}</div>
+                                <div class="data">(${selectedData.Nama})</div>
                             </div>
                             <div class="col-3">
                                 <strong>Penanggung jawab,</strong>

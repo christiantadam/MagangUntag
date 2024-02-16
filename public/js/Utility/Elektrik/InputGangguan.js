@@ -201,11 +201,11 @@ koreksiButton.addEventListener("click", function () {
         gambar2.disabled = true;
         ket_gambar2.disabled = true;
         hasil_gambar2.disabled = true;
-        Swal.fire(
-            "Pilih data yang akan dikoreksi terlebih dahulu",
-            "",
-            "warning"
-        );
+        Swal.fire({
+            icon: "warning",
+            title: "Tidak Ada Data Terpilih",
+            text: "Pilih satu data untuk diperbarui.",
+        });
         return; // Stop the function execution
     } else {
         prosesButton.disabled = false;
@@ -394,8 +394,9 @@ $(document).ready(function () {
                     // PUT request
                     Swal.fire({
                         icon: "success",
-                        title: "Success!",
-                        text: "Data updated successfully.",
+                        title: "Data Berhasil Diperbarui!",
+                        showConfirmButton: false,
+                        timer: "2000",
                     });
                     dataTable.ajax.reload();
                     disableForm();
@@ -406,8 +407,9 @@ $(document).ready(function () {
                     // POST request
                     Swal.fire({
                         icon: "success",
-                        title: "Success!",
-                        text: "Data added successfully.",
+                        title: "Data Berhasil Disimpan!",
+                        showConfirmButton: false,
+                        timer: "2000",
                     });
                     dataTable.ajax.reload();
                     disableForm();
@@ -674,11 +676,13 @@ $(document).ready(function () {
                     if (nomorUserFromAPI === userIdFromSelectedData) {
                         console.log("nomorUser dan userID sama");
                         Swal.fire({
-                            title: "Anda yakin untuk menghapus data?",
-                            showDenyButton: true,
+                            title: "Anda yakin ingin menghapus data yang terpilih?",
+                            icon: "warning",
                             showCancelButton: true,
-                            confirmButtonText: "Ya",
-                            denyButtonText: "Tidak",
+                            confirmButtonColor: "#3085d6",
+                            cancelButtonColor: "#d33",
+                            confirmButtonText: "Ya, Hapus!",
+                            cancelButtonText: "Batal",
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 var requestData = {
@@ -701,6 +705,7 @@ $(document).ready(function () {
                                             "",
                                             "success"
                                         );
+                                        clearForm();
                                     },
                                     error: function (error) {
                                         console.error(error);
@@ -724,11 +729,11 @@ $(document).ready(function () {
                 },
             });
         } else {
-            Swal.fire(
-                "Pilih data yang akan dihapus terlebih dahulu",
-                "",
-                "warning"
-            );
+            Swal.fire({
+                icon: "warning",
+                title: "Tidak Ada Data Terpilih",
+                text: "Pilih data untuk dihapus.",
+            });
         }
     });
 });

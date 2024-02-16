@@ -66,7 +66,7 @@ class InputProjectController extends Controller
                 $TglMulai,
                 $TglSelesai,
                 $Keterangan,
-                '4378',
+                $user_input,
                 $KeteranganKerja,
                 $Id,
                 $MerkMesin,

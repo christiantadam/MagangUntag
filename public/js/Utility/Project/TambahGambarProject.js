@@ -255,7 +255,7 @@ $(document).ready(function () {
                 },
             },
             { data: "Keterangan" },
-            { data: "UserId" },
+            { data: "Nama" },
         ],
     });
     $("#refreshButton").click(function () {
