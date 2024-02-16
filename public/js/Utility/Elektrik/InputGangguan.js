@@ -662,9 +662,6 @@ $(document).ready(function () {
                 url: "/getUserId", // Gantilah dengan endpoint yang sesuai
                 method: "GET",
                 success: function (response) {
-                    // console.log(response.NomorUser);
-                    // console.log(selectedData.UserId);
-                    // console.log(selectedData.id_laporan);
                     let nomorUserFromAPI = response.NomorUser.trim();
                     //var nomorUserFromAPI = "4384";
 
@@ -685,7 +682,7 @@ $(document).ready(function () {
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 var requestData = {
-                                    UP: selectedUser.user_pelapor,
+                                    id: selectedId.id,
                                 };
                                 $.ajax({
                                     url: "/deleteData",
@@ -697,6 +694,7 @@ $(document).ready(function () {
                                         ).attr("content"),
                                     },
                                     success: function (response) {
+                                        console.log(response);
                                         dataTable.ajax.reload();
                                         Swal.fire(
                                             "Data berhasil dihapus!",

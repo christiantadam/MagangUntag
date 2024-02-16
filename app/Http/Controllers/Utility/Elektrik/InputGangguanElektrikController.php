@@ -141,12 +141,18 @@ class InputGangguanElektrikController extends Controller
 
     public function deleteData(Request $request)
     {
-
         $Id_Laporan = $request->input('id');
 
+        // // Check if $Id_Laporan is an array
+        // if (!is_array($Id_Laporan)) {
+        //     // If $Id_Laporan is not an array, convert it to an array
+        //     $Id_Laporan = [$Id_Laporan];
+        // }
+
         try {
-            foreach ($Id_Laporan as $id) {
-                DB::connection('ConnUtility')->statement('exec SP_HAPUS_GANGGUAN_ELEKTRIK @id_laporan = ?', [$id]);
+            foreach ([$Id_Laporan] as $id) {
+                // $data = DB::connection('ConnUtility')->statement('exec SP_HAPUS_GANGGUAN_ELEKTRIK @id_laporan = ?', [$id]);
+                DB::connection('ConnUtility')->table('E_Gangguan_elektrik')->where('Id_Laporan', $id)->delete();
                 DB::connection('ConnUtility')->table('GAMBAR_ELEKTRIK')->where('IdLaporan', $id)->delete();
             }
 
@@ -155,6 +161,7 @@ class InputGangguanElektrikController extends Controller
             return response()->json(['success' => false, 'message' => 'Error deleting data: ' . $e->getMessage()]);
         }
     }
+
     public function selectImage($id, $imageName)
     {
         // Validate $imageName to make sure it's one of the allowed image names (e.g., 'Gambar1', 'Gambar2')
