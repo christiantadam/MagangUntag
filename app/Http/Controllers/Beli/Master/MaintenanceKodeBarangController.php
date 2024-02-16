@@ -141,7 +141,7 @@ class MaintenanceKodeBarangController extends Controller
     }
     public function isi(Request $request)
     {
-        $USERINPUT = '1001';
+        $USERINPUT = trim(Auth::user()->NomorUser);
         $Kriteria = $request->input('Kriteria');
         $Jenis_Pembelian = $request->input('Jenis_Pembelian');
         $BrgSama = $request->input('BrgSama');
@@ -222,7 +222,7 @@ class MaintenanceKodeBarangController extends Controller
     }
     public function koreksi(Request $request)
     {
-        $USERKOREKSI = '1001';
+        $USERKOREKSI = trim(Auth::user()->NomorUser);
         $KD_BRG = $request->input('KD_BRG');
         $NO_SUB_KATEGORI = $request->input('NO_SUB_KATEGORI');
         $NAMA_BRG = $request->input('NAMA_BRG');
@@ -297,7 +297,7 @@ class MaintenanceKodeBarangController extends Controller
     }
     public function prosesHapus(Request $request)
     {
-        $USERDELETE = '1001';
+        $USERDELETE = trim(Auth::user()->NomorUser);
         $KD_BRG0 = $request->input('KD_BRG0');
 
         if ($KD_BRG0 != null) {

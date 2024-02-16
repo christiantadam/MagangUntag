@@ -193,7 +193,7 @@ btn_transfer.addEventListener("click", function (event) {
                 showConfirmButton: false,
                 timer: "2000",
             });
-            console.log(response);
+            window.location.href = "/TransferBarang"
         },
         error: function (error) {
             Swal.fire({

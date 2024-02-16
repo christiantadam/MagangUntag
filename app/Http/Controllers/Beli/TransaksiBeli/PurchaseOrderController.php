@@ -16,15 +16,14 @@ class PurchaseOrderController extends Controller
     {
         $access = (new HakAksesController)->HakAksesFiturMaster('Beli');
         return view('Beli.TransaksiBeli.PurchaseOrder.List', compact('access'));
-
     }
 
     //Show the form for creating a new resource.
     public function create()
     {
-        $divisi = db::connection('ConnPurchase')->select('exec spSelect_UserDivisi_dotNet @kd = ?, @Operator = ?', [1, Auth::user()->kd_user]);
+        $divisi = db::connection('ConnPurchase')->select('exec spSelect_UserDivisi_dotNet @kd = ?, @Operator = ?', [1, trim(Auth::user()->NomorUser)]);
         $access = (new HakAksesController)->HakAksesFiturMaster('Beli');
-        // dd($divisi);
+        // dd($divisi,Auth::user()->NomorUser);
         return view('Beli.TransaksiBeli.PurchaseOrder.Create', compact('divisi', 'access'));
     }
 
@@ -70,11 +69,11 @@ class PurchaseOrderController extends Controller
         $noTrans = $request->input('noTrans');
         $QtyCancel = $request->input('QtyCancel');
         $alasan = "Dianggap lunas di order sebelumnya";
-        $Operator = '1001';
+        $Operator = trim(Auth::user()->NomorUser);
         if (($noTrans != null) || ($QtyCancel != null)) {
             try {
-                $data = DB::connection('ConnPurchase')->statement('exec SP_5409_MAINT_PO @Operator = ?, @kd = ?, @noTrans = ?, @alasan = ?, @QtyCancel = ?', [$Operator, $kd, $noTrans, $alasan,$QtyCancel]);
-                return Response()->json(['message' => 'Data Berhasil DiClose Order',"data" => $data]);
+                $data = DB::connection('ConnPurchase')->statement('exec SP_5409_MAINT_PO @Operator = ?, @kd = ?, @noTrans = ?, @alasan = ?, @QtyCancel = ?', [$Operator, $kd, $noTrans, $alasan, $QtyCancel]);
+                return Response()->json(['message' => 'Data Berhasil DiClose Order', "data" => $data]);
             } catch (\Throwable $Error) {
                 return Response()->json($Error);
             }
@@ -89,7 +88,7 @@ class PurchaseOrderController extends Controller
         if (($noTrans != null)) {
             try {
                 $data = DB::connection('ConnPurchase')->statement('exec SP_5409_MAINT_PO @kd = ?, @noTrans = ?', [$kd, $noTrans]);
-                return Response()->json(['message' => 'Data Berhasil DiBack Create PO',"data" => $data]);
+                return Response()->json(['message' => 'Data Berhasil DiBack Create PO', "data" => $data]);
             } catch (\Throwable $Error) {
                 return Response()->json($Error);
             }
@@ -119,19 +118,37 @@ class PurchaseOrderController extends Controller
                     2,
                     $noTrans[$i],
                     $No_PO,
-                    Auth::user()->kd_user,
+                    trim(Auth::user()->NomorUser),
                 ]
             );
         }
 
         $loadHeader = db::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd = ?, @noPO = ?', [14, $No_PO]);
         $loadPermohonan = db::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd = ?, @noPO = ?', [13, $No_PO]);
+        $namaDiv = db::connection('ConnPurchase')->table("YDIVISI")->select("YDIVISI.NM_DIV")->where("YDIVISI.KD_DIV", trim($loadPermohonan[0]->Kd_div))->get();
         $supplier = db::connection('ConnPurchase')->select('exec SP_5409_PBL_SUPPLIER @kd = ?', [1]);
         $listPayment = db::connection('ConnPurchase')->select('exec SP_5409_LIST_PAYMENT');
         $mataUang = db::connection('ConnPurchase')->select('exec SP_7775_PBL_LIST_MATA_UANG');
         $ppn = db::connection('ConnPurchase')->select('exec SP_5409_LIST_PPN');
         // dd($loadHeader, $loadPermohonan);
-        return view('Beli.TransaksiBeli.PurchaseOrder.CreateSPPB', compact('access', 'supplier', 'listPayment', 'mataUang', 'ppn', 'No_PO', 'loadPermohonan', 'loadHeader'));
+        return view('Beli.TransaksiBeli.PurchaseOrder.CreateSPPB', compact('access', 'supplier', 'listPayment', 'mataUang', 'ppn', 'No_PO', 'loadPermohonan', 'loadHeader', 'namaDiv'));
+    }
+
+    public function print(Request $request)
+    {
+        $noPO = $request->input('noPO');
+        if (($noPO !== null)) {
+            try {
+                $print = DB::connection('ConnPurchase')->table('VW_5409_PRINT_PO')->where('VW_5409_PRINT_PO.NO_PO', $noPO)->get();
+                $printHeader = DB::connection('ConnPurchase')->table('VW_5409_PRINT_HEADER_PO')->where('VW_5409_PRINT_HEADER_PO.NO_PO', $noPO)->get();
+
+                return Response()->json(["print"=>$print,"printHeader" => $printHeader]);
+            } catch (\Throwable $Error) {
+                return Response()->json($Error);
+            }
+        } else {
+            return Response()->json('Parameter harus di isi');
+        }
     }
 
     public function update(Request $request)
@@ -149,7 +166,7 @@ class PurchaseOrderController extends Controller
         $pIDRSub = $request->input('pIDRSub');
         $pIDRPPN = $request->input('pIDRPPN');
         $pIDRTot = $request->input('pIDRTot');
-        $Operator = '1001';
+        $Operator = trim(Auth::user()->NomorUser);
         $persen = $request->input('persen');
         $disc = $request->input('disc');
         $discIDR = $request->input('discIDR');
@@ -185,8 +202,7 @@ class PurchaseOrderController extends Controller
     {
         $kd = 6;
         $noTrans = $request->input('noTrans');
-        if (($noTrans !== null)
-        ) {
+        if (($noTrans !== null)) {
             try {
                 $remove = DB::connection('ConnPurchase')->statement('exec SP_5409_MAINT_PO @kd = ?, @noTrans = ?', [$kd, $noTrans]);
                 return Response()->json(['message' => 'Data Berhasil Remove']);
@@ -202,7 +218,7 @@ class PurchaseOrderController extends Controller
         $kd = 4;
         $noTrans = $request->input('noTrans');
         $alasan = $request->input('alasan');
-        $Operator = '1001';
+        $Operator = trim(Auth::user()->NomorUser);
 
         if (($noTrans !== null) &&
             ($alasan !== null)
@@ -223,7 +239,7 @@ class PurchaseOrderController extends Controller
         $noTrans = $request->input('noTrans');
         $mtUang = $request->input('mtUang');
         $tglPO = $request->input('tglPO');
-        $Operator = '1001';
+        $Operator = trim(Auth::user()->NomorUser);
         $idpay = $request->input('idpay');
         $jumCetak = 1;
         $Tgl_Dibutuhkan = Carbon::parse($request->input('Tgl_Dibutuhkan'));
@@ -257,7 +273,7 @@ class PurchaseOrderController extends Controller
         $access = (new HakAksesController)->HakAksesFiturMaster('Beli');
         $result = (new HakAksesController)->HakAksesFitur('Close / Cancel PO');
         if ($result > 0) {
-            return view('Beli.TransaksiBeli.PurchaseOrder.CancelPO', compact('sup','access','result'));
+            return view('Beli.TransaksiBeli.PurchaseOrder.CancelPO', compact('sup', 'access', 'result'));
         } else {
             abort(404);
         }
@@ -287,9 +303,9 @@ class PurchaseOrderController extends Controller
     public function cancel(Request $request)
     {
         $noTrans = $request->input('noTrans');
-        $kd= 15;
+        $kd = 15;
 
-        $purchaseorder = DB::connection('ConnPurchase')->select('exec SP_5409_MAINT_PO @kd=?, @noTrans=?,' , [$kd, $noTrans]);
+        $purchaseorder = DB::connection('ConnPurchase')->select('exec SP_5409_MAINT_PO @kd=?, @noTrans=?,', [$kd, $noTrans]);
 
         return response()->json($purchaseorder);
     }
@@ -302,7 +318,7 @@ class PurchaseOrderController extends Controller
         $noTrans = $request->input('noTrans');
         $kd = 16;
 
-        $purchaseorder = DB::connection('ConnPurchase')->select('exec SP_5409_MAINT_PO @kd=?, @Operator=?, @QtyCancel=?, @alasan=?, @noTrans=?' ,  [$kd, $Operator, $QtyCancel, $alasan, $noTrans]);
+        $purchaseorder = DB::connection('ConnPurchase')->select('exec SP_5409_MAINT_PO @kd=?, @Operator=?, @QtyCancel=?, @alasan=?, @noTrans=?',  [$kd, $Operator, $QtyCancel, $alasan, $noTrans]);
 
         return response()->json($purchaseorder);
     }

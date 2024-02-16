@@ -16,7 +16,7 @@ class MaintenanceOrderPembelianController extends Controller
     public function index(Request $request)
     {
         // $idUser = trim(Auth::user()->NomorUser);
-        $idUser = '1001';
+        $idUser = trim(Auth::user()->NomorUser);
         $data = $request->query('d');
         $statusKoreksi = $request->query('s');
         $result = (new HakAksesController)->HakAksesFitur('Maintenance Order Pembelian');
@@ -73,7 +73,7 @@ class MaintenanceOrderPembelianController extends Controller
         try {
             $kategoriUtama = DB::connection('ConnPurchase')->select('exec spSelect_HirarkiTypeBarang_dotNet @MyType = ?', [$MyType]);
             $satuanList = DB::connection('ConnPurchase')->select('exec sp_list_stri');
-            $divisi = DB::connection('ConnPurchase')->select('exec spSelect_UserDivisi_dotNet @Operator = ?', ['1001']);
+            $divisi = DB::connection('ConnPurchase')->select('exec spSelect_UserDivisi_dotNet @Operator = ?', [trim(Auth::user()->NomorUser)]);
             return Response()->json(["kategoriUtama" => $kategoriUtama,  "satuanList" => $satuanList, "divisi" => $divisi]);
         } catch (\Throwable $Error) {
             return Response()->json($Error);
@@ -169,7 +169,7 @@ class MaintenanceOrderPembelianController extends Controller
     }
     public function save(Request $request)
     {
-        $Operator = '1001';
+        $Operator = trim(Auth::user()->NomorUser);
         $kd = $request->input('kd');
         $Kd_div = $request->input('Kd_div');
         $Kd_brg = $request->input('Kd_brg');
@@ -210,7 +210,7 @@ class MaintenanceOrderPembelianController extends Controller
     }
     public function submit(Request $request)
     {
-        $Operator = '1001';
+        $Operator = trim(Auth::user()->NomorUser);
         $kd = $request->input('kd');
         $Kd_div = $request->input('Kd_div');
         $Kd_brg = $request->input('Kd_brg');

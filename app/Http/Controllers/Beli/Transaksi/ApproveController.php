@@ -16,7 +16,7 @@ class ApproveController extends Controller
     public function index()
     {
         $kd = 2;
-        $operator = '1001';
+        $operator = trim(Auth::user()->NomorUser);
         $access = (new HakAksesController)->HakAksesFiturMaster('Beli');
         $result = (new HakAksesController)->HakAksesFitur('Approve');
         if ($result > 0) {
@@ -67,12 +67,12 @@ class ApproveController extends Controller
         switch ($request->input('action')) {
             case 'Approve':
                 $date = date("Y-m-d H:i:s");
-                TransBL::where('No_trans', $id)->update(['Tgl_acc' => $date, 'Manager' => Auth::user()->kd_user, 'StatusOrder' => '2']);
+                TransBL::where('No_trans', $id)->update(['Tgl_acc' => $date, 'Manager' => trim(Auth::user()->NomorUser), 'StatusOrder' => '2']);
                 return back();
 
             case 'Reject':
                 $date = date("Y-m-d H:i:s");
-                TransBL::where('No_trans', $id)->update(['Tgl_Batal_acc' => $date, 'Batal_acc' => Auth::user()->kd_user, 'StatusOrder' => '0']);
+                TransBL::where('No_trans', $id)->update(['Tgl_Batal_acc' => $date, 'Batal_acc' => trim(Auth::user()->NomorUser), 'StatusOrder' => '0']);
                 return back();
         }
     }

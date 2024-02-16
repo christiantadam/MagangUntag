@@ -39,7 +39,7 @@ class ListOrderAppManagerController extends Controller
     }
     public function divisi()
     {
-        $Operator = '1001';
+        $Operator = trim(Auth::user()->NomorUser);
         try {
             $data = DB::connection('ConnPurchase')->select('exec spSelect_UserDivisi_dotNet @Operator = ?, @kd = ?', [$Operator, 1]);
             return Response()->json($data);
