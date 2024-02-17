@@ -124,6 +124,7 @@ agree.disabled = true;
 
 // Event listener for Input Button
 inputButton.addEventListener("click", function () {
+    inputButton.disabled = true;
     id_laporan.value = "";
     koreksiButton.disabled = true;
     hapusinputButton.disabled = true;
@@ -473,7 +474,7 @@ $(document).ready(function () {
                 render: function (data, type, full, meta) {
                     var localDate = moment.utc(data).local();
 
-                    return localDate.format("DD/MM/YYYY");
+                    return localDate.format("MM/DD/YYYY");
                 },
             },
             { data: "L_div_pelapor" },

@@ -25,7 +25,7 @@ $(document).ready(function () {
         processing: true,
         serverSide: true,
         responsive: true,
-        scrollX: true,
+        //scrollX: true,
         ajax: {
             url: "/getData",
             type: "GET",
@@ -53,7 +53,7 @@ $(document).ready(function () {
                 render: function (data, type, full, meta) {
                     var localDate = moment.utc(data).local();
 
-                    return localDate.format("DD/MM/YYYY");
+                    return localDate.format("MM/DD/YYYY");
                 },
             },
 

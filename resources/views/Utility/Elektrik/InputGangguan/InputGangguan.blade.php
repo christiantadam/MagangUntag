@@ -4,13 +4,13 @@
     <div class="container-fluid">
         {{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
         <div class="row justify-content-center">
-            <div class="col-md-10 RDZMobilePaddingLR0">
+            <div class="col-md-15 RDZMobilePaddingLR0">
                 <div class="card">
                     <div class="card-header">Gangguan Elektrik</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="form">
                             <div class="row-12 d-flex flex-wrap">
-                                <div class="col-4 pt-4">
+                                <div class="col-3 pt-4">
                                     <div class="">
                                         <input type="hidden" id="id_laporan">
                                         <label class="tanggal">Tanggal</label>
@@ -38,7 +38,7 @@
                                         <input type="time" name="jam_selesai" id="jam_selesai" class="input mb-3">
                                     </div>
                                 </div>
-                                <div class="col-3 p-4">
+                                <div class="col-4 p-4">
                                     <div class="">
                                         <div class="nama_pelapor mb-2 ">Type Gangguan</div>
                                         <input type="text" name="nama_pelapor" id="tipe_gangguan" class="form-control">

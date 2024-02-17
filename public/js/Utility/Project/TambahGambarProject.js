@@ -250,7 +250,7 @@ $(document).ready(function () {
                     if (full.Keterangan === "Progress") {
                         return ""; // Jika "Progress", kembalikan string kosong
                     } else {
-                        return localDate.format("DD-MM-YYYY"); // Jika bukan "Progress", kembalikan tanggal yang diformat
+                        return localDate.format("MM/DD/YYYY"); // Jika bukan "Progress", kembalikan tanggal yang diformat
                     }
                 },
             },

@@ -378,7 +378,7 @@ $(document).ready(function () {
                 data: "TglMulai",
                 render: function (data, type, full, meta) {
                     var localDate = moment.utc(data).local();
-                    return localDate.format("DD-MM-YYYY");
+                    return localDate.format("MM/DD/YYYY");
                 },
             },
             {

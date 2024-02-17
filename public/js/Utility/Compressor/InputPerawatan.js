@@ -40,7 +40,6 @@ function clearForm() {
     keterangan.value = "";
     teknisi.value = "";
     id.value = "";
-
 }
 
 saveButton.disabled = true;
@@ -90,7 +89,6 @@ inputButton.addEventListener("click", function () {
         .append("<option selected disabled>Pilih keterangan...</option>");
     selectKeterangan.prop("disabled", false);
     $(".checkboxperawatan").prop("checked", false);
-
 });
 
 // UpdateButton click
@@ -217,7 +215,7 @@ $(document).ready(function () {
                 data: "Tanggal",
                 render: function (data, type, full, meta) {
                     var date = moment.utc(data).local();
-                    return date.format("DD/MM/YYYY");
+                    return date.format("MM/DD/YYYY");
                 },
             },
             { data: "NamaMesin" },

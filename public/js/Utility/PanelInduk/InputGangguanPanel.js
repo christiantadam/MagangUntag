@@ -37,7 +37,6 @@ let deleteButton = document.getElementById("deleteButton");
 let saveButton = document.getElementById("saveButton");
 let refreshButton = document.getElementById("refreshButton");
 
-
 function clearForm() {
     feeder.value = "";
     jam_selesai.value = "";
@@ -87,7 +86,6 @@ inputButton.addEventListener("click", function () {
     updateButton.disabled = true;
     deleteButton.disabled = true;
     $(".checkboxpanel").prop("checked", false);
-
 });
 
 // UpdateButton click
@@ -235,7 +233,7 @@ $(document).ready(function () {
                 data: "tanggal",
                 render: function (data, type, full, meta) {
                     var date = moment.utc(data).local();
-                    return date.format("DD/MM/YYYY");
+                    return date.format("MM/DD/YYYY");
                 },
             },
             { data: "Feeder_line" },

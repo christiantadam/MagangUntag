@@ -227,7 +227,7 @@ $(document).ready(function () {
                 data: "tanggal",
                 render: function (data, type, full, meta) {
                     var date = moment.utc(data).local();
-                    return date.format("DD/MM/YYYY");
+                    return date.format("MM/DD/YYYY");
                 },
             },
             {
