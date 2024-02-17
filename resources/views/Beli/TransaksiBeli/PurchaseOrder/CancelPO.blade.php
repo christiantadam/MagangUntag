@@ -32,8 +32,7 @@
                                                         @foreach ($sup as $bttb)
                                                             <option value="{{ $bttb->NO_SUP }}">{{ $bttb->NM_SUP }}</option>
                                                         @endforeach
-                                                        <option class="w-100 text-center" selected disabled>-- Pilih
-                                                            Supplier --
+                                                        <option class="w-100 text-center" selected disabled>-- Pilih Supplier --
                                                         </option>
                                                     </select>
                                                 </div>
@@ -72,9 +71,6 @@
                                             <th>Status Beli</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-
-                                    </tbody>
                                 </table>
                             </div>
 
@@ -188,13 +184,11 @@
                                         </div>
                                     </div>
                                     <div class="col-md-12 d-flex justify-content-end pb-4">
-                                        <button type="button" class="btn btn-danger btn-lg mr-3 mb-6" id="removebutton"
-                                            onclick="removeData()"> Close PO</button>
+                                        <button type="button" class="btn btn-danger btn-lg mr-3 mb-6" id="removebutton" > Close</button>
+                                        <button type="button" class="btn btn-danger btn-lg mr-3 mb-6" id="buttoncancel" > Cancel PO</button>
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
