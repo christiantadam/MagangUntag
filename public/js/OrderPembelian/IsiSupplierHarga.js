@@ -268,8 +268,7 @@ function redisplayData(noTrans, requester, kd) {
             {
                 data: "Tgl_Dibutuhkan",
                 render: function (data, type, row) {
-                    let date = new Date(data);
-                    return date.toISOString().split("T")[0];
+                    return data.split(" ")[0];
                 },
             },
             { data: "keterangan" },
@@ -278,17 +277,13 @@ function redisplayData(noTrans, requester, kd) {
         rowCallback: function (row, data) {
             $(row).on("click", function (event) {
                 clearData();
-
-                let tgl = new Date(data.Tgl_Dibutuhkan)
-                    .toISOString()
-                    .split("T")[0];
                 no_po.value = data.No_trans;
                 document.getElementById(
                     "status_beliPengadaanPembelian"
                 ).checked = data.StatusPembelian === "Pengadaan Pembelian";
                 document.getElementById("status_beliBeliSendiri").checked =
                     data.StatusPembelian === "Beli Sendiri";
-                tanggal_dibutuhkan.value = tgl;
+                tanggal_dibutuhkan.value = (data.Tgl_Dibutuhkan).split(" ")[0];;
                 divisi.value = data.Kd_div;
                 kode_barang.value = data.Kd_brg;
                 nama_barang.value = data.NAMA_BRG;

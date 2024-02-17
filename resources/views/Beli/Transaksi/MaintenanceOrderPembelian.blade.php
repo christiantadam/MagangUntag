@@ -80,7 +80,6 @@
                                     <div class="col-4 col-md-2">
                                         <label for="golongan">Golongan</label>
                                     </div>
-
                                     <div class="col-8 col-md-10">
                                         <select name="select_golongan" id="select_golongan" class="w-100 input">
                                             <option class="w-100 text-center" selected disabled>-- Pilih Golongan --

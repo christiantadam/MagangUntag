@@ -90,7 +90,7 @@ class IsiSupplierHargaController extends Controller
     }
     public function approve(Request $request, $id)
     {
-        $Operator = '1001';
+        $Operator = trim(Auth::user()->NomorUser);
         $kd = 3;
         $Qty = $request->input('Qty');
         $QtyDelay = $request->input('QtyDelay');
@@ -125,7 +125,7 @@ class IsiSupplierHargaController extends Controller
         $kd = 16;
         $noTrans = $request->input('noTrans');
         $alasan = $request->input('alasan');
-        $Operator = '1001';
+        $Operator = trim(Auth::user()->NomorUser);
         if (($noTrans != null) || ($alasan != null)) {
             try {
                 $reject = DB::connection('ConnPurchase')->statement('exec SP_5409_SAVE_ORDER @Operator = ?, @kd = ?, @noTrans = ?, @alasan = ?', [$Operator, $kd, $noTrans, $alasan]);

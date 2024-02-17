@@ -48,7 +48,7 @@ class TransferBarangController extends Controller
     }
     public function divisi()
     {
-        $Operator = '1001';
+        $Operator = trim(Auth::user()->NomorUser);
         try {
             $data = DB::connection('ConnPurchase')->select('exec spSelect_UserDivisi_dotNet @Operator = ?, @kd = ?', [$Operator, 1]);
 
@@ -170,7 +170,7 @@ class TransferBarangController extends Controller
         $MasukPrimer = $request->input('MasukPrimer');
         $MasukSekunder = $request->input('MasukSekunder');
         $MasukTritier = $request->input('MasukTritier');
-        $User_id = '1001';
+        $User_id = trim(Auth::user()->NomorUser);
         $SubKel = $request->input('SubKel');
         $NoTransTmp = $request->input('NoTransTmp');
         $ket = $request->input('ket');
@@ -208,7 +208,7 @@ class TransferBarangController extends Controller
         $MasukPrimer = $request->input('MasukPrimer');
         $MasukSekunder = $request->input('MasukSekunder');
         $MasukTritier = $request->input('MasukTritier');
-        $User_id = '1001';
+        $User_id = trim(Auth::user()->NomorUser);
         $SubKel = $request->input('SubKel');
         $NoTerima = $request->input('NoTerima');
         $ket = $request->input('ket');

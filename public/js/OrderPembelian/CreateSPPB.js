@@ -1,4 +1,5 @@
 let formIsi = document.getElementById("formIsi");
+let nomor_purchaseOrder = document.getElementById("nomor_purchaseOrder");
 let supplier_select = document.getElementById("supplier_select");
 let matauang_select = document.getElementById("matauang_select");
 let paymentTerm_select = document.getElementById("paymentTerm_select");
@@ -60,8 +61,6 @@ function clearData() {
     sub_kategori.value = "";
     keterangan_order.value = "-";
     keterangan_internal.value = "-";
-    supplier_select.selectedIndex = 0;
-    matauang_select.selectedIndex = 0;
     paymentTerm_select.selectedIndex = 0;
     qty_delay.value = 0;
     qty_order.value = 0;
@@ -175,25 +174,11 @@ let table = $("#table_CreatePurchaseOrder").DataTable({
             disc.value = parseFloat(data.Disc);
             total_disc.value = parseFloat(data.harga_disc);
             kurs.value = parseFloat(data.Currency);
-            $("#matauang_select").val(data.ID_MATAUANG);
-            $("#supplier_select option").each(function () {
-                if ($(this).text() === data.NM_SUP) {
-                    $("#supplier_select").val($(this).val());
-                    return false;
-                }
-            });
             $("#ppn_select").val(data.IdPPN);
             fixValueQTYOrder = data.Qty;
             btn_update.disabled = false;
             btn_remove.disabled = false;
 
-            paymentTerm_select.addEventListener("change", function (event) {
-                if (paymentTerm_select.selectedIndex !== 0) {
-                    btn_post.disabled = false;
-                } else {
-                    btn_post.disabled = true;
-                }
-            });
             alasan_reject.addEventListener("input", function (event) {
                 if (alasan_reject.value.trim() !== "") {
                     btn_reject.disabled = false;
@@ -217,6 +202,15 @@ table.on("click", "tbody tr", (e) => {
         classList.add("selected");
     }
 });
+
+paymentTerm_select.addEventListener("change", function (event) {
+    if (paymentTerm_select.selectedIndex !== 0) {
+        btn_post.disabled = false;
+    } else {
+        btn_post.disabled = true;
+    }
+});
+
 btn_update.addEventListener("click", function (event) {
     $.ajax({
         url: "/openFormCreateSPPB/create/Update",
@@ -330,46 +324,305 @@ btn_reject.addEventListener("click", function (event) {
     });
 });
 btn_post.addEventListener("click", function (event) {
+    // print();
+    for (let i = 0; i < loadPermohonanData.length; i++) {
+        $.ajax({
+            url: "/openFormCreateSPPB/create/Post",
+            type: "PUT",
+            headers: {
+                "X-CSRF-TOKEN": csrfToken,
+            },
+            data: {
+                noTrans: loadPermohonanData[i].No_trans,
+                mtUang: matauang_select.value,
+                tglPO: tanggal_purchaseOrder.value,
+                idpay: paymentTerm_select.value,
+                Tgl_Dibutuhkan: tanggal_mohonKirim.value,
+                idSup: supplier_select.value,
+            },
+            success: function (response) {
+                // console.log(response);
+                Swal.fire({
+                    icon: "success",
+                    title: "Data Berhasil DiPost!",
+                    showConfirmButton: false,
+                    timer: "2000",
+                });
+                if (i == loadPermohonanData.length - 1) {
+                    dataPrint();
+                }
+            },
+            error: function (error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Data Tidak Berhasil DiPost!",
+                    showConfirmButton: false,
+                    timer: "2000",
+                });
+                console.error("Error Send Data:", error);
+            },
+        });
+    }
+});
+
+function dataPrint() {
     $.ajax({
-        url: "/openFormCreateSPPB/create/Post",
-        type: "PUT",
-        headers: {
-            "X-CSRF-TOKEN": csrfToken,
-        },
+        url: "/openFormCreateSPPB/create/Print",
+        type: "GET",
         data: {
-            noTrans: no_po.value,
-            mtUang: matauang_select.value,
-            tglPO: tanggal_purchaseOrder.value,
-            idpay: paymentTerm_select.value,
-            Tgl_Dibutuhkan: tanggal_mohonKirim.value,
-            idSup: supplier_select.value,
+            noPO: nomor_purchaseOrder.value.trim(),
         },
         success: function (response) {
-            Swal.fire({
-                icon: "success",
-                title: "Data Berhasil DiPost!",
-                showConfirmButton: false,
-                timer: "2000",
-            });
-            table.row(".selected").remove().draw(false);
             console.log(response);
-            clearData();
+            print(response);
         },
         error: function (error) {
-            Swal.fire({
-                icon: "error",
-                title: "Data Tidak Berhasil DiPost!",
-                showConfirmButton: false,
-                timer: "2000",
-            });
-            console.error("Error Send Data:", error);
+            console.error("Error Get Data:", error);
         },
     });
-});
+}
+
+function print(data) {
+    let tableRows = "";
+    for (let i = 0; i < data.print.length; i++) {
+        tableRows += `
+    <tr>
+        <td sty>${i + 1}</td>
+        <td style="text-align: center;">${data.print[i].Kd_brg}</td>
+        <td>
+        ${data.print[i].NAMA_BRG}
+        <br>
+        ${data.print[i].keterangan}
+        <br>
+        ${data.print[i].nama_kategori}
+        <br>
+        ${data.print[i].nama_sub_kategori}
+        <br>
+        ${data.print[i].No_trans}
+        </td>
+        <td style="text-align: center;">${
+            !parseFloat(data.print[i].Qty).toLocaleString("en-US").includes(".")
+                ? parseFloat(data.print[i].Qty).toLocaleString("en-US") + ".00"
+                : parseFloat(data.print[i].Qty).toLocaleString("en-US")
+        }</td>
+        <td style="text-align: center;">${data.print[i].Nama_satuan.trim()}</td>
+        <td style="text-align: center;">${
+            !parseFloat(data.print[i].PriceUnit)
+                .toLocaleString("en-US")
+                .includes(".")
+                ? parseFloat(data.print[i].PriceUnit).toLocaleString("en-US") +
+                  ".00"
+                : parseFloat(data.print[i].PriceUnit).toLocaleString("en-US")
+        }</td>
+        <td style="text-align: center;">${
+            !parseFloat(data.print[i].disc == null ? 0 : data.print[i].disc)
+                .toLocaleString("en-US")
+                .includes(".")
+                ? parseFloat(
+                      data.print[i].disc == null ? 0 : data.print[i].disc
+                  ).toLocaleString("en-US") + ".00"
+                : parseFloat(
+                      data.print[i].disc == null ? 0 : data.print[i].disc
+                  ).toLocaleString("en-US")
+        }</td>
+        <td style="text-align: center;">${
+            !parseFloat(data.print[i].PriceSub)
+                .toLocaleString("en-US")
+                .includes(".")
+                ? parseFloat(data.print[i].PriceSub).toLocaleString("en-US") +
+                  ".00"
+                : parseFloat(data.print[i].PriceSub).toLocaleString("en-US")
+        }</td>
+    </tr>
+    `;
+    }
+    let sumAmount = 0;
+    for (let i = 0; i < data.print.length; i++) {
+        sumAmount += parseFloat(data.print[i].PriceSub);
+    }
+    let sumAmountFix = !sumAmount.toLocaleString("en-US").includes(".") ? sumAmount.toLocaleString("en-US")+".00" : sumAmount.toLocaleString("en-US");
+    let ppn = 0;
+    for (let i = 0; i < data.print.length; i++) {
+        ppn += parseFloat(data.print[i].PPN);
+    }
+    let ppnFix = !ppn.toLocaleString("en-US").includes(".") ? ppn.toLocaleString("en-US")+".00" : ppn.toLocaleString("en-US");
+
+    const print = `
+    <div class="print-layout" style="width: 21cm; min-height: 29.7cm; padding: 1cm; margin: 1cm auto; background: #FFFFFF; ">
+        <header style="margin-top: 60px">
+            <br><br><br><br><br><br><br>
+        </header>
+        <main>
+            <div class="page-main" style="width: 100%; height: auto; display: flex;">
+                <div class="page-headerChild" style="width: 50%; height: auto; margin-right: 20px;">
+                    <h1 style="font-size: 14px; font-weight: bold; margin-bottom: 10px;">Issued To:</h1>
+                    <br>
+                    <p style="line-height: 13.8px; font-size: 12px;">${
+                        data.printHeader[0].NM_SUP
+                    }</p>
+                    <p style="line-height: 13.8px; font-size: 12px;">${
+                        data.printHeader[0].ALAMAT1
+                    }</p>
+                    <p style="line-height: 13.8px; font-size: 12px;">${
+                        data.printHeader[0].KOTA1
+                    }</p>
+                    <p style="line-height: 13.8px; font-size: 12px;">${
+                        data.printHeader[0].NEGARA1
+                    }</p>
+                    <br>
+                    <h1 style="font-size: 14px; font-weight: bold; margin-top: 20px; margin-bottom: 10px;">Delivery To:</h1>
+                    <br>
+                    <p style="line-height: 13.8px; font-size: 12px;">PT. Kerta Rajasa Raya</p>
+                    <p style="line-height: 13.8px; font-size: 12px;">Jl. Raya Tropodo No. 1</p>
+                    <p style="line-height: 13.8px; font-size: 12px;">Waru - Sidoarjo 61256 East Java, Indonesia</p>
+                </div>
+                <div class="page-headerChild" style="width: 50%; height: auto; margin-left: 20px;">
+                    <div class="page-main" style="width: 100%; display: flex;">
+                        <div class="page-headerChild2" style="width: 30%; height: auto;">
+                            <h1 style="font-size: 14px; font-weight: bold;">Number</h1>
+                        </div>
+                        <div class="page-headerChil1" style="width: 70%; height: auto;">
+                            <p style="line-height: 13.8px; font-size: 12px;">: ${
+                                data.printHeader[0].NO_PO
+                            }</p>
+                        </div>
+                    </div>
+                    <div class="page-main" style="width: 100%; display: flex;">
+                        <div class="page-headerChild2" style="width: 30%; height: auto;">
+                            <h1 style="font-size: 14px; font-weight: bold;">Date</h1>
+                        </div>
+                        <div class="page-headerChil1" style="width: 70%; height: auto;">
+                            <p style="line-height: 13.8px; font-size: 12px;">: ${
+                                data.printHeader[0].Tgl_sppb
+                            }</p>
+                        </div>
+                    </div>
+                    <div class="page-main" style="width: 100%; display: flex;">
+                        <div class="page-headerChild2" style="width: 30%; height: auto;">
+                            <h1 style="font-size: 14px; font-weight: bold;">Delivery Date</h1>
+                        </div>
+                        <div class="page-headerChil1" style="width: 70%; height: auto;">
+                            <p style="line-height: 13.8px; font-size: 12px;">: ${
+                                data.printHeader[0].Est_Date
+                            }</p>
+                        </div>
+                    </div>
+                    <div class="page-main" style="width: 100%; display: flex;">
+                        <div class="page-headerChild2" style="width: 30%; height: auto;">
+                            <h1 style="font-size: 14px; font-weight: bold;">Payment Term</h1>
+                        </div>
+                        <div class="page-headerChil1" style="width: 70%; height: auto;">
+                            <p style="line-height: 13.8px; font-size: 12px;">: ${
+                                data.printHeader[0].Pembayaran
+                            }</p>
+                        </div>
+                    </div>
+                    <div class="page-main" style="width: 100%; display: flex;">
+                        <div class="page-headerChild2" style="width: 30%; height: auto;">
+                            <h1 style="font-size: 14px; font-weight: bold;">Divisi</h1>
+                        </div>
+                        <div class="page-headerChil1" style="width: 70%; height: auto;">
+                            <p style="line-height: 13.8px; font-size: 12px;">: ${data.printHeader[0].Kd_div.trim()} - ${data.printHeader[0].NM_DIV.trim()}</p>
+                        </div>
+                    </div>
+                    <div class="page-main" style="width: 100%; display: flex;">
+                        <div class="page-headerChild2" style="width: 30%; height: auto;">
+                            <h1 style="font-size: 14px; font-weight: bold;">Requester</h1>
+                        </div>
+                        <div class="page-headerChil1" style="width: 70%; height: auto;">
+                            <p style="line-height: 13.8px; font-size: 12px;">: ${
+                                data.printHeader[0].Nama
+                            }</p>
+                        </div>
+                    </div>
+                    <div class="page-main" style="width: 100%; display: flex;">
+                        <div class="page-headerChild2" style="width: 30%; height: auto;">
+                            <h1 style="font-size: 14px; font-weight: bold;">Page</h1>
+                        </div>
+                        <div class="page-headerChil1" style="width: 70%; height: auto;">
+                            <p style="line-height: 13.8px; font-size: 12px;">: page 1 of 1</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="details" style="margin-top: 20px;">
+                <table style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th style="text-align: center;">Item Number</th>
+                            <th style="text-align: center;">Description</th>
+                            <th style="text-align: center;">Qty</th>
+                            <th style="text-align: center;">Unit</th>
+                            <th style="text-align: center;">Unit Price IDR</th>
+                            <th style="text-align: center;">Disc. IDR</th>
+                            <th style="text-align: center;">Amount IDR</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${tableRows}
+                    </tbody>
+                </table>
+            </div>
+            <div class="page-main" style="width: 100%; display: flex; margin-top: 20px;">
+                <div class="page-headerChild" style="width: 50%;">
+                    <h1 style="font-size: 14px; font-weight: bold;">Document Copy of ${
+                        data.print[0].JumCetak
+                    }</h1>
+                </div>
+                <div class="page-headerChild" style="width: 50%;">
+                    <div class="page-main" style="width: 100%; display: flex;">
+                        <div class="page-headerChild" style="width: 30%; margin-right: 3rem;">
+                            <h1 style="font-size: 14px; font-weight: bold;">Sub Total</h1>
+                        </div>
+                        <div class="page-headerChild" style="width: 70%; border-bottom: 1px solid; text-align: right;">
+                            <p>${sumAmountFix}</p>
+                        </div>
+                    </div>
+                    <div class="page-main" style="width: 100%; display: flex;">
+                        <div class="page-headerChild" style="width: 30%; margin-right: 3rem;">
+                            <h1 style="font-size: 14px; font-weight: bold;">VAT</h1>
+                        </div>
+                        <div class="page-headerChild" style="width: 70%; border-bottom: 1px solid; text-align: right;">
+                            <p>${ppnFix}</p>
+                        </div>
+                    </div>
+                    <div class="page-main" style="width: 100%; display: flex;">
+                        <div class="page-headerChild" style="width: 30%; margin-right: 3rem;">
+                            <h1 style="font-size: 14px; font-weight: bold;">Total</h1>
+                        </div>
+                        <div class="page-headerChild" style="width: 70%; border-bottom: 1px solid; text-align: right;">
+                            <p>${!(sumAmount + ppn).toLocaleString("en-US").includes(".") ? (sumAmount + ppn).toLocaleString("en-US")+".00" : (sumAmount + ppn).toLocaleString("en-US")}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer>
+        </footer>
+    </div>
+`;
+
+    const printContentDiv = document.getElementById("printContent");
+
+    printContentDiv.innerHTML = print;
+    const printWindow = window.open("", "_blank");
+    printWindow.document.write(printContentDiv.innerHTML);
+    printWindow.document.close();
+    window.location.href = "/PurchaseOrder/create";
+    printWindow.print();
+
+}
 
 $(document).ready(function () {
     console.log(loadPermohonanData);
-
+    $("#matauang_select").val(loadPermohonanData[0].ID_MATAUANG);
+    $("#supplier_select option").each(function () {
+        if ($(this).text() === loadPermohonanData[0].NM_SUP) {
+            $("#supplier_select").val($(this).val());
+            return false;
+        }
+    });
     qty_delay.addEventListener("input", function (event) {
         let qtyDelay = parseFloat(fixValueQTYOrder - qty_delay.value);
 

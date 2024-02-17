@@ -57,7 +57,6 @@ let dataRes;
 let kdBarangAslinya = "";
 let btnActive = "batal";
 let tamValueNamaBrg = "";
-let indexNamaBarang;
 const SpesifikasiType = {
     Gelondongan: 1097,
     BenangExtruder: 1474,
@@ -625,7 +624,6 @@ function cariKodeBarang(kd_barang) {
                             ) === response[0].NAMA_BRG.replace(/\s/g, "")
                         ) {
                             select_namaBarang.selectedIndex = i;
-                            indexNamaBarang = i;
                         }
                     }
                 });

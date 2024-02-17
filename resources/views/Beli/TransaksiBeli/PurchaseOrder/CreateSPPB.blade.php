@@ -2,6 +2,11 @@
 @section('content')
     <link href="{{ asset('css/CreateSPPB.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/PrintSPPB.css') }}" rel="stylesheet">
+    <head>
+    <link href="{{ asset('css/PrintSPPB.css') }}" rel="stylesheet">
+
+    </head>
     <script>
         let loadPermohonanData = {!! json_encode($loadPermohonan) !!};
         let loadHeaderData = {!! json_encode($loadHeader) !!};
@@ -21,6 +26,7 @@
                 <div class="card">
                     <div class="card-header">Create Purchase Order</div>
                     <div class="card-body">
+                        <input type="text" value="{{trim($namaDiv[0]->NM_DIV)}}" name="" id="nmDiv" style="display: none">
                         <div class="row align-items-center">
                             <div class="col-6 col-xl-4">
                                 <div class="row align-items-center">
@@ -402,7 +408,7 @@
 
                             </div>
                         </div>
-
+                        <div id="printContent"></div>
                     </div>
                 </div>
             </div>

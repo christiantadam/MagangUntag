@@ -17,7 +17,7 @@ class FinalApproveController extends Controller
     public function index()
     {
         $kd = 4;
-        $operator = '1001';
+        $operator = trim(Auth::user()->NomorUser);
         $result = (new HakAksesController)->HakAksesFitur('Final Approve');
         $access = (new HakAksesController)->HakAksesFiturMaster('Beli');
         if ($result > 0) {
