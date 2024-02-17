@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Beli\TransaksiBeli;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+
 class IsiBeaController extends Controller
 {
     // Display a listing of the resource.

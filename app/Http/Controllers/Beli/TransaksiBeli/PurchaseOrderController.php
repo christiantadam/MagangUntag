@@ -305,20 +305,20 @@ class PurchaseOrderController extends Controller
         $noTrans = $request->input('noTrans');
         $kd = 15;
 
-        $purchaseorder = DB::connection('ConnPurchase')->select('exec SP_5409_MAINT_PO @kd=?, @noTrans=?,', [$kd, $noTrans]);
+        $purchaseorder = DB::connection('ConnPurchase')->statement('exec SP_5409_MAINT_PO @kd=?, @noTrans=?' , [$kd, $noTrans]);
 
         return response()->json($purchaseorder);
     }
 
     public function cancel1(Request $request)
     {
-        $Operator = $request->input('Operator');
+        $Operator = trim(Auth::user()->NomorUser);
         $QtyCancel = $request->input('QtyCancel');
         $alasan = $request->input('alasan');
         $noTrans = $request->input('noTrans');
         $kd = 16;
 
-        $purchaseorder = DB::connection('ConnPurchase')->select('exec SP_5409_MAINT_PO @kd=?, @Operator=?, @QtyCancel=?, @alasan=?, @noTrans=?',  [$kd, $Operator, $QtyCancel, $alasan, $noTrans]);
+        $purchaseorder = DB::connection('ConnPurchase')->statement('exec SP_5409_MAINT_PO @kd=?, @Operator=?, @QtyCancel=?, @alasan=?, @noTrans=?' ,  [$kd, $Operator, $QtyCancel, $alasan, $noTrans]);
 
         return response()->json($purchaseorder);
     }
