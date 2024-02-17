@@ -19,6 +19,9 @@ nama.disabled = true;
 pabrik.disabled = true;
 masalah.disabled = true;
 solusi.disabled = true;
+document.getElementById("selesai").disabled = true;
+document.getElementById("belum_selesai").disabled = true;
+
 prosesButton.style.display = "none";
 
 function emptyForm() {
@@ -43,6 +46,8 @@ function disableForm() {
     solusi.disabled = true;
     gambarGangguan.disabled = true;
     gambarSelesai.disabled = true;
+    document.getElementById("selesai").disabled = true;
+    document.getElementById("belum_selesai").disabled = true;
 }
 
 function enabledForm() {
@@ -59,10 +64,13 @@ $(inputButton).click(function (e) {
     enabledForm();
     emptyForm();
     gambarSelesai.disabled = true;
-    solusi.disabled = true;
+    solusi.disabled = false;
 
     inputButton.style.display = "none";
     prosesButton.style.display = "block";
+    document.getElementById("selesai").disabled = false;
+    document.getElementById("belum_selesai").disabled = false;
+    $(".checkbox_elektrik_bulanan:checked").prop("checked", false);
 });
 
 $(changeButton).click(function (e) {
@@ -94,6 +102,8 @@ $(cancelButton).click(function (e) {
 
     inputButton.style.display = "block";
     prosesButton.style.display = "none";
+    $(".table-elektrik-bulanan").prop("checked", false);
+    $(".checkbox_elektrik_bulanan:checked").prop("checked", false);
 });
 
 // Event listener untuk Gambar 1
@@ -110,6 +120,9 @@ document.getElementById("gambar1").addEventListener("change", function () {
         var imagePreview = document.getElementById("imagePreview1");
         // Menetapkan sumber gambar saat file berhasil dibaca
         imagePreview.src = e.target.result;
+        imagePreview.style.width = "200px";
+        imagePreview.style.height = "100px";
+        imagePreview.style.objectFit = "cover";
         imagePreview.style.display = "block"; // Menampilkan elemen gambar
     };
     reader.readAsDataURL(fileInput.files[0]); // Membaca file sebagai URL data
@@ -160,8 +173,8 @@ $(document).ready(function () {
             { data: "Nama" },
             { data: "Pabrik" },
             { data: "Masalah" },
-            { data: "Status" },
             { data: "Solusi" },
+            { data: "Status" },
         ],
         order: [
             [1, "asc"],
@@ -217,6 +230,8 @@ $(document).ready(function () {
                 });
                 emptyForm();
                 dataTable.ajax.reload();
+                document.getElementById("selesai").checked = false;
+                document.getElementById("belum_selesai").checked = false;
             },
             error: function (xhr, status, error) {
                 if (xhr.status === 419) {
@@ -243,16 +258,27 @@ $(document).ready(function () {
                 success: function (data) {
                     console.log(data);
 
+                    var keteranganValue = data.Status.trim();
+
                     $("#bulan").val(data.Bulan);
                     $("#nama").val(data.Nama);
                     $("#pabrik").val(data.Pabrik.trim());
                     $("#masalah").val(data.Masalah);
                     $("#solusi").val(data.Solusi);
                     $(
-                        "#status" +
-                            data.Status.replace(/\s+/g, "").toLowerCase()
+                        "#" + keteranganValue.replace(/\s+/g, "_").toLowerCase()
                     ).prop("checked", true);
-                    console.log();
+                    // $("input[name='status']").change(function () {
+                    //     // Update data.Keterangan based on the selected radio button
+                    //     data.Status = $("input[name='status']:checked").val();
+                    //     console.log("Selected Keterangan: ", data.Status);
+                    //     if (data.Status.trim() === "Selesai") {
+                    //         $("#selesai").prop("checked", true);
+                    //     } else {
+                    //         $("#belum_selesai").prop("checked", true);
+                    //     }
+                    // });
+                    console.log(keteranganValue.trim());
 
                     var imageNames = ["GambarGangguan", "GambarSelesai"];
 
@@ -320,11 +346,13 @@ $(document).ready(function () {
             .get();
         if (checkboxValues.length > 0) {
             Swal.fire({
-                title: "Anda yakin untuk menghapus data?",
-                showDenyButton: true,
+                title: "Anda yakin ingin menghapus data yang terpilih?",
+                icon: "warning",
                 showCancelButton: true,
-                confirmButtonText: "Ya",
-                denyButtonText: "Tidak",
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Ya, Hapus!",
+                cancelButtonText: "Batal",
             }).then((result) => {
                 if (result.isConfirmed) {
                     var requestData = {

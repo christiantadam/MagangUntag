@@ -14,13 +14,14 @@
                                     <div class="">
                                         <input type="hidden" id="id_laporan">
                                         <label class="tanggal">Tanggal</label>
-                                        <input type="date" name="tanggal_dibutuhkan" id="tanggal" class="input mb-3">
-                                        <div class="divisi_pelapor mb-2">Divisi Pelapor</div>
+                                        <input type="date" name="tanggal_dibutuhkan" id="tanggal"
+                                            class="form-control mb-2">
+                                        <label class="divisi_pelapor mb-2">Divisi Pelapor</label>
                                         <select name="divisi_pelapor" id="divisi_pelapor1" class="form-select mb-2">
-                                            <option value="pilih divisi">
-                                                @foreach ($divisi as $divisi_pelapor)
-                                            <option value="{{ $divisi_pelapor->Id_divisi }}">
-                                                {{ $divisi_pelapor->Nama_divisi }}</option>
+                                            <option selected disabled>Pilih Divisi Pelapor</option>..</option>
+                                            @foreach ($divisi as $divisi_pelapor)
+                                                <option value="{{ $divisi_pelapor->Id_divisi }}">
+                                                    {{ $divisi_pelapor->Nama_divisi }}</option>
                                             @endforeach
                                         </select>
                                         <div class="nama_pelapor mb-2">Nama Pelapor</div>
@@ -40,13 +41,13 @@
                                 <div class="col-3 p-4">
                                     <div class="">
                                         <div class="nama_pelapor mb-2 ">Type Gangguan</div>
-                                        <input type="text" name="nama_pelapor" id="tipe_gangguan">
+                                        <input type="text" name="nama_pelapor" id="tipe_gangguan" class="form-control">
                                         <div class="nama_pelapor mb-2 mt-2">Penyebab</div>
-                                        <input type="text" name="nama_pelapor" id="penyebab">
+                                        <input type="text" name="nama_pelapor" id="penyebab" class="form-control">
                                         <div class="nama_pelapor mb-2 mt-2">Penyelesaian</div>
-                                        <input type="text" name="nama_pelapor" id="penyelesaian">
+                                        <input type="text" name="nama_pelapor" id="penyelesaian" class="form-control">
                                         <div class="nama_pelapor mb-2 mt-2">Keterangan</div>
-                                        <input type="text" name="nama_pelapor" id="keterangan">
+                                        <input type="text" name="nama_pelapor" id="keterangan" class="form-control">
                                         <div class="nama_pelapor mb-2 mt-2">Teknisi</div>
                                         <select name="divisi_pelapor" id="teknisi" class="form-select mb-2"
                                             style="width: 140px;">
@@ -69,7 +70,8 @@
                                     </div>
                                     <div class="ket_gambar1 mb-2">Ket. Gambar 1</div>
                                     <input type="text" name="ket_gambar1" id="ket_gambar1" class="mb-1">
-                                    <label for="gambar2" id="namagambar2" class="btn btn-link btn-2">Pilih Gambar 2</label>
+                                    <label for="gambar2" id="namagambar2" class="btn btn-link btn-2">Pilih Gambar
+                                        2</label>
                                     <input type="file" id="gambar2" name="fileInput" style="display: none;"
                                         accept="image/*">
                                     <div id="imagePreviewContainer2">

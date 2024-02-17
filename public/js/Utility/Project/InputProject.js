@@ -91,8 +91,8 @@ function disabled() {
     ket_gambar1.disabled = true;
     ket_gambar2.disabled = true;
     gambar2.disabled = true;
-    keterangan1.disabled = true;
-    keterangan2.disabled = true;
+    keterangan_selesai.disabled = true;
+    keterangan_progress.disabled = true;
     prosesButton.disabled = true;
 }
 
@@ -140,8 +140,8 @@ toggleFormAndCheckbox();
 $(document).ready(function () {
     $("#koreksiButton").click(function (e) {
         console.log("koreksi Button Clicked");
-        inputButton.disabled = true;
-        hapusButton.disabled = true;
+        // inputButton.disabled = true;
+        // hapusButton.disabled = true;
         tanggal_mulai.disabled = false;
         tanggal_selesai.disabled = false;
         nama_project.disabled = false;
@@ -178,12 +178,14 @@ $(document).ready(function () {
             ket_gambar1.disabled = true;
             keterangan_selesai.disabled = true;
             keterangan_progress.disabled = true;
-            Swal.fire(
-                "Pilih data yang akan dikoreksi terlebih dahulu",
-                "",
-                "warning"
-            );
+            Swal.fire({
+                icon: "warning",
+                title: "Tidak Ada Data Terpilih",
+                text: "Pilih satu data untuk diperbarui.",
+            });
             return; // Stop the function execution
+        } else {
+            hapusButton.disabled = true;
         }
     });
 });
@@ -344,23 +346,20 @@ $(document).ready(function () {
     };
 
     var dataTable = $("#tabel_input_project").DataTable({
-        //var Token = $('meta[name="csrf-Token"]').attr("content"),
         processing: true,
         serverSide: true,
         responsive: true,
-        //scrollX: true,
 
         ajax: {
             url: "/getDataProject",
             type: "GET",
             data: function (d) {
-                // d.kode = ;
                 d.bulan = $("#bulan").val();
                 d.tahun = $("#tahun").val();
             },
         },
         moment: {
-            timezone: "Asia/Jakarta", // Sesuaikan dengan zona waktu yang sesuai
+            timezone: "Asia/Jakarta",
         },
         columns: [
             {
@@ -378,8 +377,6 @@ $(document).ready(function () {
             {
                 data: "TglMulai",
                 render: function (data, type, full, meta) {
-                    // Assuming data is in UTC format, adjust it to the local timezone
-
                     var localDate = moment.utc(data).local();
                     return localDate.format("DD-MM-YYYY");
                 },
@@ -387,19 +384,23 @@ $(document).ready(function () {
             {
                 data: "TglSelesai",
                 render: function (data, type, full, meta) {
-                    // Assuming data is in UTC format, adjust it to the local timezone
                     var localDate = moment.utc(data).local();
-                    return localDate.format("DD-MM-YYYY");
+
+                    if (full.Keterangan === "Progress") {
+                        return "";
+                    } else {
+                        return localDate.format("DD-MM-YYYY");
+                    }
                 },
             },
             { data: "KeteranganKerja" },
             { data: "Keterangan" },
-            { data: "UserId" },
+            { data: "Nama" },
         ],
     });
+
     $("#refreshButton").click(function () {
         dataTable.ajax.reload();
-        console.log(dataTable);
     });
 
     batalButton.addEventListener("click", function () {
@@ -421,8 +422,8 @@ $(document).ready(function () {
         ket_gambar2.disabled = true;
         keterangan_selesai.disabled = true;
         keterangan_progress.disabled = true;
-        document.getElementById("keterangan_progress").checked = false;
-        document.getElementById("keterangan_selesai").checked = false;
+        //document.getElementById("keterangan_progress").checked = false;
+        //document.getElementById("keterangan_selesai").checked = false;
 
         dataTable.clear().draw();
         clearForm();
@@ -459,23 +460,23 @@ $(document).ready(function () {
 
     var selectedId;
     var selectedUser;
+    var selectedIdProject;
 
     $("tbody").on("click", ".checkbox_project", function () {
         if ($(this).prop("checked")) {
             var selectedRow = $(this).closest("tr");
             var id = $(this).val();
+            $("#id").val(id);
             selectedData = {
                 UserId: selectedRow.find("td:eq(7)").text(),
                 id_laporan: id,
             };
-
-            hapusButton.disabled = false;
-            koreksiButton.disabled = false;
-            $("#id").val(id);
             selectedId = {
                 id: $(this).val(),
             };
-            var selectedid_laporan = $(this).val();
+
+            hapusButton.disabled = false;
+            koreksiButton.disabled = false;
 
             id.value = selectedId.id;
 
@@ -530,9 +531,9 @@ $(document).ready(function () {
                 fileInput = [file];
             }
 
-            selectedData = {
-                Id_Laporan: selectedid_laporan,
-            };
+            // selectedData = {
+            //     Id_Laporan: data.UserId,
+            // };
 
             $.ajax({
                 url: "/getDataProjectId",
@@ -546,7 +547,7 @@ $(document).ready(function () {
                     var TglSelesai = new Date(data.TglSelesai);
                     var offset = TglSelesai.getTimezoneOffset();
                     TglSelesai.setMinutes(TglSelesai.getMinutes() - offset);
-
+                    var idUser = data.UserId;
                     $("#nama_project").val(data.NamaProject);
                     $("#nama_mesin").val(data.NamaMesin);
                     $("#merk_mesin").val(data.MerkMesin);
@@ -567,10 +568,11 @@ $(document).ready(function () {
                         $("#keterangan_progress").prop("checked", true);
                     } else {
                         // Handle the case where data.Keterangan is neither 'selesai' nor 'progress'
-                        console.error(
-                            "Invalid value for data.Keterangan:",
-                            keteranganValue
-                        );
+                        console
+                            .error
+                            //"Invalid value for data.Keterangan:"
+                            //keteranganValue
+                            ();
                     }
                     $("input[name='keterangan']").change(function () {
                         // Update data.Keterangan based on the selected radio button
@@ -579,6 +581,10 @@ $(document).ready(function () {
                         ).val();
                         console.log("Selected Keterangan: ", data.Keterangan);
                     });
+
+                    selectedIdProject = {
+                        id: idUser,
+                    };
                     console.log(
                         "Selected id_laporan: ",
                         id,
@@ -613,80 +619,87 @@ $(document).ready(function () {
         var Token = $('meta[name="csrf-Token"]').attr("content");
         // Dapatkan checkbox tercentang di dalam baris yang dipilih
 
-        if (selectedData) {
-            $.ajax({
-                url: "/getDataUserId", // Gantilah dengan endpoint yang sesuai
-                method: "GET",
-                success: function (response) {
-                    // console.log(response.NomorUser);
-                    // console.log(selectedData.UserId);
-                    // console.log(selectedData.id_laporan);
-                    //var nomorUserFromAPI = response.NomorUser;
-                    var nomorUserFromAPI = "4378";
-                    console.log(nomorUserFromAPI);
+        if (selectedIdProject) {
+            if ($(".checkbox_project").prop("checked") === true) {
+                $.ajax({
+                    url: "/getDataUserId", // Gantilah dengan endpoint yang sesuai
+                    method: "GET",
+                    success: function (response) {
+                        // console.log(response.NomorUser);
+                        // console.log(selectedData.UserId);
+                        // console.log(selectedData.id_laporan);
+                        var nomorUserFromAPI = response.NomorUser;
+                        //var nomorUserFromAPI = "4378";
+                        console.log(nomorUserFromAPI);
 
-                    // Ambil UserId dari selectedData
-                    var userIdFromSelectedData = selectedData.UserId;
-                    console.log(userIdFromSelectedData);
+                        // Ambil UserId dari selectedData
+                        var userIdFromSelectedData = selectedIdProject.id;
+                        console.log(userIdFromSelectedData);
+                        console.log("ini nomer user:", nomorUserFromAPI, "");
 
-                    // Periksa apakah NomorUser dari API response sama dengan UserId dari selectedData
-                    if (nomorUserFromAPI === userIdFromSelectedData) {
-                        console.log("nomorUser dan userID sama");
-                        Swal.fire({
-                            title: "Anda yakin untuk menghapus data?",
-                            showDenyButton: true,
-                            showCancelButton: true,
-                            confirmButtonText: "Ya",
-                            denyButtonText: "Tidak",
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                var requestData = {
-                                    id: selectedData.id_laporan,
-                                };
-                                $.ajax({
-                                    url: "/deleteDataProject",
-                                    method: "DELETE",
-                                    data: requestData,
-                                    headers: {
-                                        "X-CSRF-TOKEN": $(
-                                            'meta[name="csrf-token"]'
-                                        ).attr("content"),
-                                    },
-                                    success: function (response) {
-                                        dataTable.ajax.reload();
-                                        Swal.fire(
-                                            "Data berhasil dihapus!",
-                                            "",
-                                            "success"
-                                        );
-                                    },
-                                    error: function (error) {
-                                        console.error(error);
-                                    },
-                                });
-                            } else if (result.isDenied) {
-                                Swal.fire("Data tidak dihapus", "", "info");
-                            }
-                        });
-                    } else {
-                        console.log("nomerUser dan idUser tidak sama");
-                        Swal.fire(
-                            "Anda tidak memiliki izin untuk menghapus data ini",
-                            "",
-                            "warning"
-                        );
-                    }
-                },
-                error: function (error) {
-                    console.error(error);
-                },
-            });
-        } else {
-            Swal.fire(
-                "Pilih data yang akan dihapus terlebih dahulu",
-                "",
-                "warning"
-            );
+                        // Periksa apakah NomorUser dari API response sama dengan UserId dari selectedData
+                        if (nomorUserFromAPI === userIdFromSelectedData) {
+                            console.log("nomorUser dan userID sama");
+                            Swal.fire({
+                                title: "Anda yakin ingin menghapus data yang terpilih?",
+                                icon: "warning",
+                                showCancelButton: true,
+                                confirmButtonColor: "#3085d6",
+                                cancelButtonColor: "#d33",
+                                confirmButtonText: "Ya, Hapus!",
+                                cancelButtonText: "Batal",
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    var requestData = {
+                                        id: selectedData.id_laporan,
+                                    };
+                                    $.ajax({
+                                        url: "/deleteDataProject",
+                                        method: "DELETE",
+                                        data: requestData,
+                                        headers: {
+                                            "X-CSRF-TOKEN": $(
+                                                'meta[name="csrf-token"]'
+                                            ).attr("content"),
+                                        },
+                                        success: function (response) {
+                                            dataTable.ajax.reload();
+                                            Swal.fire(
+                                                "Data berhasil dihapus!",
+                                                "",
+                                                "success"
+                                            );
+                                        },
+                                        error: function (error) {
+                                            console.error(error);
+                                        },
+                                    });
+                                    clearForm();
+                                } else if (result.isDenied) {
+                                    Swal.fire("Data tidak dihapus", "", "info");
+                                }
+                            });
+                        } else {
+                            console.log("nomerUser dan idUser tidak sama");
+                            Swal.fire(
+                                "Anda tidak memiliki izin untuk menghapus data ini",
+                                "",
+                                "warning"
+                            );
+                            //$(".checkbox_project").prop("checked", false);
+                        }
+                    },
+                    error: function (error) {
+                        console.error(error);
+                    },
+                });
+            } else {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Tidak Ada Data Terpilih",
+                    text: "Pilih data untuk dihapus.",
+                });
+            }
         }
     });
 });

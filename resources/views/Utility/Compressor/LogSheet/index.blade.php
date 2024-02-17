@@ -107,7 +107,7 @@
                                 </div>
                                 <div class="col-md-6 mt-2">
                                     <div class="d-flex gap-2 mb-2">
-                                        <label for="tanggal">Mesin</label>
+                                        <label for="NoMesinSearch">Mesin</label>
                                     </div>
                                     <div class="d-flex gap-2">
                                         <select class="form-select" aria-label="Default select example"

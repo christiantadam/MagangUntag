@@ -147,7 +147,7 @@ for (var i = 3; i <= 10; i++) {
             });
     })(imageId, buttonClass);
 }
-// Event listener for Input Button
+
 batalButton.addEventListener("click", function () {
     disabledForm();
     clearForm();
@@ -218,6 +218,7 @@ $(document).ready(function () {
                 d.tahun = $("#tahun").val();
             },
         },
+
         columns: [
             {
                 data: "Id",
@@ -243,12 +244,18 @@ $(document).ready(function () {
                 data: "TglSelesai",
                 render: function (data, type, full, meta) {
                     // Assuming data is in UTC format, adjust it to the local timezone
-                    var date = new Date(data + "Z").toLocaleDateString();
-                    return date;
+                    var localDate = moment.utc(data).local();
+
+                    // Check if Keterangan is "Progress"
+                    if (full.Keterangan === "Progress") {
+                        return ""; // Jika "Progress", kembalikan string kosong
+                    } else {
+                        return localDate.format("DD-MM-YYYY"); // Jika bukan "Progress", kembalikan tanggal yang diformat
+                    }
                 },
             },
             { data: "Keterangan" },
-            { data: "UserId" },
+            { data: "Nama" },
         ],
     });
     $("#refreshButton").click(function () {
@@ -344,6 +351,14 @@ $(document).ready(function () {
                         // console.error("Error:", status, error);
                     },
                 });
+            });
+
+            $.ajax({
+                url: "/GetNamaUser",
+                type: "GET",
+                data: "data",
+                dataType: "dataType",
+                success: function (response) {},
             });
 
             function displayImage(data, containerId) {

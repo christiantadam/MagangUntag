@@ -48,13 +48,19 @@ $(document).ready(function () {
                 data: "TglSelesai",
                 render: function (data, type, full, meta) {
                     // Assuming data is in UTC format, adjust it to the local timezone
-                    var date = new Date(data + "Z").toLocaleDateString();
-                    return date;
+                    var localDate = moment.utc(data).local();
+
+                    // Check if Keterangan is "Progress"
+                    if (full.Keterangan === "Progress") {
+                        return ""; // Jika "Progress", kembalikan string kosong
+                    } else {
+                        return localDate.format("DD-MM-YYYY"); // Jika bukan "Progress", kembalikan tanggal yang diformat
+                    }
                 },
             },
             { data: "KeteranganKerja" },
             { data: "Keterangan" },
-            { data: "UserId" },
+            { data: "Nama" },
         ],
     });
     $("#refreshButton").click(function () {
@@ -66,6 +72,7 @@ $(document).ready(function () {
     $("tbody").on("click", ".checkbox_project", function () {
         if ($(this).prop("checked")) {
             var id = $(this).val();
+            var selectedRow = $(this).closest("tr");
 
             $.ajax({
                 url: "/getDataProjectId",
@@ -101,6 +108,9 @@ $(document).ready(function () {
                             .attr("src", objectURL)
                             .show();
                     }
+                    var selectedData = {
+                        Nama: selectedRow.find("td:eq(7)").text(),
+                    };
                     var htmlCode = `
                     <style>
                     #previewData {
@@ -214,7 +224,7 @@ $(document).ready(function () {
                         <div class="row mt-5 print-footer justify-content-between">
                             <div class="col-3">
                                 <strong>Pelaksana,</strong>
-                                <div class="data">${data.UserId}</div>
+                                <div class="data">(${selectedData.Nama})</div>
                             </div>
                             <div class="col-3">
                                 <strong>Penanggung jawab,</strong>

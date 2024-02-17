@@ -21,6 +21,13 @@ var tanggal_akhirInput = document.getElementById("tanggal-akhir");
 var tanggal_akhirOutput = new Date().toISOString().split("T")[0];
 tanggal_akhirInput.value = tanggal_akhirOutput;
 
+var currentDateTime = new Date();
+var hours = currentDateTime.getHours().toString().padStart(2, "0");
+var minutes = currentDateTime.getMinutes().toString().padStart(2, "0");
+var timeString = hours + ":" + minutes;
+
+jam.value = timeString;
+
 // Form Button
 let inputButton = document.getElementById("inputButton");
 let cancelButton = document.getElementById("cancelButton");
@@ -35,7 +42,7 @@ let nomorpln = document.getElementById("hiddenNomorpln");
 function clearForm() {
     // tanggal.value = "";
     nomorpln.value = "";
-    jam.value = "";
+    // jam.value = "";
     lwbp.value = "";
     wbp.value = "";
     kvar.value = "";
@@ -81,6 +88,7 @@ inputButton.addEventListener("click", function () {
     updateButton.disabled = true;
     deleteButton.disabled = true;
     clearForm();
+    $(".checkboxpln").prop("checked", false);
 });
 // InputButton click
 updateButton.addEventListener("click", function () {
@@ -132,8 +140,7 @@ cancelButton.addEventListener("click", function () {
 // Reload Window
 window.addEventListener("beforeunload", function () {
     clearForm();
-
-    // Disable saveButton
+    $(".checkboxpln").prop("checked", false);
     saveButton.disabled = true;
 });
 
@@ -188,6 +195,7 @@ $(document).ready(function () {
                 wbp.disabled = true;
                 kvar.disabled = true;
                 teknisi.disabled = true;
+                updateButton.disabled = false;
                 dataTable.ajax.reload();
             },
             error: function (error) {
@@ -228,8 +236,8 @@ $(document).ready(function () {
             {
                 data: "tanggal",
                 render: function (data, type, full, meta) {
-                    var date = new Date(data).toISOString().split("T")[0];
-                    return date;
+                    var date = moment.utc(data).local();
+                    return date.format("DD/MM/YYYY");
                 },
             },
             {
@@ -270,6 +278,9 @@ $(document).ready(function () {
             var selectedRow = $(this).closest("tr");
 
             var selectedDate = selectedRow.find("td:eq(1)").text();
+            var formattanggal = moment(selectedDate, "DD/MM/YYYY").format(
+                "YYYY-MM-DD"
+            );
             var selectedJam = selectedRow.find("td:eq(2)").text();
             var selectedLWBP = selectedRow.find("td:eq(3)").text();
             var selectedWBP = selectedRow.find("td:eq(4)").text();
@@ -279,7 +290,7 @@ $(document).ready(function () {
             var selectedNomorPLN = $(this).val();
 
             $("#hiddenNomorpln").val(selectedNomorPLN);
-            $("#tanggal").val(selectedDate);
+            $("#tanggal").val(formattanggal);
             $("#jam").val(selectedJam);
             $("#lwbp").val(selectedLWBP);
             $("#wbp").val(selectedWBP);
@@ -334,7 +345,6 @@ $(document).ready(function () {
                         "X-CSRF-TOKEN": csrfToken,
                     },
                     success: function (response) {
-                        dataTable.ajax.reload();
                         Swal.fire({
                             icon: "success",
                             title: "Terhapus!",
@@ -343,6 +353,7 @@ $(document).ready(function () {
                             timer: 2000,
                         });
                         clearForm();
+                        dataTable.ajax.reload();
                     },
                     error: function (error) {
                         console.error(
@@ -372,6 +383,9 @@ var tanggal_Input = document.getElementById("tanggal-sdp");
 var tanggal_Output = new Date().toISOString().split("T")[0];
 tanggal_Input.value = tanggal_Output;
 
+// jam form
+jamsdp.value = timeString;
+
 // Form Button
 let inputButtonsdp = document.getElementById("inputButton-sdp");
 let cancelButtonsdp = document.getElementById("cancelButton-sdp");
@@ -384,9 +398,8 @@ let refreshButtonsdp = document.getElementById("refreshButton-sdp");
 let nomorsdp = document.getElementById("hiddenNomorSDP");
 
 function clearFormsdp() {
-    produksisdp.value = "";
-    tanggalsdp.value = "";
-    jamsdp.value = "";
+    // produksisdp.value = "";
+    // jamsdp.value = "";
     kwhsdp.value = "";
     ct_faktorsdp.value = "";
     teknisisdp.value = "";
@@ -409,7 +422,6 @@ function checkAllFieldsFilled1() {
         tanggalsdp.value.trim() !== "" &&
         jamsdp.value.trim() !== "" &&
         kwhsdp.value.trim() !== "" &&
-        ct_faktorsdp.value.trim() !== "" &&
         teknisisdp.value.trim() !== ""
     );
 }
@@ -475,10 +487,8 @@ cancelButtonsdp.addEventListener("click", function () {
     inputButtonsdp.disabled = false;
     updateButtonsdp.disabled = false;
     deleteButtonsdp.disabled = false;
-
     // Clear Form
     clearFormsdp();
-
     $(".checkboxsdp").prop("checked", false);
     // Disable saveButton
     saveButton.disabled = true;
@@ -587,8 +597,8 @@ $(document).ready(function () {
             {
                 data: "Tanggal",
                 render: function (data, type, full, meta) {
-                    var date = new Date(data).toISOString().split("T")[0];
-                    return date;
+                    var date1 = moment.utc(data).local();
+                    return date1.format("DD/MM/YYYY");
                 },
             },
             {
@@ -749,6 +759,10 @@ let pembacaBA = document.getElementById("pembaca-ba");
 var tanggal_Output = new Date().toISOString().split("T")[0];
 tanggalBA.value = tanggal_Output;
 
+//jam form
+posisiJamBA.value = timeString;
+timeswitchBA.value = timeString;
+
 // Form Button
 let inputButtonBA = document.getElementById("inputButton-ba");
 let cancelButtonBA = document.getElementById("cancelButton-ba");
@@ -759,7 +773,6 @@ let refreshButtonBA = document.getElementById("refreshButton-ba");
 
 function clearFormBA() {
     nomorBA.value = "";
-    // tanggalBA.value = "";
     lwbpBA.value = "";
     wbpBA.value = "";
     kvarhBA.value = "";
@@ -1007,8 +1020,8 @@ $(document).ready(function () {
             {
                 data: "Tanggal",
                 render: function (data, type, full, meta) {
-                    var date = new Date(data).toISOString().split("T")[0];
-                    return date;
+                    var date = moment.utc(data).local();
+                    return date.format("DD/MM/YYYY");
                 },
             },
             { data: "LWBP" },
@@ -1060,6 +1073,9 @@ $(document).ready(function () {
             var selectedRow = $(this).closest("tr");
             var selectedIdBA = $(this).val();
             var selectedDate = selectedRow.find("td:eq(2)").text();
+            var formattanggal = moment(selectedDate, "DD/MM/YYYY").format(
+                "YYYY-MM-DD"
+            );
             var selectedLWBP = selectedRow.find("td:eq(3)").text();
             var selectedWBP = selectedRow.find("td:eq(4)").text();
             var selectedKVARH = selectedRow.find("td:eq(5)").text();
@@ -1070,7 +1086,7 @@ $(document).ready(function () {
             var selectedPembaca = selectedRow.find("td:eq(10)").text();
 
             nomorBA.value = selectedIdBA;
-            tanggalBA.value = selectedDate;
+            tanggalBA.value = formattanggal;
             lwbpBA.value = selectedLWBP;
             wbpBA.value = selectedWBP;
             kvarhBA.value = selectedKVARH;
