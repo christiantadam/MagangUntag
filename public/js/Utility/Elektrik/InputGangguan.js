@@ -176,6 +176,8 @@ batalButton.addEventListener("click", function () {
     agree.checked = false;
     checkbox_tabel.checked = false;
     agree.disabled = true;
+    $(".checkbox_elektrik:checked").prop("checked", false);
+
     clearForm();
 });
 

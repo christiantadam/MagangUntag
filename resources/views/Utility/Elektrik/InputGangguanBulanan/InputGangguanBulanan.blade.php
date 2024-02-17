@@ -9,7 +9,7 @@
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="form">
                             <div class="row-24 d-flex">
-                                <div class="col-3">
+                                <div class="col-4">
                                     <input type="hidden" name="" id="id_bulanan">
                                     <div class="col-8">
                                         <label class="Bulan">Bulan</label>
@@ -20,6 +20,7 @@
                                             placeholder="">
                                         <div class="pabrik">Pabrik Pengecek</div>
                                         <select name="pabrik" id="pabrik" class="form-select mb-2">
+                                            <option selected disabled>Pilih Pabrik Pengecek</option>..</option>
                                             <option value="Mojosari">Mojosari </option>
                                             <option value="Tropodo">Tropodo </option>
                                             <option value="Mlora">Mlora </option>
@@ -42,7 +43,7 @@
                                             Selesai
                                         </label>
                                         <label>
-                                            <input type="radio" name="status" value="Belum_Selesai" id="belum_selesai">
+                                            <input type="radio" name="status" value="Belum Selesai" id="belum_selesai">
                                             Belum Selesai
                                         </label>
                                         <div class="solusi">Solusi</div>

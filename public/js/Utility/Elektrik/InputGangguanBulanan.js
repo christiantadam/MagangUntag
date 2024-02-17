@@ -70,6 +70,7 @@ $(inputButton).click(function (e) {
     prosesButton.style.display = "block";
     document.getElementById("selesai").disabled = false;
     document.getElementById("belum_selesai").disabled = false;
+    $(".checkbox_elektrik_bulanan:checked").prop("checked", false);
 });
 
 $(changeButton).click(function (e) {
@@ -102,6 +103,7 @@ $(cancelButton).click(function (e) {
     inputButton.style.display = "block";
     prosesButton.style.display = "none";
     $(".table-elektrik-bulanan").prop("checked", false);
+    $(".checkbox_elektrik_bulanan:checked").prop("checked", false);
 });
 
 // Event listener untuk Gambar 1
@@ -344,11 +346,13 @@ $(document).ready(function () {
             .get();
         if (checkboxValues.length > 0) {
             Swal.fire({
-                title: "Anda yakin untuk menghapus data?",
-                showDenyButton: true,
+                title: "Anda yakin ingin menghapus data yang terpilih?",
+                icon: "warning",
                 showCancelButton: true,
-                confirmButtonText: "Ya",
-                denyButtonText: "Tidak",
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Ya, Hapus!",
+                cancelButtonText: "Batal",
             }).then((result) => {
                 if (result.isConfirmed) {
                     var requestData = {
