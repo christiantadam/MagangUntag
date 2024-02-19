@@ -7,20 +7,24 @@ let keterangan = document.getElementById("select_keterangan");
 let teknisi = document.getElementById("select_teknisi");
 let id = document.getElementById("hiddenNomorPerawatan");
 
+function date(data, type, full, meta) {
+    var date = moment.utc(data).local();
+    return date.format("MM/DD/YYYY");
+}
+
 // tanggal form
-var tanggal_Input = document.getElementById("tanggal");
-var tanggal_Output = new Date().toISOString().split("T")[0];
-tanggal_Input.value = tanggal_Output;
+let tanggal_Input = document.getElementById("tanggal");
 
 // tanggal awal search
-var tanggal_awalInput = document.getElementById("tanggal-awal");
-var tanggal_awalOutput = new Date().toISOString().split("T")[0];
-tanggal_awalInput.value = tanggal_awalOutput;
+let tanggal_awalInput = document.getElementById("tanggal-awal");
+//var tanggal_awalOutput = new Date().toISOString().split("T")[0];
+// tanggal_awalInput.value = tanggal_awalOutput;
+// tanggal_awalOutput = date();
 
 // tanggal akhir search
-var tanggal_akhirInput = document.getElementById("tanggal-akhir");
-var tanggal_akhirOutput = new Date().toISOString().split("T")[0];
-tanggal_akhirInput.value = tanggal_akhirOutput;
+let tanggal_akhirInput = document.getElementById("tanggal-akhir");
+// var tanggal_akhirOutput = new Date().toISOString().split("T")[0];
+// tanggal_akhirInput.value = tanggal_akhirOutput;
 
 // Form Button
 let inputButton = document.getElementById("inputButton");
