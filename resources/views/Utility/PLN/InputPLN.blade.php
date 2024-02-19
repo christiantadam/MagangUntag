@@ -36,7 +36,13 @@
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="teknisi">Teknisi</label>
-                                    <input type="text" class="form-control" id="teknisi" name="teknisi">
+                                    <select class="form-select" id="teknisi" aria-label="Default select example">
+                                        <option selected disabled>Pilih Teknisi...</option>
+                                        @foreach ($teknisi as $data)
+                                            <option value="{{ $data->Nama }}">
+                                                {{ $data->Nama }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-lg-2 p-4">

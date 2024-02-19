@@ -42,7 +42,7 @@
                         <div class="previewTitle mt-2 d-flex justify-content-between align-items-center">
                             <h3 class="text-center mb-0">Main Report</h3>
                             <!-- Add a print button -->
-                            <button type="button" class="btn btn-secondary mt-3" onclick="window.print()">Print
+                            <button type="button" class="btn-print btn btn-secondary mt-3">Print
                                 Preview</button>
                         </div>
                         <div id="previewSection" class="mt-4 d-flex justify-content-center">

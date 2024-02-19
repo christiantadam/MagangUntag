@@ -1,5 +1,27 @@
 var bulan = document.getElementById("bulan");
 var tahun = document.getElementById("tahun");
+let print = document.getElementsByClassName("btn-print");
+
+// print.disabled = true;
+
+$(".btn-print").on("click", function () {
+    // Periksa apakah setidaknya satu checkbox dicentang
+    var atLeastOneChecked = $(".checkbox_project:checked").length > 0;
+
+    // Jika tidak ada checkbox yang dicentang, tampilkan swal
+    if (!atLeastOneChecked) {
+        swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Silakan pilih setidaknya satu item sebelum mencetak!",
+        });
+        return false; // Stop execution
+    } else {
+        // console.log("Before printing..."); // Log before printing
+        window.print(); // Lakukan pencetakan
+    }
+});
+
 
 $(document).ready(function () {
     var timeRenderer = function (data, type, full, meta) {
@@ -60,7 +82,12 @@ $(document).ready(function () {
             },
             { data: "KeteranganKerja" },
             { data: "Keterangan" },
-            { data: "Nama" },
+            {
+                data: "Nama",
+                render: function (data, type, full, meta) {
+                    return data ? data : "-";
+                },
+            },
         ],
     });
     $("#refreshButton").click(function () {
@@ -73,6 +100,9 @@ $(document).ready(function () {
         if ($(this).prop("checked")) {
             var id = $(this).val();
             var selectedRow = $(this).closest("tr");
+
+            // Uncheck other checkboxes
+            $(".checkbox_project").not(this).prop("checked", false);
 
             $.ajax({
                 url: "/getDataProjectId",
@@ -237,7 +267,7 @@ $(document).ready(function () {
                         </div>
                     </div>
                     `;
-                    // $("#previewData").empty();
+                    $("#previewData").empty();
                     $("#previewData").append(htmlCode);
                 },
                 error: function (xhr, status, error) {

@@ -168,6 +168,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/save-panel', [App\Http\Controllers\Utility\PanelInduk\InputGangguanPanelController::class, 'createPANEL'])->name('save-panel');
     Route::get('/get-panel', [App\Http\Controllers\Utility\PanelInduk\InputGangguanPanelController::class, 'getPANEL'])->name('get-panel');
     Route::get('/get-panel-id', [App\Http\Controllers\Utility\PanelInduk\InputGangguanPanelController::class, 'getPANELById'])->name('get-panel-id');
+    Route::get('/reloadKeterangan', [App\Http\Controllers\Utility\PanelInduk\InputGangguanPanelController::class, 'reloadKeterangan'])->name('reloadKeterangan');
     Route::delete('/delete-panel', [App\Http\Controllers\Utility\PanelInduk\InputGangguanPanelController::class, 'deletePANEL'])->name('delete-panel');
 
     //Keterangan Gangguan Panel Induk

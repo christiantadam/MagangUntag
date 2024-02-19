@@ -15,11 +15,12 @@ class InputPLNController extends Controller
     public function index()
     {
 
-        $teknisi = DB::connection('ConnUtility')->select('exec SP_LIST_TEKNISI_GENZET');
+        $teknisigenzet = DB::connection('ConnUtility')->select('exec SP_LIST_TEKNISI_GENZET');
+        $teknisi = DB::connection('ConnUtility')->select('exec SP_LIST_TEKNISI_ELEKTRIK');
         $sdp = DB::connection('ConnUtility')->select('exec SP_LIST_PRODUKSI_SPD');
 
         $access = (new HakAksesController)->HakAksesFiturMaster('Utility');
-        return view('Utility.PLN.InputPLN', compact('teknisi','sdp', 'access'));
+        return view('Utility.PLN.InputPLN', compact('teknisigenzet', 'teknisi', 'sdp', 'access'));
     }
 
     public function createPLN(Request $request)
