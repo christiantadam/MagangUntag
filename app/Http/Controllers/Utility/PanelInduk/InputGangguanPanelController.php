@@ -41,6 +41,12 @@ class InputGangguanPanelController extends Controller
         }
     }
 
+    public function reloadKeterangan()
+    {
+        $keterangan = DB::connection('ConnUtility')->select('exec SP_LIST_KET_GANGGUANG_PANEL_INDUK');
+        return response()->json($keterangan);
+    }
+
     public function updatePANEL(Request $request)
     {
         try {
@@ -52,7 +58,7 @@ class InputGangguanPanelController extends Controller
             $gangguan = $request->input('Gangguan');
             $keterangan = $request->input('Keterangan');
             $UserInput = Auth::user()->NomorUser;
-            $data = DB::connection('ConnUtility')->statement('exec SP_KOREKSI_PANEL_INDUK ?, ? , ? , ? , ? , ? , ? , ? ', [$tanggal, $feeder, $start, $end, $gangguan, $keterangan, $UserInput,$id]);
+            $data = DB::connection('ConnUtility')->statement('exec SP_KOREKSI_PANEL_INDUK ?, ? , ? , ? , ? , ? , ? , ? ', [$tanggal, $feeder, $start, $end, $gangguan, $keterangan, $UserInput, $id]);
             return response()->json($data);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'An error occurred while saving the data. Please try again.');

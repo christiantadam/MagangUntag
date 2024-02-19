@@ -105,24 +105,24 @@ class InputProjectController extends Controller
 
     public function getDataProject(Request $request)
     {
-
         try {
             $bulan = $request->input('bulan');
             $tahun = $request->input('tahun');
             $user_input = Auth::user()->NomorUser;
 
-
-            // Execute the stored procedure and fetch data
-            $data = DB::connection('ConnUtility')->select('exec SP_1273_UTY_LIST_PROJECT @Kode=?, @bulan=?, @tahun=?, @Id=?', ['4', $bulan, $tahun, $user_input]);
-
-            // Jika data ditemukan, kembalikan dalam format yang sesuai
-
+            if ($tahun == '' || $bulan == '') {
+                $data = DB::connection('ConnUtility')->table('PROJECT')->get();
+            } else {
+                $data = DB::connection('ConnUtility')->select('exec SP_1273_UTY_LIST_PROJECT @Kode=?, @bulan=?, @tahun=?, @Id=?', ['4', $bulan, $tahun, $user_input]);
+            }
             return datatables($data)->make(true);
         } catch (\Exception $e) {
-            // Tangani kesalahan jika terjadi
+            // Handle the error if any
             return response()->json(['error' => 'Internal Server Error.'], 500);
         }
     }
+
+
     public function deleteDataProject(Request $request)
     {
         try {
@@ -258,20 +258,20 @@ class InputProjectController extends Controller
             }
 
             $data = DB::connection('ConnUtility')->table('PROJECT')
-            ->where('Id', $Id)
-            ->update([
-                'NamaProject' => $NamaProject,
-                'NamaMesin' => $NamaMesin,
-                'TglMulai' => $TglMulai,
-                'TglSelesai' => $TglSelesai,
-                'Keterangan' => $Keterangan,
-                'KeteranganKerja' => $KeteranganKerja,
-                'UserKoreksi' => $user_input,
-                'MerkMesin' => $MerkMesin,
-                'LokasiMesin' => $LokasiMesin,
-                'TahunPembuatan' => $TahunBuat,
-                'Perbaikan' => $Perbaikan,
-            ]);
+                ->where('Id', $Id)
+                ->update([
+                    'NamaProject' => $NamaProject,
+                    'NamaMesin' => $NamaMesin,
+                    'TglMulai' => $TglMulai,
+                    'TglSelesai' => $TglSelesai,
+                    'Keterangan' => $Keterangan,
+                    'KeteranganKerja' => $KeteranganKerja,
+                    'UserKoreksi' => $user_input,
+                    'MerkMesin' => $MerkMesin,
+                    'LokasiMesin' => $LokasiMesin,
+                    'TahunPembuatan' => $TahunBuat,
+                    'Perbaikan' => $Perbaikan,
+                ]);
 
             // $save = DB::connection('ConnUtility')->table('GAMBAR_ELEKTRIK')->where('IdLaporan', $id);
 
@@ -294,10 +294,8 @@ class InputProjectController extends Controller
 
 
             //return response()->json(['success' => true, 'data' => $save]);
-        }catch (\Exception $e){
-
+        } catch (\Exception $e) {
         }
-
     }
 
 

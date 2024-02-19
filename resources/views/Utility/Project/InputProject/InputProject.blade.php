@@ -87,13 +87,8 @@
                                         <div class="nama_pelapor">Ket. Gambar 2</div>
                                         <input type="text" name="nama_pelapor" id="ket_gambar2"
                                             class="form-control mb-2" placeholder="">
-
-
                                     </div>
-
                                 </div>
-
-
                                 <div class="col-3 d-grid gap-2 d-md-block d-flex mt-5">
                                     <button type="button" class="btn btn-primary w-50 mt-3"
                                         id="inputButton">Input</button>
@@ -101,28 +96,29 @@
                                         class="btn btn-primary w-50 mt-2"id="koreksiButton">Koreksi</button>
                                     <button type="button"
                                         class="btn btn-primary w-50 mt-2"id="hapusButton">Hapus</button>
-
                                     <button type="button"
                                         class="btn btn-primary w-50 mt-5"id="prosesButton">Proses</button>
                                     <button type="button"
                                         class="btn btn-primary w-50 mt-2"id="batalButton">Batal</button>
                                 </div>
                             </div>
-
-
                         </div>
                         <label class="mt-3">Filter</label>
                         <div class=" d-flex gap-2 align-items-center">
                             <h6 class="mt-2">Bulan</h6>
                             <input type="number" name="tanggal_dibutuhkan" pattern="[0-9]" min="0"
-                                id="bulan" class="input ">
-                            <h6 class="mt-2">Tanggal</h6>
+                                id="bulan" class="input form-control">
+                            <h6 class="mt-2">Tahun</h6>
                             <input type="number" pattern="[0-9]" name="tanggal_dibutuhkan" min="0"
-                                id="tahun" class="input ml-1">
-
+                                id="tahun" class="input ml-1 form-control">
                             <button id="refreshButton" class="btn btn-primary">Refresh</button>
+                            <h6 class="mt-2">Keterangan</h6>
+                            <select id="filter" class="form-select ml-1">
+                                <option value="">Pilih Semua</option>
+                                <option value="Progress">Progress</option>
+                                <option value="Selesai">Selesai</option>
+                            </select>
                         </div>
-
                         <div id="div_tablePO" class="table-responsive mt-3">
                             <table class="table" id="tabel_input_project">
                                 <thead class="thead-dark">

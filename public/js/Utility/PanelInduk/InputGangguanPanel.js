@@ -453,6 +453,38 @@ $(document).ready(function () {
         dataTableKeterangan.ajax.reload();
     });
 
+    // Menangkap event ketika modal ditutup
+    $("#KetGangguanModal").on("hidden.bs.modal", function (e) {
+        // Lakukan AJAX request untuk memuat kembali data keterangan
+        $.ajax({
+            url: "/reloadKeterangan",
+            method: "GET",
+            success: function (response) {
+                // Mengosongkan dan memuat ulang opsi pada elemen select untuk keterangan
+                var selectKeterangan = $("#ket_gangguan");
+                selectKeterangan.empty(); // Mengosongkan opsi yang ada
+                // Memuat opsi baru dari data yang diperoleh melalui AJAX
+                selectKeterangan.append(
+                    "<option selected disabled>" +
+                        "Pilih Keterangan Gangguan..." +
+                        "</option>"
+                );
+                response.forEach(function (data) {
+                    selectKeterangan.append(
+                        '<option value="' +
+                            data.Id_gangguan +
+                            '">' +
+                            data.Ket_gangguan +
+                            "</option>"
+                    );
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error(error); // Menangani kesalahan jika terjadi
+            },
+        });
+    });
+
     var dataTableKeterangan = $("#table-ketgangguan").DataTable({
         serverSide: true,
         responsive: true,

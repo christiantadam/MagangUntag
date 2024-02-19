@@ -349,7 +349,6 @@ $(document).ready(function () {
         processing: true,
         serverSide: true,
         responsive: true,
-
         ajax: {
             url: "/getDataProject",
             type: "GET",
@@ -389,18 +388,36 @@ $(document).ready(function () {
                     if (full.Keterangan === "Progress") {
                         return "";
                     } else {
-                        return localDate.format("DD-MM-YYYY");
+                        return localDate.format("MM/DD/YYYY");
                     }
                 },
             },
             { data: "KeteranganKerja" },
             { data: "Keterangan" },
-            { data: "Nama" },
+            {
+                data: "Nama",
+                render: function (data, type, full, meta) {
+                    return data ? data : "-";
+                },
+            },
         ],
     });
 
+    $("#filter").on("change", function () {
+        var filterValue = $(this).val();
+        dataTable.column(6).search(filterValue).draw();
+    });
+
     $("#refreshButton").click(function () {
-        dataTable.ajax.reload();
+        if (tahun.value === "" || bulan.value === "") {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Masukkan bulan dan tahun terlebih dahulu.",
+            });
+        } else {
+            dataTable.ajax.reload();
+        }
     });
 
     batalButton.addEventListener("click", function () {

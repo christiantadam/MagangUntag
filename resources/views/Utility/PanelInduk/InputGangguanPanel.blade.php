@@ -40,14 +40,24 @@
                                     <input type="time" class="form-control" id="jam_selesai" name="jam_selesai">
                                 </div>
                                 <div class="acs-div-filter pt-4">
-                                    <label for="ket_gangguan">Ket. Gangguan</label>
-                                    <select class="form-select" aria-label="Default select example" id="ket_gangguan">
-                                        <option selected disabled>Pilih Keterangan Gangguan...</option>
-                                        @foreach ($keterangan as $data)
-                                            <option value="{{ $data->Id_gangguan }}">
-                                                {{ $data->Ket_gangguan }}</option>
-                                        @endforeach
-                                    </select>
+                                    <div class="row align-items-end">
+                                        <div class="col-12">
+                                            <label for="ket_gangguan">Ket. Gangguan</label>
+                                            <div class="d-flex">
+                                                <select class="form-select flex-grow-1" aria-label="Default select example"
+                                                    id="ket_gangguan">
+                                                    <option selected disabled>Pilih Keterangan Gangguan...</option>
+                                                    @foreach ($keterangan as $data)
+                                                        <option value="{{ $data->Id_gangguan }}">{{ $data->Ket_gangguan }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                <button class="btn btn-primary ms-2" data-bs-toggle="modal"
+                                                    data-bs-target="#KetGangguanModal" id="openmodal" type="button">Tambah
+                                                    Ket.Gangguan</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="acs-div-filter pt-4">
                                     <label for="keterangan">Keterangan</label>
@@ -110,13 +120,7 @@
                                         <h6 class="mt-3">TR = Tropodo</h6>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 p-0">
-                                    <div class="d-flex gap-2 pt-4 justify-content-end flex-wrap">
-                                        <button class="btn btn-primary mb-2" data-bs-toggle="modal"
-                                            data-bs-target="#KetGangguanModal" id="openmodal" type="button">Tambah
-                                            Ket.Gangguan</button>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                     </div>
