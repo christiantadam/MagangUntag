@@ -36,7 +36,35 @@ class ReturBTTBController extends Controller
         //
     }
 
+    public function returbatal(request $request)
+    {
+        $Terima = $request->input('Terima');
+        $TglRetur = $request->input('tglRetur');
+        $qtyRetur = $request->input('qtyretur');
+        $qtyRetur = $request->input('qtyretur');
+        $qtyRetur = $request->input('qtyretur');
+        $Operator = trim(Auth::user()->NomorUser);
+        $kd = 154;
+
+        $returbttb = DB::connection('ConnPurchase')->select('exec SP_5409_MAINT_PO @kd=?, @Terima=?, @TglRetur=?, @Operator=?',[$kd,$Terima,$TglRetur,$Operator,$qtyRetur]);
+
+        return response()->json($returbttb);
+    }
+
     //Show the form for editing the specified resource.
+
+    public function batal(request $request)
+    {
+        $Terima = $request->input('Terima');
+        $TglRetur = $request->input('tglRetur');
+        $alasan = $request->input('alasan');
+        $Operator = trim(Auth::user()->NomorUser);
+        $kd = 18;
+
+        $returbttb = DB::connection('ConnPurchase')->select('exec SP_5409_MAINT_PO @kd=?, @Terima=?, @TglRetur=?, @alasan=?, @Operator=?',[$kd,$Terima,$TglRetur,$alasan, $Operator]);
+
+        return response()->json($returbttb);
+    }
 
     public function po(Request $request)
     {
@@ -65,15 +93,6 @@ class ReturBTTBController extends Controller
         $kd = 11;
 
         $returbttb = DB::connection('ConnInventory') ->select('exec SP_1003_INV_LIST_TYPE @Kode = ?, @kodebarang = ?', [$kd, $kodebarang]);
-
-        return response()->json($returbttb);
-    }
-
-
-    public function post()
-    {
-        $kd = 14;
-        $returbttb = DB::connection('ConnPurchase')->select('exec SP_5409_MAINT_PO @kd=?',[$kd]);
 
         return response()->json($returbttb);
     }

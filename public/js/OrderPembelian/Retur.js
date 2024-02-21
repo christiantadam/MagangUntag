@@ -1,3 +1,12 @@
+let jenisTrans;
+let unitMode;
+let csrfToken = $('meta[name="csrf-token"]').attr("content");
+let tglRetur = document.getElementById("tanggalretur");
+let returQty = document.getElementById("returprimer");
+let Terima = document.getElementById("id_terima");
+let alasan = document.getElementById("alasan")
+
+
 var input = document.getElementById("nomor_po");
 input.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
@@ -68,6 +77,60 @@ $('#tabelretur tbody').on('dblclick', 'tr', function () {
     document.getElementById('id_terima').value = rowData[2] || '';
     document.getElementById('qty_terima').value = rowData[7] || '';
 
+    var jenisTrans = 0;
+    var trm = $('#idTerima').text().trim();
+    var bttb = $('#nobttb').text().trim();
+
+    if ($('#idTerima').text().trim() === "" && $('#nobttb').text().trim() === "") {
+        $('#lblInfo').text("Data belum ditransfer ke inventory. Data adalah berupa jasa. Silahkan diproses batal BTTB.");
+        jenisTrans = 1;
+        $('#returbutton').show();
+        $('#batalbutton').hide();
+        $('#postbutton').hide();
+    } else if ($('#idTerima').text().trim() !== "" && $('#nobttb').text().trim() === "") {
+        $('#lblInfo').text("Data sudah ditransfer ke inventory, tetapi belum diproses terima oleh gudang/divisi. Data adalah berupa jasa. Silahkan diproses batal BTTB.");
+        jenisTrans = 2;
+        $('#returbutton').hide(); // Sembunyikan tombol retur
+        $('#batalbutton').show(); // Tampilkan tombol batal
+        $('#postbutton').hide(); // Sembunyikan tombol post
+    } else if ($('#idTerima').text().trim() !== "") {
+        $('#lblInfo').text("Data sudah ditransfer ke inventory dan sudah diterima oleh gudang/divisi. Sebelum proses retur, pastikan barang sudah dimutasi ke PBL terlebih dahulu.");
+        // Dilakukan pengecekan apakah barang sudah dikembalikan ke inventory PBL
+        checkInvPBL($('#kdbarang').text().trim());
+        if ($('#tabelretur1').children().length > 0) {
+            jenisTrans = 3;
+            $('#returbutton').show(); // Tampilkan tombol retur
+            $('#batalbutton').hide(); // Sembunyikan tombol batal
+            $('#postbutton').hide(); // Sembunyikan tombol post
+        } else {
+            $('#returbutton').hide(); // Sembunyikan tombol retur
+            $('#batalbutton').hide(); // Sembunyikan tombol batal
+            $('#postbutton').show(); // Tampilkan tombol post
+            alert("Belum dapat dilakukan proses retur karena barang belum kembali ke inventory PBL.");
+        }
+    }
+
+    // Pengecekan kondisi untuk mengatur tampilan tombol retur dan batal
+    if (trm === "" && bttb === "") {
+        $('#returbutton').show(); // Tampilkan tombol retur
+        $('#batalbutton').hide(); // Sembunyikan tombol batal
+        $('#postbutton').hide(); // Sembunyikan tombol post
+    } else if (trm !== "" && bttb === "") {
+        $('#returbutton').hide(); // Sembunyikan tombol retur
+        $('#batalbutton').show(); // Tampilkan tombol batal
+        $('#postbutton').hide(); // Sembunyikan tombol post
+    } else if (trm !== "") {
+        $('#returbutton').show(); // Tampilkan tombol retur
+        $('#batalbutton').show(); // Tampilkan tombol batal
+        $('#postbutton').hide(); // Sembunyikan tombol post
+    } else {
+        $('#returbutton').hide(); // Sembunyikan tombol retur
+        $('#batalbutton').hide(); // Sembunyikan tombol batal
+        $('#postbutton').hide(); // Sembunyikan tombol post
+    }
+});
+
+
     $.ajax({
         method: "GET",
         url: "/GETRetur",
@@ -84,67 +147,105 @@ $('#tabelretur tbody').on('dblclick', 'tr', function () {
             console.error('Error sending data to the server:', error);
         }
     });
-});
 
 
-$(document).ready(function() {
-    // Tambahkan event click pada tombol POST
-    $('#postButton').click(function() {
-        // Ambil data dari input form
-        var id = $('#id').val();
-        var qtyRetur = $('#returprimer').val();
-        var tanggalRetur = $('#tanggalretur').val();
-        var alasan = $('#alasan').val();
-        var noBTTB = $('#bttb').val();
-        var noSJ = $('#sj').val();
-        var idTerima = $('#id_terima').val();
-        var qtyTerima = $('#qty_terima').val();
+//tabelinv
+$(document).ready(function () {
+    let tabelData = $('#tabelretur1').DataTable();
 
-        // Kirim data ke server menggunakan AJAX
-        $.ajax({
-            url: '/PostRetur',
-            type: 'POST',
-            data: {
-                id: id,
-                qty_retur: qtyRetur,
-                tanggal_retur: tanggalRetur,
-                alasan: alasan,
-                no_bttb: noBTTB,
-                no_sj: noSJ,
-                id_terima: idTerima,
-                qty_terima: qtyTerima,
-                _token: '{{ csrf_token() }}'
-            },
-            success: function(response) {
-                // Tindakan jika update berhasil
-                alert('Data retur berhasil diupdate!');
-            },
-            error: function(xhr, status, error) {
-                // Tindakan jika terjadi kesalahan
-                alert('Terjadi kesalahan: ' + error);
-            }
-        });
+    $('#tabelretur1 tbody').on('dblclick', 'tr', function () {
+        var rowData = tabelData.row(this).data();
+
+        $('#type').val(rowData[0] || '');
+        $('#kelompok').val(rowData[10]);
+        $('#returprimer').val(rowData[3] || '');
+        $('#sekunder').val(rowData[4] || '');
+        $('#tertier').val(rowData[5]);
     });
 });
 
+// Integration of VB.NET logic
+var lblNoSatuan = document.getElementById("lblNoSatuan").textContent;
+var lblIdPrim = document.getElementById("lblIdPrim").textContent;
+var lblIdSek = document.getElementById("lblIdSek").textContent;
+var lblIdTri = document.getElementById("lblIdTri").textContent;
+
+var lblPrim = document.getElementById("lblPrim");
+var lblSek = document.getElementById("lblSek");
+var lblTer = document.getElementById("lblTer");
+
+if (lblNoSatuan === lblIdPrim) {
+    unitMode = 1;
+} else if (lblNoSatuan === lblIdSek) {
+    unitMode = 2;
+} else if (lblNoSatuan === lblIdTri) {
+    unitMode = 3;
+}
 
 
+//ReturBatal
+$(document).ready(function () {
+    $('#postbutton').click(function () {
+        var data = {};
 
+        if ($('#postbutton').text() === "RETUR") {
+            var returQty;
+            var message;
+            if (unitMode === 1) {
+                returQty = $('#returprimer').val();
+                message = "Yang akan diretur adalah quantity primer. Jumlah qty retur lebih kecil atau sama dengan jumlah qty terima. Lanjutkan proses retur?";
+            } else if (unitMode === 2) {
+                returQty = $('#sekunder').val();
+                message = "Yang akan diretur adalah quantity sekunder. Jumlah qty retur lebih kecil atau sama dengan jumlah qty terima. Lanjutkan proses retur?";
+            } else if (unitMode === 3) {
+                returQty = $('#tertier').val();
+                message = "Yang akan diretur adalah quantity tritier. Jumlah qty retur lebih kecil atau sama dengan jumlah qty terima. Lanjutkan proses retur?";
+            }
 
-$.ajax({
-    type: 'GET',
-    url: '/Retur', // Sesuaikan dengan URL rute Anda
-    dataType: 'json',
-    success: function(response) {
-        // Memasukkan data ke dalam dropdown
-        var select = $('#suplier');
-        $.each(response, function(index, supplier) {
-            select.append('<option value="' + supplier.NO_SUP + '">' + supplier.NM_SUP + '</option>');
-        });
-    },
-    error: function(error) {
-        console.log(error);
-    }
+            $.ajax({
+                type: 'POST',
+                url: '/ReturRetur',
+                headers: {
+                    "X-CSRF-TOKEN": csrfToken,
+                },
+                data: {
+                    Terima: id_terima,
+                    tglRetur: tanggalretur,
+                    unitMode: unitMode,
+                    returQty: returprimer,
+
+                },
+                success: function (response) {
+                    alert('Proses retur berhasil dilakukan.');
+                },
+                error: function (xhr, status, error) {
+                    alert('Terjadi kesalahan: ' + error);
+                }
+            });
+        } else if ($('#postbutton').text() === "BATAL") {
+            $.ajax({
+                type: 'POST',
+                url: '/ReturBatal',
+                headers: {
+                    "X-CSRF-TOKEN": csrfToken,
+                },
+                data: {
+                    Terima: id_terima,
+                    tglRetur: tanggalretur,
+                    alasan: alasan,
+
+                },
+                success: function (response) {
+                    alert(response);
+                    $('#postbutton').prop('disabled', true);
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText);
+                    alert('Terjadi kesalahan: ' + error);
+                }
+            });
+        }
+    });
 });
 
 function responseData(datas) {

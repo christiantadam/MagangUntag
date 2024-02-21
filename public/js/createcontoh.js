@@ -690,3 +690,31 @@ $("#prosesButton").click(function (e) {
         },
     });
 });
+
+$(document).ready(function () {
+    // Pengecekan jika belum ditransfer ke inventory
+    if ($('#lblIdTmp').text().trim() === "" && $('#lblIdTrans').text().trim() === "") {
+        $('#lblInfo').text("Data belum ditransfer ke inventory. Data adalah berupa jasa. Silahkan diproses batal BTTB.");
+        jenisTrans = 1; // Jenis transaksi diatur sebagai 1
+        $('#btnUpdate').prop('disabled', false).text("BATAL"); // Tombol btnUpdate diaktifkan dan teksnya diubah menjadi "BATAL"
+    }
+    // Pengecekan jika sudah ditransfer ke inventory tetapi belum diproses terima oleh gudang/divisi
+    else if ($('#lblIdTmp').text().trim() !== "" && $('#lblIdTrans').text().trim() === "") {
+        $('#lblInfo').text("Data sudah ditransfer ke inventory, tetapi belum diproses terima oleh gudang/divisi. Data adalah berupa jasa. Silahkan diproses batal BTTB.");
+        jenisTrans = 2; // Jenis transaksi diatur sebagai 2
+        $('#btnUpdate').prop('disabled', false).text("BATAL"); // Tombol btnUpdate diaktifkan dan teksnya diubah menjadi "BATAL"
+    }
+    // Pengecekan jika sudah ditransfer ke inventory dan sudah diterima oleh gudang/divisi
+    else if ($('#lblIdTrans').text().trim() !== "") {
+        $('#lblInfo').text("Data sudah ditransfer ke inventory dan sudah diterima oleh gudang/divisi. Sebelum proses retur, pastikan barang sudah dimutasi ke PBL terlebih dahulu.");
+        // Dilakukan pengecekan apakah barang sudah dikembalikan ke inventory PBL
+        checkInvPBL($('#TextKdBrg').text().trim());
+        if ($('#listInv').children().length > 0) { // Jika barang sudah dikembalikan
+            jenisTrans = 3; // Jenis transaksi diatur sebagai 3
+            $('#btnUpdate').prop('disabled', false).text("RETUR"); // Tombol btnUpdate diaktifkan dengan teks "RETUR"
+        } else {
+            $('#btnUpdate').text("RETUR").prop('disabled', true); // Tombol btnUpdate diubah menjadi "RETUR" dan dinonaktifkan
+            alert("Belum dapat dilakukan proses retur karena barang belum kembali ke inventory PBL.");
+        }
+    }
+});

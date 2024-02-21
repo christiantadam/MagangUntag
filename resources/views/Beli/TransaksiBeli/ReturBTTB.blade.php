@@ -54,9 +54,9 @@
                         <table class="mx-auto w-90 table sm" id="tabelretur">
                             <thead class="table-dark">
                                 <tr>
-                                    <th>No BTTB</th>
+                                    <th id="nobttb"> BTTB</th>
                                     <th>No. SJ</th>
-                                    <th>Id Terima</th>
+                                    <th id="idTerima">Id Terima</th>
                                     <th>Kd Barang</th>
                                     <th>Nama Barang</th>
                                     <th>Sub Kategori</th>
@@ -170,10 +170,21 @@
                         </div>
                     </div>
 
+
+                    <div>
+                        <span id="lblNoSatuan">Nilai Satuan</span>
+                        <span id="lblIdPrim">ID Prim</span>
+                        <span id="lblIdSek">ID Sek</span>
+                        <span id="lblIdTri">ID Tri</span>
+                    </div>
+
+                    <div id="lblInfo">Informasi</div>
                     <!-- Buttons -->
                     <div class="row align-items-center">
                         <div class="col-md-12 d-flex justify-content-end">
                             <button type="button " id="postbutton" class="btn  btn-lg btn-success mr-3">POST</button>
+                            <button type="button " id="returbutton" class="btn  btn-lg btn-success mr-3">RETUR</button>
+                            <button type="button " id="batalbutton" class="btn  btn-lg btn-success mr-3">BATAL</button>
                             <button type="button" class="btn btn-danger">EXIT</button>
                         </div>
                     </div>
@@ -181,21 +192,4 @@
                 </div>
             </div>
             <script src="{{ asset('js/OrderPembelian/Retur.js') }}"></script>
-            <script>
-                function formatInput(inputElement) {
-                    // Mendapatkan nilai input
-                    let inputValue = inputElement.value;
-
-                    // Mengisi dua angka terakhir dengan 0 jika panjang kurang dari 9
-                    while (inputValue.length < 9) {
-                        inputValue += '0';
-                    }
-
-                    // Memastikan bahwa nilai input tidak melebihi 9 angka
-                    inputValue = inputValue.slice(0, 9);
-
-                    // Menetapkan nilai kembali ke elemen input
-                    inputElement.value = inputValue;
-                }
-            </script>
         @endsection
