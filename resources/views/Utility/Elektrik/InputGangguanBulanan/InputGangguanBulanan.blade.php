@@ -14,7 +14,7 @@
                                     <div class="col-8">
                                         <label class="Bulan">Bulan</label>
                                         <input type="number" pattern="[0-9]" min="0" name="bulan" id="bulan"
-                                            class="input mb-3">
+                                            class="input form-control mb-3">
                                         <div class="nama">Nama Pengecek</div>
                                         <input type="text" name="nama" id="nama" class="form-control mb-2"
                                             placeholder="">
@@ -64,7 +64,8 @@
                                 <table class="table" id="table-elektrik-bulanan">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th scope="col"><input type="checkbox" name="" id=""></th>
+                                            <th scope="col">
+                                                Aksi</th>
                                             <th scope="col">Bulan </th>
                                             <th scope="col">Nama </th>
                                             <th scope="col">Pabrik</th>
@@ -84,8 +85,7 @@
                                     <div class="d-flex  p-2 justify-content-end">
                                         <button type="button" id="ProsesButton"
                                             class="btn btn-primary  ml-2">Proses</button>
-                                        <button type="button" id="InputButton"
-                                            class="btn btn-primary  ml-2">Input</button>
+                                        <button type="button" id="InputButton" class="btn btn-primary  ml-2">Input</button>
                                         <button type="button" id="ChangeButton"
                                             class="btn btn-primary  ml-2">Ubah</button>
                                         <button type="button" id="DeleteButton"

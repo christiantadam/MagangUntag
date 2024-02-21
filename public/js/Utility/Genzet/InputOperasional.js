@@ -39,12 +39,27 @@ let teknisi = document.getElementById("teknisi");
 let keterangan = document.getElementById("keterangan");
 let id = document.getElementById("hiddenNomorgenzet");
 
-var currentDateTime = new Date();
-var hours = currentDateTime.getHours().toString().padStart(2, "0");
-var minutes = currentDateTime.getMinutes().toString().padStart(2, "0");
-var timeString = hours + ":" + minutes;
+if (jam_awal) {
+    function updateCurrentTime() {
+        var currentDateTime = new Date();
+        var hours = currentDateTime.getHours().toString().padStart(2, "0");
+        var minutes = currentDateTime.getMinutes().toString().padStart(2, "0");
+        var timeString = hours + ":" + minutes;
 
-jam_awal.value = timeString;
+        jam_awal.value = timeString;
+    }
+    updateCurrentTime();
+
+    // Update time every second (1000 milliseconds)
+    setInterval(updateCurrentTime, 1000);
+}
+
+// var currentDateTime = new Date();
+// var hours = currentDateTime.getHours().toString().padStart(2, "0");
+// var minutes = currentDateTime.getMinutes().toString().padStart(2, "0");
+// var timeString = hours + ":" + minutes;
+
+// jam_awal.value = timeString;
 
 tanggal.disabled = true;
 mesingenzet.disabled = true;
@@ -144,6 +159,7 @@ inputButton.addEventListener("click", function () {
     keterangan.disabled = false;
     updateButton.disabled = true;
     deleteButton.disabled = true;
+    inputButton.disabled = true;
 
     // Clear Form
     clearForm();
@@ -191,6 +207,7 @@ updateButton.addEventListener("click", function () {
 // CancelButton click
 cancelButton.addEventListener("click", function () {
     tanggal.disabled = true;
+    inputButton.disabled = false;
     mesingenzet.disabled = true;
     jam_awal.disabled = true;
     jam_akhir.disabled = true;

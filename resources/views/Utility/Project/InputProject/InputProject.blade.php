@@ -124,8 +124,7 @@
                                 <thead class="thead-dark">
                                     <tr>
                                         <th scope="col" type="checkbox" id="">
-                                            <input type="checkbox" name="agree" id="checkbox_project">
-                                        </th>
+                                            Aksi </th>
                                         <th scope="col">Nama Project</th>
                                         <th scope="col">Nama Mesin </th>
                                         <th scope="col">Tanggal Mulai</th>

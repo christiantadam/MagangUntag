@@ -255,8 +255,17 @@ $(document).ready(function () {
                 },
             },
             { data: "Keterangan" },
-            { data: "Nama" },
+            {
+                data: "Nama",
+                render: function (data, type, full, meta) {
+                    return data ? data : "-";
+                },
+            },
         ],
+    });
+    $("#filter").on("change", function () {
+        var filterValue = $(this).val();
+        dataTable.column(6).search(filterValue).draw();
     });
     $("#refreshButton").click(function () {
         dataTable.ajax.reload();

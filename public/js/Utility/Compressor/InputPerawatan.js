@@ -14,17 +14,18 @@ function date(data, type, full, meta) {
 
 // tanggal form
 let tanggal_Input = document.getElementById("tanggal");
+var tanggal_Output = new Date().toISOString().split("T")[0];
+tanggal_Input.value = tanggal_Output;
 
 // tanggal awal search
 let tanggal_awalInput = document.getElementById("tanggal-awal");
-//var tanggal_awalOutput = new Date().toISOString().split("T")[0];
-// tanggal_awalInput.value = tanggal_awalOutput;
-// tanggal_awalOutput = date();
+var tanggal_awalOutput = new Date().toISOString().split("T")[0];
+tanggal_awalInput.value = tanggal_awalOutput;
 
 // tanggal akhir search
 let tanggal_akhirInput = document.getElementById("tanggal-akhir");
-// var tanggal_akhirOutput = new Date().toISOString().split("T")[0];
-// tanggal_akhirInput.value = tanggal_akhirOutput;
+var tanggal_akhirOutput = new Date().toISOString().split("T")[0];
+tanggal_akhirInput.value = tanggal_akhirOutput;
 
 // Form Button
 let inputButton = document.getElementById("inputButton");
@@ -78,6 +79,7 @@ function checkAllFieldsFilled() {
 // InputButton click
 inputButton.addEventListener("click", function () {
     // Disable input fields and disable Update and Delete buttons
+    inputButton.disabled = true;
     tanggal.disabled = false;
     mesin.disabled = false;
     jam.disabled = false;
@@ -126,6 +128,7 @@ updateButton.addEventListener("click", function () {
 // CancelButton click
 cancelButton.addEventListener("click", function () {
     tanggal.disabled = true;
+    inputButton.disabled = false;
     mesin.disabled = true;
     jam.disabled = true;
     part.disabled = true;

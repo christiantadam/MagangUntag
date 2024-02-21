@@ -21,12 +21,27 @@ var tanggal_akhirInput = document.getElementById("tanggal-akhir");
 var tanggal_akhirOutput = new Date().toISOString().split("T")[0];
 tanggal_akhirInput.value = tanggal_akhirOutput;
 
-var currentDateTime = new Date();
-var hours = currentDateTime.getHours().toString().padStart(2, "0");
-var minutes = currentDateTime.getMinutes().toString().padStart(2, "0");
-var timeString = hours + ":" + minutes;
+if (jam) {
+    function updateCurrentTime() {
+        var currentDateTime = new Date();
+        var hours = currentDateTime.getHours().toString().padStart(2, "0");
+        var minutes = currentDateTime.getMinutes().toString().padStart(2, "0");
+        var timeString = hours + ":" + minutes;
 
-jam.value = timeString;
+        jam.value = timeString;
+    }
+    updateCurrentTime();
+
+    // Update time every second (1000 milliseconds)
+    setInterval(updateCurrentTime, 1000);
+}
+
+// var currentDateTime = new Date();
+// var hours = currentDateTime.getHours().toString().padStart(2, "0");
+// var minutes = currentDateTime.getMinutes().toString().padStart(2, "0");
+// var timeString = hours + ":" + minutes;
+
+// jam.value = timeString;
 
 // Form Button
 let inputButton = document.getElementById("inputButton");
@@ -87,6 +102,7 @@ inputButton.addEventListener("click", function () {
     teknisi.disabled = false;
     updateButton.disabled = true;
     deleteButton.disabled = true;
+    inputButton.disabled = true;
     clearForm();
     $(".checkboxpln").prop("checked", false);
 });
@@ -121,6 +137,7 @@ updateButton.addEventListener("click", function () {
 // CancelButton click
 cancelButton.addEventListener("click", function () {
     tanggal.disabled = true;
+    inputButton.disabled = false;
     jam.disabled = true;
     lwbp.disabled = true;
     wbp.disabled = true;

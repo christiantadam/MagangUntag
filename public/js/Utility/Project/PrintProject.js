@@ -22,7 +22,6 @@ $(".btn-print").on("click", function () {
     }
 });
 
-
 $(document).ready(function () {
     var timeRenderer = function (data, type, full, meta) {
         var date = new Date(data);
@@ -62,8 +61,14 @@ $(document).ready(function () {
                 data: "TglMulai",
                 render: function (data, type, full, meta) {
                     // Assuming data is in UTC format, adjust it to the local timezone
-                    var date = new Date(data + "Z").toLocaleDateString();
-                    return date;
+                    var localDate = moment.utc(data).local();
+
+                    // Check if Keterangan is "Progress"
+                    if (full.Keterangan === "Progress") {
+                        return ""; // Jika "Progress", kembalikan string kosong
+                    } else {
+                        return localDate.format("MM/DD/YYYY"); // Jika bukan "Progress", kembalikan tanggal yang diformat
+                    }
                 },
             },
             {
@@ -90,9 +95,20 @@ $(document).ready(function () {
             },
         ],
     });
+    $("#filter").on("change", function () {
+        var filterValue = $(this).val();
+        dataTable.column(6).search(filterValue).draw();
+    });
     $("#refreshButton").click(function () {
-        dataTable.ajax.reload();
-        console.log(dataTable);
+        if (tahun.value === "" || bulan.value === "") {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Masukkan bulan dan tahun terlebih dahulu.",
+            });
+        } else {
+            dataTable.ajax.reload();
+        }
     });
 
     // Event listener for checkbox changes

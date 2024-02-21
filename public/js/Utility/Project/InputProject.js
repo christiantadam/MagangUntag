@@ -449,6 +449,7 @@ $(document).ready(function () {
     inputButton.addEventListener("click", function () {
         console.log("Input Button Clicked");
         koreksiButton.disabled = true;
+        inputButton.disabled = true;
         hapusButton.disabled = true;
         tanggal_mulai.disabled = false;
         tanggal_selesai.disabled = false;

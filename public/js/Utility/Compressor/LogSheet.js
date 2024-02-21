@@ -29,12 +29,20 @@ var tanggal_akhirInput = document.getElementById("tanggal-akhir");
 var tanggal_akhirOutput = new Date().toISOString().split("T")[0];
 tanggal_akhirInput.value = tanggal_akhirOutput;
 
-var currentDateTime = new Date();
-var hours = currentDateTime.getHours().toString().padStart(2, "0");
-var minutes = currentDateTime.getMinutes().toString().padStart(2, "0");
-var timeString = hours + ":" + minutes;
+if (jam_operasi) {
+    function updateCurrentTime() {
+        var currentDateTime = new Date();
+        var hours = currentDateTime.getHours().toString().padStart(2, "0");
+        var minutes = currentDateTime.getMinutes().toString().padStart(2, "0");
+        var timeString = hours + ":" + minutes;
 
-jam_operasi.value = timeString;
+        jam_operasi.value = timeString;
+    }
+    updateCurrentTime();
+
+    // Update time every second (1000 milliseconds)
+    setInterval(updateCurrentTime, 1000);
+}
 
 // Form Button
 let inputButton = document.getElementById("inputButton");
@@ -76,6 +84,7 @@ function clearForm() {
 // InputButton click
 inputButton.addEventListener("click", function () {
     tanggal.disabled = false;
+    inputButton.disabled = true;
     mesin.disabled = false;
     jam_operasi.disabled = false;
     temp.disabled = false;
@@ -132,6 +141,7 @@ updateButton.addEventListener("click", function () {
 // CancelButton click
 cancelButton.addEventListener("click", function () {
     tanggal.disabled = true;
+    inputButton.disabled = false;
     mesin.disabled = true;
     jam_operasi.disabled = true;
     temp.disabled = true;

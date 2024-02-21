@@ -41,18 +41,25 @@ var tanggalInput = document.getElementById("tanggal");
 var JamLapor = document.getElementById("jam_lapor");
 
 if (tanggal && bulanInput && tanggalInput && JamLapor && sampaiDenganInput) {
+    function updateCurrentTime() {
+        var currentDateTime = new Date();
+        var hours = currentDateTime.getHours().toString().padStart(2, "0");
+        var minutes = currentDateTime.getMinutes().toString().padStart(2, "0");
+        var timeString = hours + ":" + minutes;
+
+        JamLapor.value = timeString;
+    }
+    updateCurrentTime();
+
+    // Update time every second (1000 milliseconds)
+    setInterval(updateCurrentTime, 1000);
+
+    // Update date values
     var tanggal_akhirOutput = new Date().toISOString().split("T")[0];
     bulanInput.value = tanggal_akhirOutput;
     tanggalInput.value = tanggal_akhirOutput;
-    sampaiDengan.value = tanggal_akhirOutput;
+    sampaiDenganInput.value = tanggal_akhirOutput;
     tanggal.value = tanggal_akhirOutput;
-
-    var currentDateTime = new Date();
-    var hours = currentDateTime.getHours().toString().padStart(2, "0");
-    var minutes = currentDateTime.getMinutes().toString().padStart(2, "0");
-    var timeString = hours + ":" + minutes;
-
-    JamLapor.value = timeString;
 }
 
 function clearForm() {
