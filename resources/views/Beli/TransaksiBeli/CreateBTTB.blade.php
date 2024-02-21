@@ -54,6 +54,7 @@
                             <div class="col-md-3 mb-2">
                                 <label for="supplier" class="form-label">Supplier</label>
                                 <select class="form-control" id="supplier" name="supplier">
+                                    <option selected disabled>-- Pilih Supplier --</option>
                                     @foreach ($nosup as $bttb)
                                         <option value="{{ $bttb->NO_SUP }}">{{ $bttb->NM_SUP }}</option>
                                     @endforeach
@@ -74,6 +75,7 @@
                             <div class="col-md-3">
                                 <label for="po" class="form-label">No. PO</label>
                                 <select class="form-control" id="po" name="po">
+                                    <option selected disabled>-- Pilih PO --</option>
                             </select>
                             </div>
                             <div class="col-md-3">
@@ -82,7 +84,7 @@
                             </div>
                             <div class="col-md-3">
                                 <label for="tglskbm" class="form-label">Tgl. SKBM</label>
-                                <input type="float" class="form-control" id="tglskbm" name="tglskbm">
+                                <input type="date" class="form-control" id="tglskbm" name="tglskbm" value="{{ date('Y-m-d') }}">
                             </div>
                         </div>
                         <div class="mb-10 m-5">
@@ -96,103 +98,302 @@
                                             <th>Sub Kategori</th>
                                             <th>Qty</th>
                                             <th>Satuan</th>
-                                            <th>Qty Terima</th>
                                             <th>Qty Shipped</th>
                                             <th>Qty Remaining</th>
                                             <th>Harga Unit</th>
                                             <th>Subtotal</th>
                                             <th>PPN</th>
-                                            <th>Harga</th>
+                                            <th>Harga Total</th>
                                             <th>Kurs</th>
                                             <th>IDR Unit</th>
-                                            <th>IDRS</th>
-                                            <th>IDRPPN</th>
-                                            <th>IDRtotal</th>
-                                            <th>MataUang</th>
+                                            <th>IDR SubTotal</th>
+                                            <th>IDR PPN</th>
+                                            <th>IDR total</th>
+                                            <th>Mata Uang</th>
                                             <th>Disc</th>
-                                            <th>Disc H</th>
-                                            <th>DiscIDR</th>
-                                            <th>QtyRetc</th>
+                                            <th>Disc Harga</th>
+                                            <th>Disc IDR</th>
+                                            <th>Qty Received</th>
                                         </tr>
                                     </thead>
                                 </table>
                             </div>
                         </div>
-                        <div class="row mb-3 m-1">
-                            <div class="col-md-4">
-                                <label for="nomororder" class="form-label">Nomor Order</label>
-                                <input type="text" class="form-control" id="nomororder" name="nomororder">
+                        <div class="row mt-4">
+                            <div class="col-md-6">
+                                <div class="col-12 mb-2">
+                                    <div class="row align-items-center">
+                                        <div class="col-4">
+                                            <label for="no_po">Nomor Order</label>
+                                        </div>
+                                        <div class="col-8 col-md-6">
+                                            <input type="text" name="no_po" id="no_po" class="input w-100"
+                                                readonly>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div class="row align-items-center">
+                                        <div class="col-4">
+                                            <label for="kode_barang">Kode Barang</label>
+                                        </div>
+                                        <div class="col-8 col-md-6">
+                                            <input type="text" name="kode_barang" id="kode_barang" class="input w-100"
+                                                readonly>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div class="row align-items-center">
+                                        <div class="col-4">
+                                            <label for="nama_barang">Nama Barang</label>
+                                        </div>
+                                        <div class="col-8 col-md-6">
+                                            <input type="text" name="nama_barang" id="nama_barang" class="input w-100"
+                                                readonly>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div class="row align-items-center">
+                                        <div class="col-4">
+                                            <label for="sub_kategori">Sub Kategori</label>
+                                        </div>
+                                        <div class="col-8 col-md-6">
+                                            <input type="text" name="sub_kategori" id="sub_kategori"
+                                                class="input w-100" readonly>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div class="row align-items-center">
+                                        <div class="col-4">
+                                            <label for="qty_ordered">QTY Ordered</label>
+                                        </div>
+                                        <div class="col-6 col-md-4">
+                                            <input type="text" name="qty_ordered" id="qty_ordered"
+                                                class="input w-100">
+                                        </div>
+                                        <div class="col-2">
+                                            <input type="text" name="ordered_satuan" id="ordered_satuan"
+                                                class="input w-100">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div class="row align-items-center">
+                                        <div class="col-4">
+                                            <label for="qty_ship">QTY Shipped</label>
+                                        </div>
+                                        <div class="col-8 col-md-6">
+                                            <input type="text" name="qty_ship" id="qty_ship"
+                                                class="input w-100">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div class="row align-items-center">
+                                        <div class="col-4">
+                                            <label for="qty_received">QTY Receive</label>
+                                        </div>
+                                        <div class="col-8 col-md-6">
+                                            <input type="text" name="qty_received" id="qty_received"
+                                                class="input w-100">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div class="row align-items-center">
+                                        <div class="col-4">
+                                            <label for="qty_remaining">QTY Remaining</label>
+                                        </div>
+                                        <div class="col-8 col-md-6">
+                                            <input type="text" name="qty_remaining" id="qty_remaining"
+                                                class="input w-100">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-md-4">
-                                <label for="kurs" class="form-label">Kurs</label>
-                                <input type="text" class="form-control" id="kurs" name="kurs">
+                            <div class="col-md-6">
+                                <div class="col-12 mb-2">
+                                    <div class="row align-items-center">
+                                        <div class="col-6">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <label for="kurs">Kurs</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input type="text" name="kurs" id="kurs"
+                                                        class="input w-100" value="1">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <label for="mata_uang">Mata Uang</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input type="text" name="mata_uang" id="mata_uang"
+                                                        class="input w-100" value="IDR">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div class="row align-items-center">
+                                        <div class="col-6">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <label for="disc">Disc %</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input type="text" name="disc" id="disc"
+                                                        class="input w-100" value="0">
+                                                    <input type="text" name="total_disc" id="total_disc"
+                                                        class="input w-100" value="0" readonly>
+                                                    <input type="text" name="idr_total_disc" id="idr_total_disc"
+                                                        class="input w-100" value="0" style="display: none" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <label for="idr_discount">Idr Discount</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input type="text" name="idr_discount" id="idr_discount"
+                                                        class="input w-100" value="0">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div class="row align-items-center">
+                                        <div class="col-6">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <label for="harga_unit">Harga Unit</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input type="text" name="harga_unit" id="harga_unit"
+                                                        class="input w-100" value="0">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <label for="idr_unit">IDR Unit</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input type="text" name="idr_unit" id="idr_unit"
+                                                        class="input w-100" value="0" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div class="row align-items-center">
+                                        <div class="col-6">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <label for="harga_sub_total">Harga Sub Total</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input type="text" name="harga_sub_total" id="harga_sub_total"
+                                                        class="input w-100" value="0" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <label for="idr_sub_total">IDR Sub Total</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input type="text" name="idr_sub_total" id="idr_sub_total"
+                                                        class="input w-100" value="0" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div class="row align-items-center">
+                                        <div class="col-6">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <label for="ppn">PPN %</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <select name="ppn_select" id="ppn_select" class="w-100 input">
+                                                        <option class="w-100" selected disabled></option>
+                                                        @foreach ($ppn as $data)
+                                                            <option value="{{ $data->IdPPN }}">{{ $data->JumPPN }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                    <input type="text" name="ppn" id="ppn"
+                                                        class="input w-100" value="0" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <label for="idr_ppn">IDR PPN</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input type="text" name="idr_ppn" id="idr_ppn"
+                                                        class="input w-100" value="0" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div class="row align-items-center">
+                                        <div class="col-6">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <label for="harga_total">Harga Total</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input type="text" name="harga_total" id="harga_total"
+                                                        class="input w-100" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    <label for="idr_harga_total">IDR Total</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input type="text" name="idr_harga_total" id="idr_harga_total"
+                                                        class="input w-100" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
-                            <div class="col-md-4">
-                                <label for="matauang" class="form-label">Mata Uang</label>
-                                <input type="text" class="form-control" id="matauang" name="matauang">
-                            </div>
-                            <div class="col-md-4">
-                                <label for="kdbarang" class="form-label">Kd. Barang</label>
-                                <input type="text" class="form-control" id="kdbarang" name="kdbarang">
-                            </div>
-                            <div class="col-md-4">
-                                <label for="hargaunit" class="form-label">Harga Unit</label>
-                                <input type="text" class="form-control" id="hargaunit" name="hargaunit">
-                            </div>
-                            <div class="col-md-4">
-                                <label for="idr" class="form-label">IDR Unit</label>
-                                <input type="text" class="form-control" id="idr" name="idr">
-                            </div>
-                            <div class="col-md-4">
-                                <label for="namabarang" class="form-label">Nama Barang</label>
-                                <input type="text" class="form-control" id="namabarang" name="namabarang">
-                            </div>
-                            <div class="col-md-4">
-                                <label for="disc" class="form-label">Discount</label>
-                                <input type="text" class="form-control" id="disc" name="disc">
-                            </div>
-                            <div class="col-md-4">
-                                <label for="idrdisc" class="form-label">IDR Discount</label>
-                                <input type="text" class="form-control" id="idrdisc" name="idrdisc">
-                            </div>
-                            <div class="col-md-4">
-                                <label for="subkategori" class="form-label">Sub Kategori</label>
-                                <input type="text" class="form-control" id="subkategori" name="subkategori">
-                            </div>
-                            <div class="col-md-4">
-                                <label for="hargasub" class="form-label">Harga Sub Total</label>
-                                <select class="form-control" id="hargasub" name="harga">
-                                    @foreach ($ppn as $no)
-                                    <option value="{{ $no->JumPPN }}">{{ $no->IdPPN }}</option>
-                                @endforeach
-                            </select>
-                            </div>
-                            <div class="col-md-4">
-                                <label for="idrsubtotal" class="form-label">IDR SubTotal</label>
-                                <input type="text" class="form-control" id="idrsubtotal" name="idrsubtotal">
-                            </div>
-                            <div class="col-md-4">
-                                <label for="Qtyordered" class="form-label">Qty ordered</label>
-                                <input type="text" class="form-control" id="Qtyordered" name="Qtyordered">
-                            </div>
-                            <div class="col-md-2">
-                                <label for="qtyremaining" class="form-label">Qty Remaining</label>
-                                <input type="text" class="form-control" id="qtyremaining" name="qtyremaining">
-                            </div>
-                            <div class="col-md-2">
-                                <label for="hargatotal" class="form-label">Harga Total</label>
-                                <input type="text" class="form-control" id="hargatotal" name="hargatotal">
-                            </div>
-                            <div class="col-md-2 mb-5">
-                                <label for="idrtotal" class="form-label">IDR Total</label>
-                                <input type="text" class="form-control" id="idrtotal" name="idrtotal">
-                            </div>
+
                             <div class="col-md-12 d-flex justify-content-end pb-4">
                                 <div class="col-md-12 d-flex justify-content-end">
                                     <button type="button" class="btn btn-primary btn-lg mr-3" id="updatedata" onclick="updateData()">Update</button>
                                     <button type="button" class="btn btn-danger btn-lg mr-3"  id="removebutton" onclick="removeData()"> Remove</button>
-                                    <button type="button" class="btn btn-success btn-lg mr-3" onclick="postBTTB()">Post BTTB</button>
-                                    <button type="button" class="btn btn-secondary btn-lg" onclick="exit()">Exit</button>
+                                    <button type="button" class="btn btn-success btn-lg mr-3" id="post_btn">Post BTTB</button>
                                 </div>
                             </div>
                         </div>
