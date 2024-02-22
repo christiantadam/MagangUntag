@@ -176,11 +176,11 @@
                                         </div>
                                         <div class="col-6 col-md-4">
                                             <input type="text" name="qty_ordered" id="qty_ordered"
-                                                class="input w-100">
+                                                class="input w-100" readonly>
                                         </div>
                                         <div class="col-2">
                                             <input type="text" name="ordered_satuan" id="ordered_satuan"
-                                                class="input w-100">
+                                                class="input w-100" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -191,7 +191,7 @@
                                         </div>
                                         <div class="col-8 col-md-6">
                                             <input type="text" name="qty_ship" id="qty_ship"
-                                                class="input w-100">
+                                                class="input w-100" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -213,7 +213,7 @@
                                         </div>
                                         <div class="col-8 col-md-6">
                                             <input type="text" name="qty_remaining" id="qty_remaining"
-                                                class="input w-100">
+                                                class="input w-100" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -239,7 +239,7 @@
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="mata_uang" id="mata_uang"
-                                                        class="input w-100" value="IDR">
+                                                        class="input w-100" value="IDR" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -257,19 +257,17 @@
                                                         class="input w-100" value="0">
                                                     <input type="text" name="total_disc" id="total_disc"
                                                         class="input w-100" value="0" readonly>
-                                                    <input type="text" name="idr_total_disc" id="idr_total_disc"
-                                                        class="input w-100" value="0" style="display: none" readonly>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="row">
                                                 <div class="col-4">
-                                                    <label for="idr_discount">Idr Discount</label>
+                                                    <label for="idr_total_disc">Idr Discount</label>
                                                 </div>
                                                 <div class="col-8">
-                                                    <input type="text" name="idr_discount" id="idr_discount"
-                                                        class="input w-100" value="0">
+                                                    <input type="text" name="idr_total_disc" id="idr_total_disc"
+                                                        class="input w-100" value="0" readonly>
                                                 </div>
                                             </div>
                                         </div>
