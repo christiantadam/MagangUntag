@@ -71,7 +71,7 @@ Route::group(['middleware' => ['auth']], function () {
     #Region Utility
     Route::get('Utility', 'App\Http\Controllers\HomeController@Utility');
 
-    //elektrik
+    #elektrik
     Route::resource('InputGangguanElektrik', App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikController::class);
     Route::post('/postData', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikController@postData');
     Route::post('/postDataGambar', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikController@postDataGambar');
@@ -79,14 +79,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/updateDataElektrik', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikController@updateDataElektrik');
     Route::post('/gangguanBulanan', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikBulananController@gangguanBulanan');
     Route::post('/upload-image', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikController@uploadImage')->name('uploadImage');
-    //Route::post('/uploadAndReadFile', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikController@uploadAndReadFile');
-    //Route::put('/updateData/{id}', 'Utility\Elektrik\InputGangguanElektrikController@updateData');
     Route::get('/getData', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikController@getData');
     Route::delete('/deleteData', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikController@deleteData');
     Route::get('/getUserId', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikController@getUserId');
     Route::get('/getDataElektrikId', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikController@getDataElektrikId');
-
-    // Route::resource('InputGangguanBulanan', App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikBulananController::class);
     Route::resource('InputGangguanBulananElektrik', App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikBulananController::class);
     Route::get('/getDataBulanan', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikBulananController@getDataBulanan');
     Route::get('/getDataBulananId', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikBulananController@getDataBulananId');
@@ -94,6 +90,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/postDataBulanan', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikBulananController@postDataBulanan');
     Route::post('/updateDataBulanan', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikBulananController@updateDataBulanan');
     Route::delete('/deleteDataBulanan', 'App\Http\Controllers\Utility\Elektrik\InputGangguanElektrikBulananController@deleteDataBulanan');
+
     // Tambah Gambar Elektrik
     Route::resource('TambahGambarElektrik', App\Http\Controllers\Utility\Elektrik\TambahGambarElektrikController::class);
     Route::post('/postTambahGambar', 'App\Http\Controllers\Utility\Elektrik\TambahGambarElektrikController@postDataGambar');
@@ -114,6 +111,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/getNamaUser', 'App\Http\Controllers\Utility\Project\InputProjectController@getNamaUser');
     Route::post('/updateDataProject', 'App\Http\Controllers\Utility\Project\InputProjectController@updateDataProject');
     Route::delete('/deleteDataProject', 'App\Http\Controllers\Utility\Project\InputProjectController@deleteDataProject');
+
     // Tambah Gambar Project
     Route::resource('TambahGambarProject', App\Http\Controllers\Utility\Project\TambahGambarProjectController::class);
     Route::post('/postTambahGambarProject', 'App\Http\Controllers\Utility\Project\TambahGambarProjectController@postDataGambarProject');
@@ -157,10 +155,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::delete('/delete-statuslog', [App\Http\Controllers\Utility\Genzet\StatusLog\StatusLogController::class, 'deletestatuslog'])->name('delete-statuslog');
 
     // Teknisi Genzet
-    Route::get('/get-teknisi', [App\Http\Controllers\Utility\Genzet\Teknisi\TeknisiController::class, 'getTeknisi'])->name('get-teknisi');
-    Route::post('/save-teknisi', [App\Http\Controllers\Utility\Genzet\Teknisi\TeknisiController::class, 'saveTeknisi'])->name('save-teknisi');
-    Route::put('/update-teknisi', [App\Http\Controllers\Utility\Genzet\Teknisi\TeknisiController::class, 'updateTeknisi'])->name('update-teknisi');
-    Route::delete('/delete-teknisi', [App\Http\Controllers\Utility\Genzet\Teknisi\TeknisiController::class, 'deleteTeknisi'])->name('delete-teknisi');
+    // Route::get('/get-teknisi', [App\Http\Controllers\Utility\Genzet\Teknisi\TeknisiController::class, 'getTeknisi'])->name('get-teknisi');
+    // Route::post('/save-teknisi', [App\Http\Controllers\Utility\Genzet\Teknisi\TeknisiController::class, 'saveTeknisi'])->name('save-teknisi');
+    // Route::put('/update-teknisi', [App\Http\Controllers\Utility\Genzet\Teknisi\TeknisiController::class, 'updateTeknisi'])->name('update-teknisi');
+    // Route::delete('/delete-teknisi', [App\Http\Controllers\Utility\Genzet\Teknisi\TeknisiController::class, 'deleteTeknisi'])->name('delete-teknisi');
 
     // Panel Induk
     Route::resource('InputGangguanPanel', App\Http\Controllers\Utility\PanelInduk\InputGangguanPanelController::class);
@@ -205,6 +203,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/save-ba', [App\Http\Controllers\Utility\PLN\BeritaAcaraController::class, 'createBA'])->name('save-ba');
     Route::delete('/delete-ba', [App\Http\Controllers\Utility\PLN\BeritaAcaraController::class, 'deleteBA'])->name('delete-ba');
 
+    //Master
+    Route::resource('MaintenanceTeknisi', App\Http\Controllers\Utility\Master\MaintenanceTeknisi::class);
+    Route::get('/get-teknisi', [App\Http\Controllers\Utility\Master\MaintenanceTeknisi::class, 'getTeknisi'])->name('get-teknisi');
+    Route::post('/save-teknisi', [App\Http\Controllers\Utility\Master\MaintenanceTeknisi::class, 'saveTeknisi'])->name('save-teknisi');
+    Route::put('/update-teknisi', [App\Http\Controllers\Utility\Master\MaintenanceTeknisi::class, 'updateTeknisi'])->name('update-teknisi');
+    Route::delete('/delete-teknisi', [App\Http\Controllers\Utility\Master\MaintenanceTeknisi::class, 'deleteTeknisi'])->name('delete-teknisi');
 
 
 

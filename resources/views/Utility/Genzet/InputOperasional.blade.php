@@ -93,8 +93,8 @@
                                     <select class="form-select" aria-label="Default select example" id="teknisi">
                                         <option selected disabled>Pilih teknisi...</option>
                                         @foreach ($teknisi as $data)
-                                            <option value="{{ $data->NamaTeknisi }}">
-                                                {{ $data->NamaTeknisi }}</option>
+                                            <option value="{{ $data->IdUserMaster }}">
+                                                {{ $data->IdUserMaster }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -177,8 +177,8 @@
                                     <button class="btn btn-primary mb-2" data-bs-toggle="modal"
                                         data-bs-target="#modalStatusLog" id="modalstatus" type="button">Status
                                         Log</button>
-                                    <button class="btn btn-primary mb-2" data-bs-toggle="modal"
-                                        data-bs-target="#modalTeknisi" id="modalteknisi" type="button">Teknisi</button>
+                                    {{-- <button class="btn btn-primary mb-2" data-bs-toggle="modal"
+                                        data-bs-target="#modalTeknisi" id="modalteknisi" type="button">Teknisi</button> --}}
 
                                 </div>
                             </div>

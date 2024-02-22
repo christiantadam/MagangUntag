@@ -52,17 +52,35 @@
                                                         </option>
                                                     @endforeach
                                                 </select>
+
                                                 <button class="btn btn-primary ms-2" data-bs-toggle="modal"
                                                     data-bs-target="#KetGangguanModal" id="openmodal" type="button">Tambah
                                                     Ket.Gangguan</button>
                                             </div>
+
                                         </div>
+                                    </div>
+
+                                </div>
+                                <div class="acs-div-filter pt-4">
+                                    <label for="ket_gangguan">Pilih Teknisi</label>
+                                    <div class="d-flex">
+                                        <select class="form-select flex-grow-1" aria-label="Default select example"
+                                            id="teknisi">
+                                            <option selected disabled>Pilih Teknisi...</option>
+                                            @foreach ($teknisi as $data)
+                                                <option value="{{ $data->IdUserMaster }}">{{ $data->IdUserMaster }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="acs-div-filter pt-4">
+
                                     <label for="keterangan">Keterangan</label>
                                     <input type="text" class="form-control" id="keterangan" name="keterangan">
                                 </div>
+
                             </div>
                             <div class="col-lg-2 p-4">
                                 <div class="d-flex gap-2 justify-content-end flex-wrap pt-4">

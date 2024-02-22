@@ -39,8 +39,8 @@
                                     <select class="form-select" id="teknisi" aria-label="Default select example">
                                         <option selected disabled>Pilih Teknisi...</option>
                                         @foreach ($teknisi as $data)
-                                            <option value="{{ $data->Nama }}">
-                                                {{ $data->Nama }}</option>
+                                            <option value="{{ $data->IdUserMaster }}">
+                                                {{ $data->IdUserMaster }}</option>
                                         @endforeach
                                     </select>
                                 </div>

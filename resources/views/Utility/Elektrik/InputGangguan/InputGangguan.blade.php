@@ -53,9 +53,10 @@
                                         <input type="text" name="nama_pelapor" id="keterangan" class="form-control">
                                         <div class="nama_pelapor mb-2 mt-2">Teknisi</div>
                                         <select name="divisi_pelapor" id="teknisi" class="form-select mb-2">
-                                            @foreach ($teknisi as $nama_teknisi)
-                                                <option value="{{ $nama_teknisi->Nama }}">{{ $nama_teknisi->Nama }}
-                                                </option>
+                                            <option selected disabled>Pilih teknisi...</option>
+                                            @foreach ($teknisi as $data)
+                                                <option value="{{ $data->IdUserMaster }}">
+                                                    {{ $data->IdUserMaster }}</option>
                                             @endforeach
                                         </select>
                                         <input type="checkbox" name="agree" id="agree">
@@ -130,7 +131,7 @@
                             <table class="table" id="tabel_input_gangguan">
                                 <thead class="thead-dark">
                                     <tr>
-                                        <th scope="col" type="checkbox" id="">
+                                        <th scope="col" type="checkbox" id="checkbox_tabel">
                                             Aksi </th>
                                         <th scope="col">Tanggal</th>
                                         <th scope="col">Div. Pelapor </th>

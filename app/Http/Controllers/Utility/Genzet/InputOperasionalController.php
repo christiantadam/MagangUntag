@@ -17,7 +17,7 @@ class InputOperasionalController extends Controller
 
         $mesin = DB::connection('ConnUtility')->select('exec SP_LIST_MESIN_GENZET');
         $status = DB::connection('ConnUtility')->select('exec SP_LIST_STATUSLOG');
-        $teknisi = DB::connection('ConnUtility')->select('exec SP_LIST_TEKNISI_GENZET');
+        $teknisi = DB::connection('ConnUtility')->table('Utility_Teknisi')->select('IdUserMaster')->get();
         $access = (new HakAksesController)->HakAksesFiturMaster('Utility');
         return view('Utility.Genzet.InputOperasional', compact('mesin', 'status', 'teknisi', 'access'));
     }

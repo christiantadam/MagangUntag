@@ -135,6 +135,7 @@ inputButton.addEventListener("click", function () {
     id_laporan.value = "";
     koreksiButton.disabled = true;
     hapusinputButton.disabled = true;
+    tanggal.value = tanggal_akhirOutput;
     tanggal.disabled = false;
     divisi_pelapor1.disabled = false;
     nama_pelapor.disabled = false;
@@ -156,6 +157,8 @@ inputButton.addEventListener("click", function () {
     checkbox_tabel.disabled = true;
     tabel_input_gangguan.disabled = true;
     agree.disabled = false;
+    $(".checkbox_elektrik:checked").prop("checked", false);
+
     clearForm();
 });
 
@@ -166,6 +169,7 @@ batalButton.addEventListener("click", function () {
     koreksiButton.disabled = false;
     hapusinputButton.disabled = false;
     tanggal.disabled = true;
+    tanggal.value = tanggal_akhirOutput;
     divisi_pelapor1.disabled = true;
     nama_pelapor.disabled = true;
     penerima_laporan.disabled = true;
@@ -185,6 +189,13 @@ batalButton.addEventListener("click", function () {
     checkbox_tabel.checked = false;
     agree.disabled = true;
     $(".checkbox_elektrik:checked").prop("checked", false);
+    $("#gambar1").val("");
+    $("#namagambar1").text("Pilih Gambar 1");
+    $("#hasil_gambar1").removeAttr("src").hide();
+    $("#ket_gambar2").val("");
+    $("#gambar2").val("");
+    $("#namagambar2").text("Pilih Gambar 2");
+    $("#hasil_gambar2").removeAttr("src").hide();
 
     clearForm();
 });

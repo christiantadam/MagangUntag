@@ -18,7 +18,7 @@ class InputGangguanPanelController extends Controller
 
         $mesin = DB::connection('ConnUtility')->select('exec SP_LIST_MESIN_GENZET');
         $keterangan = DB::connection('ConnUtility')->select('exec SP_LIST_KET_GANGGUANG_PANEL_INDUK');
-        $teknisi = DB::connection('ConnUtility')->select('exec SP_LIST_TEKNISI_GENZET');
+        $teknisi = DB::connection('ConnUtility')->table('Utility_Teknisi')->select('IdUserMaster')->get();
         $access = (new HakAksesController)->HakAksesFiturMaster('Utility');
         return view('Utility.PanelInduk.InputGangguanPanel', compact('mesin', 'keterangan', 'teknisi', 'access'));
     }
