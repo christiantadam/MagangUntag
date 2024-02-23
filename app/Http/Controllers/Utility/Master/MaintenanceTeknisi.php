@@ -18,8 +18,7 @@ class MaintenanceTeknisi extends Controller
     public function index()
     {
         $access = (new HakAksesController)->HakAksesFiturMaster('Utility');
-        return view('Utility.Master.MaintenanceTeknisi', compact( 'access'));
-
+        return view('Utility.Master.MaintenanceTeknisi', compact('access'));
     }
 
 
@@ -50,8 +49,8 @@ class MaintenanceTeknisi extends Controller
 
     public function getTeknisi()
     {
-        $listTeknisi =
-            DB::connection('ConnUtility')->table('Utility_Teknisi')->select('IdUserMaster')->get();
+        $listTeknisi =DB::connection('ConnUtility')->select('exec SP_Utility_Teknisi');
+
         return datatables($listTeknisi)->make(true);
     }
 

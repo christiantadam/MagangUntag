@@ -57,11 +57,11 @@
 // ------------------------------------------------------------------------------------------------------------------------------------- //
 // Modal Teknisi
 
-let updateButtonTeknisi = document.getElementById("updateButtonTeknisi");
-let deleteButtonTeknisi = document.getElementById("deleteButtonTeknisi");
-let saveButtonTeknisi = document.getElementById("saveButtonTeknisi");
-let refreshButtonTeknisi = document.getElementById("refreshButtonTeknisi");
-let Teknisi = document.getElementById("teknisimodalinput");
+let updateButtonTeknisi = document.getElementById("updateButton");
+let deleteButtonTeknisi = document.getElementById("deleteButton");
+let saveButtonTeknisi = document.getElementById("saveButton");
+let refreshButtonTeknisi = document.getElementById("refreshButton");
+let Teknisi = document.getElementById("teknisi");
 
 saveButtonTeknisi.disabled = true;
 updateButtonTeknisi.disabled = false;
@@ -99,13 +99,6 @@ updateButtonTeknisi.addEventListener("click", function () {
     });
 });
 $(document).ready(function () {
-    $("#modalteknisi").click(function (e) {
-        e.preventDefault();
-        $("#teknisimodalinput").val("");
-        $("#hiddenIdTeknisi").val("");
-        dataTableTeknisi.ajax.reload();
-    });
-
     var dataTableTeknisi = $("#table-teknisi").DataTable({
         serverSide: true,
         responsive: true,
@@ -118,7 +111,7 @@ $(document).ready(function () {
         },
         columns: [
             {
-                data: "NoTeknisi",
+                data: "Id_Teknisi",
                 render: function (data, type, full, meta) {
                     return (
                         '<input type="checkbox" class="checkboxteknisi" value="' +
@@ -127,7 +120,7 @@ $(document).ready(function () {
                     );
                 },
             },
-            { data: "IdUserMaster" },
+            { data: "NamaUser" },
         ],
     });
 
