@@ -26,7 +26,14 @@
                             </div>
                             <div class="col-md-4">
                                 <label for="suplier" class="form-label">Suplier</label>
-                                <input type="text" class="form-control" id="suplier" name="suplier">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <input type="text" class="form-control" id="idsuplier" name="idsuplier">
+                                    </div>
+                                    <div class="col-8">
+                                        <input type="text" class="form-control" id="suplier" name="suplier">
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md-4">
                                 <label for="payment" class="form-label">Payment Term</label>
@@ -56,7 +63,7 @@
                                 <tr>
                                     <th id="nobttb"> BTTB</th>
                                     <th>No. SJ</th>
-                                    <th id="idTerima">Id Terima</th>
+                                    <th>Id Terima</th>
                                     <th>Kd Barang</th>
                                     <th>Nama Barang</th>
                                     <th>Sub Kategori</th>
@@ -116,8 +123,7 @@
                         </div>
                         <div class="col-md-4">
                             <label for="type" class="form-label">Id Type</label>
-                            <input type="number" class="form-control" id="type" name="type" maxlength="9"
-                                oninput="formatInput(this)">
+                            <input type="text" class="form-control" id="type" name="type">
                         </div>
                         <div class="col-md-4">
                             <label for="kelompok" class="form-label">Kelompok</label>
@@ -129,63 +135,51 @@
                         </div>
                         <div class="col-md-2">
                             <label for="returprimer" class="form-label">Qty Retur Primer</label>
-                            <input type="float" class="form-control" id="returprimer" name="returprimer">
+                            <input type="text" class="form-control" id="returprimer" name="returprimer">
                         </div>
                         <div class="col-md-2">
                             <label for="sekunder" class="form-label">Qty Sekunder</label>
-                            <input type="float" class="form-control" id="sekunder" name="sekunder">
+                            <input type="text" class="form-control" id="sekunder" name="sekunder">
                         </div>
                         <div class="col-md-2">
                             <label for="tertier" class="form-label">Qty Tertier</label>
-                            <input type="float" class="form-control" id="tertier" name="tertier">
+                            <input type="text" class="form-control" id="tertier" name="tertier">
                         </div>
                     </div>
                     <div class="row mb-3 m-1">
                         <div class="col-md-2">
                             <label for="bttb" class="form-label">No. BTTB</label>
-                            <input type="float" class="form-control" id="bttb" name="bttb">
+                            <input type="text" class="form-control" id="bttb" name="bttb">
                         </div>
                         <div class="col-md-8" style="width: 400px; margin-right: -60px;">
                             <label for="alasan" class="form-label">Alasan</label>
-                            <input type="float" class="form-control" id="alasan" name="alasan">
+                            <input type="text" class="form-control" id="alasan" name="alasan">
                         </div>
                     </div>
 
                     <div class="row mb-3 m-1">
                         <div class="col-md-2">
                             <label for="sj" class="form-label">No. SJ</label>
-                            <input type="float" class="form-control" id="sj" name="sj">
+                            <input type="text" class="form-control" id="sj" name="sj">
                         </div>
                     </div>
                     <div class="row mb-3 m-1">
                         <div class="col-md-2">
                             <label for="id_terima" class="form-label">Id Terima</label>
-                            <input type="int" class="form-control" id="id_terima" name="id_terima">
+                            <input type="text" class="form-control" id="id_terima" name="id_terima">
                         </div>
                     </div>
                     <div class="row mb-3 m-1">
                         <div class="col-md-2">
                             <label for="qty_terima" class="form-label">Qty Terima</label>
-                            <input type="float" class="form-control" id="qty_terima" name="qty_terima">
+                            <input type="text" class="form-control" id="qty_terima" name="qty_terima">
                         </div>
                     </div>
-
-
-                    <div>
-                        <span id="lblNoSatuan">Nilai Satuan</span>
-                        <span id="lblIdPrim">ID Prim</span>
-                        <span id="lblIdSek">ID Sek</span>
-                        <span id="lblIdTri">ID Tri</span>
-                    </div>
-
-                    <div id="lblInfo">Informasi</div>
-                    <!-- Buttons -->
+                    <span id="keterangan"></span>
                     <div class="row align-items-center">
                         <div class="col-md-12 d-flex justify-content-end">
-                            <button type="button " id="postbutton" class="btn  btn-lg btn-success mr-3">POST</button>
                             <button type="button " id="returbutton" class="btn  btn-lg btn-success mr-3">RETUR</button>
                             <button type="button " id="batalbutton" class="btn  btn-lg btn-success mr-3">BATAL</button>
-                            <button type="button" class="btn btn-danger">EXIT</button>
                         </div>
                     </div>
 

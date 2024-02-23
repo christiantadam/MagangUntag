@@ -453,7 +453,7 @@ supplier.addEventListener("change", function (event) {
 });
 
 POdropdown.addEventListener("change", function (event) {
-    $("#tabelcreate").DataTable().clear();
+    $("#tabelcreate").DataTable().clear().draw();
     clear();
     $.ajax({
         url: "/Create",
@@ -569,7 +569,7 @@ function updateData() {
 function responseData(datas) {
     data = datas;
     let tabelData = $("#tabelcreate").DataTable();
-    tabelData.clear();
+    tabelData.clear().draw();
     data.forEach(function (data) {
         tabelData.row
             .add([
@@ -616,9 +616,9 @@ $(document).ready(function () {
             `Tidak boleh ketik character dan angka dibawah 0, harus angka diatas 0 dan tidak boleh lebih dari QTY Ordered`
         );
         if (sisa <= fixValueQTYOrder && sisa >= 0 && qty_received.value !== '' ) {
-            qty_remaining.value = sisa;
+            qty_remaining.value = sisa.toFixed(2);
             if(qty_received.value != ''){
-                qty_ship.value =  fixValueQTYShip + parseFloat(qty_received.value - fixValueQTYReceived);
+                qty_ship.value =  (fixValueQTYShip + parseFloat(qty_received.value - fixValueQTYReceived)).toFixed(2);
             }
         }
         updateIdrUnit();
