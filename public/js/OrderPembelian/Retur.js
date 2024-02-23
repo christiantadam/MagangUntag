@@ -30,10 +30,55 @@ let idterima;
 let unitMode = 0;
 returbutton.style.display = "block";
 batalbutton.style.display = "none";
+returbutton.disabled = true;
+batalbutton.disabled = true;
 let tabelretur = $("#tabelretur").DataTable();
 let tabelretur1 = $("#tabelretur1").DataTable();
 let csrfToken = $('meta[name="csrf-token"]').attr("content");
 
+alasan.addEventListener("input", function (event) {
+    if (alasan.value.trim() != "") {
+        returbutton.disabled = false;
+    } else {
+        returbutton.disabled = true;
+    }
+});
+qty_terima.addEventListener("input", function (event) {
+    setInputFilter(
+        document.getElementById("qty_terima"),
+        function (value) {
+            return /^-?\d*[.,]?\d*$/.test(value);
+        },
+        "Tidak boleh character, harus angka"
+    );
+});
+returprimer.addEventListener("input", function (event) {
+    setInputFilter(
+        document.getElementById("returprimer"),
+        function (value) {
+            return /^-?\d*[.,]?\d*$/.test(value);
+        },
+        "Tidak boleh character, harus angka"
+    );
+});
+sekunder.addEventListener("input", function (event) {
+    setInputFilter(
+        document.getElementById("sekunder"),
+        function (value) {
+            return /^-?\d*[.,]?\d*$/.test(value);
+        },
+        "Tidak boleh character, harus angka"
+    );
+});
+tertier.addEventListener("input", function (event) {
+    setInputFilter(
+        document.getElementById("tertier"),
+        function (value) {
+            return /^-?\d*[.,]?\d*$/.test(value);
+        },
+        "Tidak boleh character, harus angka"
+    );
+});
 function clearHeader() {
     suplier.value = "";
     payment.value = "";
@@ -133,7 +178,7 @@ function accHangus(data) {
         },
         success: function (response) {
             alert("Data Sudah Tersimpan");
-            retur(unitMode)
+            retur(unitMode);
         },
         error: function (error) {
             console.error("Error sending data to the server:", error);
@@ -142,49 +187,58 @@ function accHangus(data) {
 }
 
 returbutton.addEventListener("click", function (event) {
-    if (unitMode == 1) {
-        if (parseFloat(qty_terima.value) >= parseFloat(returprimer.value)) {
-            if (
-                confirm(
-                    "Yang akan diretur adalah quantity primer. Jumlah qty retur lebih kecil atau sama dengan jumlah qty terima. Lanjutkan proses retur?"
-                )
+    if (alasan.value == "") {
+        returbutton.disabled = true;
+        alert("Alasan Tidak Boleh Kosong");
+    } else {
+        if (unitMode == 1) {
+            if (parseFloat(qty_terima.value) >= parseFloat(returprimer.value)) {
+                if (
+                    confirm(
+                        "Yang akan diretur adalah quantity primer. Jumlah qty retur lebih kecil atau sama dengan jumlah qty terima. Lanjutkan proses retur?"
+                    )
+                ) {
+                    hangusInv();
+                }
+            } else if (
+                parseFloat(qty_terima.value) < parseFloat(returprimer.value)
             ) {
-                hangusInv();
+                alert(
+                    "Yang akan diretur adalah quantity primer. Jumlah qty retur lebih besar dari jumlah qty terima. Retur tidak dapat diproses. Jumlah retur harus lebih kecil atau sama dengan jumlah terima."
+                );
             }
-        } else if (
-            parseFloat(qty_terima.value) < parseFloat(returprimer.value)
-        ) {
-            alert(
-                "Yang akan diretur adalah quantity primer. Jumlah qty retur lebih besar dari jumlah qty terima. Retur tidak dapat diproses. Jumlah retur harus lebih kecil atau sama dengan jumlah terima."
-            );
-        }
-    } else if (unitMode == 2) {
-        if (parseFloat(qty_terima.value) >= parseFloat(sekunder.value)) {
-            if (
-                confirm(
-                    "Yang akan diretur adalah quantity sekunder. Jumlah qty retur lebih kecil atau sama dengan jumlah qty terima. Lanjutkan proses retur?"
-                )
+        } else if (unitMode == 2) {
+            if (parseFloat(qty_terima.value) >= parseFloat(sekunder.value)) {
+                if (
+                    confirm(
+                        "Yang akan diretur adalah quantity sekunder. Jumlah qty retur lebih kecil atau sama dengan jumlah qty terima. Lanjutkan proses retur?"
+                    )
+                ) {
+                    hangusInv();
+                }
+            } else if (
+                parseFloat(qty_terima.value) < parseFloat(sekunder.value)
             ) {
-                hangusInv();
+                alert(
+                    "Yang akan diretur adalah quantity sekunder. Jumlah qty retur lebih besar dari jumlah qty terima. Retur tidak dapat diproses. Jumlah retur harus lebih kecil atau sama dengan jumlah terima."
+                );
             }
-        } else if (parseFloat(qty_terima.value) < parseFloat(sekunder.value)) {
-            alert(
-                "Yang akan diretur adalah quantity sekunder. Jumlah qty retur lebih besar dari jumlah qty terima. Retur tidak dapat diproses. Jumlah retur harus lebih kecil atau sama dengan jumlah terima."
-            );
-        }
-    } else if (unitMode == 3) {
-        if (parseFloat(qty_terima.value) >= parseFloat(tertier.value)) {
-            if (
-                confirm(
-                    "Yang akan diretur adalah quantity tritier. Jumlah qty retur lebih kecil atau sama dengan jumlah qty terima. Lanjutkan proses retur?"
-                )
+        } else if (unitMode == 3) {
+            if (parseFloat(qty_terima.value) >= parseFloat(tertier.value)) {
+                if (
+                    confirm(
+                        "Yang akan diretur adalah quantity tritier. Jumlah qty retur lebih kecil atau sama dengan jumlah qty terima. Lanjutkan proses retur?"
+                    )
+                ) {
+                    hangusInv();
+                }
+            } else if (
+                parseFloat(qty_terima.value) < parseFloat(tertier.value)
             ) {
-                hangusInv();
+                alert(
+                    "Yang akan diretur adalah quantity tritier. Jumlah qty retur lebih besar dari jumlah qty terima. Retur tidak dapat diproses. Jumlah retur harus lebih kecil atau sama dengan jumlah terima."
+                );
             }
-        } else if (parseFloat(qty_terima.value) < parseFloat(tertier.value)) {
-            alert(
-                "Yang akan diretur adalah quantity tritier. Jumlah qty retur lebih besar dari jumlah qty terima. Retur tidak dapat diproses. Jumlah retur harus lebih kecil atau sama dengan jumlah terima."
-            );
         }
     }
 });
@@ -257,6 +311,8 @@ function loadPermohonan() {
         success: function (response) {
             tabelretur.clear().draw();
             tabelretur1.clear().draw();
+            batalbutton.disabled = true;
+            returbutton.disabled = true;
             if (response.tabel.length == 0 || response.input.length == 0) {
                 alert("Data Yang Akan Anda Retur Tidak Ada");
                 clearRetur();
@@ -269,7 +325,6 @@ function loadPermohonan() {
                 clearHeader();
                 clearInv();
                 unitMode = 0;
-
                 data = response.tabel;
                 suplier.value = response.input[0].NM_SUP;
                 payment.value = response.input[0].Pembayaran || "-";
@@ -299,6 +354,8 @@ $("#tabelretur tbody").on("click", "tr", function () {
     clearInv();
     tabelretur1.clear().draw();
     $(this).toggleClass("selected");
+    batalbutton.disabled = true;
+    returbutton.disabled = true;
     jenisTrans = 0;
     unitMode = 0;
     let rowData = tabelretur.row(this).data();
@@ -311,7 +368,9 @@ $("#tabelretur tbody").on("click", "tr", function () {
     sj.value = rowData[1] || "";
     id_terima.value = rowData[2] || "";
     qty_terima.value = rowData[6] || "";
-
+    if (rowData[13]) {
+        returbutton.disabled = false;
+    }
     console.log(id_terima);
     if (rowData[12]) {
         tanggalretur.value = rowData[12].split(" ")[0];
@@ -332,6 +391,7 @@ $("#tabelretur tbody").on("click", "tr", function () {
             jenisTrans = 1; //hapus BTTB, update YTRANSBL jadi 8 atau 9
             returbutton.style.display = "none";
             batalbutton.style.display = "block";
+            batalbutton.disabled = false;
         } else if (
             (rowData[8] && rowData[9] == null) ||
             (rowData[8] && rowData[9] == "")
@@ -341,6 +401,7 @@ $("#tabelretur tbody").on("click", "tr", function () {
             jenisTrans = 2; //update status tmp trans inv jadi 1, hapus BTTB, update YTRANSBL jadi 8 atau 9
             returbutton.style.display = "none";
             batalbutton.style.display = "block";
+            batalbutton.disabled = false;
         } else if (rowData[9]) {
             keterangan.innerHTML =
                 "Data sudah ditransfer ke inventory dan<br>sudah diterima oleh gudang/divisi.<br>Sebelum proses retur, pastikan barang<br>sudah dimutasi ke PBL terlebih dahulu.";
@@ -365,7 +426,6 @@ $("#tabelretur1 tbody").on("click", "tr", function () {
     let returDitemukan = data.filter((obj) => obj.No_terima === No_terima);
 
     let invDitemukan = dataInv.filter((obj) => obj.IdType === rowData[0]);
-    console.log("aaaaa", returDitemukan, invDitemukan);
     if (returDitemukan[0].Satuan_Terima == invDitemukan[0].UnitPrimer) {
         unitMode = 1;
     } else if (
