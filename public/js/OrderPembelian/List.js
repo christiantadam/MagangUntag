@@ -31,6 +31,7 @@ $(document).ready(function () {
 
     function radioButtonIsSelected() {
         let radioButtons = document.getElementsByName("radiobutton");
+
         for (let i = 0; i < radioButtons.length; i++) {
             if (radioButtons[i].checked) {
                 return radioButtons[i].value;
