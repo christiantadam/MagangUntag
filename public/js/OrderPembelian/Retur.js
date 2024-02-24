@@ -305,7 +305,7 @@ batalbutton.addEventListener("click", function (event) {
             console.log(response);
             Swal.fire({
                 icon: "success",
-                title: "Data Tidak Berhasil DiBatalkan!",
+                title: "Data Berhasil DiBatalkan!",
                 showConfirmButton: false,
                 timer: "2000",
             });

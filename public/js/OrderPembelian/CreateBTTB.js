@@ -343,7 +343,7 @@ function print(data) {
                             </div>
                             <div style="width: 70%; height: auto;">
                                 <p style="font-size: 12px; margin: 2px 0;">: ${
-                                    data.printHeader[0].NO_PO
+                                    data.printHeader[0].No_PO
                                 }</p>
                             </div>
                         </div>
@@ -353,7 +353,7 @@ function print(data) {
                             </div>
                             <div style="width: 70%; height: auto;">
                                 <p style="font-size: 12px; margin: 2px 0;">: ${
-                                    data.printHeader[0].Datang
+                                    data.printHeader[0].Datang.split(' ')[0]
                                 }</p>
                             </div>
                         </div>
@@ -363,7 +363,7 @@ function print(data) {
                             </div>
                             <div style="width: 70%; height: auto;">
                                 <p style="font-size: 12px; margin: 2px 0;">: ${
-                                    data.printHeader[0].No_SuratJalan
+                                    data.printHeader[0].No_SuratJalan || ''
                                 }</p>
                             </div>
                         </div>
@@ -410,7 +410,7 @@ function print(data) {
         Page += 1;
     });
     const printWindow = window.open("", "_blank");
-    // window.location.href = "/CreateBTTB";
+    window.location.href = "/CreateBTTB";
     printWindow.document.body.appendChild(printContentDiv);
     printWindow.print();
 }
