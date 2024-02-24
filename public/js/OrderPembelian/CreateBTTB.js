@@ -106,7 +106,7 @@ function setStatusPO() {
             NoPO: POdropdown.value,
         },
         success: function (response) {
-            // console.log(response)
+            console.log(response)
         },
         error: function (error) {
             console.error("Error Send Data:", error);
@@ -167,11 +167,24 @@ function post(bttb) {
             },
             success: function (response) {
                 console.log(response);
+                Swal.fire({
+                    icon: "success",
+                    title: "Data Berhasil DiPost!",
+                    showConfirmButton: false,
+                    timer: "2000",
+                });
                 if (i == data.length - 1) {
+                console.log('print')
                     dataPrint();
                 }
             },
             error: function (error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Data Tidak Berhasil DiPost!",
+                    showConfirmButton: false,
+                    timer: "2000",
+                });
                 console.error("Error Send Data:", error);
             },
         });
@@ -330,7 +343,7 @@ function print(data) {
                             </div>
                             <div style="width: 70%; height: auto;">
                                 <p style="font-size: 12px; margin: 2px 0;">: ${
-                                    data.printHeader[0].NO_PO
+                                    data.printHeader[0].No_PO
                                 }</p>
                             </div>
                         </div>
@@ -340,7 +353,7 @@ function print(data) {
                             </div>
                             <div style="width: 70%; height: auto;">
                                 <p style="font-size: 12px; margin: 2px 0;">: ${
-                                    data.printHeader[0].Datang
+                                    data.printHeader[0].Datang.split(' ')[0]
                                 }</p>
                             </div>
                         </div>
@@ -350,7 +363,7 @@ function print(data) {
                             </div>
                             <div style="width: 70%; height: auto;">
                                 <p style="font-size: 12px; margin: 2px 0;">: ${
-                                    data.printHeader[0].No_SuratJalan
+                                    data.printHeader[0].No_SuratJalan || ''
                                 }</p>
                             </div>
                         </div>
