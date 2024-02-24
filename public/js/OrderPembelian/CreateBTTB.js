@@ -106,7 +106,7 @@ function setStatusPO() {
             NoPO: POdropdown.value,
         },
         success: function (response) {
-            // console.log(response)
+            console.log(response)
         },
         error: function (error) {
             console.error("Error Send Data:", error);
@@ -167,11 +167,24 @@ function post(bttb) {
             },
             success: function (response) {
                 console.log(response);
+                Swal.fire({
+                    icon: "success",
+                    title: "Data Berhasil DiPost!",
+                    showConfirmButton: false,
+                    timer: "2000",
+                });
                 if (i == data.length - 1) {
+                console.log('print')
                     dataPrint();
                 }
             },
             error: function (error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Data Tidak Berhasil DiPost!",
+                    showConfirmButton: false,
+                    timer: "2000",
+                });
                 console.error("Error Send Data:", error);
             },
         });
@@ -397,7 +410,7 @@ function print(data) {
         Page += 1;
     });
     const printWindow = window.open("", "_blank");
-    window.location.href = "/CreateBTTB";
+    // window.location.href = "/CreateBTTB";
     printWindow.document.body.appendChild(printContentDiv);
     printWindow.print();
 }

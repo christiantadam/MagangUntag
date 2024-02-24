@@ -21,7 +21,7 @@
                         <div class="row">
                             <div class="col-md-3 mb-2">
                                 <label for="nobttb" class="form-label">No. BTTB</label>
-                                <input name="nobttb" class="form-control" id="nobttb" >
+                                <input name="nobttb" class="form-control" id="nobttb" readonly>
                             </div>
                             <div class="col-md-3 mb-2">
                                 <label for="nosj" class="form-label">No. SJ</label>

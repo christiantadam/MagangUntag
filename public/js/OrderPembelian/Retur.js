@@ -266,12 +266,24 @@ function retur(mode) {
         },
         success: function (response) {
             console.log("retur", response);
+            Swal.fire({
+                icon: "success",
+                title: "Data Berhasil DiRetur!",
+                showConfirmButton: false,
+                timer: "2000",
+            });
             clearRetur();
             clearInv();
             tabelretur1.clear().draw();
             loadPermohonan();
         },
         error: function (error) {
+            Swal.fire({
+                icon: "error",
+                title: "Data Tidak Berhasil DiRetur!",
+                showConfirmButton: false,
+                timer: "2000",
+            });
             console.error("Error sending data to the server:", error);
         },
     });
@@ -291,11 +303,23 @@ batalbutton.addEventListener("click", function (event) {
         },
         success: function (response) {
             console.log(response);
+            Swal.fire({
+                icon: "success",
+                title: "Data Tidak Berhasil DiBatalkan!",
+                showConfirmButton: false,
+                timer: "2000",
+            });
             clearRetur();
             clearInv();
             loadPermohonan();
         },
         error: function (error) {
+            Swal.fire({
+                icon: "error",
+                title: "Data Tidak Berhasil DiBatalkan",
+                showConfirmButton: false,
+                timer: "2000",
+            });
             console.error("Error sending data to the server:", error);
         },
     });
