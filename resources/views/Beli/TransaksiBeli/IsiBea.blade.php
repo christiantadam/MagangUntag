@@ -1,10 +1,9 @@
 @extends('layouts.appOrderPembelian')
-
 @section('content')
-    <link href="{{ asset('css/ListPurchaseOrder.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <div class="container-fluid ">
+        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/ListOrderPembelian.css') }}" rel="stylesheet">
 
-    <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-10 RDZMobilePaddingLR0">
                 @if (Session::has('success'))
@@ -17,83 +16,190 @@
                     </div>
                 @endif
                 <div class="card">
-                    <div class="card-header">List Purchase Order</div>
-                    <div class="card-body RDZOverflow RDZMobilePaddingLR0">
-                        <div class="col">
-                            <div class="form-check">
-                                <div class="row">
-                                    <div class="col-4 md-2">
-                                        <input class="form-check-input" type="radio" name="radiobutton" id="radiobutton"
-                                            value="tanggal">
-                                        Betwen Date
-                                        <input type="date" class="form-control" id="betwendate1" name="betwendate1">
-                                        <label for="" class="form-label"></label>
-                                        <input type="date" class="form-control" id="betwendate2" name="betwendate2">
-                                        <label for="betwendate2" class="form-label"></label>
-                                    </div>
-
-                                    <div class="col-4 md-1">
-                                        <input class="form-check-input" type="radio" name="radiobutton" value="nomor_po">
-                                        <label class="form-check-label" for="nomor_po">
-                                            Nomor PO </label>
-                                        <input type="text" class="form-control" id="no_po" name="no_po">
-                                        <button class="btn btn-secondary mt-2" id="redisplayButton">Redisplay</button>
+                    <div class="card-header">Input Bea</div>
+                    <div class="card-body">
+                        <div class="w-100 h-auto">
+                            <div class="row">
+                                <div class="col-12 mb-2">
+                                    <div class="row">
+                                        <div class="col-6 ">
+                                            <div class="row align-items-center">
+                                                <div class="col-4 col-md-2">
+                                                    <label for="supplier">Supplier</label>
+                                                </div>
+                                                <div class="col-8 col-md-10">
+                                                    <select name="select_supplier" id="select_supplier" class="input w-100">
+                                                        <option class="w-100 text-center" selected disabled>-- Pilih
+                                                            Supplier --
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="row align-items-center">
+                                                <div class="col-4 col-md-2">
+                                                    <label for="noPO">No. PIB Ext</label>
+                                                </div>
+                                                <div class="col-8 col-md-10">
+                                                    <select name="select_noPO" id="select_noPO" class="input w-100">
+                                                        <option class="w-100">
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <!-- ... sisa konten ... -->
-                                <!-- Tabel Data -->
-                                <table class="table mt-4" id="tabelchelsy">
-
-                                    <thead class="table-dark">
+                            </div>
+                            <div id="div_tablePO" class="acs-form3">
+                                <table id="tableharga" class="table table-bordered table-striped scrollmenu"
+                                    style="width:100%">
+                                    <thead class="thead-dark">
                                         <tr>
-                                            <th>No po</th>
-                                            <th>Status</th>
-                                            <th>Tanggal PO</th>
-                                            <th>Sub Kategori</th>
-                                            <th>Divisi</th>
-                                            <th>User PO</th>
-                                            {{-- <th>No. BTTB</th> --}}
+                                            <th>kd. Barang</th>
+                                            <th>Nama Barang</th>
+                                            <th>Qty Rcv</th>
+                                            <th>Satuan</th>
+                                            <th>Valuta</th>
+                                            <th>Nilai PIB</th>
+                                            <th>Kurs PIB</th>
+                                            <th>Nilai Pabean</th>
+                                            <th>Nilai BM</th>
+                                            <th>Nilai BM KITE</th>
+                                            <th>PPN PIB</th>
+                                            <th>PPH22</th>
+                                            <th>Total PIB</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
-                                    </tbody>
                                 </table>
-                                <!-- Buttons -->
-                                <div class="d-flex justify-content-end">
-                                    <button class="btn btn-danger">Exit</button>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12 mb-2">
+                                    <div class="row align-items-center">
+                                        <div class="col-4 col-md-2">
+                                            <label for="no_po">Kd. Barang</label>
+                                        </div>
+                                        <div class="col-8 col-md-10">
+                                            <input type="text" name="no_po" id="no_po" class="input w-100"
+                                                readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div class="row align-items-center">
+                                        <div class="col-4 col-md-2">
+                                            <label for="kd_barang">Nama Barang</label>
+                                        </div>
+                                        <div class="col-8 col-md-10">
+                                            <input type="text" name="kd_barang" id="kd_barang" class="input w-100"
+                                                readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div class="row align-items-center">
+                                        <div class="col-4 col-md-2">
+                                            <label for="nama_barang">Qty Receive</label>
+                                        </div>
+                                        <div class="col-8 col-md-10">
+                                            <input type="text" name="nama_barang" id="nama_barang" class="input w-100"
+                                                readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div class="row align-items-center">
+                                        <div class="col-4 col-md-2">
+                                            <label for="subkategori">Valuta</label>
+                                        </div>
+                                        <div class="col-8 col-md-10">
+                                            <input type="text" name="subkategori" id="subkategori" class="input w-100"
+                                                readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-6">
+                                            <div class="row align-items-center">
+                                                <div class="col-4">
+                                                    <label for="qty_ordered">Nilai PIB</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input type="text" name="qty_ordered" id="qty_ordered"
+                                                        class="input w-100" readonly>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row align-items-center">
+                                                <div class="col-4 ">
+                                                    <label for="qty_remaining">Kurs PIB</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input type="text" name="qty_remaining" id="qty_remaining"
+                                                        class="input w-100" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-6">
+                                            <div class="row align-items-center">
+                                                <div class="col-4">
+                                                    <label for="qty_received">Nilai Pabean</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input type="text" name="qty_received" id="qty_received"
+                                                        class="input w-100" readonly>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row align-items-center">
+                                                <div class="col-4 ">
+                                                    <label for="qty_cancel">Nilai BM</label>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input type="text" name="qty_cancel" id="qty_cancel"
+                                                        class="input w-100" readonly>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-9">
+                                    <div class="row align-items-center">
+                                        <div class="col-4 col-md-2">
+                                            <label for="alasan_cancel">Nilai BM KITE</label>
+                                        </div>
+                                        <div class="col-8 col-md-10">
+                                            <input type="text" name="alasan_cancel" id="alasan_cancel"
+                                                class="input w-100" readonly>
+                                        </div>
+
+                                        <div class="row mt-3">
+                                            <div class="col-md-6">
+                                                <button type="button" class="btn btn-primary btn-block"
+                                                    id="updateButton">Update</button>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <button type="button" class="btn btn-secondary btn-block"
+                                                    id="clearButton">Clear</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <script src="{{ asset('js/OrderPembelian/List.js') }}"></script>
-
-    {{-- <script>
-        function updateMinDate() {
-            var startDate = document.getElementById("betwendate1").value;
-            document.getElementById("betwendate2").min = startDate;
-        }
-
-        function redisplayData() {
-            // Logika untuk menampilkan kembali data
-            console.log('Redisplaying data...');
-        }
-
-        function exitPage() {
-            // Logika untuk keluar dari halaman
-            console.log('Exiting...');
-        }
-    </script> --}}
-@endsection
+            <script src="{{ asset('js/OrderPembelian/IsiBea.js') }}"></script>
+        @endsection

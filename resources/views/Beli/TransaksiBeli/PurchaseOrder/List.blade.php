@@ -24,12 +24,12 @@
                                 <div class="row">
                                     <div class="col-4 md-2">
                                         <input class="form-check-input" type="radio" name="radiobutton" id="radiobutton"
-                                            value="tanggal">
+                                        value="{{ date('Y-m-d') }}">
                                         Betwen Date
                                         <input type="date" class="form-control" id="betwendate1" name="betwendate1">
-                                        <label for="" class="form-label"></label>
+                                        <label for="betwendate1" class="form-label" > </label>
                                         <input type="date" class="form-control" id="betwendate2" name="betwendate2">
-                                        <label for="betwendate2" class="form-label"></label>
+                                        <label for="betwendate2" class="form-label" ></label>
                                     </div>
 
                                     <div class="col-4 md-1">

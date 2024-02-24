@@ -20,11 +20,8 @@ $(document).ready(function () {
         }
     });
 
-
-
     function getSelectedDateRange() {
         let radioButtons = document.getElementsByName("radiobutton");
-
         for (let i = 0; i < radioButtons.length; i++) {
             if (radioButtons[i].checked) {
                 return radioButtons[i].value === "nomor_po" ? no.value : { startDate: bet1.value, endDate: bet2.value };
@@ -34,7 +31,6 @@ $(document).ready(function () {
 
     function radioButtonIsSelected() {
         let radioButtons = document.getElementsByName("radiobutton");
-
         for (let i = 0; i < radioButtons.length; i++) {
             if (radioButtons[i].checked) {
                 return radioButtons[i].value;

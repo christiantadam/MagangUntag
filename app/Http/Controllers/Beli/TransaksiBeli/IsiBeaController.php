@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Beli\TransaksiBeli;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\HakAksesController;
+
 
 
 class IsiBeaController extends Controller
@@ -11,7 +13,9 @@ class IsiBeaController extends Controller
     // Display a listing of the resource.
     public function index()
     {
-        return view('Beli.TransaksiBeli.IsiBea');
+        $access = (new HakAksesController)->HakAksesFiturMaster('Beli');
+
+        return view('Beli.TransaksiBeli.IsiBea', compact('access'));
     }
 
     //Show the form for creating a new resource.
