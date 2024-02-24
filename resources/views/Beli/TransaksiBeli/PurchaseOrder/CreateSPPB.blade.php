@@ -35,7 +35,7 @@
                                     </div>
                                     <div class="col-10">
                                         <input type="text" name="nomor_purchaseOrder" id="nomor_purchaseOrder"
-                                            class="input w-100" value="{{ $No_PO }}" readonly>
+                                            class="form-control" value="{{ $No_PO }}" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -45,7 +45,7 @@
                                         <label for="supplier">Supplier</label>
                                     </div>
                                     <div class="col-10">
-                                        <select class="input w-100" name="supplier_select" id="supplier_select">
+                                        <select class="form-control" name="supplier_select" id="supplier_select">
                                             <option selected disabled>-- Pilih Supplier --</option>
                                             @foreach ($supplier as $data)
                                                 <option value="{{ $data->NO_SUP }}">{{ $data->NM_SUP }}</option>
@@ -61,7 +61,7 @@
 
                                     </div>
                                     <div class="col-10">
-                                        <select class="input w-100" name="paymentTerm_select" id="paymentTerm_select">
+                                        <select class="form-control" name="paymentTerm_select" id="paymentTerm_select">
                                             <option selected disabled>-- Choose Payment Term --</option>
                                             @foreach ($listPayment as $data)
                                                 <option value="{{ $data->Kode }}">{{ $data->Pembayaran }}</option>
@@ -77,7 +77,7 @@
                                     </div>
                                     <div class="col-10">
                                         <input type="date" name="tanggal_mohonKirim" id="tanggal_mohonKirim"
-                                            class="input w-100">
+                                            class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -88,7 +88,7 @@
                                     </div>
                                     <div class="col-10">
                                         <input type="date" name="tanggal_purchaseOrder" id="tanggal_purchaseOrder"
-                                            class="input w-100">
+                                            class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -99,7 +99,7 @@
 
                                     </div>
                                     <div class="col-10">
-                                        <select class="input w-100" name="matauang_select" id="matauang_select">
+                                        <select class="form-control" name="matauang_select" id="matauang_select">
                                             <option selected disabled>-- Pilih Mata Uang --</option>
                                             @foreach ($mataUang as $data)
                                                 <option value="{{ $data->Id_MataUang }}">{{ $data->Nama_MataUang }}
@@ -151,7 +151,7 @@
                                             <label for="no_po">Nomor Order</label>
                                         </div>
                                         <div class="col-8 col-md-6">
-                                            <input type="text" name="no_po" id="no_po" class="input w-100"
+                                            <input type="text" name="no_po" id="no_po" class="form-control"
                                                 readonly>
                                         </div>
 
@@ -163,7 +163,7 @@
                                             <label for="kode_barang">Kode Barang</label>
                                         </div>
                                         <div class="col-8 col-md-6">
-                                            <input type="text" name="kode_barang" id="kode_barang" class="input w-100"
+                                            <input type="text" name="kode_barang" id="kode_barang" class="form-control"
                                                 readonly>
 
                                         </div>
@@ -175,7 +175,7 @@
                                             <label for="nama_barang">Nama Barang</label>
                                         </div>
                                         <div class="col-8 col-md-6">
-                                            <input type="text" name="nama_barang" id="nama_barang" class="input w-100"
+                                            <input type="text" name="nama_barang" id="nama_barang" class="form-control"
                                                 readonly>
 
                                         </div>
@@ -188,7 +188,7 @@
                                         </div>
                                         <div class="col-8 col-md-6">
                                             <input type="text" name="sub_kategori" id="sub_kategori"
-                                                class="input w-100" readonly>
+                                                class="form-control" readonly>
 
                                         </div>
                                     </div>
@@ -200,7 +200,7 @@
                                         </div>
                                         <div class="col-8 col-md-6">
                                             <input type="text" name="keterangan_order" id="keterangan_order"
-                                                class="input w-100" value="-" readonly>
+                                                class="form-control" value="-" readonly>
 
                                         </div>
                                     </div>
@@ -212,7 +212,7 @@
                                         </div>
                                         <div class="col-8 col-md-6">
                                             <input type="text" name="keterangan_internal" id="keterangan_internal"
-                                                class="input w-100" value="-" readonly>
+                                                class="form-control" value="-" readonly>
 
                                         </div>
                                     </div>
@@ -223,8 +223,8 @@
                                             <label for="alasan_reject">Alasan Reject</label>
                                         </div>
                                         <div class="col-8 col-md-6">
-                                            <input type="text" name="alasan_reject" id="alasan_reject"
-                                                class="input w-100">
+                                            <textarea rows="4" type="text" name="alasan_reject" id="alasan_reject"
+                                                class="form-control"></textarea>
 
                                         </div>
                                     </div>
@@ -240,7 +240,7 @@
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="qty_order" id="qty_order"
-                                                        class="input w-100" value="0">
+                                                        class="form-control" value="0">
                                                 </div>
                                             </div>
                                         </div>
@@ -251,7 +251,7 @@
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="qty_delay" id="qty_delay"
-                                                        class="input w-100" value="0">
+                                                        class="form-control" value="0">
                                                 </div>
                                             </div>
                                         </div>
@@ -266,7 +266,7 @@
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="kurs" id="kurs"
-                                                        class="input w-100" value="1">
+                                                        class="form-control" value="1">
                                                 </div>
                                             </div>
                                         </div>
@@ -277,11 +277,11 @@
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="disc" id="disc"
-                                                        class="input w-100" value="0">
+                                                        class="form-control" value="0">
                                                     <input type="text" name="total_disc" id="total_disc"
-                                                        class="input w-100" value="0" readonly>
+                                                        class="form-control" value="0" readonly>
                                                     <input type="text" name="idr_total_disc" id="idr_total_disc"
-                                                        class="input w-100" value="0" style="display: none" readonly>
+                                                        class="form-control" value="0" style="display: none" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -296,7 +296,7 @@
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="harga_unit" id="harga_unit"
-                                                        class="input w-100" value="0">
+                                                        class="form-control" value="0">
                                                 </div>
                                             </div>
                                         </div>
@@ -307,7 +307,7 @@
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="idr_unit" id="idr_unit"
-                                                        class="input w-100" value="0" readonly>
+                                                        class="form-control" value="0" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -322,7 +322,7 @@
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="harga_sub_total" id="harga_sub_total"
-                                                        class="input w-100" value="0" readonly>
+                                                        class="form-control" value="0" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -333,7 +333,7 @@
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="idr_sub_total" id="idr_sub_total"
-                                                        class="input w-100" value="0" readonly>
+                                                        class="form-control" value="0" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -355,7 +355,7 @@
                                                         @endforeach
                                                     </select>
                                                     <input type="text" name="ppn" id="ppn"
-                                                        class="input w-100" value="0" readonly>
+                                                        class="form-control" value="0" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -366,7 +366,7 @@
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="idr_ppn" id="idr_ppn"
-                                                        class="input w-100" value="0" readonly>
+                                                        class="form-control" value="0" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -381,7 +381,7 @@
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="harga_total" id="harga_total"
-                                                        class="input w-100" readonly>
+                                                        class="form-control" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -392,7 +392,7 @@
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="idr_harga_total" id="idr_harga_total"
-                                                        class="input w-100" readonly>
+                                                        class="form-control" readonly>
                                                 </div>
                                             </div>
                                         </div>

@@ -28,7 +28,7 @@
                                                     <label for="supplier">Supplier</label>
                                                 </div>
                                                 <div class="col-8 col-md-10">
-                                                    <select name="select_supplier" id="select_supplier" class="input w-100">
+                                                    <select name="select_supplier" id="select_supplier" class="form-control">
                                                         @foreach ($sup as $bttb)
                                                             <option value="{{ $bttb->NO_SUP }}">{{ $bttb->NM_SUP }}</option>
                                                         @endforeach
@@ -44,7 +44,7 @@
                                                     <label for="noPO">No. PO</label>
                                                 </div>
                                                 <div class="col-8 col-md-10">
-                                                    <select name="select_noPO" id="select_noPO" class="input w-100">
+                                                    <select name="select_noPO" id="select_noPO" class="form-control">
                                                         <option class="w-100">
                                                         </option>
                                                     </select>
@@ -81,7 +81,7 @@
                                             <label for="no_po">Nomor Order</label>
                                         </div>
                                         <div class="col-8 col-md-10">
-                                            <input type="text" name="no_po" id="no_po" class="input w-100"
+                                            <input type="text" name="no_po" id="no_po" class="form-control"
                                                 readonly>
                                         </div>
                                     </div>
@@ -92,7 +92,7 @@
                                             <label for="kd_barang">Kode Barang</label>
                                         </div>
                                         <div class="col-8 col-md-10">
-                                            <input type="text" name="kd_barang" id="kd_barang" class="input w-100"
+                                            <input type="text" name="kd_barang" id="kd_barang" class="form-control"
                                                 readonly>
                                         </div>
                                     </div>
@@ -103,7 +103,7 @@
                                             <label for="nama_barang">Nama Barang</label>
                                         </div>
                                         <div class="col-8 col-md-10">
-                                            <input type="text" name="nama_barang" id="nama_barang" class="input w-100"
+                                            <input type="text" name="nama_barang" id="nama_barang" class="form-control"
                                                 readonly>
                                         </div>
                                     </div>
@@ -114,7 +114,7 @@
                                             <label for="subkategori">Sub Kategori</label>
                                         </div>
                                         <div class="col-8 col-md-10">
-                                            <input type="text" name="subkategori" id="subkategori" class="input w-100"
+                                            <input type="text" name="subkategori" id="subkategori" class="form-control"
                                                 readonly>
                                         </div>
                                     </div>
@@ -128,7 +128,7 @@
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="qty_ordered" id="qty_ordered"
-                                                        class="input w-100" readonly>
+                                                        class="form-control" readonly>
                                                 </div>
 
                                             </div>
@@ -140,7 +140,7 @@
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="qty_remaining" id="qty_remaining"
-                                                        class="input w-100" readonly>
+                                                        class="form-control" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -155,7 +155,7 @@
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="qty_received" id="qty_received"
-                                                        class="input w-100" readonly>
+                                                        class="form-control" readonly>
                                                 </div>
 
                                             </div>
@@ -167,7 +167,7 @@
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="qty_cancel" id="qty_cancel"
-                                                        class="input w-100" readonly>
+                                                        class="form-control" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -180,7 +180,7 @@
                                         </div>
                                         <div class="col-8 col-md-10">
                                             <input type="text" name="alasan_cancel" id="alasan_cancel"
-                                                class="input w-100" readonly>
+                                                class="form-control">
                                         </div>
                                     </div>
                                     <div class="col-md-12 d-flex justify-content-end pb-4">

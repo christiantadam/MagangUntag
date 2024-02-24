@@ -29,7 +29,7 @@
                                         <label for="no_order">Nomer Order</label>
                                     </div>
                                     <div class="col-8 col-md-10">
-                                        <input type="text" class="input w-100" id="no_order" name="no_order" readonly>
+                                        <input type="text" class="form-control" id="no_order" name="no_order" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -55,7 +55,7 @@
                                         <label for="tgl_mohonKirim">Tanggal Mohon Kirim</label>
                                     </div>
                                     <div class="col-8 col-md-10">
-                                        <input type="date" name="tgl_mohonKirim" id="tgl_mohonKirim" class="input w-100">
+                                        <input type="date" name="tgl_mohonKirim" id="tgl_mohonKirim" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -71,7 +71,7 @@
                                         </select>
                                     </div>
                                     <div class="col-2">
-                                        <input type="text" class="input w-100" id="divisi" name="divisi" readonly>
+                                        <input type="text" class="form-control" id="divisi" name="divisi" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -107,7 +107,7 @@
                                         <label for="pemesan">Pemesan</label>
                                     </div>
                                     <div class="col-8 col-md-10">
-                                        <input type="text" class="input w-100" id="pemesan" name="pemesan">
+                                        <input type="text" class="form-control" id="pemesan" name="pemesan">
                                     </div>
                                 </div>
                             </div>
@@ -122,7 +122,7 @@
                                         <label for="kd_barang">Kd Barang</label>
                                     </div>
                                     <div class="col-8">
-                                        <input type="text" class="input w-100" id="kd_barang" name="kd_barang">
+                                        <input type="text" class="form-control" id="kd_barang" name="kd_barang">
                                     </div>
                                     <div class="col-4 col-md-2">
                                         <button type="button" class="btn btn-primary w-100"
@@ -177,7 +177,7 @@
                                         <label for="ket_khusus">Keterangan Khusus</label>
                                     </div>
                                     <div class="col-8 col-md-10">
-                                        <input type="text" class="input w-100" id="ket_khusus" name="ket_khusus"
+                                        <input type="text" class="form-control" id="ket_khusus" name="ket_khusus"
                                             readonly>
                                     </div>
                                 </div>
@@ -202,7 +202,7 @@
                                         <label for="ket_barang">Keterangan Barang</label>
                                     </div>
                                     <div class="col-8 col-md-10">
-                                        <input type="text" class="input w-100" id="ket_barang" name="ket_barang"
+                                        <input type="text" class="form-control" id="ket_barang" name="ket_barang"
                                             readonly>
                                     </div>
                                 </div>
@@ -247,7 +247,7 @@
                                         <label for="qty_order">Qty Order</label>
                                     </div>
                                     <div class="col-8 col-md-10">
-                                        <input type="text" class="input w-100" id="qty_order" name="qty_order">
+                                        <input type="text" class="form-control" id="qty_order" name="qty_order">
                                     </div>
                                 </div>
                             </div>

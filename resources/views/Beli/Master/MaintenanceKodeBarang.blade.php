@@ -24,7 +24,7 @@
                                         <label for="kd_barang">Kd Barang</label>
                                     </div>
                                     <div class="col-8">
-                                        <input type="text" class="input w-100" id="kd_barang" name="kd_barang">
+                                        <input type="text" class="form-control" id="kd_barang" name="kd_barang">
                                     </div>
                                     <div class="col-4 col-md-2">
                                         <button type="button" class="btn btn-primary w-100"
@@ -89,7 +89,7 @@
                                         <label for="ket_khusus">Keterangan Khusus</label>
                                     </div>
                                     <div class="col-8">
-                                        <input type="text" class="input w-100" id="ket_khusus" name="ket_khusus" readonly>
+                                        <input type="text" class="form-control" id="ket_khusus" name="ket_khusus" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -116,7 +116,7 @@
                                         <label for="ket_barang">Keterangan Barang</label>
                                     </div>
                                     <div class="col-8">
-                                        <input type="text" class="input w-100" id="ket_barang" name="ket_barang">
+                                        <input type="text" class="form-control" id="ket_barang" name="ket_barang">
                                     </div>
                                 </div>
                             </div>
@@ -174,7 +174,7 @@
                                         <label for="org_penjaluk">Orang Penjaluk</label>
                                     </div>
                                     <div class="col-8">
-                                        <input type="text" class="input w-100" id="org_penjaluk" name="org_penjaluk">
+                                        <input type="text" class="form-control" id="org_penjaluk" name="org_penjaluk">
                                     </div>
                                 </div>
                             </div>
@@ -235,67 +235,67 @@
                             <div class="col-12 mb-2">
                                 <div class="row">
                                     <div class="col-3">
-                                        <input type="text" class="input w-100" id="textBox1" name="textBox"
+                                        <input type="text" class="form-control" id="textBox1" name="textBox"
                                             readonly>
                                     </div>
                                     <div class="col-3">
-                                        <input type="text" class="input w-100" id="textBox2" name="textBox"
+                                        <input type="text" class="form-control" id="textBox2" name="textBox"
                                             readonly>
                                     </div>
                                     <div class="col-3">
-                                        <input type="text" class="input w-100" id="textBox3" name="textBox"
+                                        <input type="text" class="form-control" id="textBox3" name="textBox"
                                             readonly>
                                     </div>
                                     <div class="col-3">
-                                        <input type="text" class="input w-100" id="textBox4" name="textBox"
+                                        <input type="text" class="form-control" id="textBox4" name="textBox"
                                             readonly>
                                     </div>
                                     <div class="col-3">
-                                        <input type="text" class="input w-100" id="textBox5" name="textBox"
+                                        <input type="text" class="form-control" id="textBox5" name="textBox"
                                             readonly>
                                     </div>
                                     <div class="col-3">
-                                        <input type="text" class="input w-100" id="textBox6" name="textBox"
+                                        <input type="text" class="form-control" id="textBox6" name="textBox"
                                             readonly>
                                     </div>
                                     <div class="col-3">
-                                        <input type="text" class="input w-100" id="textBox7" name="textBox"
+                                        <input type="text" class="form-control" id="textBox7" name="textBox"
                                             readonly>
                                     </div>
                                     <div class="col-3">
-                                        <input type="text" class="input w-100" id="textBox8" name="textBox"
+                                        <input type="text" class="form-control" id="textBox8" name="textBox"
                                             readonly>
                                     </div>
                                     <div class="col-3">
-                                        <input type="text" class="input w-100" id="textBox9" name="textBox"
+                                        <input type="text" class="form-control" id="textBox9" name="textBox"
                                             readonly>
                                     </div>
                                     <div class="col-3">
-                                        <input type="text" class="input w-100" id="textBox10" name="textBox"
+                                        <input type="text" class="form-control" id="textBox10" name="textBox"
                                             readonly>
                                     </div>
                                     <div class="col-3">
-                                        <input type="text" class="input w-100" id="textBox11" name="textBox"
+                                        <input type="text" class="form-control" id="textBox11" name="textBox"
                                             readonly>
                                     </div>
                                     <div class="col-3">
-                                        <input type="text" class="input w-100" id="textBox12" name="textBox"
+                                        <input type="text" class="form-control" id="textBox12" name="textBox"
                                             readonly>
                                     </div>
                                     <div class="col-3">
-                                        <input type="text" class="input w-100" id="textBox13" name="textBox"
+                                        <input type="text" class="form-control" id="textBox13" name="textBox"
                                             readonly>
                                     </div>
                                     <div class="col-3">
-                                        <input type="text" class="input w-100" id="textBox14" name="textBox"
+                                        <input type="text" class="form-control" id="textBox14" name="textBox"
                                             readonly>
                                     </div>
                                     <div class="col-3">
-                                        <input type="text" class="input w-100" id="textBox15" name="textBox"
+                                        <input type="text" class="form-control" id="textBox15" name="textBox"
                                             readonly>
                                     </div>
                                     <div class="col-3">
-                                        <input type="text" class="input w-100" id="textBox16" name="textBox"
+                                        <input type="text" class="form-control" id="textBox16" name="textBox"
                                             readonly>
                                     </div>
                                 </div>
@@ -325,7 +325,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 <p>Tambah Kategori</p>
-                                                <input type="text" class="input w-100" id="tambah_kategori"
+                                                <input type="text" class="form-control" id="tambah_kategori"
                                                     name="tambah_kategori">
                                             </div>
                                             <div class="modal-footer">
@@ -349,7 +349,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 <p>Tambah Sub Kategori</p>
-                                                <input type="text" class="input w-100" id="tambah_subKategori"
+                                                <input type="text" class="form-control" id="tambah_subKategori"
                                                     name="tambah_subKategori">
                                             </div>
                                             <div class="modal-footer">

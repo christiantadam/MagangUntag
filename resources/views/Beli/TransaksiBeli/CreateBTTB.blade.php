@@ -127,7 +127,7 @@
                                             <label for="no_po">Nomor Order</label>
                                         </div>
                                         <div class="col-8 col-md-6">
-                                            <input type="text" name="no_po" id="no_po" class="input w-100"
+                                            <input type="text" name="no_po" id="no_po" class="form-control"
                                                 readonly>
                                         </div>
 
@@ -139,7 +139,7 @@
                                             <label for="kode_barang">Kode Barang</label>
                                         </div>
                                         <div class="col-8 col-md-6">
-                                            <input type="text" name="kode_barang" id="kode_barang" class="input w-100"
+                                            <input type="text" name="kode_barang" id="kode_barang" class="form-control"
                                                 readonly>
 
                                         </div>
@@ -151,7 +151,7 @@
                                             <label for="nama_barang">Nama Barang</label>
                                         </div>
                                         <div class="col-8 col-md-6">
-                                            <input type="text" name="nama_barang" id="nama_barang" class="input w-100"
+                                            <input type="text" name="nama_barang" id="nama_barang" class="form-control"
                                                 readonly>
 
                                         </div>
@@ -164,7 +164,7 @@
                                         </div>
                                         <div class="col-8 col-md-6">
                                             <input type="text" name="sub_kategori" id="sub_kategori"
-                                                class="input w-100" readonly>
+                                                class="form-control" readonly>
 
                                         </div>
                                     </div>
@@ -176,11 +176,11 @@
                                         </div>
                                         <div class="col-6 col-md-4">
                                             <input type="text" name="qty_ordered" id="qty_ordered"
-                                                class="input w-100">
+                                                class="form-control" readonly>
                                         </div>
                                         <div class="col-2">
                                             <input type="text" name="ordered_satuan" id="ordered_satuan"
-                                                class="input w-100">
+                                                class="form-control" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -191,7 +191,7 @@
                                         </div>
                                         <div class="col-8 col-md-6">
                                             <input type="text" name="qty_ship" id="qty_ship"
-                                                class="input w-100">
+                                                class="form-control" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -202,7 +202,7 @@
                                         </div>
                                         <div class="col-8 col-md-6">
                                             <input type="text" name="qty_received" id="qty_received"
-                                                class="input w-100">
+                                                class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -213,7 +213,7 @@
                                         </div>
                                         <div class="col-8 col-md-6">
                                             <input type="text" name="qty_remaining" id="qty_remaining"
-                                                class="input w-100">
+                                                class="form-control" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -228,7 +228,7 @@
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="kurs" id="kurs"
-                                                        class="input w-100" value="1">
+                                                        class="form-control" value="1">
                                                 </div>
                                             </div>
                                         </div>
@@ -239,7 +239,7 @@
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="mata_uang" id="mata_uang"
-                                                        class="input w-100" value="IDR">
+                                                        class="form-control" value="IDR" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -254,22 +254,20 @@
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="disc" id="disc"
-                                                        class="input w-100" value="0">
+                                                        class="form-control" value="0">
                                                     <input type="text" name="total_disc" id="total_disc"
-                                                        class="input w-100" value="0" readonly>
-                                                    <input type="text" name="idr_total_disc" id="idr_total_disc"
-                                                        class="input w-100" value="0" style="display: none" readonly>
+                                                        class="form-control" value="0" readonly>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="row">
                                                 <div class="col-4">
-                                                    <label for="idr_discount">Idr Discount</label>
+                                                    <label for="idr_total_disc">Idr Discount</label>
                                                 </div>
                                                 <div class="col-8">
-                                                    <input type="text" name="idr_discount" id="idr_discount"
-                                                        class="input w-100" value="0">
+                                                    <input type="text" name="idr_total_disc" id="idr_total_disc"
+                                                        class="form-control" value="0" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -284,7 +282,7 @@
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="harga_unit" id="harga_unit"
-                                                        class="input w-100" value="0">
+                                                        class="form-control" value="0">
                                                 </div>
                                             </div>
                                         </div>
@@ -295,7 +293,7 @@
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="idr_unit" id="idr_unit"
-                                                        class="input w-100" value="0" readonly>
+                                                        class="form-control" value="0" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -310,7 +308,7 @@
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="harga_sub_total" id="harga_sub_total"
-                                                        class="input w-100" value="0" readonly>
+                                                        class="form-control" value="0" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -321,7 +319,7 @@
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="idr_sub_total" id="idr_sub_total"
-                                                        class="input w-100" value="0" readonly>
+                                                        class="form-control" value="0" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -343,7 +341,7 @@
                                                         @endforeach
                                                     </select>
                                                     <input type="text" name="ppn" id="ppn"
-                                                        class="input w-100" value="0" readonly>
+                                                        class="form-control" value="0" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -354,7 +352,7 @@
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="idr_ppn" id="idr_ppn"
-                                                        class="input w-100" value="0" readonly>
+                                                        class="form-control" value="0" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -369,7 +367,7 @@
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="harga_total" id="harga_total"
-                                                        class="input w-100" readonly>
+                                                        class="form-control" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -380,7 +378,7 @@
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="idr_harga_total" id="idr_harga_total"
-                                                        class="input w-100" readonly>
+                                                        class="form-control" readonly>
                                                 </div>
                                             </div>
                                         </div>

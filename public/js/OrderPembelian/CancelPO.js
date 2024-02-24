@@ -96,10 +96,22 @@ document.getElementById("removebutton").addEventListener("click", function () {
         data: { noTrans: no_po.value },
         success: function (response) {
             console.log(response);
+            Swal.fire({
+                icon: "success",
+                title: "Data Berhasil DiClose Order!",
+                showConfirmButton: false,
+                timer: "2000",
+            });
             dropdownData();
             clearData()
         },
         error: function (xhr, status, error) {
+            Swal.fire({
+                icon: "error",
+                title: "Data Tidak Berhasil DiClose Order!",
+                showConfirmButton: false,
+                timer: "2000",
+            });
             console.error("Error: " + error);
         },
     });
@@ -120,10 +132,22 @@ document.getElementById("buttoncancel").addEventListener("click", function () {
         success: function (response) {
             // Lakukan sesuatu setelah pembatalan selesai
             console.log(response);
+            Swal.fire({
+                icon: "success",
+                title: "Data Berhasil DiCancel Order!",
+                showConfirmButton: false,
+                timer: "2000",
+            });
             dropdownData();
             clearData()
         },
         error: function (xhr, status, error) {
+            Swal.fire({
+                icon: "error",
+                title: "Data Tidak Berhasil DiCancel Order!",
+                showConfirmButton: false,
+                timer: "2000",
+            });
             console.error("Error: " + error);
         },
     });

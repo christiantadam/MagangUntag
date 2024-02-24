@@ -28,7 +28,7 @@
                                     </div>
                                     <div class="col-10">
                                         <input type="text" name="nomor_purchaseOrder" id="nomor_purchaseOrder"
-                                            class="input w-100" value="{{ $No_PO }}" readonly>
+                                            class="form-control" value="{{ $No_PO }}" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -38,7 +38,7 @@
                                         <label for="No BTTB">No BTTB</label>
                                     </div>
                                     <div class="col-10">
-                                        <input type="text" name="no_bttb" id="no_bttb" class="input w-100"
+                                        <input type="text" name="no_bttb" id="no_bttb" class="form-control"
                                             value="{{ $No_BTTB }}" readonly>
                                     </div>
                                 </div>
@@ -49,7 +49,7 @@
                                         <label for="tanggal">Tanggal</label>
                                     </div>
                                     <div class="col-10">
-                                        <input type="date" name="tanggal" id="tanggal" class="input w-100">
+                                        <input type="date" name="tanggal" id="tanggal" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -83,7 +83,7 @@
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="no_terima" id="no_terima"
-                                                        class="input w-100" readonly>
+                                                        class="form-control" readonly>
                                                 </div>
 
                                             </div>
@@ -95,7 +95,7 @@
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="kode_barang" id="kode_barang"
-                                                        class="input w-100" readonly>
+                                                        class="form-control" readonly>
 
                                                 </div>
                                             </div>
@@ -107,7 +107,7 @@
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="nama_barang" id="nama_barang"
-                                                        class="input w-100" readonly>
+                                                        class="form-control" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -118,7 +118,7 @@
                                                 </div>
                                                 <div class="col-8 ">
                                                     <input type="text" name="keterangan" id="keterangan"
-                                                        class="input w-100">
+                                                        class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -132,11 +132,11 @@
                                                 </div>
                                                 <div class="col-6">
                                                     <input type="text" name="qty_terima" id="qty_terima"
-                                                        class="input w-100" value="0" readonly>
+                                                        class="form-control" value="0" readonly>
                                                 </div>
                                                 <div class="col-2">
                                                     <input type="text" name="ket_qtyTerima" id="ket_qtyTerima"
-                                                        class="input w-100" value="NULL" readonly>
+                                                        class="form-control" value="NULL" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -147,11 +147,11 @@
                                                 </div>
                                                 <div class="col-6">
                                                     <input type="text" name="qty_premier" id="qty_premier"
-                                                        value="0" class="input w-100" readonly>
+                                                        value="0" class="form-control" readonly>
                                                 </div>
                                                 <div class="col-2">
                                                     <input type="text" name="ket_qtyPremier" id="ket_qtyPremier"
-                                                        class="input w-100" value="NULL" readonly>
+                                                        class="form-control" value="NULL" readonly>
                                                 </div>
 
                                             </div>
@@ -163,12 +163,12 @@
                                                 </div>
                                                 <div class="col-6">
                                                     <input type="text" name="qty_sekunder" id="qty_sekunder"
-                                                        value="0" class="input w-100" readonly>
+                                                        value="0" class="form-control" readonly>
                                                 </div>
 
                                                 <div class="col-2">
                                                     <input type="text" name="ket_qtySekunder" id="ket_qtySekunder"
-                                                        class="input w-100" value="NULL" readonly>
+                                                        class="form-control" value="NULL" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -179,11 +179,11 @@
                                                 </div>
                                                 <div class="col-6">
                                                     <input type="text" name="qty_tertier" id="qty_tertier"
-                                                        value="0" class="input w-100" readonly>
+                                                        value="0" class="form-control" readonly>
                                                 </div>
                                                 <div class="col-2">
                                                     <input type="text" name="ket_qtyTertier" id="ket_qtyTertier"
-                                                        class="input w-100" value="NULL" readonly>
+                                                        class="form-control" value="NULL" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -203,7 +203,7 @@
                                                 </div>
                                                 <div class="col-2">
                                                     <input type="text" name="ket_divisi" id="ket_divisi"
-                                                        class="input w-100" readonly>
+                                                        class="form-control" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -220,7 +220,7 @@
                                                 </div>
                                                 <div class="col-2">
                                                     <input type="text" name="ket_objek" id="ket_objek"
-                                                        class="input w-100" readonly>
+                                                        class="form-control" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -232,12 +232,12 @@
 
                                                 <div class="col-6 col-md-8">
                                                     <input type="text" name="kelompok_utama" id="kelompok_utama"
-                                                        class="input w-100" readonly>
+                                                        class="form-control" readonly>
 
                                                 </div>
                                                 <div class="col-2">
                                                     <input type="text" name="ket_kelompokUtama" id="ket_kelompokUtama"
-                                                        class="input w-100" readonly>
+                                                        class="form-control" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -249,12 +249,12 @@
 
                                                 <div class="col-6 col-md-8">
                                                     <input type="text" name="kelompok" id="kelompok"
-                                                        class="input w-100" readonly>
+                                                        class="form-control" readonly>
 
                                                 </div>
                                                 <div class="col-2">
                                                     <input type="text" name="ket_kelompok" id="ket_kelompok"
-                                                        class="input w-100" readonly>
+                                                        class="form-control" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -266,11 +266,11 @@
 
                                                 <div class="col-6 col-md-8">
                                                     <input type="text" name="sub_kelompok" id="sub_kelompok"
-                                                        class="input w-100" readonly>
+                                                        class="form-control" readonly>
                                                 </div>
                                                 <div class="col-2">
                                                     <input type="text" name="ket_subKelompok" id="ket_subKelompok"
-                                                        class="input w-100" readonly>
+                                                        class="form-control" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -282,7 +282,7 @@
 
                                                 <div class="col-8 col-md-10">
                                                     <input type="text" name="idType" id="idType"
-                                                        class="input w-100" readonly>
+                                                        class="form-control" readonly>
                                                 </div>
 
                                             </div>
@@ -294,11 +294,11 @@
                                                 </div>
                                                 <div class="col-6 col-md-8">
                                                     <input type="text" name="saldo_premier" id="saldo_premier"
-                                                        class="input w-100" readonly>
+                                                        class="form-control" readonly>
                                                 </div>
                                                 <div class="col-2">
                                                     <input type="text" name="ket_saldoPremier" id="ket_saldoPremier"
-                                                        class="input w-100" readonly>
+                                                        class="form-control" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -309,11 +309,11 @@
                                                 </div>
                                                 <div class="col-6 col-md-8">
                                                     <input type="text" name="saldo_sekunder" id="saldo_sekunder"
-                                                        class="input w-100" readonly>
+                                                        class="form-control" readonly>
                                                 </div>
                                                 <div class="col-2">
                                                     <input type="text" name="ket_saldoSekunder" id="ket_saldoSekunder"
-                                                        class="input w-100" readonly>
+                                                        class="form-control" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -324,11 +324,11 @@
                                                 </div>
                                                 <div class="col-6 col-md-8">
                                                     <input type="text" name="saldo_tertier" id="saldo_tertier"
-                                                        class="input w-100" readonly>
+                                                        class="form-control" readonly>
                                                 </div>
                                                 <div class="col-2">
                                                     <input type="text" name="ket_saldoTertier" id="ket_saldoTertier"
-                                                        class="input w-100" readonly>
+                                                        class="form-control" readonly>
                                                 </div>
                                             </div>
                                         </div>
