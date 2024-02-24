@@ -25,9 +25,11 @@ class MaintenanceTeknisi extends Controller
     public function saveTeknisi(Request $request)
     {
         try {
-            $Teknisi = $request->input('Teknisi');
-
-            $data = DB::connection('ConnUtility')->statement('exec SP_INSERT_TEKNISI_GENZET ? ', [$Teknisi]);
+            $NamaUser = $request->input('NamaUser');
+            $Lokasi = $request->input('Lokasi');
+            $DateModified = now(); // Ganti ini sesuai dengan logika bisnis Anda
+            $Aktif = true;
+            $data = DB::connection('ConnUtility')->statement('exec SP_Insert_UtilityTeknisi ?,?,?,? ', [$NamaUser,$Lokasi,$DateModified, $Aktif]);
             return response()->json($data);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'An error occurred while saving the data. Please try again.');

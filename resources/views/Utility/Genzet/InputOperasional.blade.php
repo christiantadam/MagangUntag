@@ -93,8 +93,8 @@
                                     <select class="form-select" aria-label="Default select example" id="teknisi">
                                         <option selected disabled>Pilih teknisi...</option>
                                         @foreach ($teknisi as $data)
-                                            <option value="{{ $data->IdUserMaster }}">
-                                                {{ $data->IdUserMaster }}</option>
+                                            <option value="{{ $data->NamaUser }}">
+                                                {{ $data->NamaUser }}</option>
                                         @endforeach
                                     </select>
                                 </div>

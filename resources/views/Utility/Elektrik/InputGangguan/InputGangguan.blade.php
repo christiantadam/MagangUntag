@@ -55,8 +55,8 @@
                                         <select name="divisi_pelapor" id="teknisi" class="form-select mb-2">
                                             <option selected disabled>Pilih teknisi...</option>
                                             @foreach ($teknisi as $data)
-                                                <option value="{{ $data->IdUserMaster }}">
-                                                    {{ $data->IdUserMaster }}</option>
+                                                <option value="{{ $data->NamaUser }}">
+                                                    {{ $data->NamaUser }}</option>
                                             @endforeach
                                         </select>
                                         <input type="checkbox" name="agree" id="agree">

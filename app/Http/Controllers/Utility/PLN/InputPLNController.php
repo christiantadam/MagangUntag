@@ -16,7 +16,8 @@ class InputPLNController extends Controller
     {
 
         $teknisigenzet = DB::connection('ConnUtility')->select('exec SP_LIST_TEKNISI_GENZET');
-        $teknisi = DB::connection('ConnUtility')->table('Utility_Teknisi')->select('IdUserMaster')->get();
+        $teknisi = DB::connection('ConnUtility')->select('exec SP_Utility_Teknisi');
+
         $sdp = DB::connection('ConnUtility')->select('exec SP_LIST_PRODUKSI_SPD');
 
         $access = (new HakAksesController)->HakAksesFiturMaster('Utility');

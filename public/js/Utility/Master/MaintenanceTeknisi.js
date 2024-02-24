@@ -57,9 +57,9 @@
 // ------------------------------------------------------------------------------------------------------------------------------------- //
 // Modal Teknisi
 
-let updateButtonTeknisi = document.getElementById("updateButton");
-let deleteButtonTeknisi = document.getElementById("deleteButton");
-let saveButtonTeknisi = document.getElementById("saveButton");
+let updateButtonTeknisi = document.getElementById("updateButtonTeknisi");
+let deleteButtonTeknisi = document.getElementById("deleteButtonTeknisi");
+let saveButtonTeknisi = document.getElementById("saveButtonTeknisi");
 let refreshButtonTeknisi = document.getElementById("refreshButton");
 let Teknisi = document.getElementById("teknisi");
 
@@ -120,6 +120,7 @@ $(document).ready(function () {
                     );
                 },
             },
+            { data: "Id_Lokasi" },
             { data: "NamaUser" },
         ],
     });
@@ -138,14 +139,14 @@ $(document).ready(function () {
 
             var selectedRow = $(this).closest("tr");
 
-            var selectedTeknisi = selectedRow.find("td:eq(1)").text();
+            var selectedTeknisi = selectedRow.find("td:eq(2)").text();
 
             var selectedId = $(this).val();
 
-            $("#teknisimodalinput").val(selectedTeknisi);
+            $("#teknisi").val(selectedTeknisi);
             $("#hiddenIdTeknisi").val(selectedId);
         } else {
-            $("#teknisimodalinput").val("");
+            $("#teknisi").val("");
             $("#hiddenIdTeknisi").val("");
         }
     });

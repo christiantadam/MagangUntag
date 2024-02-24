@@ -14,7 +14,7 @@ class InputPerawatanController extends Controller
     {
         $mesin = DB::connection('ConnUtility')->select('exec SP_LIST_MESIN_COMPRESSOR');
         $part = DB::connection('ConnUtility')->select('exec SP_LIST_PART_COMPRESSOR');
-        $teknisi = DB::connection('ConnUtility')->table('Utility_Teknisi')->select('IdUserMaster')->get();
+        $teknisi = DB::connection('ConnUtility')->select('exec SP_Utility_Teknisi');
 
         $access = (new HakAksesController)->HakAksesFiturMaster('Utility');
 
