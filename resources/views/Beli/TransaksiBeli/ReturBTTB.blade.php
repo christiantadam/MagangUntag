@@ -54,20 +54,20 @@
                         <table class="mx-auto w-90 table sm" id="tabelretur">
                             <thead class="table-dark">
                                 <tr>
-                                    <th id="nobttb"> BTTB</th>
+                                    <th> BTTB</th>
                                     <th>No. SJ</th>
-                                    <th id="idTerima">Id Terima</th>
+                                    <th>Id Terima</th>
                                     <th>Kd Barang</th>
                                     <th>Nama Barang</th>
                                     <th>Sub Kategori</th>
                                     <th>Qty Terima</th>
                                     <th>Satuan</th>
-                                    <th>id. Transfer</th>
-                                    <th>id Trans INV</th>
+                                    <th id="idtransfer">id. Transfer</th>
+                                    <th id="idtrinv ">id Trans INV</th>
                                     <th>No Order</th>
                                     <th>Qty Retur</th>
+                                    <th>Alasan</th>
                                     <th>Tgl Retur</th>
-                                    <th>Alasan Retur</th>
                                     <th>Penagih</th>
                                 </tr>
                             </thead>

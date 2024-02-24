@@ -1,10 +1,12 @@
 let jenisTrans;
 let unitMode;
+let idTransferData = ''; // Inisialisasi variabel di luar fungsi responseData
+let idTrans = '';
 let csrfToken = $('meta[name="csrf-token"]').attr("content");
 let tglRetur = document.getElementById("tanggalretur");
 let returQty = document.getElementById("returprimer");
 let Terima = document.getElementById("id_terima");
-let alasan = document.getElementById("alasan")
+let alasan = document.getElementById("alasan");
 
 
 var input = document.getElementById("nomor_po");
@@ -62,42 +64,36 @@ let tabelData = $('#tabelretur').DataTable();
 $('#tabelretur tbody').on('dblclick', 'tr', function () {
     var rowData = tabelData.row(this).data();
 
-    document.getElementById('kdbarang').value = rowData[4] || '';
-    document.getElementById('tanggalretur').value = rowData[12];
-    document.getElementById('namabarang').value = rowData[5] || '';
-    document.getElementById('type').value = rowData[9] || '';
+    document.getElementById('kdbarang').value = rowData[3] || '';
+    document.getElementById('tanggalretur').value = rowData[13];
+    document.getElementById('namabarang').value = rowData[4] || '';
+    document.getElementById('type').value = '';
     document.getElementById('kelompok').value = '';
-    document.getElementById('subkategori').value = rowData[6] || '';
-    document.getElementById('returprimer').value = rowData[11] || '';
-    document.getElementById('sekunder').value = '';
-    document.getElementById('tertier').value = '';
+    document.getElementById('subkategori').value = rowData[5] || '';
     document.getElementById('bttb').value = rowData[0] || '';
     document.getElementById('alasan').value = rowData[13] || '';
     document.getElementById('sj').value = rowData[1] || '';
     document.getElementById('id_terima').value = rowData[2] || '';
     document.getElementById('qty_terima').value = rowData[7] || '';
 
-    var jenisTrans = 0;
-    var trm = $('#idTerima').text().trim();
-    var bttb = $('#nobttb').text().trim();
-
-    if ($('#idTerima').text().trim() === "" && $('#nobttb').text().trim() === "") {
+    if (idTmp.trim().length === 0 && idTrans.trim().length === 0) {
         $('#lblInfo').text("Data belum ditransfer ke inventory. Data adalah berupa jasa. Silahkan diproses batal BTTB.");
         jenisTrans = 1;
         $('#returbutton').show();
         $('#batalbutton').hide();
         $('#postbutton').hide();
-    } else if ($('#idTerima').text().trim() !== "" && $('#nobttb').text().trim() === "") {
+    }
+    if  (idTmp.trim().length > 0 && idTrans.trim().length === 0) {
         $('#lblInfo').text("Data sudah ditransfer ke inventory, tetapi belum diproses terima oleh gudang/divisi. Data adalah berupa jasa. Silahkan diproses batal BTTB.");
         jenisTrans = 2;
         $('#returbutton').hide(); // Sembunyikan tombol retur
         $('#batalbutton').show(); // Tampilkan tombol batal
         $('#postbutton').hide(); // Sembunyikan tombol post
-    } else if ($('#idTerima').text().trim() !== "") {
+    }
+    if (idTmp.trim().length > 0) {
         $('#lblInfo').text("Data sudah ditransfer ke inventory dan sudah diterima oleh gudang/divisi. Sebelum proses retur, pastikan barang sudah dimutasi ke PBL terlebih dahulu.");
-        // Dilakukan pengecekan apakah barang sudah dikembalikan ke inventory PBL
-        checkInvPBL($('#kdbarang').text().trim());
-        if ($('#tabelretur1').children().length > 0) {
+        checkInv(rowData[3])
+        if ($('#TabelRetur1').length > 0) {
             jenisTrans = 3;
             $('#returbutton').show(); // Tampilkan tombol retur
             $('#batalbutton').hide(); // Sembunyikan tombol batal
@@ -109,33 +105,14 @@ $('#tabelretur tbody').on('dblclick', 'tr', function () {
             alert("Belum dapat dilakukan proses retur karena barang belum kembali ke inventory PBL.");
         }
     }
-
-    // Pengecekan kondisi untuk mengatur tampilan tombol retur dan batal
-    if (trm === "" && bttb === "") {
-        $('#returbutton').show(); // Tampilkan tombol retur
-        $('#batalbutton').hide(); // Sembunyikan tombol batal
-        $('#postbutton').hide(); // Sembunyikan tombol post
-    } else if (trm !== "" && bttb === "") {
-        $('#returbutton').hide(); // Sembunyikan tombol retur
-        $('#batalbutton').show(); // Tampilkan tombol batal
-        $('#postbutton').hide(); // Sembunyikan tombol post
-    } else if (trm !== "") {
-        $('#returbutton').show(); // Tampilkan tombol retur
-        $('#batalbutton').show(); // Tampilkan tombol batal
-        $('#postbutton').hide(); // Sembunyikan tombol post
-    } else {
-        $('#returbutton').hide(); // Sembunyikan tombol retur
-        $('#batalbutton').hide(); // Sembunyikan tombol batal
-        $('#postbutton').hide(); // Sembunyikan tombol post
-    }
 });
 
-
+function checkInv(data){
     $.ajax({
         method: "GET",
         url: "/GETRetur",
         data: {
-            kodebarang: rowData[4],
+            kodebarang: data,
         },
         success: function (response) {
             console.log('Data successfully sent to the server');
@@ -147,7 +124,7 @@ $('#tabelretur tbody').on('dblclick', 'tr', function () {
             console.error('Error sending data to the server:', error);
         }
     });
-
+}
 
 //tabelinv
 $(document).ready(function () {
@@ -175,10 +152,13 @@ var lblSek = document.getElementById("lblSek");
 var lblTer = document.getElementById("lblTer");
 
 if (lblNoSatuan === lblIdPrim) {
+    console.log(unitMode);
     unitMode = 1;
 } else if (lblNoSatuan === lblIdSek) {
+    console.log(unitMode);
     unitMode = 2;
 } else if (lblNoSatuan === lblIdTri) {
+    console.log(unitMode);
     unitMode = 3;
 }
 
@@ -188,7 +168,7 @@ $(document).ready(function () {
     $('#postbutton').click(function () {
         var data = {};
 
-        if ($('#postbutton').text() === "RETUR") {
+        if ($('#postbutton').text() === "") {
             var returQty;
             var message;
             if (unitMode === 1) {
@@ -252,7 +232,7 @@ function responseData(datas) {
     let tabelData = $('#tabelretur').DataTable();
     tabelData.clear();
     datas.forEach(function (data) {
-        tabelData.row.add([data.No_BTTB, data.No_SuratJalan, data.No_terima, data.No_trans, data.Kd_brg, data.NAMA_BRG, data.nama_sub_kategori, data.Qty_Terima, data.Nama_satuan, data.NoTransaksiTmp, data.NoTransaksiInv, data.JmlRetur, data.TglRetur, data.KetRetur, data.Satuan_Terima, data.Id_Penagihan]).draw();
+        tabelData.row.add([data.No_BTTB, data.No_SuratJalan, data.No_terima, data.Kd_brg, data.NAMA_BRG, data.nama_sub_kategori, data.Qty_Terima, data.Nama_satuan, data.NoTransaksiTmp, data.NoTransaksiInv, data.No_trans,data.KetRetur, data.JmlRetur,  data.TglRetur, data.Id_Penagihan]).draw();
     });
 }
 
@@ -263,4 +243,3 @@ function responseDataTabelRetur1(datas) {
         tabelData.row.add([data.IdType, data.KodeBarang, data.NamaType, data.SaldoPrimer, data.satPrimer, data.Unitritier, data.SaldoTritier, data.SaldoSekunder, data.satSekunder, data.NamaSubKelompok, data.NamaKelompok, data.NamaKelompokUtama, data.NamaObjek]).draw();
     });
 }
-
