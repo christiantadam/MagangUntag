@@ -16,32 +16,40 @@
                 @endif
                 <div class="card">
                     <div class="card-header">Isi Supplier - Harga</div>
-                    <div class="card-body RDZOverflow RDZMobilePaddingLR0">
-                        <div class="acs-form">
-                            <div class="acs-form1" style="width: 60%">
+                    <div class="card-body">
+                        <div class="w-100 h-auto">
+                            <div class="w-100 h-auto">
                                 <label for="filter">Search by:</label>
-                                <div class="acs-form" style="border: 0.5px grey solid;">
-                                    <div style="display: flex;flex-direction: row;">
-                                        <input type="radio" name="filter_radioButton" id="filter_radioButtonAllOrder"
-                                            value="AllOrder" class="radio-button" checked>
-                                        <p>All Order</p>
+                                <div class="row" id="formCekRedisplay">
+                                    <div class="col-12 col-xl-10">
+                                        <div class="row align-items-center mx-2 mb-4 " style="border: 0.5px grey solid;">
+                                            <div class="col-xl-2">
+                                                <input type="radio" name="filter_radioButton"
+                                                    id="filter_radioButtonAllOrder" value="AllOrder" class="radio-button">
+                                                All Order
+                                            </div>
+                                            <div class="col-xl-2">
+                                                <input type="radio" name="filter_radioButton"
+                                                    id="filter_radioButtonNomorOrder" value="NomorOrder"
+                                                    class="radio-button">
+                                                No. Order
+                                            </div>
+                                            <input type="text" name="search_NomorOrder" id="nomor_order"
+                                                class="input col-12 col-xl-3">
+                                            <div class="col-xl-2">
+                                                <input type="radio" name="filter_radioButton" id="filter_radioButtonUser"
+                                                    value="User" class="radio-button">
+                                                User
+                                            </div>
+                                            <input type="text" name="search_User" id="user"
+                                                class="input col-12 col-xl-3">
+                                        </div>
+
                                     </div>
-                                    <div style="display: flex;flex-direction: row;">
-                                        <input type="radio" name="filter_radioButton" id="filter_radioButtonNomorOrder"
-                                            value="NomorOrder" class="radio-button">
-                                        <p>No. Order</p>
+                                    <div class="col-md-2">
+                                        <button class="btn btn-success w-100" id="button_redisplay">Redisplay</button>
                                     </div>
-                                    <input type="text" name="nomor_order" id="nomor_order" class="input">
-                                    <div style="display: flex;flex-direction: row;">
-                                        <input type="radio" name="filter_radioButton" id="filter_radioButtonUser"
-                                            value="User" class="radio-button">
-                                        <p>User</p>
-                                    </div>
-                                    <input type="text" name="user" id="user" class="input">
                                 </div>
-                            </div>
-                            <div class="acs-form1" style="align-self: self-end">
-                                <button class="btn btn-success acs-btn" id="button_redisplay">Redisplay</button>
                             </div>
                         </div>
                         <div id="div_tablePO" class="acs-form3">
@@ -67,138 +75,320 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="mt-4" id="formApprove">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="col-12 mb-2">
+                                        <div class="row align-items-center">
+                                            <div class="col-4">
+                                                <label for="no_po">Nomor Order</label>
+                                            </div>
+                                            <div class="col-8 col-md-6">
+                                                <input type="text" name="no_po" id="no_po" class="form-control"
+                                                    readonly>
+                                            </div>
 
-                        <div class="acs-form4">
-                            <div class="acs-form5">
-                                <div class="acs-div-filter">
-                                    <label for="nomor_order">Nomor Order</label>
-                                    <input type="text" name="nomor_order" id="nomor_order" class="input">
-                                </div>
-                                <div class="acs-div-filter">
-                                    <label for="status_beli">Status Beli</label>
-                                    <div class="acs-div-filter1">
-                                        <div style="display: flex;flex-direction:row">
-                                            <input type="radio" name="status_beliRadioButton" id="status_beliPengadaanPembelian" class="input" checked>Pengadaan Pembelian
                                         </div>
-                                        <div style="display: flex;flex-direction:row">
-                                            <input type="radio" name="status_beliRadioButton" id="status_beliBeliSendiri" class="input">Beli Sendiri
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <label for="status_beli">Status Beli</label>
+                                        <div class="row align-items-center">
+                                            <div class="col-6">
+                                                <input type="radio" name="status_beliRadioButton"
+                                                    id="status_beliPengadaanPembelian" class="input" disabled checked>Pengadaan
+                                                Pembelian
+                                            </div>
+                                            <div style="col-6">
+                                                <input type="radio" name="status_beliRadioButton"
+                                                    id="status_beliBeliSendiri" class="input" disabled>Beli Sendiri
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <div class="row align-items-center">
+                                            <div class="col-4">
+                                                <label for="tanggal_dibutuhkan">Tanggal Dibutuhkan</label>
+                                            </div>
+                                            <div class="col-8 col-md-6">
+                                                <input type="date" name="tanggal_dibutuhkan" id="tanggal_dibutuhkan"
+                                                    class="form-control" readonly>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <div class="row align-items-center">
+                                            <div class="col-4">
+                                                <label for="divisi">Divisi</label>
+                                            </div>
+                                            <div class="col-8 col-md-6">
+                                                <input type="text" name="divisi" id="divisi" class="form-control"
+                                                    readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <div class="row align-items-center">
+                                            <div class="col-4">
+                                                <label for="kode_barang">Kode Barang</label>
+                                            </div>
+                                            <div class="col-8 col-md-6">
+                                                <input type="text" name="kode_barang" id="kode_barang"
+                                                    class="form-control" readonly>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <div class="row align-items-center">
+                                            <div class="col-4">
+                                                <label for="nama_barang">Nama Barang</label>
+                                            </div>
+                                            <div class="col-8 col-md-6">
+                                                <input type="text" name="nama_barang" id="nama_barang"
+                                                    class="form-control" readonly>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <div class="row align-items-center">
+                                            <div class="col-4">
+                                                <label for="sub_kategori">Sub Kategori</label>
+                                            </div>
+                                            <div class="col-8 col-md-6">
+                                                <input type="text" name="sub_kategori" id="sub_kategori"
+                                                    class="form-control" readonly>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <div class="row align-items-center">
+                                            <div class="col-4">
+                                                <label for="keterangan_order">Keterangan Order</label>
+                                            </div>
+                                            <div class="col-8 col-md-6">
+                                                <input type="text" name="keterangan_order" id="keterangan_order"
+                                                    class="form-control" value="-" readonly>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <div class="row align-items-center">
+                                            <div class="col-4">
+                                                <label for="keterangan_internal">Keterangan Internal</label>
+                                            </div>
+                                            <div class="col-8 col-md-6">
+                                                <input type="text" name="keterangan_internal" id="keterangan_internal"
+                                                    class="form-control" value="-" readonly>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <div class="row align-items-center">
+                                            <div class="col-4">
+                                                <label for="user_input">User</label>
+                                            </div>
+                                            <div class="col-8 col-md-6">
+                                                <input type="text" name="user_input" id="user_input"
+                                                    class="form-control" readonly>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="acs-div-filter">
-                                    <label for="tanggal_dibutuhkan">Tanggal Dibutuhkan</label>
-                                    <input type="date" name="tanggal_dibutuhkan" id="tanggal_dibutuhkan" class="input">
-                                </div>
-                                <div class="acs-div-filter">
-                                    <label for="divisi">Divisi</label>
-                                    <input type="hidden" name="id_divisi" id="id_divisi">
-                                    <input type="text" name="divisi" id="divisi" class="input">
-                                </div>
-                                <div class="acs-div-filter">
-                                    <label for="kode_barang">Kode Barang</label>
-                                    <input type="text" name="kode_barang" id="kode_barang" class="input">
-                                </div>
-                                <div class="acs-div-filter">
-                                    <label for="nama_barang">Nama Barang</label>
-                                    <input type="text" name="nama_barang" id="nama_barang" class="input">
-                                </div>
-                                <div class="acs-div-filter">
-                                    <label for="sub_kategori">Sub Kategori</label>
-                                    <input type="text" name="sub_kategori" id="sub_kategori" class="input">
-                                </div>
-                                <div class="acs-div-filter">
-                                    <label for="keterangan_order">Keterangan Order</label>
-                                    <input type="text" name="keterangan_order" id="keterangan_order" class="input" value="-">
-                                </div>
-                                <div class="acs-div-filter">
-                                    <label for="keterangan_internal">Keterangan Internal</label>
-                                    <input type="text" name="keterangan_internal" id="keterangan_internal" class="input" value="-">
-                                </div>
-                                <div class="acs-div-filter">
-                                    <label for="user">User</label>
-                                    <input type="text" name="user" id="user" class="input">
-                                </div>
-                            </div>
-                            <div class="acs-form5">
-                                <div class="acs-div-filter1" style="align-items: center">
-                                    <label for="qty_order">Qty Order</label>
-                                    <input type="text" name="qty_order" id="qty_order" class="input" value="0">
-                                    <label for="qty_delay">Qty Delay</label>
-                                    <input type="text" name="qty_delay" id="qty_delay" class="input" value="0">
-                                </div>
-                                <div class="acs-div-filter">
-                                    <label for="supplier">Supplier</label>
-                                    <select name="supplier" id="supplier_select">
-                                        <option selected disabled>-- Pilih Supplier --</option>
-                                    </select>
-                                </div>
-                                <div class="acs-div-filter">
-                                    <label for="mata_uang">Mata Uang</label>
-                                    <select name="mata_uang" id="mata_uangSelect">
-                                        <option selected disabled>-- Pilih Mata Uang --</option>
-                                    </select>
-                                </div>
-                                <div class="acs-div-filter">
-                                    <label for="kurs">Kurs</label>
-                                    <input type="text" name="kurs" id="kurs" class="input" value="1">
-                                </div>
-                                <div class="acs-form">
-                                    <div class="acs-form1">
-                                        <div class="acs-div-filter">
-                                            <label for="harga_unit">Harga Unit</label>
-                                            <input type="text" name="harga_unit" id="harga_unit" class="input">
-                                        </div>
-                                        <div class="acs-div-filter">
-                                            <label for="harga_subTotal">Harga SubTotal</label>
-                                            <input type="text" name="harga_subTotal" id="harga_subTotal" class="input">
-                                        </div>
-                                        <div class="acs-div-filter">
-                                            <label for="harga_subTotal">Harga SubTotal</label>
-                                            <input type="text" name="harga_subTotal" id="harga_subTotal" class="input">
-                                        </div>
-                                        <div class="acs-div-filter">
-                                            <label for="ppn">PPN (%)</label>
-                                            <select name="ppn" id="ppn_select">
-                                                <option disabled selected>-- Pilih PPN --</option>
-                                            </select>
-                                            <input type="text" name="harga_ppn" id="harga_ppn" class="input">
-                                        </div>
-                                        <div class="acs-div-filter">
-                                            <label for="harga_total">Harga Total</label>
-                                            <input type="text" name="harga_total" id="harga_total" class="input">
+                                <div class="col-md-6">
+                                    <div class="col-12 mb-2">
+                                        <div class="row align-items-center">
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <label for="qty_order">Qty Order</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <input type="text" name="qty_order" id="qty_order"
+                                                            class="form-control" value="0">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <label for="qty_delay">Qty Delay</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <input type="text" name="qty_delay" id="qty_delay"
+                                                            class="form-control" value="0">
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="acs-form1">
-                                        <div class="acs-div-filter">
-                                            <label for="idr_unit">IDR Unit</label>
-                                            <input type="text" name="idr_unit" id="idr_unit" class="input">
+                                    <div class="col-12 mb-2">
+                                        <div class="row align-items-center">
+                                            <div class="col-4 col-md-2">
+                                                <label for="supplier">Supplier</label>
+                                            </div>
+                                            <div class="col-8 col-md-10">
+                                                <select name="supplier_select" id="supplier_select" class="w-100 input">
+                                                    <option class="w-100" selected disabled>-- Pilih Supplier --</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                        <div class="acs-div-filter">
-                                            <label for="idr_subTotal">IDR SubTotal</label>
-                                            <input type="text" name="idr_subTotal" id="idr_subTotal" class="input">
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <div class="row align-items-center">
+                                            <div class="col-4 col-md-2">
+                                                <label for="mata_uang">Mata Uang</label>
+                                            </div>
+                                            <div class="col-8 col-md-10">
+                                                <select name="matauang_select" id="matauang_select" class="w-100 input">
+                                                    <option class="w-100" selected disabled>-- Pilih Mata Uang --</option>
+                                                </select>
+                                            </div>
                                         </div>
-                                        <div class="acs-div-filter">
-                                            <label for="idr_ppn">IDR PPN</label>
-                                            <input type="text" name="idr_ppn" id="idr_ppn" class="input">
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <div class="row align-items-center">
+                                            <div class="col-4 col-md-2">
+                                                <label for="kurs">Kurs</label>
+                                            </div>
+                                            <div class="col-8 col-md-10">
+                                                <input type="text" name="kurs" id="kurs" class="form-control"
+                                                    value="1">
+                                            </div>
                                         </div>
-                                        <div class="acs-div-filter">
-                                            <label for="idr_total">IDR Total</label>
-                                            <input type="text" name="idr_total" id="idr_total" class="input">
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <div class="row align-items-center">
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <label for="harga_unit">Harga Unit</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <input type="text" name="harga_unit" id="harga_unit"
+                                                            class="form-control" value="0">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <label for="idr_unit">IDR Unit</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <input type="text" name="idr_unit" id="idr_unit"
+                                                            class="form-control" value="0" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <div class="row align-items-center">
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <label for="harga_sub_total">Harga Sub Total</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <input type="text" name="harga_sub_total" id="harga_sub_total"
+                                                            class="form-control" value="0" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <label for="idr_sub_total">IDR Sub Total</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <input type="text" name="idr_sub_total" id="idr_sub_total"
+                                                            class="form-control" value="0" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <div class="row align-items-center">
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <label for="ppn">PPN %</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <select name="ppn_select" id="ppn_select" class="w-100 input">
+                                                            <option class="w-100" selected disabled></option>
+                                                        </select>
+                                                        <input type="text" name="ppn" id="ppn"
+                                                            class="form-control" value="0" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <label for="idr_ppn">IDR PPN</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <input type="text" name="idr_ppn" id="idr_ppn"
+                                                            class="form-control" value="0" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <div class="row align-items-center">
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <label for="harga_total">Harga Total</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <input type="text" name="harga_total" id="harga_total"
+                                                            class="form-control" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <label for="idr_harga_total">IDR Total</label>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <input type="text" name="idr_harga_total" id="idr_harga_total"
+                                                            class="form-control" readonly>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mb-2">
+                                        <div class="row align-items-center">
+                                            <div class="col-4 col-md-2">
+                                                <label for="alasan_reject">Alasan Reject</label>
+                                            </div>
+                                            <div class="col-8 col-md-10">
+                                                <textarea rows="4" type="text" name="alasan_reject" id="alasan_reject"
+                                                    class="form-control"></textarea>
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="acs-div-filter">
-                                    <label for="alasan_reject">Alasan Reject</label>
-                                    <input type="text" name="alasan_reject" id="alasan_reject" class="input">
+                                <div class="col-12">
+                                    <button class="btn btn-success" id="btn_approve">Approve</button>
+                                    <button class="btn btn-info" id="btn_clear">Clear</button>
+                                    <button class="btn btn-danger" id="btn_reject">Reject</button>
                                 </div>
                             </div>
-                            <div class="acs-form6">
-                                <button class="btn btn-success">Approve</button>
-                                <button class="btn btn-info">Clear</button>
-                                <button class="btn btn-danger">Reject</button>
-                            </div>
+
                         </div>
-
                     </div>
                 </div>
             </div>

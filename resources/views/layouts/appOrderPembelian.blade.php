@@ -12,8 +12,9 @@
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <script src="{{ asset('js/app.js') }}"></script>
+    <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
     <!-- <script src="https://code.jquery.com/jquery-3.1.0.js"></script> -->
     <!-- <script src="//code.jquery.com/jquery-1.11.0.min.js"></script> -->
     <script src="{{ asset('js/datatables.min.js') }}"></script>
