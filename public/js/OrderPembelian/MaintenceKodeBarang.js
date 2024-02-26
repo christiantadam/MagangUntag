@@ -485,6 +485,7 @@ select_kategori_utama.addEventListener("change", function (event) {
     let myValue = select_kategori_utama.value.slice(1);
     kategori(myValue, function () {
         select_kategori.disabled = false;
+        btn_tambah_kategori.disabled = false;
         select_subKategori.disabled = true;
         select_namaBarang.disabled = true;
     });
@@ -498,6 +499,7 @@ select_kategori.addEventListener("change", function (event) {
     let myValue = select_kategori.value;
     subKategori(myValue, function () {
         select_subKategori.disabled = false;
+        btn_tambah_subKategori.disabled = false;
         select_namaBarang.disabled = true;
     });
 });

@@ -207,7 +207,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 mb-2">
+                            <div class="col-12 mb-2" style="display: none">
                                 <div class="row">
                                     <div class="col-4 col-md-2 ">
                                         <label for="satuanUmum"">Satuan Umum</label>
@@ -246,8 +246,11 @@
                                     <div class="col-4 col-md-2">
                                         <label for="qty_order">Qty Order</label>
                                     </div>
-                                    <div class="col-8 col-md-10">
-                                        <input type="text" class="form-control" id="qty_order" name="qty_order">
+                                    <div class="col-6 col-md-8">
+                                        <input type="text" class="form-control" id="qty_order" name="qty_order" value="1">
+                                    </div>
+                                    <div class="col-2">
+                                        <input type="text" class="form-control" id="ketStatusOrder" name="ketStatusOrder" value="PC" readonly>
                                     </div>
                                 </div>
                             </div>

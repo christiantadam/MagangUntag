@@ -16,6 +16,7 @@ let ket_barang = document.getElementById("ket_barang");
 let ket_order = document.getElementById("ket_order");
 let ket_internal = document.getElementById("ket_internal");
 let qty_order = document.getElementById("qty_order");
+let ketStatusOrder = document.getElementById("ketStatusOrder");
 let select_satuanUmum = document.getElementById("select_satuanUmum");
 let btn_clear = document.getElementById("btn_clear");
 let btn_save = document.getElementById("btn_save");
@@ -231,11 +232,11 @@ btn_delete.addEventListener("click", function (event) {
         success: function (response) {
             Swal.fire({
                 icon: "success",
-                title: "No. Order "+ data + response.message,
+                title: "No. Order " + data + response.message,
                 showConfirmButton: false,
                 timer: "3000",
             });
-            setTimeout(function() {
+            setTimeout(function () {
                 window.location.href = "/ListOrder";
             }, 4000);
         },
@@ -394,15 +395,16 @@ function clearData() {
     kd_barang.value = "";
     ket_khusus.value = "";
     ket_barang.value = "";
-    ket_order.value = "";
-    ket_internal.value = "";
-    qty_order.value = "";
+    ketStatusOrder.value = "PC";
+    // ket_order.value = "";
+    // ket_internal.value = "";
+    qty_order.value = "1";
     document.getElementById("status_beliPengadaanPembelian").checked = true;
     tgl_mohonKirim.valueAsDate = new Date();
     pemesan.value = "";
     no_order.value = "";
     divisi.value = "";
-    select_divisi.selectedIndex = 0;
+    // select_divisi.selectedIndex = 0;
     select_kategori_utama.selectedIndex = 0;
     select_kategori.disabled = true;
     select_subKategori.disabled = true;
@@ -437,6 +439,7 @@ function cariKodeBarang(kd_barang) {
             if (response.data.length == 0) {
                 alert(`Kode barang ${kd_barang} tidak dapat ditemukan`);
             } else {
+                console.log(response);
                 saldo(kd_barang);
                 if (response.image != null) {
                     foto.style.display = "block";
@@ -503,7 +506,7 @@ function cariKodeBarang(kd_barang) {
 
                 ket_khusus.value = response.data[0].KET_KHUSUS;
                 ket_barang.value = response.data[0].KET;
-
+                ketStatusOrder.value = response.data[0].Nama_satuan.trim();
                 for (let i = 0; i < select_satuanUmum.options.length; i++) {
                     if (
                         select_satuanUmum.options[i].value ===
