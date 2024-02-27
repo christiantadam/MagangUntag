@@ -126,7 +126,7 @@ $(document).ready(function () {
     });
 
     $("#searchTeknisi").on("keypress", function (e) {
-        if (e.which === 13) {
+        if (searchValue !== "") {
             var searchValue = $(this).val().trim();
 
             $.ajax({
@@ -154,10 +154,22 @@ $(document).ready(function () {
                         );
                     });
                 },
+
                 error: function (xhr, status, error) {
                     console.error(error);
+                    $("#teknisi").hide();
                 },
             });
+        }
+        if (searchValue === "") {
+            $("#teknisi").hide();
+            return; // Keluar dari fungsi jika input kosong
+        }
+    });
+    $("#searchTeknisi").on("input", function () {
+        var searchValue = $(this).val().trim();
+        if (searchValue === "") {
+            $("#teknisi").hide();
         }
     });
 
