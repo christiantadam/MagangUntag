@@ -62,6 +62,7 @@ let deleteButtonTeknisi = document.getElementById("deleteButtonTeknisi");
 let saveButtonTeknisi = document.getElementById("saveButtonTeknisi");
 let refreshButtonTeknisi = document.getElementById("refreshButton");
 let Teknisi = document.getElementById("teknisi");
+let Lokasi = document.getElementById("lokasi");
 
 saveButtonTeknisi.disabled = true;
 updateButtonTeknisi.disabled = false;
@@ -69,7 +70,7 @@ deleteButtonTeknisi.disabled = false;
 
 // Function to check if all fields are filled
 function checkAllFieldsFilled2() {
-    return Teknisi.value.trim() !== "";
+    return Teknisi.value.trim() !== "" && Lokasi.value.trim() !== "";
 }
 
 updateButtonTeknisi.addEventListener("click", function () {
@@ -88,6 +89,7 @@ updateButtonTeknisi.addEventListener("click", function () {
         deleteButtonTeknisi.disabled = false;
     } else {
         Teknisi.disabled = false;
+        Lokasi.disabled = false;
         deleteButtonTeknisi.disabled = true;
     }
 });
@@ -102,9 +104,7 @@ $(document).ready(function () {
     var dataTableTeknisi = $("#table-teknisi").DataTable({
         serverSide: true,
         responsive: true,
-        searching: false,
         ordering: false,
-        scrollY: 200,
         ajax: {
             url: "/get-teknisi",
             type: "GET",
@@ -120,9 +120,45 @@ $(document).ready(function () {
                     );
                 },
             },
-            { data: "Id_Lokasi" },
+            { data: "Lokasi" },
             { data: "NamaUser" },
         ],
+    });
+
+    $("#searchTeknisi").on("keypress", function (e) {
+        if (e.which === 13) {
+            var searchValue = $(this).val().trim();
+
+            $.ajax({
+                url: "/search-teknisi",
+                type: "GET",
+                data: {
+                    searchTeknisi: searchValue,
+                },
+                success: function (response) {
+                    $("#teknisi").show();
+                    $("#teknisi").empty();
+                    $("#teknisi").append(
+                        "<option selected disabled>Pilih User..</option>"
+                    );
+
+                    $.each(response, function (index, data) {
+                        $("#teknisi").append(
+                            '<option value="' +
+                                data.NomorUser +
+                                '">' +
+                                data.NamaUser +
+                                " - ( " +
+                                data.NomorUser +
+                                ")</option>"
+                        );
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                },
+            });
+        }
     });
 
     $("#refreshButtonTeknisi").click(function () {
@@ -203,7 +239,6 @@ $(document).ready(function () {
                             showConfirmButton: false,
                             timer: "2000",
                         });
-                        $("#teknisimodalinput").val("");
                         $("#hiddenIdTeknisi").val("");
                     },
                     error: function (error) {
@@ -218,13 +253,15 @@ $(document).ready(function () {
     });
 
     $("#saveButtonTeknisi").click(function () {
-        var TeknisiValue = $("#teknisimodalinput").val();
+        var TeknisiValue = $("#teknisi").val();
+        var LokasiValue = $("#lokasi").val();
         var nomorIdValue = $("#hiddenIdTeknisi").val();
 
         var csrfToken = $('meta[name="csrf-token"]').attr("content");
 
         var requestData = {
-            Teknisi: TeknisiValue,
+            NamaTeknisi: TeknisiValue.trim(),
+            Lokasi: LokasiValue.trim(),
         };
         if (nomorIdValue) {
             requestData.NomorId = nomorIdValue;
@@ -238,6 +275,7 @@ $(document).ready(function () {
                 "X-CSRF-TOKEN": csrfToken,
             },
             success: function (response) {
+                console.log(response);
                 Swal.fire({
                     icon: "success",
                     title: "Data Berhasil Disimpan!",
@@ -246,7 +284,6 @@ $(document).ready(function () {
                 });
 
                 // Clear Form
-                $("#teknisimodalinput").val("");
                 $("#hiddenIdTeknisi").val("");
 
                 dataTableTeknisi.ajax.reload();

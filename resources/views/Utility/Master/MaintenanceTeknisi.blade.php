@@ -12,18 +12,19 @@
                                 <input type="hidden" id="hiddenIdTeknisi">
                                 <div class="acs-div-filter mb-2">
                                     <label for="teknisi">Teknisi</label>
-                                    <input type="text" class="form-control" id="teknisi">
+                                    <input type="text" name="searchTeknisi" id="searchTeknisi" class="form-control">
+                                    <select name="teknisi" id="teknisi" class="form-select mt-3" style="display: none">
+                                    </select>
                                     <label for="lokasi" class="mt-3">Lokasi</label>
-                                    {{-- <input type="text" class="form-control" id="lokasi"> --}}
                                     <select name="lokasi" id="lokasi" class="form-select">
                                         <option selected disabled>Pilih Lokasi</option>
-                                        <option value="Mojosari">Mojosari </option>
-                                        <option value="Tropodo">Tropodo </option>
-                                        <option value="Mlora">Mlora </option>
-                                        <option value="Mlora">Jekek </option>
+                                        @foreach ($lokasi as $lok)
+                                            <option value="{{ $lok->Id_Lokasi }}">
+                                                {{ $lok->Lokasi }} - ( {{ $lok->Id_Lokasi }} )</option>
+                                        @endforeach
                                     </select>
                                 </div>
-                                <div class="table-responsive">
+                                <div class="table-responsive mt-3">
                                     <table class="table" id="table-teknisi">
                                         <thead class="thead-dark">
                                             <tr>

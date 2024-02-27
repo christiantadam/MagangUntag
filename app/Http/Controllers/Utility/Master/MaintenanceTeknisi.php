@@ -18,23 +18,28 @@ class MaintenanceTeknisi extends Controller
     public function index()
     {
         $access = (new HakAksesController)->HakAksesFiturMaster('Utility');
-        return view('Utility.Master.MaintenanceTeknisi', compact('access'));
+        $teknisi = DB::connection('ConnEDP')->table('UserMaster')->get();
+        $lokasi = DB::connection('ConnEDP')->table('Lokasi')->get();
+        return view('Utility.Master.MaintenanceTeknisi', compact('access', 'teknisi', 'lokasi'));
     }
 
 
     public function saveTeknisi(Request $request)
     {
         try {
-            $NamaUser = $request->input('NamaUser');
+            $NamaUser = $request->input('NamaTeknisi');
             $Lokasi = $request->input('Lokasi');
-            $DateModified = now(); // Ganti ini sesuai dengan logika bisnis Anda
-            $Aktif = true;
-            $data = DB::connection('ConnUtility')->statement('exec SP_Insert_UtilityTeknisi ?,?,?,? ', [$NamaUser,$Lokasi,$DateModified, $Aktif]);
-            return response()->json($data);
+            $Aktif = true; // Atur sesuai kebutuhan
+
+            // Memanggil stored procedure dengan DB::connection
+            DB::connection('ConnUtility')->statement('EXEC SP_INSERT_UTILITY_TEKNISI ?,?,?', [$NamaUser, $Lokasi, $Aktif]);
+
+            return response()->json(['success' => 'Data berhasil disimpan']);
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'An error occurred while saving the data. Please try again.');
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.');
         }
     }
+
 
     public function updateTeknisi(Request $request)
     {
@@ -49,9 +54,25 @@ class MaintenanceTeknisi extends Controller
         }
     }
 
+    public function searchTeknisi(Request $request)
+    {
+        // Mendapatkan nilai input pencarian dari request
+        $nama = $request->input('searchTeknisi');
+
+        // Melakukan query untuk mencari NamaUser yang cocok dengan input
+        $listNamaUser = DB::connection('ConnEDP')
+            ->table('UserMaster')
+            ->where('NamaUser', 'LIKE', "%$nama%")
+            ->get();
+
+        // Mengembalikan hasil pencarian dalam bentuk JSON
+        return response()->json($listNamaUser);
+    }
+
+
     public function getTeknisi()
     {
-        $listTeknisi =DB::connection('ConnUtility')->select('exec SP_Utility_Teknisi');
+        $listTeknisi = DB::connection('ConnUtility')->select('exec SP_LIST_UTILITY_TEKNISI');
 
         return datatables($listTeknisi)->make(true);
     }
