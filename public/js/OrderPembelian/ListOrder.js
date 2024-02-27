@@ -200,6 +200,11 @@ $(function () {
                             status;
                         window.location.href = url;
                     } else {
+                        $("#table_ListOrder")
+                        .DataTable()
+                        .rows(".selected")
+                        .nodes()
+                        .each((row) => row.classList.remove("selected"));
                         alert(
                             "Data Tidak Dapat Dikoreksi Karena Status Order Bukan Saved"
                         );

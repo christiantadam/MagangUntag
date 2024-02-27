@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\HakAksesController;
 use DB;
 use GuzzleHttp\Psr7\Response;
+use Illuminate\Support\Facades\Auth;
 
 class IsiSupplierHargaController extends Controller
 {

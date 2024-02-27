@@ -6,6 +6,9 @@ let redisplayButton = document.getElementById("redisplayButton");
 bet1.addEventListener('change', function () {});
 bet2.addEventListener('change', function () {});
 
+bet1.valueAsDate = new Date()
+bet2.valueAsDate = new Date()
+
 $(document).ready(function () {
     redisplayButton.addEventListener("click", function (event) {
         if (radioButtonIsSelected()) {

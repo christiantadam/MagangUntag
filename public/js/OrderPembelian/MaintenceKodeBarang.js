@@ -3,7 +3,7 @@ let select_kategori_utama = document.getElementById("select_kategori_utama");
 let select_kategori = document.getElementById("select_kategori");
 let select_subKategori = document.getElementById("select_subKategori");
 let ket_khusus = document.getElementById("ket_khusus");
-let select_namaBarang = document.getElementById("select_namaBarang");
+let nama_Barang = document.getElementById("nama_Barang");
 let ket_barang = document.getElementById("ket_barang");
 let tambah_kategori = document.getElementById("tambah_kategori");
 let tambah_subKategori = document.getElementById("tambah_subKategori");
@@ -48,11 +48,13 @@ let btn_tambah_kategori = document.getElementById("btn_tambah_kategori");
 let btn_tambah_subKategori = document.getElementById("btn_tambah_subKategori");
 let btn_tambahKategori = document.getElementById("btn_tambahKategori");
 let btn_tambahSubKategori = document.getElementById("btn_tambahSubKategori");
+let btn_cekNamaBarang = document.getElementById("btn_cekNamaBarang");
 let btn_namaBarang = document.getElementById("btn_namaBarang");
 let btn_closeCekBarang = document.getElementById("btn_closeCekBarang");
 
 let csrfToken = $('meta[name="csrf-token"]').attr("content");
 
+let requestCekNamaBarang;
 let dataRes;
 let kdBarangAslinya = "";
 let btnActive = "batal";
@@ -71,6 +73,7 @@ const SpesifikasiType = {
     KarungWovenBag: 1508,
 };
 
+check_export.disabled = true;
 labelExport.style.display = "none";
 groupSpek.style.display = "none";
 
@@ -116,7 +119,7 @@ check_barangSama.addEventListener("click", function (event) {
 btn_isi.addEventListener("click", function () {
     enableElements();
     btnActive = "isi";
-    select_namaBarang.disabled = true;
+    btn_cekNamaBarang.disabled = true;
     btn_isi.disabled = true;
     btn_koreksi.disabled = true;
     btn_hapus.disabled = true;
@@ -144,9 +147,10 @@ btn_proses.addEventListener("click", function (event) {
         let round = "N";
         let kdSpek = null;
         let barangEksport = "N";
-        let namaBarang;
         if (check_barangSama.checked == true) {
             barangSama = "Y";
+        } else {
+            barangSama = "N";
         }
         if (check_round.checked == true) {
             round = "Y";
@@ -157,12 +161,6 @@ btn_proses.addEventListener("click", function (event) {
         if (check_export.checked == true) {
             barangEksport = "Y";
         }
-        for (let i = 0; i < select_namaBarang.options.length; i++) {
-            if (select_namaBarang.options[i].value == select_namaBarang.value) {
-                namaBarang = select_namaBarang.options[i].text;
-            }
-        }
-
         $.ajax({
             url: "/Maintenance/Isi",
             type: "POST",
@@ -175,7 +173,7 @@ btn_proses.addEventListener("click", function (event) {
                 BrgSama: barangSama,
                 KodeBrgAslinya: kd_barang.value.replace(/\s/g, ""),
                 NO_SUB_KATEGORI: select_subKategori.value,
-                NAMA_BRG: namaBarang,
+                NAMA_BRG: nama_Barang.value,
                 KET: ket_barang.value,
                 KET_KHUSUS: ket_khusus.value,
                 ST_TRI: select_satuanTritier.value,
@@ -204,23 +202,22 @@ btn_proses.addEventListener("click", function (event) {
                 Barang_Export: barangEksport,
             },
             success: function (response) {
-                if (barangSama != " N") {
+                if(response.errorInfo == undefined){
                     Swal.fire({
                         icon: "success",
                         title:
                             "Data Berhasil DiTambahkan! Kode Barang =" +
-                            select_kategori_utama.value[0] +
-                            select_jenisPembelian.value +
-                            kd_barang.value.replace(/\s/g, "").slice(-7),
+                            response.kd,
                         showConfirmButton: false,
                         timer: "5000",
                     });
-                } else {
+                }else{
                     Swal.fire({
-                        icon: "success",
-                        title: "Data Berhasil DiTambahkan!",
+                        icon: "error",
+                        title:
+                            "Data Tidak Berhasil DiTambahkan Karena Data Sudah Ada!",
                         showConfirmButton: false,
-                        timer: "2000",
+                        timer: "5000",
                     });
                 }
                 clearData();
@@ -244,7 +241,6 @@ btn_proses.addEventListener("click", function (event) {
         let round = "N";
         let kdSpek = null;
         let barangEksport = "N";
-        let namaBarang;
 
         if (check_round.checked == true) {
             round = "Y";
@@ -254,11 +250,6 @@ btn_proses.addEventListener("click", function (event) {
         }
         if (check_export.checked == true) {
             barangEksport = "Y";
-        }
-        for (let i = 0; i < select_namaBarang.options.length; i++) {
-            if (select_namaBarang.options[i].value == select_namaBarang.value) {
-                namaBarang = select_namaBarang.options[i].text;
-            }
         }
 
         $.ajax({
@@ -270,7 +261,7 @@ btn_proses.addEventListener("click", function (event) {
             data: {
                 KD_BRG: kd_barang.value.replace(/\s/g, ""),
                 NO_SUB_KATEGORI: select_subKategori.value,
-                NAMA_BRG: namaBarang,
+                NAMA_BRG: nama_Barang.value,
                 KET: ket_barang.value,
                 KET_KHUSUS: ket_khusus.value,
                 ST_TRI: select_satuanTritier.value,
@@ -312,7 +303,6 @@ btn_proses.addEventListener("click", function (event) {
                 btn_isi.disabled = false;
                 btn_koreksi.disabled = false;
                 btn_hapus.disabled = false;
-                console.log(response);
             },
             error: function (error) {
                 Swal.fire({
@@ -348,7 +338,6 @@ btn_proses.addEventListener("click", function (event) {
                 btn_isi.disabled = false;
                 btn_koreksi.disabled = false;
                 btn_hapus.disabled = false;
-                console.log(response);
             },
             error: function (error) {
                 Swal.fire({
@@ -364,6 +353,7 @@ btn_proses.addEventListener("click", function (event) {
 });
 
 btn_closeCekBarang.addEventListener("click", function (event) {
+    abortCekNamaBarang()
     $("#table_cekNamaBarang").DataTable().clear().destroy();
 });
 
@@ -436,8 +426,7 @@ btn_tambahSubKategori.addEventListener("click", function (event) {
             tambah_subKategori.value = "";
             select_subKategori.selectedIndex = 0;
             clearOptions(select_subKategori);
-            select_namaBarang.selectedIndex = 0;
-            clearOptions(select_namaBarang);
+            $("#table_namaBarang").DataTable().clear().destroy();
             subKategori(select_kategori.value, function () {});
         },
         error: function (error) {
@@ -453,10 +442,10 @@ btn_tambahSubKategori.addEventListener("click", function (event) {
 });
 btn_namaBarang.addEventListener("click", function (event) {
     let namaBarang;
-    if (select_namaBarang.selectedIndex == 0) {
+    if (kd_barang.value.replace(/\s/g, "") == 0) {
         namaBarang = "";
     } else {
-        namaBarang = select_namaBarang.value;
+        namaBarang = kd_barang.value.replace(/\s/g, "");
     }
 
     let table = $("#table_cekNamaBarang").DataTable({
@@ -469,6 +458,9 @@ btn_namaBarang.addEventListener("click", function (event) {
             data: function (data) {
                 data.kd_barang = namaBarang;
             },
+            beforeSend: function(xhr) {
+                requestCekNamaBarang = xhr;
+            }
         },
         columns: [
             { data: "nama_sub_kategori" },
@@ -478,7 +470,11 @@ btn_namaBarang.addEventListener("click", function (event) {
     });
 });
 
-check_export.disabled = true;
+function abortCekNamaBarang() {
+    if (requestCekNamaBarang) {
+        requestCekNamaBarang.abort();
+    }
+}
 
 select_kategori_utama.addEventListener("change", function (event) {
     optionClr();
@@ -487,34 +483,26 @@ select_kategori_utama.addEventListener("change", function (event) {
         select_kategori.disabled = false;
         btn_tambah_kategori.disabled = false;
         select_subKategori.disabled = true;
-        select_namaBarang.disabled = true;
+        btn_cekNamaBarang.disabled = true;
     });
 });
 
 select_kategori.addEventListener("change", function (event) {
     select_subKategori.selectedIndex = 0;
     clearOptions(select_subKategori);
-    select_namaBarang.selectedIndex = 0;
-    clearOptions(select_namaBarang);
+    $("#table_namaBarang").DataTable().clear().destroy();
     let myValue = select_kategori.value;
     subKategori(myValue, function () {
         select_subKategori.disabled = false;
         btn_tambah_subKategori.disabled = false;
-        select_namaBarang.disabled = true;
+        btn_cekNamaBarang.disabled = true;
     });
 });
 
 select_subKategori.addEventListener("change", function (event) {
-    select_namaBarang.selectedIndex = 0;
-    clearOptions(select_namaBarang);
+    $("#table_namaBarang").DataTable().clear().destroy();
     let myValue = select_subKategori.value;
-    namaBarang(myValue, function () {
-        if (btnActive == "isi") {
-            select_namaBarang.disabled = true;
-        } else {
-            select_namaBarang.disabled = false;
-        }
-    });
+    namaBarang(myValue);
 });
 
 function clearOptions(selectElement) {
@@ -529,13 +517,13 @@ function optionClr() {
     clearOptions(select_kategori);
     select_subKategori.selectedIndex = 0;
     clearOptions(select_subKategori);
-    select_namaBarang.selectedIndex = 0;
-    clearOptions(select_namaBarang);
+    $("#table_namaBarang").DataTable().clear().destroy();
 }
 function clearData() {
     labelExport.style.display = "none";
     tamValueNamaBrg = "";
     kd_barang.value = "";
+    nama_Barang.value = "";
     ket_khusus.value = "";
     org_penjaluk.value = "";
     ket_barang.value = "";
@@ -585,7 +573,17 @@ function cariKodeBarang(kd_barang) {
             console.log(response);
             if (response.length == 0) {
                 alert(`Kode barang ${kd_barang} tidak dapat ditemukan`);
+                clearData();
+                btn_tambah_kategori.disabled = true;
+                btn_tambah_subKategori.disabled = true;
+                btn_cekNamaBarang.disabled = true;
+                select_kategori.disabled = true;
+                select_subKategori.disabled = true;
             } else {
+                btn_tambah_kategori.disabled = false;
+                btn_tambah_subKategori.disabled = false;
+                select_kategori.disabled = false;
+                select_subKategori.disabled = false;
                 kategori(response[0].no_kat_utama, function () {
                     for (let i = 0; i < select_kategori.options.length; i++) {
                         if (
@@ -616,19 +614,12 @@ function cariKodeBarang(kd_barang) {
                         }
                     }
                 });
-
-                namaBarang(response[0].no_sub_kategori, function () {
-                    for (let i = 0; i < select_namaBarang.options.length; i++) {
-                        if (
-                            select_namaBarang.options[i].text.replace(
-                                /\s/g,
-                                ""
-                            ) === response[0].NAMA_BRG.replace(/\s/g, "")
-                        ) {
-                            select_namaBarang.selectedIndex = i;
-                        }
-                    }
-                });
+                nama_Barang.value = response[0].NAMA_BRG;
+                if (btnActive != "isi") {
+                    $("#table_namaBarang").DataTable().clear().destroy();
+                    namaBarang(response[0].no_sub_kategori);
+                } else {
+                }
 
                 for (let i = 0; i < select_kategori_utama.options.length; i++) {
                     if (
@@ -776,12 +767,10 @@ function cariKodeBarang(kd_barang) {
             console.error("Error Fetch Data:", error);
         },
     });
-    select_kategori.disabled = false;
-    select_subKategori.disabled = false;
     if (btnActive == "isi") {
-        select_namaBarang.disabled = true;
+        btn_cekNamaBarang.disabled = true;
     } else {
-        select_namaBarang.disabled = false;
+        btn_cekNamaBarang.disabled = false;
     }
 }
 
@@ -831,26 +820,25 @@ function subKategori(MyValue, callback) {
         },
     });
 }
-function namaBarang(MyValue, callback) {
-    $.ajax({
-        url: "/Maintenance/NamaBarang",
-        type: "GET",
-        data: {
-            MyValue: MyValue,
+function namaBarang(MyValue) {
+    let table = $("#table_namaBarang").DataTable({
+        responsive: true,
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: "/Maintenance/NamaBarang",
+            type: "GET",
+            data: function (data) {
+                data.MyValue = MyValue;
+            },
         },
-        success: function (response) {
-            response.forEach(function (data) {
-                let option = document.createElement("option");
-                option.value = data.KD_BRG;
-                option.text = data.NAMA_BRG;
-                select_namaBarang.add(option);
+        columns: [{ data: "KD_BRG" }, { data: "NAMA_BRG" }],
+        rowCallback: function (row, data) {
+            $(row).on("click", function (event) {
+                clearData();
+                cariKodeBarang(data.KD_BRG);
+                kd_barang.value = data.KD_BRG;
             });
-            if (typeof callback === "function") {
-                callback();
-            }
-        },
-        error: function (error) {
-            console.error("Error Fetch Data:", error);
         },
     });
 }
@@ -1437,7 +1425,6 @@ function PecahKarungWovenBag(TypeBrg) {
         MySearchChar = "+";
         MyPos = TypeBrg.indexOf(MySearchChar, MyStart);
         Lebar = TypeBrg.substring(MyStart, MyPos).trim();
-        console.log(Lebar);
         LongOfValue = Lebar.length;
         try {
             MySearchChar = ".";
@@ -1646,7 +1633,8 @@ function disableAll() {
     select_kategori.disabled = true;
     select_subKategori.disabled = true;
     ket_khusus.disabled = true;
-    select_namaBarang.disabled = true;
+    btn_cekNamaBarang.disabled = true;
+    nama_Barang.disabled = true;
     ket_barang.disabled = true;
     select_jenisPembelian.disabled = true;
     check_barangSama.disabled = true;
@@ -1681,6 +1669,7 @@ function enableElements() {
     btn_tambah_kategoriUtama.disabled = false;
     btn_namaBarang.disabled = false;
     btn_batal.disabled = false;
+    nama_Barang.disabled = false;
 }
 
 $(document).ready(function () {

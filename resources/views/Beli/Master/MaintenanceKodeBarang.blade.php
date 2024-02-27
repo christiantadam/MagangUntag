@@ -45,7 +45,7 @@
                                     </div>
                                     <div class="col-4 col-md-2">
                                         <button type="button" class="btn btn-success w-100"
-                                            id="btn_tambah_kategoriUtama">Tambah</button>
+                                            id="btn_tambah_kategoriUtama" data-toggle="modal" data-target="#tambahKategoriUtamaModal">Tambah</button>
                                     </div>
                                 </div>
                             </div>
@@ -99,13 +99,12 @@
                                         <label for="namaBarang">Nama Barang</label>
                                     </div>
                                     <div class="col-8">
-                                        <select name="select_namaBarang" id="select_namaBarang" class="w-100 input">
-                                            <option class="w-100 text-center" selected disabled>-- Pilih Nama Barang --
-                                            </option>
-                                        </select>
+                                        <input type="text" class="form-control" id="nama_Barang" name="nama_Barang">
                                     </div>
                                     <div class="col-4 col-md-2">
-                                        <button type="button" class="btn btn-primary w-100" id="btn_namaBarang"
+                                        <button type="button" class="btn btn-primary w-100" id="btn_cekNamaBarang"
+                                            data-toggle="modal" data-target="#namaBarangModal">Nama Barang</button>
+                                            <button type="button" class="btn btn-primary w-100" id="btn_namaBarang"
                                             data-toggle="modal" data-target="#cekNamaBarangModal">Cek</button>
                                     </div>
                                 </div>
@@ -316,6 +315,25 @@
                                 </div>
                             </div>
                             <div class="col-12">
+                                <div class="modal fade" id="tambahKategoriUtamaModal" tabindex="-1" role="dialog"
+                                    aria-labelledby="tambahKategoriUtamaModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="tambahKategoriUtamaModalLabel">Isi Kategori</h5>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Tambah Kategori Utama Belum Dibuat Jreng</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
                                 <div class="modal fade" id="tambahKategoriModal" tabindex="-1" role="dialog"
                                     aria-labelledby="tambahKategoriModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -358,6 +376,35 @@
                                                 <button type="button" class="btn btn-primary"
                                                     id="btn_tambahSubKategori">Tambah</button>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
+                                id="namaBarangModal" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="tambahKategoriModalLabel">Nama Barang
+                                            </h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            <table id="table_namaBarang" class="table table-bordered table-striped"
+                                                style="width:100%">
+                                                <thead class="thead-dark">
+                                                    <tr>
+                                                        <th>Kode</th>
+                                                        <th>Deskripsi</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                                id="btn_closeNamaBarang">Close</button>
                                         </div>
                                     </div>
                                 </div>

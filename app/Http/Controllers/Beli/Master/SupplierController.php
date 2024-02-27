@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
 use App\Http\Controllers\HakAksesController;
-
+use Illuminate\Support\Facades\Auth;
 class SupplierController extends Controller
 {
     // Display a listing of the resource.
