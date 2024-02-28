@@ -189,7 +189,7 @@ $(function () {
                     );
                     if (cariData[0].StatusOrder == 0) {
                         let status = "r";
-                        if (cariData[0].kd_user == idUser) {
+                        if (cariData[0].kd_user == 1001) {
                             status = "u";
                         }
                         const url =
@@ -199,15 +199,6 @@ $(function () {
                             "&s=" +
                             status;
                         window.location.href = url;
-                    } else {
-                        $("#table_ListOrder")
-                        .DataTable()
-                        .rows(".selected")
-                        .nodes()
-                        .each((row) => row.classList.remove("selected"));
-                        alert(
-                            "Data Tidak Dapat Dikoreksi Karena Status Order Bukan Saved"
-                        );
                     }
                 } else {
                     $("#table_ListOrder")
