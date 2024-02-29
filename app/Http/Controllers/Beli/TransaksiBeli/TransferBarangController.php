@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\HakAksesController;
 use DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class TransferBarangController extends Controller
 {

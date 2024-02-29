@@ -105,7 +105,7 @@
                                 </tbody>
                             </table>
                         </div>
-
+                        <div class=""><p>Klik Status Order Saved Untuk Melakukan Koreksi</p></div>
                     </div>
                 </div>
             </div>
