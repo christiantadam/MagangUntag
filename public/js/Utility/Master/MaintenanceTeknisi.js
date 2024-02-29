@@ -299,6 +299,9 @@ $(document).ready(function () {
                 $("#hiddenIdTeknisi").val("");
 
                 dataTableTeknisi.ajax.reload();
+                $("#searchTeknisi").val("");
+                $("#lokasi").val("");
+                $("#teknisi").hide();
             },
             error: function (error) {
                 Swal.fire({

@@ -19,7 +19,7 @@ class InputGangguanElektrikController extends Controller
     public function index()
     {
         $divisi = DB::connection('ConnUtility')->select('exec SP_LIST_DIVISI_PELAPOR');
-        $teknisi = DB::connection('ConnUtility')->select('exec SP_Utility_Teknisi');
+        $teknisi = DB::connection('ConnUtility')->select('exec SP_LIST_UTILITY_TEKNISI');
 
         $access = (new HakAksesController)->HakAksesFiturMaster('Utility');
         return view('Utility.Elektrik.InputGangguan.InputGangguan', compact('teknisi', 'divisi', 'access'));

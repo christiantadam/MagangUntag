@@ -16,7 +16,7 @@ class InputPLNController extends Controller
     {
 
         $teknisigenzet = DB::connection('ConnUtility')->select('exec SP_LIST_TEKNISI_GENZET');
-        $teknisi = DB::connection('ConnUtility')->select('exec SP_Utility_Teknisi');
+        $teknisi = DB::connection('ConnUtility')->select('exec SP_LIST_UTILITY_TEKNISI');
 
         $sdp = DB::connection('ConnUtility')->select('exec SP_LIST_PRODUKSI_SPD');
 
