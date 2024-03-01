@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-md-8 RDZMobilePaddingLR0">
+            <div class="col-md-10 RDZMobilePaddingLR0">
                 <div class="card">
                     <div class="card-header">Input Gangguan</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">

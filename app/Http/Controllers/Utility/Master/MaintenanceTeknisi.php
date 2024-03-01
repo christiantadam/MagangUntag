@@ -34,7 +34,7 @@ class MaintenanceTeknisi extends Controller
             // Memanggil stored procedure dengan DB::connection
             DB::connection('ConnUtility')->statement('EXEC SP_INSERT_UTILITY_TEKNISI ?,?,?', [$NamaUser, $Lokasi, $Aktif]);
 
-            return response()->json(['success' => 'Data berhasil disimpan']);
+            return response()->json(['success' => 'Data Teknisi berhasil disimpan']);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.');
         }
@@ -69,6 +69,18 @@ class MaintenanceTeknisi extends Controller
         return response()->json($listNamaUser);
     }
 
+    public function getTeknisiById(Request $request)
+    {
+        $id = $request->input('id');
+
+        $listTeknisi = DB::connection('ConnUtility')
+            ->table('Utility_Teknisi')
+            ->where('Id_Teknisi', $id)
+            ->first();
+
+        return response()->json($listTeknisi);
+    }
+
 
     public function getTeknisi()
     {
@@ -83,7 +95,7 @@ class MaintenanceTeknisi extends Controller
             $Id = $request->input('id');
 
             foreach ($Id as $id) {
-                DB::connection('ConnUtility')->statement('exec SP_HAPUS_TEKNISI_GENZET @NoTeknisi = ?', [$id]);
+                DB::connection('ConnUtility')->statement('exec SP_HAPUS_UTILITY_TEKNISI @Id_Teknisi = ?', [$id]);
             }
 
             return response()->json(['success' => true]);

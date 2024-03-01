@@ -245,13 +245,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/save-statuslog', [App\Http\Controllers\Utility\Genzet\StatusLog\StatusLogController::class, 'savestatuslog'])->name('save-statuslog');
     Route::put('/update-statuslog', [App\Http\Controllers\Utility\Genzet\StatusLog\StatusLogController::class, 'updatestatuslog'])->name('update-statuslog');
     Route::delete('/delete-statuslog', [App\Http\Controllers\Utility\Genzet\StatusLog\StatusLogController::class, 'deletestatuslog'])->name('delete-statuslog');
-
-    // Teknisi Genzet
-    // Route::get('/get-teknisi', [App\Http\Controllers\Utility\Genzet\Teknisi\TeknisiController::class, 'getTeknisi'])->name('get-teknisi');
-    // Route::post('/save-teknisi', [App\Http\Controllers\Utility\Genzet\Teknisi\TeknisiController::class, 'saveTeknisi'])->name('save-teknisi');
-    // Route::put('/update-teknisi', [App\Http\Controllers\Utility\Genzet\Teknisi\TeknisiController::class, 'updateTeknisi'])->name('update-teknisi');
-    // Route::delete('/delete-teknisi', [App\Http\Controllers\Utility\Genzet\Teknisi\TeknisiController::class, 'deleteTeknisi'])->name('delete-teknisi');
-
     // Panel Induk
     Route::resource('InputGangguanPanel', App\Http\Controllers\Utility\PanelInduk\InputGangguanPanelController::class);
     Route::put('/update-panel', [App\Http\Controllers\Utility\PanelInduk\InputGangguanPanelController::class, 'updatePANEL'])->name('update-pdam');
@@ -298,6 +291,7 @@ Route::group(['middleware' => ['auth']], function () {
     //Master
     Route::resource('MaintenanceTeknisi', App\Http\Controllers\Utility\Master\MaintenanceTeknisi::class);
     Route::get('/get-teknisi', [App\Http\Controllers\Utility\Master\MaintenanceTeknisi::class, 'getTeknisi'])->name('get-teknisi');
+    Route::get('/get-teknisi-id', [App\Http\Controllers\Utility\Master\MaintenanceTeknisi::class, 'getTeknisiById'])->name('get-teknisi');
     Route::get('/search-teknisi', [App\Http\Controllers\Utility\Master\MaintenanceTeknisi::class, 'searchTeknisi'])->name('search-teknisi');
     Route::post('/save-teknisi', [App\Http\Controllers\Utility\Master\MaintenanceTeknisi::class, 'saveTeknisi'])->name('save-teknisi');
     Route::put('/update-teknisi', [App\Http\Controllers\Utility\Master\MaintenanceTeknisi::class, 'updateTeknisi'])->name('update-teknisi');

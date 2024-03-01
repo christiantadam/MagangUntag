@@ -95,7 +95,7 @@ updateButtonTeknisi.addEventListener("click", function () {
 });
 
 // Add event listeners to enable/disable saveButton based on input field values
-[Teknisi].forEach(function (inputField) {
+[Teknisi, Lokasi].forEach(function (inputField) {
     inputField.addEventListener("input", function () {
         saveButtonTeknisi.disabled = !checkAllFieldsFilled2();
     });
@@ -145,7 +145,7 @@ $(document).ready(function () {
                     $.each(response, function (index, data) {
                         $("#teknisi").append(
                             '<option value="' +
-                                data.NomorUser +
+                                data.IDUser +
                                 '">' +
                                 data.NamaUser +
                                 " - ( " +
@@ -166,6 +166,7 @@ $(document).ready(function () {
             return; // Keluar dari fungsi jika input kosong
         }
     });
+
     $("#searchTeknisi").on("input", function () {
         var searchValue = $(this).val().trim();
         if (searchValue === "") {
@@ -174,7 +175,6 @@ $(document).ready(function () {
     });
 
     $("#refreshButtonTeknisi").click(function () {
-        $("#teknisimodalinput").val("");
         $("#hiddenIdTeknisi").val("");
         dataTableTeknisi.ajax.reload();
     });
@@ -185,15 +185,35 @@ $(document).ready(function () {
             updateButtonTeknisi.disabled = false;
             deleteButtonTeknisi.disabled = false;
 
-            var selectedRow = $(this).closest("tr");
-
-            var selectedTeknisi = selectedRow.find("td:eq(2)").text();
-
             var selectedId = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "/get-teknisi-id",
+                data: {
+                    id: selectedId,
+                },
+                success: function (response) {
+                    console.log(
+                        "Response IdUserMaster:",
+                        response.IdUserMaster
+                    );
+                    $(
+                        "#teknisi option[value='" +
+                            response.IdUserMaster.trim() +
+                            "']"
+                    ).prop("selected", true);
 
-            $("#teknisi").val(selectedTeknisi);
+                    $("#lokasi option[value='" + response.Lokasi + "']").prop(
+                        "selected",
+                        true
+                    );
+                },
+            });
+
+            $("#teknisi").show();
             $("#hiddenIdTeknisi").val(selectedId);
         } else {
+            $("#teknisi").hide();
             $("#teknisi").val("");
             $("#hiddenIdTeknisi").val("");
         }
