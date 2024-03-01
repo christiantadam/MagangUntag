@@ -36,12 +36,12 @@ if (jam) {
     setInterval(updateCurrentTime, 1000);
 }
 
-// var currentDateTime = new Date();
-// var hours = currentDateTime.getHours().toString().padStart(2, "0");
-// var minutes = currentDateTime.getMinutes().toString().padStart(2, "0");
-// var timeString = hours + ":" + minutes;
+var currentDateTime = new Date();
+var hours = currentDateTime.getHours().toString().padStart(2, "0");
+var minutes = currentDateTime.getMinutes().toString().padStart(2, "0");
+var timeString = hours + ":" + minutes;
 
-// jam.value = timeString;
+jam.value = timeString;
 
 // Form Button
 let inputButton = document.getElementById("inputButton");
@@ -205,7 +205,6 @@ $(document).ready(function () {
                           showConfirmButton: false,
                           timer: "2000",
                       });
-                clearForm();
                 tanggal.disabled = true;
                 jam.disabled = true;
                 lwbp.disabled = true;
@@ -213,7 +212,14 @@ $(document).ready(function () {
                 kvar.disabled = true;
                 teknisi.disabled = true;
                 updateButton.disabled = false;
+                inputButton.disabled = false;
+                deleteButton.disabled = false;
+                saveButton.disabled = true;
+                tanggal_Input.value = tanggal_Output;
+                clearForm();
                 dataTable.ajax.reload();
+                console.log("tanggal_Input:", tanggal_Input);
+                console.log("tanggal_Output:", tanggal_Output);
             },
             error: function (error) {
                 Swal.fire({
@@ -225,6 +231,7 @@ $(document).ready(function () {
                 console.error("Error saving data:", error);
             },
         });
+        tanggal_Input.value = tanggal_Output;
     });
 
     var dataTable = $("#table-pln").DataTable({
@@ -572,6 +579,11 @@ $(document).ready(function () {
                 produksisdp.disabled = true;
                 ct_faktorsdp.disabled = true;
                 teknisisdp.disabled = true;
+                inputButtonsdp.disabled = false;
+                updateButtonsdp.disabled = false;
+                deleteButtonsdp.disabled = false;
+                saveButtonsdp.disabled = true;
+                tanggal_Input.value = tanggal_Output;
                 dataTablesdp.ajax.reload();
             },
             error: function (error) {
@@ -995,6 +1007,11 @@ $(document).ready(function () {
                 timeswitchBA.disabled = true;
                 pelangganBA.disabled = true;
                 pembacaBA.disabled = true;
+                inputButtonBA.disabled = false;
+                updateButtonBA.disabled = false;
+                deleteButtonBA.disabled = false;
+                saveButtonBA.disabled = true;
+                tanggalBA.value = tanggal_Output;
                 dataTableBA.ajax.reload();
             },
             error: function (error) {

@@ -98,7 +98,7 @@ inputButton.addEventListener("click", function () {
     keterangan.disabled = false;
     updateButton.disabled = true;
     deleteButton.disabled = true;
-    saveButton.disabled = false;
+    //saveButton.disabled = false;
     clearForm();
     $(".checkboxlogsheet").prop("checked", false);
 });
@@ -263,6 +263,24 @@ $(document).ready(function () {
                       });
                 clearForm();
                 dataTable.ajax.reload();
+                inputButton.disabled = false;
+                deleteButton.disabled = false;
+                updateButton.disabled = false;
+                saveButton.disabled = true;
+                tanggal.disabled = true;
+                inputButton.disabled = false;
+                mesin.disabled = true;
+                jam_operasi.disabled = true;
+                temp.disabled = true;
+                bar.disabled = true;
+                rm_hours.disabled = true;
+                lm_hours.disabled = true;
+                r_hours.disabled = true;
+                l_hours.disabled = true;
+                efs.disabled = true;
+                tech.disabled = true;
+                keterangan.disabled = true;
+                tanggal.value = tanggal_Output;
             },
             error: function (error) {
                 console.error("Error saving data:", error);

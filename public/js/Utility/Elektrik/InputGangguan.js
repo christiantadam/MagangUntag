@@ -442,6 +442,7 @@ $(document).ready(function () {
                 clearForm();
                 dataTable.ajax.reload();
                 console.log("Data berhasil disimpan.");
+                tanggal.value = tanggal_akhirOutput;
             },
             error: function (xhr, status, error) {
                 if (xhr.status === 419) {

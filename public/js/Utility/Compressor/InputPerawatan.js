@@ -81,6 +81,7 @@ inputButton.addEventListener("click", function () {
     // Disable input fields and disable Update and Delete buttons
     inputButton.disabled = true;
     tanggal.disabled = false;
+    tanggal.value = tanggal_Output;
     mesin.disabled = false;
     jam.disabled = false;
     part.disabled = false;
@@ -116,12 +117,13 @@ updateButton.addEventListener("click", function () {
     } else {
         // Disable input fields and disable Update and Delete buttons
         tanggal.disabled = false;
-        mesin.disabled = false;
+        mesin.disabled = true;
         jam.disabled = false;
-        part.disabled = false;
-        keterangan.disabled = false;
-        teknisi.disabled = false;
+        part.disabled = true;
+        keterangan.disabled = true;
+        teknisi.disabled = true;
         deleteButton.disabled = true;
+        inputButton.disabled = true;
     }
 });
 
@@ -320,6 +322,18 @@ $(document).ready(function () {
                       });
                 clearForm();
                 dataTable.ajax.reload();
+                inputButton.disabled = false;
+                updateButton.disabled = false;
+                deleteButton.disabled = false;
+                saveButton.disabled = true;
+                tanggal.disabled = true;
+                inputButton.disabled = false;
+                mesin.disabled = true;
+                jam.disabled = true;
+                part.disabled = true;
+                keterangan.disabled = true;
+                teknisi.disabled = true;
+                tanggal.value = tanggal_Output;
             },
             error: function (error) {
                 console.error("Error saving data:", error);

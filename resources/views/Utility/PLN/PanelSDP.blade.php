@@ -38,9 +38,9 @@
                             <label for="ket_gangguan">Teknisi</label>
                             <select class="form-select" aria-label="Default select example" id="teknisi-sdp">
                                 <option selected disabled>Pilih...</option>
-                                @foreach ($teknisigenzet as $data)
-                                    <option value="{{ $data->NamaTeknisi }}">
-                                        {{ $data->NamaTeknisi }}</option>
+                                @foreach ($teknisi as $data)
+                                    <option value="{{ $data->NamaUser }}">
+                                        {{ $data->NamaUser }} - ( {{ $data->Lokasi }} )</option>
                                 @endforeach
                             </select>
                         </div>

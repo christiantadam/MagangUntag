@@ -69,7 +69,8 @@
                                             id="teknisi">
                                             <option selected disabled>Pilih Teknisi...</option>
                                             @foreach ($teknisi as $data)
-                                                <option value="{{ $data->NamaUser }}">{{ $data->NamaUser }}
+                                                <option value="{{ $data->NamaUser }}">{{ $data->NamaUser }} - (
+                                                    {{ $data->Lokasi }} )
                                                 </option>
                                             @endforeach
                                         </select>

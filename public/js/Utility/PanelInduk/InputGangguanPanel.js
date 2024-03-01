@@ -208,6 +208,12 @@ $(document).ready(function () {
                 keterangan.disabled = true;
                 updateButton.disabled = false;
                 deleteButton.disabled = false;
+                updateButton.disabled = false;
+                deleteButton.disabled = false;
+                inputButton.disabled = false;
+                saveButton.disabled = true;
+                tanggal_Input.value = tanggal_Output;
+
                 clearForm();
                 dataTable.ajax.reload();
             },
