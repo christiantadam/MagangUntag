@@ -45,7 +45,7 @@
                                         <label for="supplier">Supplier</label>
                                     </div>
                                     <div class="col-10">
-                                        <select class="form-control" name="supplier_select" id="supplier_select">
+                                        <select class="form-control" name="supplier_select" id="supplier_select" disabled>
                                             <option selected disabled>-- Pilih Supplier --</option>
                                             @foreach ($supplier as $data)
                                                 <option value="{{ $data->NO_SUP }}">{{ $data->NM_SUP }}</option>
@@ -99,7 +99,7 @@
 
                                     </div>
                                     <div class="col-10">
-                                        <select class="form-control" name="matauang_select" id="matauang_select">
+                                        <select class="form-control" name="matauang_select" id="matauang_select" disabled>
                                             <option selected disabled>-- Pilih Mata Uang --</option>
                                             @foreach ($mataUang as $data)
                                                 <option value="{{ $data->Id_MataUang }}">{{ $data->Nama_MataUang }}
@@ -111,7 +111,7 @@
                             </div>
                         </div>
                         <div id="div_tablePO" class="acs-form-table">
-                            <table id="table_CreatePurchaseOrder" class="table table-bordered table-striped"
+                            <table id="table_CreatePurchaseOrder" class="table table-bordered"
                                 style="width:100%">
                                 <thead class="thead-dark">
                                     <tr>
@@ -121,6 +121,7 @@
                                         <th>Sub Kategori</th>
                                         <th>Ket. Order</th>
                                         <th>Ket. Internal</th>
+                                        <th>User</th>
                                         <th>Qty</th>
                                         <th>Satuan</th>
                                         <th>Qty Delay</th>
@@ -279,7 +280,7 @@
                                                     <input type="text" name="disc" id="disc"
                                                         class="form-control" value="0">
                                                     <input type="text" name="total_disc" id="total_disc"
-                                                        class="form-control" value="0" readonly>
+                                                        class="form-control" value="0">
                                                     <input type="text" name="idr_total_disc" id="idr_total_disc"
                                                         class="form-control" value="0" style="display: none" readonly>
                                                 </div>
@@ -402,7 +403,7 @@
                             </div>
                             <div class="col-12">
                                 <button class="btn btn-success" id="btn_update">Update</button>
-                                <button class="btn btn-info" id="btn_remove">Remove</button>
+                                <button class="btn btn-info" id="btn_remove" style="display: none">Remove</button>
                                 <button class="btn btn-danger" id="btn_reject">Reject</button>
                                 <button class="btn btn-success" id="btn_post">Post PO</button>
 

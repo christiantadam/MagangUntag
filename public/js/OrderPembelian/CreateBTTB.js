@@ -1,5 +1,5 @@
 let supplier = document.getElementById("supplier");
-let POdropdown = document.getElementById("po");
+let po = document.getElementById("po");
 let nobttb = document.getElementById("nobttb");
 let nosj = document.getElementById("nosj");
 let sppb = document.getElementById("sppb");
@@ -45,8 +45,13 @@ let fixValueQTYReceived;
 let fixValueQTYRemain;
 
 let csrfToken = $('meta[name="csrf-token"]').attr("content");
-POdropdown.disabled = true;
-let tabelData = $("#tabelcreate").DataTable();
+let tabelData = $("#tabelcreate").DataTable({
+    responsive: true,
+    scrollX: true,
+    searching: false,
+    scrollY: "200px",
+    paging: false,
+});
 let data;
 
 function clearOptions(selectElement) {
@@ -103,10 +108,10 @@ function setStatusPO() {
         url: "/CCreateBTTB/SetStatusPO",
         type: "GET",
         data: {
-            NoPO: POdropdown.value,
+            NoPO: po.value.trim(),
         },
         success: function (response) {
-            console.log(response)
+            console.log(response);
         },
         error: function (error) {
             console.error("Error Send Data:", error);
@@ -142,13 +147,13 @@ function post(bttb) {
                 pIDRUnit: data[i].PriceUnitIDR,
                 pIDRPPN: data[i].PriceUnitIDR_PPN,
                 NoPIB: nopib.value,
-                NoPO: POdropdown.value,
+                NoPO: po.value.trim(),
                 BTTB: bttb,
                 pSub: data[i].PriceSub,
                 pIDRSub: data[i].PriceSubIDR,
                 pTot: data[i].PriceExt,
                 pIDRTot: data[i].PriceExtIDR,
-                NoPIBExt: nopib.value,
+                NoPIBExt: nopibext.value,
                 TglPIB: tglpib.value,
                 NoSPPBBC: sppb.value,
                 TglSPPBBC: tglsppb.value,
@@ -174,7 +179,7 @@ function post(bttb) {
                     timer: "2000",
                 });
                 if (i == data.length - 1) {
-                console.log('print')
+                    console.log("print");
                     dataPrint();
                 }
             },
@@ -353,7 +358,7 @@ function print(data) {
                             </div>
                             <div style="width: 70%; height: auto;">
                                 <p style="font-size: 12px; margin: 2px 0;">: ${
-                                    data.printHeader[0].Datang.split(' ')[0]
+                                    data.printHeader[0].Datang.split(" ")[0]
                                 }</p>
                             </div>
                         </div>
@@ -363,7 +368,7 @@ function print(data) {
                             </div>
                             <div style="width: 70%; height: auto;">
                                 <p style="font-size: 12px; margin: 2px 0;">: ${
-                                    data.printHeader[0].No_SuratJalan || ''
+                                    data.printHeader[0].No_SuratJalan || ""
                                 }</p>
                             </div>
                         </div>
@@ -434,29 +439,31 @@ post_btn.addEventListener("click", function (event) {
     }
 });
 
-supplier.addEventListener("change", function (event) {
-    if (supplier.selectedIndex != 0) {
-        clearOptions(POdropdown);
+po.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+        $("#tabelcreate").DataTable().clear().draw();
         clear();
-        clearHeader();
         $.ajax({
-            url: "/Drop1",
+            url: "/Create",
             type: "GET",
             data: {
-                idSup: supplier.value,
+                noPO: po.value.trim(),
             },
             success: function (response) {
                 if (response.length == 0) {
                     alert("Data Tidak Ada");
                 } else {
-                    POdropdown.disabled = false;
-                    response.forEach(function (data) {
-                        let option = document.createElement("option");
-                        option.value = data.NO_PO;
-                        option.text = data.NO_PO;
-                        POdropdown.add(option);
-                    });
+                    for (let i = 0; i < supplier.options.length; i++) {
+                        if (
+                            supplier.options[i].text.replace(/\s/g, "") ===
+                            response[0].NM_SUP.replace(/\s/g, "")
+                        ) {
+                            supplier.selectedIndex = i;
+                        }
+                    }
+                    responseData(response);
                 }
+                // console.log(response);
             },
             error: function (error) {
                 console.error("Error Fetch Data:", error);
@@ -465,33 +472,9 @@ supplier.addEventListener("change", function (event) {
     }
 });
 
-POdropdown.addEventListener("change", function (event) {
-    $("#tabelcreate").DataTable().clear().draw();
-    clear();
-    $.ajax({
-        url: "/Create",
-        type: "GET",
-        data: {
-            noPO: POdropdown.value,
-        },
-        success: function (response) {
-            if (response.length == 0) {
-                alert("Data Tidak Ada");
-            } else {
-                responseData(response);
-            }
-            console.log(response);
-        },
-        error: function (error) {
-            console.error("Error Fetch Data:", error);
-            responseData(response);
-        },
-    });
-});
-
-$("#tabelcreate").on("click", "tr", function () {
+$("#tabelcreate").on("dblclick", "tr", function () {
     $("#tabelcreate tr.selected").not(this).removeClass("selected");
-    clear()
+    clear();
     $(this).toggleClass("selected");
 
     let rowData = tabelData.row(this).data();
@@ -499,25 +482,27 @@ $("#tabelcreate").on("click", "tr", function () {
     kode_barang.value = rowData[1];
     nama_barang.value = rowData[2];
     sub_kategori.value = rowData[3];
-    qty_ordered.value = parseFloat(rowData[4]);
-    ordered_satuan.value = rowData[5];
-    qty_ship.value = parseFloat(rowData[6]) || 0;
-    qty_remaining.value = parseFloat(rowData[7]) || 0;
-    harga_unit.value = parseFloat(rowData[8]);
-    harga_sub_total.value = parseFloat(rowData[9]);
-    ppn.value = parseFloat(rowData[10]);
-    harga_total.value = parseFloat(rowData[11]);
-    kurs.value = parseFloat(rowData[12]);
-    idr_unit.value = parseFloat(rowData[13]);
-    idr_sub_total.value = parseFloat(rowData[14]);
-    idr_ppn.value = parseFloat(rowData[15]);
-    idr_harga_total.value = parseFloat(rowData[16]);
-    mata_uang.value = rowData[17];
-    disc.value = parseFloat(rowData[18]);
-    total_disc.value = parseFloat(rowData[19]);
-    idr_total_disc.value = parseFloat(rowData[20]);
-    qty_received.value = parseFloat(rowData[21]);
+    qty_ordered.value = parseFloat(rowData[4]).toFixed(2);
 
+    ordered_satuan.value = rowData[5];
+    qty_ship.value =
+        parseFloat(rowData[6]).toFixed(2) || 0;
+    qty_remaining.value =
+        parseFloat(rowData[7]).toFixed(2) || 0;
+    harga_unit.value = numeral(parseFloat(rowData[8])).format("0,0.0000");
+    harga_sub_total.value = numeral(parseFloat(rowData[9])).format("0,0.0000");
+    ppn.value = numeral(parseFloat(rowData[10])).format("0,0.0000");
+    harga_total.value = numeral(parseFloat(rowData[11])).format("0,0.0000");
+    kurs.value = parseFloat(rowData[12]).toFixed(4);
+    idr_unit.value = numeral(parseFloat(rowData[13])).format("0,0.0000");
+    idr_sub_total.value = numeral(parseFloat(rowData[14])).format("0,0.0000");
+    idr_ppn.value = numeral(parseFloat(rowData[15])).format("0,0.0000");
+    idr_harga_total.value = numeral(parseFloat(rowData[16])).format("0,0.0000");
+    mata_uang.value = rowData[17];
+    disc.value = numeral(parseFloat(rowData[18])).format("0,0.00");
+    total_disc.value = numeral(parseFloat(rowData[19])).format("0,0.0000");
+    idr_total_disc.value = numeral(parseFloat(rowData[20])).format("0,0.0000");
+    qty_received.value = parseFloat(rowData[21]).toFixed(2);
     fixValueQTYOrder = parseFloat(rowData[4]);
     fixValueQTYReceived = parseFloat(rowData[21]);
     fixValueQTYRemain = parseFloat(rowData[7]) || 0;
@@ -558,20 +543,22 @@ function updateData() {
         let noOrder = no_po.value;
         let datas = data.filter((obj) => obj.No_trans === noOrder);
         datas[0].Qty = qty_ordered.value;
-        datas[0].QtyShipped = parseFloat(qty_ship.value) || 0;
-        datas[0].QtyRemain = parseFloat(qty_remaining.value) || 0;
-        datas[0].PriceUnit = parseFloat(harga_unit.value) || 0;
-        datas[0].PriceSub = parseFloat(harga_sub_total.value) || 0;
-        datas[0].PPN = parseFloat(ppn.value) || 0;
-        datas[0].PriceExt = parseFloat(harga_total.value) || 0;
-        datas[0].PriceUnitIDR = parseFloat(idr_unit.value) || 0;
-        datas[0].PriceSubIDR = parseFloat(idr_sub_total.value) || 0;
-        datas[0].PriceUnitIDR_PPN = parseFloat(idr_ppn.value) || 0;
-        datas[0].PriceExtIDR = parseFloat(idr_harga_total.value) || 0;
-        datas[0].disc = disc.value || 0;
-        datas[0].Harga_disc = parseFloat(total_disc.value) || 0;
-        datas[0].DiscIDR = parseFloat(idr_total_disc.value) || 0;
-        datas[0].QtyRcv = parseFloat(qty_received.value) || 0;
+        datas[0].QtyShipped = parseFloat(qty_ship.value).toFixed(2) || 0;
+        datas[0].QtyRemain = parseFloat(qty_remaining.value).toFixed(2) || 0;
+        datas[0].PriceUnit = harga_unit.value.replace(/,/g, '') || 0;
+        datas[0].PriceSub = harga_sub_total.value.replace(/,/g, '') || 0;
+        datas[0].PPN = ppn.value.replace(/,/g, '') || 0;
+        datas[0].PriceExt = harga_total.value.replace(/,/g, '') || 0;
+        datas[0].PriceUnitIDR = idr_unit.value.replace(/,/g, '') || 0;
+        datas[0].PriceSubIDR = idr_sub_total.value.replace(/,/g, '') || 0;
+        datas[0].PriceUnitIDR_PPN = idr_ppn.value.replace(/,/g, '') || 0;
+        datas[0].PriceExtIDR = idr_harga_total.value.replace(/,/g, '') || 0;
+        datas[0].disc = disc.value.replace(/,/g, '') || 0;
+        datas[0].Harga_disc = total_disc.value.replace(/,/g, '') || 0;
+        datas[0].DiscIDR = idr_total_disc.value.replace(/,/g, '') || 0;
+        datas[0].QtyRcv = parseFloat(qty_received.value).toFixed(2) || 0;
+        datas[0].Kurs = parseFloat(kurs.value).toFixed(4) || 0;
+
         responseData(data);
         clear();
     } else {
@@ -581,7 +568,7 @@ function updateData() {
 
 function responseData(datas) {
     data = datas;
-    let tabelData = $("#tabelcreate").DataTable();
+    console.log(data);
     tabelData.clear().draw();
     data.forEach(function (data) {
         tabelData.row
@@ -590,24 +577,24 @@ function responseData(datas) {
                 data.Kd_brg,
                 data.NAMA_BRG,
                 data.nama_sub_kategori,
-                parseFloat(data.Qty) || 0,
+                data.Qty || 0,
                 data.Nama_satuan,
-                parseFloat(data.QtyShipped) || 0,
-                parseFloat(data.QtyRemain) || 0,
-                parseFloat(data.PriceUnit) || 0,
-                parseFloat(data.PriceSub) || 0,
-                parseFloat(data.PPN) || 0,
-                parseFloat(data.PriceExt) || 0,
-                parseFloat(data.Kurs) || 0,
-                parseFloat(data.PriceUnitIDR) || 0,
-                parseFloat(data.PriceSubIDR) || 0,
-                parseFloat(data.PriceUnitIDR_PPN) || 0,
-                parseFloat(data.PriceExtIDR) || 0,
+                data.QtyShipped || 0,
+                data.QtyRemain || 0,
+                data.PriceUnit || 0,
+                data.PriceSub || 0,
+                data.PPN || 0,
+                data.PriceExt || 0,
+                data.Kurs || 0,
+                data.PriceUnitIDR || 0,
+                data.PriceSubIDR || 0,
+                data.PriceUnitIDR_PPN || 0,
+                data.PriceExtIDR || 0,
                 data.Curr,
-                parseFloat(data.disc) || 0,
-                parseFloat(data.Harga_disc) || 0,
-                parseFloat(data.DiscIDR) || 0,
-                parseFloat(data.QtyRcv) || 0,
+                data.disc || 0,
+                data.Harga_disc || 0,
+                data.DiscIDR || 0,
+                data.QtyRcv || 0,
             ])
             .draw();
     });
@@ -616,33 +603,55 @@ function responseData(datas) {
 $(document).ready(function () {
     qty_received.addEventListener("input", function (event) {
         let sisa = parseFloat(
-            fixValueQTYOrder - (parseFloat(qty_received.value) - fixValueQTYReceived) - fixValueQTYShip
+            fixValueQTYOrder -
+                (parseFloat(qty_received.value) - fixValueQTYReceived) -
+                fixValueQTYShip
         );
         setInputFilter(
             document.getElementById("qty_received"),
             function (value) {
                 return (
                     /^-?\d*[.,]?\d*$/.test(value) &&
-                    (value === "" || parseFloat(value) <= fixValueQTYOrder)
+                    (value === "" ||
+                        parseFloat(value) <=
+                            fixValueQTYReceived +
+                                (fixValueQTYOrder - fixValueQTYShip))
                 );
             },
             `Tidak boleh ketik character dan angka dibawah 0, harus angka diatas 0 dan tidak boleh lebih dari QTY Ordered`
         );
-        if (sisa <= fixValueQTYOrder && sisa >= 0 && qty_received.value !== '' ) {
+        if (
+            sisa <= fixValueQTYOrder &&
+            sisa >= 0 &&
+            qty_received.value !== ""
+        ) {
             qty_remaining.value = sisa.toFixed(2);
-            if(qty_received.value != ''){
-                qty_ship.value =  (fixValueQTYShip + parseFloat(qty_received.value - fixValueQTYReceived)).toFixed(2);
+            if (qty_received.value != "") {
+                qty_ship.value = (
+                    fixValueQTYShip +
+                    parseFloat(qty_received.value - fixValueQTYReceived)
+                ).toFixed(2);
+            }
+        } else if (sisa < 0) {
+            qty_remaining.value = "0.00";
+            if (qty_received.value != "") {
+                qty_ship.value = parseFloat(
+                    qty_received.value - fixValueQTYReceived
+                ).toFixed(2);
             }
         }
         updateIdrUnit();
-        updateSubTotal();
+        // updateSubTotal();
+        updateSubTotalDisc();
         updateIDRSubTotal();
         updateIDRPPN();
         updatePPN();
         updateHargaTotal();
         updateIDRHargaTotal();
-        updateDisc();
-        updateIDRDisc();
+        // updateDisc();
+        updateTotalDisc();
+        updateIDRDiscTotal();
+        // updateIDRDisc();
     });
 
     kurs.addEventListener("input", function (event) {
@@ -654,33 +663,39 @@ $(document).ready(function () {
             "Tidak boleh character, harus angka"
         );
         updateIdrUnit();
-        updateSubTotal();
+        // updateSubTotal();
+        updateSubTotalDisc();
         updateIDRSubTotal();
         updateIDRPPN();
         updatePPN();
         updateHargaTotal();
         updateIDRHargaTotal();
-        updateIDRDisc();
-        updateDisc();
+        // updateIDRDisc();
+        updateTotalDisc();
+        updateIDRDiscTotal();
+        // updateDisc();
     });
 
     harga_unit.addEventListener("input", function (event) {
         setInputFilter(
             document.getElementById("harga_unit"),
             function (value) {
-                return /^-?\d*[.,]?\d*$/.test(value);
+                return /^-?\d*([.,]\d*)*$/.test(value);
             },
             "Tidak boleh character, harus angka"
         );
         updateIdrUnit();
-        updateSubTotal();
+        // updateSubTotal();
+        updateSubTotalDisc();
         updateIDRSubTotal();
         updateIDRPPN();
         updatePPN();
         updateHargaTotal();
         updateIDRHargaTotal();
-        updateDisc();
-        updateIDRDisc();
+        // updateDisc();
+        updateTotalDisc();
+        updateIDRDiscTotal();
+        // updateIDRDisc();
     });
 
     ppn_select.addEventListener("change", function (event) {
@@ -693,7 +708,7 @@ $(document).ready(function () {
         setInputFilter(
             document.getElementById("disc"),
             function (value) {
-                return /^-?\d*[.,]?\d*$/.test(value);
+                return /^-?\d*([.,]\d*)*$/.test(value);
             },
             "Tidak boleh character, harus angka"
         );
@@ -707,111 +722,215 @@ $(document).ready(function () {
         updateDisc();
         updateIDRDisc();
     });
+
+    total_disc.addEventListener("input", function (event) {
+        setInputFilter(
+            document.getElementById("total_disc"),
+            function (value) {
+                return /^-?\d*([.,]\d*)*$/.test(value);
+            },
+            "Tidak boleh character, harus angka"
+        );
+        updateIdrUnit();
+        updateSubTotalDisc();
+        updateIDRSubTotal();
+        updateIDRPPN();
+        updatePPN();
+        updateHargaTotal();
+        updateIDRHargaTotal();
+        updateTotalDisc();
+        updateIDRDiscTotal();
+    });
+    qty_received.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            qty_received.value = parseFloat(qty_received.value).toFixed(2);
+            kurs.focus();
+            kurs.select();
+        }
+    });
+
+    kurs.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            kurs.value = parseFloat(kurs.value).toFixed(4);
+            disc.focus();
+            disc.select();
+        }
+    });
+
+    harga_unit.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            const data = numeral(harga_unit.value).value();
+            harga_unit.value = numeral(data).format("0,0.0000");
+            ppn_select.focus();
+        }
+    });
+
+    disc.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            disc.value = numeral(disc.value).format("0,0.00");
+            total_disc.focus();
+            total_disc.select();
+        }
+    });
+
+    total_disc.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            const data = numeral(total_disc.value).value();
+            total_disc.value = numeral(data).format("0,0.0000");
+            harga_unit.focus();
+            harga_unit.select();
+        }
+    });
 });
 
 function updateIdrUnit() {
-    let kurs = parseFloat(document.getElementById("kurs").value);
-    let hargaUnit = parseFloat(document.getElementById("harga_unit").value);
+    let kurs = numeral(document.getElementById("kurs").value).value();
+    let hargaUnit = numeral(
+        document.getElementById("harga_unit").value
+    ).value();
     if (!isNaN(kurs) && !isNaN(hargaUnit)) {
         let idrUnitValue = hargaUnit * kurs;
-        idr_unit.value = idrUnitValue;
+        idr_unit.value = numeral(idrUnitValue).format("0,0.0000");
     }
 }
 
 function updateSubTotal() {
-    let qty_received = parseFloat(
+    let qty_received = numeral(
         document.getElementById("qty_received").value
-    );
-    let hargaUnit = parseFloat(document.getElementById("harga_unit").value);
-    let disc = parseFloat(document.getElementById("disc").value);
+    ).value();
+    let hargaUnit = numeral(
+        document.getElementById("harga_unit").value
+    ).value();
+    let disc = numeral(document.getElementById("disc").value).value();
     if (!isNaN(qty_received) && !isNaN(hargaUnit) && !isNaN(disc)) {
         let SubTotalValue = hargaUnit * qty_received;
         let discount = (SubTotalValue * disc) / 100;
         let hargaSubTotal = SubTotalValue - discount;
 
-        harga_sub_total.value = hargaSubTotal;
+        harga_sub_total.value = numeral(hargaSubTotal).format("0,0.0000");
     }
 }
 
 function updateIDRSubTotal() {
-    let kurs = parseFloat(document.getElementById("kurs").value);
-    let hargaSubTotal = parseFloat(
+    let kurs = numeral(document.getElementById("kurs").value).value();
+    let hargaSubTotal = numeral(
         document.getElementById("harga_sub_total").value
-    );
+    ).value();
 
     if (!isNaN(kurs) && !isNaN(hargaSubTotal)) {
         let idrSubTotalValue = hargaSubTotal * kurs;
-        idr_sub_total.value = idrSubTotalValue;
+        idr_sub_total.value = numeral(idrSubTotalValue).format("0,0.0000");
+    }
+}
+
+function updateSubTotalDisc() {
+    let qty_received = numeral(
+        document.getElementById("qty_received").value
+    ).value();
+    let hargaUnit = numeral(
+        document.getElementById("harga_unit").value
+    ).value();
+    let total_disc = numeral(
+        document.getElementById("total_disc").value
+    ).value();
+    if (!isNaN(qty_received) && !isNaN(hargaUnit) && !isNaN(total_disc)) {
+        let SubTotalValue = hargaUnit * qty_received;
+        let hargaSubTotal = SubTotalValue - total_disc;
+        harga_sub_total.value = numeral(hargaSubTotal).format("0,0.0000");
     }
 }
 
 function updatePPN() {
-    let selectedPPN = parseFloat(
+    let selectedPPN = numeral(
         ppn_select.options[ppn_select.selectedIndex].text
-    );
-    let hargaSubTotal = parseFloat(
+    ).value();
+    let hargaSubTotal = numeral(
         document.getElementById("harga_sub_total").value
-    );
+    ).value();
     if (!isNaN(selectedPPN) && !isNaN(hargaSubTotal)) {
         let jumPPN = (hargaSubTotal * selectedPPN) / 100;
-        ppn.value = jumPPN;
+        ppn.value = numeral(jumPPN).format("0,0.0000");
     }
 }
+
 function updateIDRPPN() {
-    let selectedPPN = parseFloat(
+    let selectedPPN = numeral(
         ppn_select.options[ppn_select.selectedIndex].text
-    );
-    let hargaSubTotal = parseFloat(
+    ).value();
+    let hargaSubTotal = numeral(
         document.getElementById("harga_sub_total").value
-    );
-    let kurs = parseFloat(document.getElementById("kurs").value);
+    ).value();
+    let kurs = numeral(document.getElementById("kurs").value).value();
     if (!isNaN(selectedPPN) && !isNaN(hargaSubTotal) && !isNaN(kurs)) {
         let jumPPN = (hargaSubTotal * selectedPPN) / 100;
         let idrPPNValue = jumPPN * kurs;
-        idr_ppn.value = idrPPNValue;
+        idr_ppn.value = numeral(idrPPNValue).format("0,0.0000");
     }
 }
 
 function updateHargaTotal() {
-    let ppn = parseFloat(document.getElementById("ppn").value);
-    let hargaSubTotal = parseFloat(
+    let ppn = numeral(document.getElementById("ppn").value).value();
+    let hargaSubTotal = numeral(
         document.getElementById("harga_sub_total").value
-    );
+    ).value();
     if (!isNaN(ppn) && !isNaN(hargaSubTotal)) {
         let hargaTotalValue = hargaSubTotal + ppn;
-        harga_total.value = hargaTotalValue;
+        harga_total.value = numeral(hargaTotalValue).format("0,0.0000");
     }
 }
 
 function updateIDRHargaTotal() {
-    let kurs = parseFloat(document.getElementById("kurs").value);
-    let hargaTotal = parseFloat(document.getElementById("harga_total").value);
+    let kurs = numeral(document.getElementById("kurs").value).value();
+    let hargaTotal = numeral(
+        document.getElementById("harga_total").value
+    ).value();
     if (!isNaN(kurs) && !isNaN(hargaTotal)) {
         let IDRHargaTotalValue = hargaTotal * kurs;
-        idr_harga_total.value = IDRHargaTotalValue;
+        idr_harga_total.value = numeral(IDRHargaTotalValue).format("0,0.0000");
     }
 }
 
 function updateDisc() {
-    let qty_received = parseFloat(
+    let qty_received = numeral(
         document.getElementById("qty_received").value
-    );
-    let hargaUnit = parseFloat(document.getElementById("harga_unit").value);
-    let disc = parseFloat(document.getElementById("disc").value);
+    ).value();
+    let hargaUnit = numeral(
+        document.getElementById("harga_unit").value
+    ).value();
+    let disc = numeral(document.getElementById("disc").value).value();
     if (!isNaN(hargaUnit) && !isNaN(qty_received) && !isNaN(disc)) {
         let SubTotalValue = hargaUnit * qty_received;
         let discount = (SubTotalValue * disc) / 100;
-        total_disc.value = discount;
+        total_disc.value = numeral(discount).format("0,0.0000");
+    }
+}
+
+function updateTotalDisc() {
+    let qty_received = numeral(
+        document.getElementById("qty_received").value
+    ).value();
+    let hargaUnit = numeral(
+        document.getElementById("harga_unit").value
+    ).value();
+    let total_disc = numeral(
+        document.getElementById("total_disc").value
+    ).value();
+    if (!isNaN(hargaUnit) && !isNaN(qty_received) && !isNaN(total_disc)) {
+        let SubTotalValue = hargaUnit * qty_received;
+        let discount = (total_disc / SubTotalValue) * 100;
+        disc.value = numeral(discount).format("0,0.00");
     }
 }
 
 function updateIDRDisc() {
-    let qty_received = parseFloat(
+    let qty_received = numeral(
         document.getElementById("qty_received").value
-    );
-    let hargaUnit = parseFloat(document.getElementById("harga_unit").value);
-    let disc = parseFloat(document.getElementById("disc").value);
-    let kurs = parseFloat(document.getElementById("kurs").value);
+    ).value();
+    let hargaUnit = numeral(
+        document.getElementById("harga_unit").value
+    ).value();
+    let disc = numeral(document.getElementById("disc").value).value();
+    let kurs = numeral(document.getElementById("kurs").value).value();
 
     if (
         !isNaN(hargaUnit) &&
@@ -822,7 +941,18 @@ function updateIDRDisc() {
         let SubTotalValue = hargaUnit * qty_received;
         let discount = (SubTotalValue * disc) / 100;
         let totalIDRDiscValue = discount * kurs;
+        idr_total_disc.value = numeral(totalIDRDiscValue).format("0,0.0000");
+    }
+}
 
-        idr_total_disc.value = totalIDRDiscValue;
+function updateIDRDiscTotal() {
+    let total_disc = numeral(
+        document.getElementById("total_disc").value
+    ).value();
+    let kurs = numeral(document.getElementById("kurs").value).value();
+
+    if (!isNaN(total_disc) && !isNaN(kurs)) {
+        let totalIDRDiscValue = total_disc * kurs;
+        idr_total_disc.value = numeral(totalIDRDiscValue).format("0,0.0000");
     }
 }

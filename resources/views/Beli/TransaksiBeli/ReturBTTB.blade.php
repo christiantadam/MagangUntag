@@ -92,54 +92,61 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="acs-form-table">
-                            <table class="table table-bordered table-striped" id="tabelretur">
-                                <thead class="table-dark">
-                                    <tr>
-                                        <th id="nobttb"> BTTB</th>
-                                        <th>No. SJ</th>
-                                        <th>Id Terima</th>
-                                        <th>Kd Barang</th>
-                                        <th>Nama Barang</th>
-                                        <th>Sub Kategori</th>
-                                        <th>Qty Terima</th>
-                                        <th>Satuan</th>
-                                        <th>id. Transfer</th>
-                                        <th>id Trans INV</th>
-                                        <th>No Order</th>
-                                        <th>Qty Retur</th>
-                                        <th>Tgl Retur</th>
-                                        <th>Alasan Retur</th>
-                                        <th>Penagih</th>
-                                    </tr>
-                                </thead>
-                            </table>
-                            </table>
-                            <table class="table table-bordered table-striped" id="tabelretur1">
-                                <thead class="table-dark">
-                                    <tr>
-                                        <th>Id Type</th>
-                                        <th>Kd Barang</th>
-                                        <th>Nama Barang</th>
-                                        <th>Qty Primer</th>
-                                        <th>Satuan Primer</th>
-                                        <th>Qty Sekunder </th>
-                                        <th>Satuan Sekunder</th>
-                                        <th>Qty Tertier</th>
-                                        <th>Satuan Tertier</th>
-                                        <th>Sub Kelompok</th>
-                                        <th>Kelompok</th>
-                                        <th>Kel Utama</th>
-                                        <th>Objek</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <div class="text-left mt-20">
-                                        <h5>Stock Inventory Divisi Pembelian</h5>
-                                    </div>
-                                </tbody>
-                            </table>
+                            <div class="mx-auto">
+                                <div class="table-responsive">
+                                    <table class="mx-auto table table-bordered" id="tabelretur">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th id="nobttb"> BTTB</th>
+                                                <th>No. SJ</th>
+                                                <th>Id Terima</th>
+                                                <th>Kd Barang</th>
+                                                <th>Nama Barang</th>
+                                                <th>Sub Kategori</th>
+                                                <th>Qty Terima</th>
+                                                <th>Satuan</th>
+                                                <th>id. Transfer</th>
+                                                <th>id Trans INV</th>
+                                                <th>No Order</th>
+                                                <th>Qty Retur</th>
+                                                <th>Tgl Retur</th>
+                                                <th>Alasan Retur</th>
+                                                <th>Penagih</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <div class="text-left mt-20">
+                                    <h5>Stock Inventory Divisi Pembelian</h5>
+                                </div>
+                            </div>
+
+                            <div class="mx-auto">
+                                <div class="table-responsive">
+                                    <table class="mx-auto table table-bordered" id="tabelretur1">
+                                        <thead class="table-dark">
+                                            <tr>
+                                                <th>Id Type</th>
+                                                <th>Kd Barang</th>
+                                                <th>Nama Barang</th>
+                                                <th>Qty Primer</th>
+                                                <th>Satuan Primer</th>
+                                                <th>Qty Sekunder </th>
+                                                <th>Satuan Sekunder</th>
+                                                <th>Qty Tertier</th>
+                                                <th>Satuan Tertier</th>
+                                                <th>Sub Kelompok</th>
+                                                <th>Kelompok</th>
+                                                <th>Kel Utama</th>
+                                                <th>Objek</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                         <div class="row mt-4">
                             <div class="col-md-6">

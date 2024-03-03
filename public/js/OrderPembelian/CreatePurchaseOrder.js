@@ -32,6 +32,14 @@ let jnsBeli = 0;
 let modeLoad = 0;
 let selectedRows = [];
 
+let table = $("#table_PurchaseOrder").DataTable({
+    responsive: true,
+    scrollX: true,
+    searching: false,
+    scrollY: "400px",
+    paging: false,
+});
+
 backGroup.style.display = "none";
 
 check_nyantol.addEventListener("click", function (event) {
@@ -56,7 +64,7 @@ btn_backCreatePO.addEventListener("click", function (event) {
                     "X-CSRF-TOKEN": csrfToken,
                 },
                 data: {
-                    noTrans: selectedRows[i][4].trim()
+                    noTrans: selectedRows[i][4].trim(),
                 },
                 success: function (response) {
                     Swal.fire({
@@ -286,7 +294,7 @@ function LoadPermohonan(proses, stbeli) {
         )
             .then((response) => response.json())
             .then((data) => {
-                // console.log(data);
+                console.log(data);
                 const rows = data.map((item) => {
                     return [
                         item.NM_SUP.trim(),
@@ -313,7 +321,12 @@ function LoadPermohonan(proses, stbeli) {
                     ];
                 });
 
-                const table = $("#table_PurchaseOrder").DataTable();
+                // const table = $("#table_PurchaseOrder").DataTable({
+                //     responsive: true,
+                //     searching: false,
+                //     scrollY: "400px",
+                //     paging: false,
+                // });
                 table.clear();
                 table.rows.add(rows);
                 table.draw();
@@ -360,7 +373,12 @@ function LoadPermohonan(proses, stbeli) {
                     ];
                 });
 
-                const table = $("#table_PurchaseOrder").DataTable();
+                // const table = $("#table_PurchaseOrder").DataTable({
+                //     responsive: true,
+                //     searching: false,
+                //     scrollY: "400px",
+                //     paging: false,
+                // });
                 table.clear();
                 table.rows.add(rows);
                 table.draw();
@@ -407,7 +425,12 @@ function LoadPermohonan(proses, stbeli) {
                     ];
                 });
 
-                const table = $("#table_PurchaseOrder").DataTable();
+                // const table = $("#table_PurchaseOrder").DataTable({
+                //     responsive: true,
+                //     searching: false,
+                //     scrollY: "400px",
+                //     paging: false,
+                // });
                 table.clear();
                 table.rows.add(rows);
                 table.draw();
@@ -463,7 +486,12 @@ function LoadPermohonanNyantol(proses, stbeli) {
                     ];
                 });
 
-                const table = $("#table_PurchaseOrder").DataTable();
+                // const table = $("#table_PurchaseOrder").DataTable({
+                //     responsive: true,
+                //     searching: false,
+                //     scrollY: "400px",
+                //     paging: false,
+                // });
                 table.clear();
                 table.rows.add(rows);
                 table.draw();
@@ -513,7 +541,12 @@ function LoadPermohonanNyantol(proses, stbeli) {
                     ];
                 });
 
-                const table = $("#table_PurchaseOrder").DataTable();
+                // const table = $("#table_PurchaseOrder").DataTable({
+                //     responsive: true,
+                //     searching: false,
+                //     scrollY: "400px",
+                //     paging: false,
+                // });
                 table.clear();
                 table.rows.add(rows);
                 table.draw();
@@ -563,7 +596,12 @@ function LoadPermohonanNyantol(proses, stbeli) {
                     ];
                 });
 
-                const table = $("#table_PurchaseOrder").DataTable();
+                // const table = $("#table_PurchaseOrder").DataTable({
+                //     responsive: true,
+                //     searching: false,
+                //     scrollY: "400px",
+                //     paging: false,
+                // });
                 table.clear();
                 table.rows.add(rows);
                 table.draw();

@@ -15,7 +15,7 @@
                     </div>
                 @endif
                 <div class="card">
-                    <div class="card-header">Isi Supplier - Harga</div>
+                    <div class="card-header">Koreksi Status Beli</div>
                     <div class="card-body">
                         <div class="w-100 h-auto">
                             <div class="w-100 h-auto">
@@ -25,7 +25,7 @@
                                         <div class="row align-items-center mx-2 mb-4 " style="border: 0.5px grey solid;">
                                             <div class="col-xl-2">
                                                 <input type="radio" name="filter_radioButton"
-                                                    id="filter_radioButtonAllOrder" value="AllOrder" class="radio-button">
+                                                    id="filter_radioButtonAllOrder" value="AllOrder" class="radio-button" checked>
                                                 All Order
                                             </div>
                                             <div class="col-xl-2">
@@ -53,7 +53,7 @@
                             </div>
                         </div>
                         <div id="div_tablePO" class="acs-form3">
-                            <table id="table_koreksi" class="table table-bordered table-striped" style="width:100%">
+                            <table id="table_koreksi" class="table table-bordered" style="width:100%">
                                 <thead class="thead-dark">
                                     <tr>
                                         <th>No. Order</th>

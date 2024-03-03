@@ -53,7 +53,7 @@
                             </div>
                             <div class="col-md-3 mb-2">
                                 <label for="supplier" class="form-label">Supplier</label>
-                                <select class="form-control" id="supplier" name="supplier">
+                                <select class="form-control" id="supplier" name="supplier" disabled>
                                     <option selected disabled>-- Pilih Supplier --</option>
                                     @foreach ($nosup as $bttb)
                                         <option value="{{ $bttb->NO_SUP }}">{{ $bttb->NM_SUP }}</option>
@@ -74,9 +74,7 @@
                             </div>
                             <div class="col-md-3">
                                 <label for="po" class="form-label">No. PO</label>
-                                <select class="form-control" id="po" name="po">
-                                    <option selected disabled>-- Pilih PO --</option>
-                            </select>
+                                <input type="float" class="form-control" id="po" name="po">
                             </div>
                             <div class="col-md-3">
                                 <label for="tglpib" class="form-label">Tgl PIB</label>
@@ -87,9 +85,9 @@
                                 <input type="date" class="form-control" id="tglskbm" name="tglskbm" value="{{ date('Y-m-d') }}">
                             </div>
                         </div>
-                        <div class="mb-10 m-5">
+                        <div class="mt-4">
                             <div class="table-responsive">
-                                <table class="mx-auto w-750 table sm " id="tabelcreate">
+                                <table class="mx-auto table table-bordered" id="tabelcreate">
                                     <thead class="table-dark">
                                         <tr>
                                             <th>No Order</th>
@@ -256,7 +254,7 @@
                                                     <input type="text" name="disc" id="disc"
                                                         class="form-control" value="0">
                                                     <input type="text" name="total_disc" id="total_disc"
-                                                        class="form-control" value="0" readonly>
+                                                        class="form-control" value="0">
                                                 </div>
                                             </div>
                                         </div>

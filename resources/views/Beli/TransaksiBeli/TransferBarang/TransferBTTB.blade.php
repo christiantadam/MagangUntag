@@ -55,7 +55,7 @@
                             </div>
                         </div>
                         <div class="acs-form3">
-                            <table id="table_transferBTTB" class="table table-bordered table-striped" style="width:100%">
+                            <table id="table_transferBTTB" class="table table-bordered" style="width:100%">
                                 <thead class="thead-dark">
                                     <tr>
                                         <th>No Terima</th>
@@ -65,6 +65,7 @@
                                         <th>Nama Barang</th>
                                         <th>QTY Shipped</th>
                                         <th>Satuan</th>
+                                        <th>No PIB</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -114,15 +115,14 @@
                                         <div class="col-12 mb-2">
                                             <div class="row align-items-center">
                                                 <div class="col-4">
-                                                    <label for="keterangan">Keterangan</label>
+                                                    <label for="no_pib">No PIB</label>
                                                 </div>
                                                 <div class="col-8 ">
-                                                    <input type="text" name="keterangan" id="keterangan"
-                                                        class="form-control">
+                                                    <input type="text" name="no_pib" id="no_pib"
+                                                        class="form-control" readonly>
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                     <div class="col-md-6">
                                         <div class="col-12 mb-2">
@@ -186,6 +186,17 @@
                                                         class="form-control" value="NULL" readonly>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-2">
+                                    <div class="row align-items-center">
+                                        <div class="col-2">
+                                            <label for="keterangan">Keterangan</label>
+                                        </div>
+                                        <div class="col-10 ">
+                                            <input type="text" name="keterangan" id="keterangan"
+                                                class="form-control">
                                         </div>
                                     </div>
                                 </div>

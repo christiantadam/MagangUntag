@@ -79,128 +79,158 @@ function clearData() {
     btn_update.disabled = true;
     btn_remove.disabled = true;
     btn_reject.disabled = true;
-    btn_post.disabled = true;
     alasan_reject.value = "";
 }
 
-let table = $("#table_CreatePurchaseOrder").DataTable({
-    responsive: true,
-    data: loadPermohonanData,
-    columns: [
-        {
-            data: "No_trans",
+function submit(nomor, qtydelay) {
+    $.ajax({
+        url: "/openFormCreateSPPB/create/Submit",
+        type: "POST",
+        headers: {
+            "X-CSRF-TOKEN": csrfToken,
         },
-        {
-            data: "Kd_brg",
+        data: {
+            noTrans: nomor,
+            QtyDelay: qtydelay,
         },
-        {
-            data: "NAMA_BRG",
+        success: function (response) {
+            console.log(response, "sdkj");
         },
-        {
-            data: "nama_sub_kategori",
+        error: function (error) {
+            console.error("Error Send Data:", error);
         },
-        {
-            data: "KET",
-        },
-        {
-            data: "Ket_Internal",
-        },
-        {
-            data: "Qty",
-        },
-        {
-            data: "Nama_satuan",
-        },
-        {
-            data: "QtyCancel",
-        },
-        {
-            data: "PriceUnit",
-        },
-        {
-            data: "PriceSub",
-        },
-        {
-            data: "PPN",
-        },
-        {
-            data: "PriceExt",
-        },
-        {
-            data: "Kurs",
-        },
-        {
-            data: "PriceUnitIDR",
-        },
-        {
-            data: "PriceSubIDR",
-        },
-        {
-            data: "PriceUnitIDR_PPN",
-        },
-        {
-            data: "PriceExtIDR",
-        },
-        {
-            data: "Disc",
-        },
-        {
-            data: "harga_disc",
-        },
-        {
-            data: "DiscIDR",
-        },
-    ],
-    rowCallback: function (row, data) {
-        $(row).on("click", function (event) {
-            clearData();
-            no_po.value = data.No_trans;
-            kode_barang.value = data.Kd_brg;
-            nama_barang.value = data.NAMA_BRG;
-            sub_kategori.value = data.nama_sub_kategori;
-            qty_order.value = parseFloat(data.Qty);
-            keterangan_order.value = data.keterangan;
-            keterangan_internal.value = data.Ket_Internal;
-            qty_delay.value = parseFloat(data.QtyCancel);
-            harga_unit.value = parseFloat(data.PriceUnit);
-            idr_unit.value = parseFloat(data.PriceUnitIDR);
-            harga_sub_total.value = parseFloat(data.PriceSub);
-            idr_sub_total.value = parseFloat(data.PriceSubIDR);
-            harga_total.value = parseFloat(data.PriceExt);
-            idr_harga_total.value = parseFloat(data.PriceExtIDR);
-            ppn.value = parseFloat(data.PPN);
-            idr_ppn.value = parseFloat(data.PPN);
-            disc.value = parseFloat(data.Disc);
-            total_disc.value = parseFloat(data.harga_disc);
-            kurs.value = parseFloat(data.Currency);
-            $("#ppn_select").val(data.IdPPN);
-            fixValueQTYOrder = data.Qty;
-            btn_update.disabled = false;
-            btn_remove.disabled = false;
+    });
+}
 
-            alasan_reject.addEventListener("input", function (event) {
-                if (alasan_reject.value.trim() !== "") {
-                    btn_reject.disabled = false;
-                } else {
-                    btn_reject.disabled = true;
-                }
+function LoadPermohonan(data) {
+    $("#table_CreatePurchaseOrder").DataTable().destroy();
+    let table = $("#table_CreatePurchaseOrder").DataTable({
+        responsive: true,
+        scrollX: true,
+        searching: false,
+        scrollY: "200px",
+        paging: false,
+        data: data,
+        columns: [
+            {
+                data: "No_trans",
+            },
+            {
+                data: "Kd_brg",
+            },
+            {
+                data: "NAMA_BRG",
+            },
+            {
+                data: "nama_sub_kategori",
+            },
+            {
+                data: "KET",
+            },
+            {
+                data: "Ket_Internal",
+            },
+            {
+                data: "NmUser",
+            },
+            {
+                data: "Qty",
+            },
+            {
+                data: "Nama_satuan",
+            },
+            {
+                data: "QtyCancel",
+            },
+            {
+                data: "PriceUnit",
+            },
+            {
+                data: "PriceSub",
+            },
+            {
+                data: "PPN",
+            },
+            {
+                data: "PriceExt",
+            },
+            {
+                data: "Kurs",
+            },
+            {
+                data: "PriceUnitIDR",
+            },
+            {
+                data: "PriceSubIDR",
+            },
+            {
+                data: "PriceUnitIDR_PPN",
+            },
+            {
+                data: "PriceExtIDR",
+            },
+            {
+                data: "Disc",
+            },
+            {
+                data: "harga_disc",
+            },
+            {
+                data: "DiscIDR",
+            },
+        ],
+        rowCallback: function (row, data) {
+            $(row).on("dblclick", function (event) {
+                clearData();
+                no_po.value = data.No_trans;
+                kode_barang.value = data.Kd_brg;
+                nama_barang.value = data.NAMA_BRG;
+                sub_kategori.value = data.nama_sub_kategori;
+                qty_order.value = parseFloat(data.Qty).toFixed(2);
+                keterangan_order.value = data.keterangan;
+                keterangan_internal.value = data.Ket_Internal;
+                qty_delay.value = parseFloat(data.QtyCancel).toFixed(2);
+                harga_unit.value = numeral(parseFloat(data.PriceUnit)).format("0,0.0000");
+                idr_unit.value = numeral(parseFloat(data.PriceUnitIDR)).format("0,0.0000");
+                harga_sub_total.value = numeral(parseFloat(data.PriceSub)).format("0,0.0000");
+                idr_sub_total.value = numeral(parseFloat(data.PriceSubIDR)).format("0,0.0000");
+                harga_total.value = numeral(parseFloat(data.PriceExt)).format("0,0.0000");
+                idr_harga_total.value = numeral(parseFloat(data.PriceExtIDR)).format("0,0.0000");
+                ppn.value = numeral(parseFloat(data.PPN)).format("0,0.0000");
+                idr_ppn.value = numeral(parseFloat(data.PPN)).format("0,0.0000");
+                disc.value = numeral(parseFloat(data.Disc)).format("0,0.00");
+                total_disc.value = numeral(parseFloat(data.harga_disc)).format("0,0.0000");
+                idr_total_disc.value = numeral(parseFloat(data.DiscIDR)).format("0,0.0000");
+                kurs.value = parseFloat(data.Currency).toFixed(4);
+                $("#ppn_select").val(data.IdPPN);
+                fixValueQTYOrder = data.Qty;
+                btn_update.disabled = false;
+                btn_remove.disabled = false;
+
+                alasan_reject.addEventListener("input", function (event) {
+                    if (alasan_reject.value.trim() !== "") {
+                        btn_reject.disabled = false;
+                    } else {
+                        btn_reject.disabled = true;
+                    }
+                });
             });
-        });
-    },
-});
-table.on("click", "tbody tr", (e) => {
-    const classList = e.currentTarget.classList;
+        },
+    });
+    table.on("dblclick", "tbody tr", (e) => {
+        const classList = e.currentTarget.classList;
 
-    if (classList.contains("selected")) {
-        classList.remove("selected");
-    } else {
-        table
-            .rows(".selected")
-            .nodes()
-            .each((row) => row.classList.remove("selected"));
-        classList.add("selected");
-    }
-});
+        if (classList.contains("selected")) {
+            classList.remove("selected");
+        } else {
+            table
+                .rows(".selected")
+                .nodes()
+                .each((row) => row.classList.remove("selected"));
+            classList.add("selected");
+        }
+    });
+}
 
 paymentTerm_select.addEventListener("change", function (event) {
     if (paymentTerm_select.selectedIndex !== 0) {
@@ -211,51 +241,72 @@ paymentTerm_select.addEventListener("change", function (event) {
 });
 
 btn_update.addEventListener("click", function (event) {
-    $.ajax({
-        url: "/openFormCreateSPPB/create/Update",
-        type: "PUT",
-        headers: {
-            "X-CSRF-TOKEN": csrfToken,
-        },
-        data: {
-            Qty: qty_order.value,
-            QtyCancel: qty_delay.value,
-            kurs: kurs.value,
-            pUnit: harga_unit.value,
-            pSub: harga_sub_total.value,
-            idPPN: ppn_select.value,
-            pPPN: ppn.value,
-            pTot: harga_total.value,
-            pIDRUnit: idr_unit.value,
-            pIDRSub: idr_sub_total.value,
-            pIDRPPN: idr_ppn.valu,
-            pIDRTot: idr_harga_total.value,
-            persen: disc.value,
-            disc: total_disc.value,
-            discIDR: idr_total_disc.value,
-            noTrans: no_po.value,
-        },
-        success: function (response) {
-            Swal.fire({
-                icon: "success",
-                title: "Data Berhasil DiUpdate!",
-                showConfirmButton: false,
-                timer: "2000",
-            });
-            console.log(response);
-            clearData();
-            location.reload(true);
-        },
-        error: function (error) {
-            Swal.fire({
-                icon: "error",
-                title: "Data Tidak Berhasil DiUpdate!",
-                showConfirmButton: false,
-                timer: "2000",
-            });
-            console.error("Error Send Data:", error);
-        },
-    });
+    const nomor = no_po.value;
+    const qtydelay = qty_delay.value;
+    if (
+        qty_order.value == 0 &&
+        (isNaN(parseFloat(disc.value)) || !isFinite(parseFloat(disc.value)))
+    ) {
+        alert(
+            "Data Tidak Bisa DiUpdate Karena Qty Order = 0. Jika ingin Mengupdate Qty Order = 0 Maka Disc% Harus 0"
+        );
+    } else {
+        $.ajax({
+            url: "/openFormCreateSPPB/create/Update",
+            type: "PUT",
+            headers: {
+                "X-CSRF-TOKEN": csrfToken,
+            },
+            data: {
+                No_PO: nomor_purchaseOrder.value,
+                Qty: qty_order.value,
+                QtyCancel: qty_delay.value,
+                kurs: kurs.value,
+                pUnit: numeral(harga_unit.value).value(),
+                pSub: numeral(harga_sub_total.value).value(),
+                idPPN: ppn_select.value,
+                pPPN: numeral(ppn.value).value(),
+                pTot: numeral(harga_total.value).value(),
+                pIDRUnit: numeral(idr_unit.value).value(),
+                pIDRSub: numeral(idr_sub_total.value).value(),
+                pIDRPPN: numeral(idr_ppn.value).value(),
+                pIDRTot: numeral(idr_harga_total.value).value(),
+                persen: numeral(disc.value).value(),
+                disc: numeral(total_disc.value).value(),
+                discIDR: numeral(idr_total_disc.value).value(),
+                noTrans: no_po.value,
+            },
+            success: function (response) {
+                Swal.fire({
+                    icon: "success",
+                    title: "Data Berhasil DiUpdate!",
+                    showConfirmButton: false,
+                    timer: "2000",
+                });
+                console.log(response);
+                if (qtydelay > 0) {
+                    submit(nomor, qtydelay);
+                } else {
+                }
+                if (loadPermohonanData.length == 0) {
+                    window.location.href = "/PurchaseOrder/create";
+                } else {
+                    clearData();
+                    loadPermohonanData = response.data;
+                    LoadPermohonan(loadPermohonanData);
+                }
+            },
+            error: function (error) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Data Tidak Berhasil DiUpdate!",
+                    showConfirmButton: false,
+                    timer: "2000",
+                });
+                console.error("Error Send Data:", error);
+            },
+        });
+    }
 });
 btn_remove.addEventListener("click", function (event) {
     $.ajax({
@@ -308,8 +359,17 @@ btn_reject.addEventListener("click", function (event) {
                 timer: "2000",
             });
             console.log(response);
-            clearData();
-            location.reload(true);
+            let noOrder = no_po.value;
+            let objekDitemukan = loadPermohonanData.filter(
+                (obj) => obj.No_trans !== noOrder
+            );
+            loadPermohonanData = objekDitemukan;
+            if (loadPermohonanData.length == 0) {
+                window.location.href = "/PurchaseOrder/create";
+            } else {
+                LoadPermohonan(loadPermohonanData);
+                clearData();
+            }
         },
         error: function (error) {
             Swal.fire({
@@ -323,44 +383,47 @@ btn_reject.addEventListener("click", function (event) {
     });
 });
 btn_post.addEventListener("click", function (event) {
-    // print();
-    for (let i = 0; i < loadPermohonanData.length; i++) {
-        $.ajax({
-            url: "/openFormCreateSPPB/create/Post",
-            type: "PUT",
-            headers: {
-                "X-CSRF-TOKEN": csrfToken,
-            },
-            data: {
-                noTrans: loadPermohonanData[i].No_trans,
-                mtUang: matauang_select.value,
-                tglPO: tanggal_purchaseOrder.value,
-                idpay: paymentTerm_select.value,
-                Tgl_Dibutuhkan: tanggal_mohonKirim.value,
-                idSup: supplier_select.value,
-            },
-            success: function (response) {
-                // console.log(response);
-                Swal.fire({
-                    icon: "success",
-                    title: "Data Berhasil DiPost!",
-                    showConfirmButton: false,
-                    timer: "2000",
-                });
-                if (i == loadPermohonanData.length - 1) {
-                    dataPrint();
-                }
-            },
-            error: function (error) {
-                Swal.fire({
-                    icon: "error",
-                    title: "Data Tidak Berhasil DiPost!",
-                    showConfirmButton: false,
-                    timer: "2000",
-                });
-                console.error("Error Send Data:", error);
-            },
-        });
+    if (loadPermohonanData.length == 0) {
+        alert("Data Yang Akan Dipost Tidak Ada");
+    } else {
+        for (let i = 0; i < loadPermohonanData.length; i++) {
+            $.ajax({
+                url: "/openFormCreateSPPB/create/Post",
+                type: "PUT",
+                headers: {
+                    "X-CSRF-TOKEN": csrfToken,
+                },
+                data: {
+                    noTrans: loadPermohonanData[i].No_trans,
+                    mtUang: matauang_select.value,
+                    tglPO: tanggal_purchaseOrder.value,
+                    idpay: paymentTerm_select.value,
+                    Tgl_Dibutuhkan: tanggal_mohonKirim.value,
+                    idSup: supplier_select.value,
+                },
+                success: function (response) {
+                    // console.log(response);
+                    Swal.fire({
+                        icon: "success",
+                        title: "Data Berhasil DiPost!",
+                        showConfirmButton: false,
+                        timer: "2000",
+                    });
+                    if (i == loadPermohonanData.length - 1) {
+                        dataPrint();
+                    }
+                },
+                error: function (error) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Data Tidak Berhasil DiPost!",
+                        showConfirmButton: false,
+                        timer: "2000",
+                    });
+                    console.error("Error Send Data:", error);
+                },
+            });
+        }
     }
 });
 
@@ -387,7 +450,7 @@ function print(data) {
 
     let sumAmount = 0;
     let ppn = 0;
-    let No = 0 ;
+    let No = 0;
     let Page = 0;
 
     for (let i = 0; i < data.print.length; i++) {
@@ -413,8 +476,12 @@ function print(data) {
         chunk.forEach((item, index) => {
             tableRows += `
                 <tr>
-                    <td sty><p style="line-height: 13.8px; font-size: 12px;">${No + 1}</p></td>
-                    <td style="text-align: center;"><p style="line-height: 13.8px; font-size: 12px;">${item.Kd_brg}</p></td>
+                    <td sty><p style="line-height: 13.8px; font-size: 12px;">${
+                        No + 1
+                    }</p></td>
+                    <td style="text-align: center;"><p style="line-height: 13.8px; font-size: 12px;">${
+                        item.Kd_brg
+                    }</p></td>
                     <td><p style="line-height: 13.8px; font-size: 12px;">
                     ${item.NAMA_BRG}
                     <br>
@@ -445,14 +512,16 @@ function print(data) {
                             : parseFloat(item.PriceUnit).toLocaleString("en-US")
                     }</p></td>
                     <td style="text-align: center;"><p style="line-height: 13.8px; font-size: 12px;">${
-                        !parseFloat(item.disc == null ? 0 : item.disc)
+                        !parseFloat(
+                            item.harga_disc == null ? 0 : item.harga_disc
+                        )
                             .toLocaleString("en-US")
                             .includes(".")
                             ? parseFloat(
-                                  item.disc == null ? 0 : item.disc
+                                  item.harga_disc == null ? 0 : item.harga_disc
                               ).toLocaleString("en-US") + ".00"
                             : parseFloat(
-                                  item.disc == null ? 0 : item.disc
+                                  item.harga_disc == null ? 0 : item.harga_disc
                               ).toLocaleString("en-US")
                     }</p></td>
                     <td style="text-align: center;"><p style="line-height: 13.8px; font-size: 12px;">${
@@ -466,11 +535,13 @@ function print(data) {
                     }</p></td>
                 </tr>
             `;
-            No += 1
+            No += 1;
         });
 
         const print = `
-        <div style="width: 21.59cm; height: 27.94cm; padding: 0 0.5cm; margin: 0 auto; background: #FFFFFF; box-sizing: border-box; page-break-after: ${chunkIndex < chunkedData.length - 1 ? `always` : `avoid`};">
+        <div style="width: 21.59cm; height: 27.94cm; padding: 0 0.5cm; margin: 0 auto; background: #FFFFFF; box-sizing: border-box; page-break-after: ${
+            chunkIndex < chunkedData.length - 1 ? `always` : `avoid`
+        };">
             <div style="width: 100%; height : 15%;">
             </div>
             <main style="width: 100%; height : 70%;">
@@ -559,7 +630,9 @@ function print(data) {
                                 <h1 style="font-size: 12px; font-weight: bold; margin: 2px 0;">Page</h1>
                             </div>
                             <div style="width: 70%; height: auto;">
-                                <p style="font-size: 12px; margin: 2px 0;">: Page ${Page + 1} of ${chunkedData.length}</p>
+                                <p style="font-size: 12px; margin: 2px 0;">: Page ${
+                                    Page + 1
+                                } of ${chunkedData.length}</p>
                             </div>
                         </div>
                     </div>
@@ -641,7 +714,9 @@ function print(data) {
 }
 
 $(document).ready(function () {
+    LoadPermohonan(loadPermohonanData);
     console.log(loadPermohonanData);
+    console.log(numeral('2,000.010').value())
     $("#matauang_select").val(loadPermohonanData[0].ID_MATAUANG);
     $("#supplier_select option").each(function () {
         if ($(this).text() === loadPermohonanData[0].NM_SUP) {
@@ -666,14 +741,17 @@ $(document).ready(function () {
             qty_order.value = qtyDelay.toFixed(2);
         }
         updateIdrUnit();
-        updateSubTotal();
+        // updateSubTotal();
+        updateSubTotalDisc();
         updateIDRSubTotal();
         updateIDRPPN();
         updatePPN();
         updateHargaTotal();
         updateIDRHargaTotal();
-        updateDisc();
-        updateIDRDisc();
+        // updateDisc();
+        updateTotalDisc();
+        updateIDRDiscTotal();
+        // updateIDRDisc();
     });
 
     qty_order.addEventListener("input", function (event) {
@@ -692,14 +770,17 @@ $(document).ready(function () {
             qty_delay.value = qtyOrder.toFixed(2);
         }
         updateIdrUnit();
-        updateSubTotal();
+        // updateSubTotal();
+        updateSubTotalDisc();
         updateIDRSubTotal();
         updateIDRPPN();
         updatePPN();
         updateHargaTotal();
         updateIDRHargaTotal();
-        updateDisc();
-        updateIDRDisc();
+        // updateDisc();
+        updateTotalDisc();
+        updateIDRDiscTotal();
+        // updateIDRDisc();
     });
 
     kurs.addEventListener("input", function (event) {
@@ -711,33 +792,39 @@ $(document).ready(function () {
             "Tidak boleh character, harus angka"
         );
         updateIdrUnit();
-        updateSubTotal();
+        // updateSubTotal();
+        updateSubTotalDisc();
         updateIDRSubTotal();
         updateIDRPPN();
         updatePPN();
         updateHargaTotal();
         updateIDRHargaTotal();
-        updateIDRDisc();
-        updateDisc();
+        // updateIDRDisc();
+        updateTotalDisc();
+        updateIDRDiscTotal();
+        // updateDisc();
     });
 
     harga_unit.addEventListener("input", function (event) {
         setInputFilter(
             document.getElementById("harga_unit"),
             function (value) {
-                return /^-?\d*[.,]?\d*$/.test(value);
+                return /^-?\d*([.,]\d*)*$/.test(value);
             },
             "Tidak boleh character, harus angka"
         );
         updateIdrUnit();
-        updateSubTotal();
+        // updateSubTotal();
+        updateSubTotalDisc();
         updateIDRSubTotal();
         updateIDRPPN();
         updatePPN();
         updateHargaTotal();
         updateIDRHargaTotal();
-        updateDisc();
-        updateIDRDisc();
+        // updateDisc();
+        updateTotalDisc();
+        updateIDRDiscTotal();
+        // updateIDRDisc();
     });
 
     ppn_select.addEventListener("change", function (event) {
@@ -750,7 +837,7 @@ $(document).ready(function () {
         setInputFilter(
             document.getElementById("disc"),
             function (value) {
-                return /^-?\d*[.,]?\d*$/.test(value);
+                return /^-?\d*([.,]\d*)*$/.test(value);
             },
             "Tidak boleh character, harus angka"
         );
@@ -764,105 +851,212 @@ $(document).ready(function () {
         updateDisc();
         updateIDRDisc();
     });
+    total_disc.addEventListener("input", function (event) {
+        setInputFilter(
+            document.getElementById("total_disc"),
+            function (value) {
+                return /^-?\d*([.,]\d*)*$/.test(value);
+            },
+            "Tidak boleh character, harus angka"
+        );
+        updateIdrUnit();
+        updateSubTotalDisc();
+        updateIDRSubTotal();
+        updateIDRPPN();
+        updatePPN();
+        updateHargaTotal();
+        updateIDRHargaTotal();
+        updateTotalDisc();
+        updateIDRDiscTotal();
+    });
+
+    qty_order.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            qty_order.value = parseFloat(qty_order.value).toFixed(2);
+            qty_delay.focus();
+            qty_delay.select();
+        }
+    });
+    qty_delay.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            qty_delay.value = parseFloat(qty_delay.value).toFixed(2);
+            kurs.focus();
+            kurs.select();
+        }
+    });
+    kurs.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            kurs.value = parseFloat(kurs.value).toFixed(4);
+            disc.focus();
+            disc.select();
+        }
+    });
+
+    harga_unit.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            const data = numeral(harga_unit.value).value();
+            harga_unit.value = numeral(data).format("0,0.0000");
+            ppn_select.focus();
+        }
+    });
+
+    disc.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            disc.value = numeral(disc.value).format("0,0.00");
+            total_disc.focus();
+            total_disc.select();
+        }
+    });
+
+    total_disc.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            const data = numeral(total_disc.value).value();
+            total_disc.value = numeral(data).format("0,0.0000");
+            harga_unit.focus();
+            harga_unit.select();
+        }
+    });
 });
 
+
 function updateIdrUnit() {
-    let kurs = parseFloat(document.getElementById("kurs").value);
-    let hargaUnit = parseFloat(document.getElementById("harga_unit").value);
+    let kurs = numeral(document.getElementById("kurs").value).value();
+    let hargaUnit = numeral(
+        document.getElementById("harga_unit").value
+    ).value();
     if (!isNaN(kurs) && !isNaN(hargaUnit)) {
         let idrUnitValue = hargaUnit * kurs;
-        idr_unit.value = idrUnitValue;
+        idr_unit.value = numeral(idrUnitValue).format("0,0.0000");
     }
 }
 
 function updateSubTotal() {
-    let qty_order = parseFloat(document.getElementById("qty_order").value);
-    let hargaUnit = parseFloat(document.getElementById("harga_unit").value);
-    let disc = parseFloat(document.getElementById("disc").value);
+    let qty_order = numeral(document.getElementById("qty_order").value).value();
+    let hargaUnit = numeral(
+        document.getElementById("harga_unit").value
+    ).value();
+    let disc = numeral(document.getElementById("disc").value).value();
     if (!isNaN(qty_order) && !isNaN(hargaUnit) && !isNaN(disc)) {
         let SubTotalValue = hargaUnit * qty_order;
         let discount = (SubTotalValue * disc) / 100;
         let hargaSubTotal = SubTotalValue - discount;
 
-        harga_sub_total.value = hargaSubTotal;
+        harga_sub_total.value = numeral(hargaSubTotal).format("0,0.0000");
     }
 }
 
 function updateIDRSubTotal() {
-    let kurs = parseFloat(document.getElementById("kurs").value);
-    let hargaSubTotal = parseFloat(
+    let kurs = numeral(document.getElementById("kurs").value).value();
+    let hargaSubTotal = numeral(
         document.getElementById("harga_sub_total").value
-    );
+    ).value();
 
     if (!isNaN(kurs) && !isNaN(hargaSubTotal)) {
         let idrSubTotalValue = hargaSubTotal * kurs;
-        idr_sub_total.value = idrSubTotalValue;
+        idr_sub_total.value = numeral(idrSubTotalValue).format("0,0.0000");
+    }
+}
+
+function updateSubTotalDisc() {
+    let qty_order = numeral(document.getElementById("qty_order").value).value();
+    let hargaUnit = numeral(
+        document.getElementById("harga_unit").value
+    ).value();
+    let total_disc = numeral(
+        document.getElementById("total_disc").value
+    ).value();
+    if (!isNaN(qty_order) && !isNaN(hargaUnit) && !isNaN(total_disc)) {
+        let SubTotalValue = hargaUnit * qty_order;
+        let hargaSubTotal = SubTotalValue - total_disc;
+        harga_sub_total.value = numeral(hargaSubTotal).format("0,0.0000");
     }
 }
 
 function updatePPN() {
-    let selectedPPN = parseFloat(
+    let selectedPPN = numeral(
         ppn_select.options[ppn_select.selectedIndex].text
-    );
-    let hargaSubTotal = parseFloat(
+    ).value();
+    let hargaSubTotal = numeral(
         document.getElementById("harga_sub_total").value
-    );
+    ).value();
     if (!isNaN(selectedPPN) && !isNaN(hargaSubTotal)) {
         let jumPPN = (hargaSubTotal * selectedPPN) / 100;
-        ppn.value = jumPPN;
+        ppn.value = numeral(jumPPN).format("0,0.0000");
     }
 }
+
 function updateIDRPPN() {
-    let selectedPPN = parseFloat(
+    let selectedPPN = numeral(
         ppn_select.options[ppn_select.selectedIndex].text
-    );
-    let hargaSubTotal = parseFloat(
+    ).value();
+    let hargaSubTotal = numeral(
         document.getElementById("harga_sub_total").value
-    );
-    let kurs = parseFloat(document.getElementById("kurs").value);
+    ).value();
+    let kurs = numeral(document.getElementById("kurs").value).value();
     if (!isNaN(selectedPPN) && !isNaN(hargaSubTotal) && !isNaN(kurs)) {
         let jumPPN = (hargaSubTotal * selectedPPN) / 100;
         let idrPPNValue = jumPPN * kurs;
-        idr_ppn.value = idrPPNValue;
+        idr_ppn.value = numeral(idrPPNValue).format("0,0.0000");
     }
 }
 
 function updateHargaTotal() {
-    let ppn = parseFloat(document.getElementById("ppn").value);
-    let hargaSubTotal = parseFloat(
+    let ppn = numeral(document.getElementById("ppn").value).value();
+    let hargaSubTotal = numeral(
         document.getElementById("harga_sub_total").value
-    );
+    ).value();
     if (!isNaN(ppn) && !isNaN(hargaSubTotal)) {
         let hargaTotalValue = hargaSubTotal + ppn;
-        harga_total.value = hargaTotalValue;
+        harga_total.value = numeral(hargaTotalValue).format("0,0.0000");
     }
 }
 
 function updateIDRHargaTotal() {
-    let kurs = parseFloat(document.getElementById("kurs").value);
-    let hargaTotal = parseFloat(document.getElementById("harga_total").value);
+    let kurs = numeral(document.getElementById("kurs").value).value();
+    let hargaTotal = numeral(
+        document.getElementById("harga_total").value
+    ).value();
     if (!isNaN(kurs) && !isNaN(hargaTotal)) {
         let IDRHargaTotalValue = hargaTotal * kurs;
-        idr_harga_total.value = IDRHargaTotalValue;
+        idr_harga_total.value = numeral(IDRHargaTotalValue).format("0,0.0000");
     }
 }
 
 function updateDisc() {
-    let qty_order = parseFloat(document.getElementById("qty_order").value);
-    let hargaUnit = parseFloat(document.getElementById("harga_unit").value);
-    let disc = parseFloat(document.getElementById("disc").value);
+    let qty_order = numeral(document.getElementById("qty_order").value).value();
+    let hargaUnit = numeral(
+        document.getElementById("harga_unit").value
+    ).value();
+    let disc = numeral(document.getElementById("disc").value).value();
     if (!isNaN(hargaUnit) && !isNaN(qty_order) && !isNaN(disc)) {
         let SubTotalValue = hargaUnit * qty_order;
         let discount = (SubTotalValue * disc) / 100;
-        total_disc.value = discount;
+        total_disc.value = numeral(discount).format("0,0.0000");
+    }
+}
+
+function updateTotalDisc() {
+    let qty_order = numeral(document.getElementById("qty_order").value).value();
+    let hargaUnit = numeral(
+        document.getElementById("harga_unit").value
+    ).value();
+    let total_disc = numeral(
+        document.getElementById("total_disc").value
+    ).value();
+    if (!isNaN(hargaUnit) && !isNaN(qty_order) && !isNaN(total_disc)) {
+        let SubTotalValue = hargaUnit * qty_order;
+        let discount = (total_disc / SubTotalValue) * 100;
+        disc.value = numeral(discount).format("0,0.00");
     }
 }
 
 function updateIDRDisc() {
-    let qty_order = parseFloat(document.getElementById("qty_order").value);
-    let hargaUnit = parseFloat(document.getElementById("harga_unit").value);
-    let disc = parseFloat(document.getElementById("disc").value);
-    let kurs = parseFloat(document.getElementById("kurs").value);
+    let qty_order = numeral(document.getElementById("qty_order").value).value();
+    let hargaUnit = numeral(
+        document.getElementById("harga_unit").value
+    ).value();
+    let disc = numeral(document.getElementById("disc").value).value();
+    let kurs = numeral(document.getElementById("kurs").value).value();
 
     if (
         !isNaN(hargaUnit) &&
@@ -873,8 +1067,18 @@ function updateIDRDisc() {
         let SubTotalValue = hargaUnit * qty_order;
         let discount = (SubTotalValue * disc) / 100;
         let totalIDRDiscValue = discount * kurs;
-        console.log(totalIDRDiscValue);
+        idr_total_disc.value = numeral(totalIDRDiscValue).format("0,0.0000");
+    }
+}
 
-        idr_total_disc.value = totalIDRDiscValue;
+function updateIDRDiscTotal() {
+    let total_disc = numeral(
+        document.getElementById("total_disc").value
+    ).value();
+    let kurs = numeral(document.getElementById("kurs").value).value();
+
+    if (!isNaN(total_disc) && !isNaN(kurs)) {
+        let totalIDRDiscValue = total_disc * kurs;
+        idr_total_disc.value = numeral(totalIDRDiscValue).format("0,0.0000");
     }
 }

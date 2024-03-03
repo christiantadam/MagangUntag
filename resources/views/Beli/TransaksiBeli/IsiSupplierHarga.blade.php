@@ -25,7 +25,7 @@
                                         <div class="row align-items-center mx-2 mb-4 " style="border: 0.5px grey solid;">
                                             <div class="col-xl-2">
                                                 <input type="radio" name="filter_radioButton"
-                                                    id="filter_radioButtonAllOrder" value="AllOrder" class="radio-button">
+                                                    id="filter_radioButtonAllOrder" value="AllOrder" class="radio-button" checked>
                                                 All Order
                                             </div>
                                             <div class="col-xl-2">
@@ -53,7 +53,7 @@
                             </div>
                         </div>
                         <div id="div_tablePO" class="acs-form3">
-                            <table id="table_IsiHarga" class="table table-bordered table-striped" style="width:100%">
+                            <table id="table_IsiHarga" class="table table-bordered" style="width:100%">
                                 <thead class="thead-dark">
                                     <tr>
                                         <th>No. Order</th>
@@ -244,7 +244,7 @@
                                                 <label for="mata_uang">Mata Uang</label>
                                             </div>
                                             <div class="col-8 col-md-10">
-                                                <select name="matauang_select" id="matauang_select" class="w-100 input">
+                                                <select name="matauang_select" id="matauang_select" class="w-100 input" disabled>
                                                     <option class="w-100" selected disabled>-- Pilih Mata Uang --</option>
                                                 </select>
                                             </div>

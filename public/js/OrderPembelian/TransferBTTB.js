@@ -5,6 +5,7 @@ let table_transferBTTB = document.getElementById("table_transferBTTB");
 let no_terima = document.getElementById("no_terima");
 let kode_barang = document.getElementById("kode_barang");
 let nama_barang = document.getElementById("nama_barang");
+let no_pib = document.getElementById("no_pib");
 let keterangan = document.getElementById("keterangan");
 let qty_terima = document.getElementById("qty_terima");
 let ket_qtyTerima = document.getElementById("ket_qtyTerima");
@@ -169,7 +170,6 @@ btn_koreksi.addEventListener("click", function (event) {
 });
 
 btn_transfer.addEventListener("click", function (event) {
-
     $.ajax({
         url: "/TransferBarang/TransferBTTB/Transfer",
         type: "POST",
@@ -184,7 +184,7 @@ btn_transfer.addEventListener("click", function (event) {
             SubKel: ket_subKelompok.value,
             NoTerima: no_terima.value,
             ket: keterangan.value,
-            YTanggal: tanggal.value
+            YTanggal: tanggal.value,
         },
         success: function (response) {
             Swal.fire({
@@ -193,7 +193,7 @@ btn_transfer.addEventListener("click", function (event) {
                 showConfirmButton: false,
                 timer: "2000",
             });
-            window.location.href = "/TransferBarang"
+            window.location.href = "/TransferBarang";
         },
         error: function (error) {
             Swal.fire({
@@ -301,6 +301,9 @@ $(document).ready(function () {
         processing: true,
         serverSide: true,
         searching: false,
+        scrollY: "200px",
+        paging: false,
+        scrollX: true,
         ajax: {
             url: "/TransferBarang/TransferBTTB/LoadData",
             type: "GET",
@@ -316,17 +319,19 @@ $(document).ready(function () {
             { data: "NAMA_BRG" },
             { data: "Qty_Terima" },
             { data: "Nama_satuan" },
+            { data: "No_PIB" },
         ],
         rowCallback: function (row, data) {
             console.log(data);
 
-            $(row).on("click", function (event) {
+            $(row).on("dblclick", function (event) {
                 clearData();
                 no_terima.value = data.No_terima;
                 kode_barang.value = data.Kd_brg;
                 nama_barang.value = data.NAMA_BRG;
                 qty_terima.value = parseFloat(data.Qty_Terima);
                 ket_qtyTerima.value = data.Nama_satuan;
+                no_pib.value = data.No_PIB;
                 divisi(data.Kd_brg.trim());
                 loadSatuan(data.Kd_brg.trim());
                 if (koreksi == 1) {
@@ -336,7 +341,7 @@ $(document).ready(function () {
         },
     });
 
-    table.on("click", "tbody tr", (e) => {
+    table.on("dblclick", "tbody tr", (e) => {
         const classList = e.currentTarget.classList;
 
         if (classList.contains("selected")) {

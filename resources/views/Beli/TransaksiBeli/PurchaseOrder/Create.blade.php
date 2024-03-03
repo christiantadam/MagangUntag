@@ -2,28 +2,6 @@
 @section('content')
     <link href="{{ asset('css/CreatePurchaseOrder.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <script>
-        $(document).ready(function() {
-            $('#table_PurchaseOrder').DataTable({
-                order: [
-                    [1, 'desc']
-                ],
-
-            });
-
-
-            // var today = new Date();
-            // var dd = String(today.getDate()).padStart(2, '0');
-            // var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-            // var yyyy = today.getFullYear();
-
-            // // today1 = mm + '/' + dd + '/' + yyyy;
-            // today1 = yyyy + '-' + mm + '-' + dd;
-            // console.log(today1);
-            // document.getElementById("tglAwal").value=today1;
-            // document.getElementById("tglAkhir").value=today1;
-        });
-    </script>
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-10 RDZMobilePaddingLR0">
@@ -61,7 +39,6 @@
                                         </div>
                                     </div>
                                     <select name="divisi_select" id="divisi_select" class="input w-100">
-                                        <option disabled selected>-- Pilih Divisi --</option>
                                         <option value="ALL">ALL</option>
                                         @foreach ($divisi as $data)
                                             <option value="{{ $data->KD_DIV }}">{{ trim($data->NM_DIV) }}</option>
@@ -90,11 +67,12 @@
                                     <input type="checkbox" id="check_nyantol">
                                     <label for="">No. Order Nyantol</label>
                                 </div>
-                                <button class="w-full btn btn-success" id="redisplay" style="display: block">Redisplay</button>
+                                <button class="w-full btn btn-success" id="redisplay"
+                                    style="display: block">Redisplay</button>
                             </div>
                         </div>
                         <div id="div_tablePO" class="acs-form3">
-                            <table id="table_PurchaseOrder" class="table table-bordered table-striped" style="width:100%">
+                            <table id="table_PurchaseOrder" class="table table-bordered" style="width:100%">
                                 <thead class="thead-dark">
                                     <tr>
                                         <th>Supplier</th>

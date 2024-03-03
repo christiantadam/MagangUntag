@@ -32,8 +32,22 @@ returbutton.style.display = "block";
 batalbutton.style.display = "none";
 returbutton.disabled = true;
 batalbutton.disabled = true;
-let tabelretur = $("#tabelretur").DataTable();
-let tabelretur1 = $("#tabelretur1").DataTable();
+let tabelretur = $("#tabelretur").DataTable({
+    paging: false,
+    responsive: true,
+    scrollY: "100px",
+    searching: false,
+    scrollX: true,
+
+});
+let tabelretur1 = $("#tabelretur1").DataTable({
+    paging: false,
+    responsive: true,
+    scrollY: "100px",
+    searching: false,
+    scrollX: true,
+
+});
 let csrfToken = $('meta[name="csrf-token"]').attr("content");
 
 alasan.addEventListener("input", function (event) {
@@ -79,6 +93,41 @@ tertier.addEventListener("input", function (event) {
         "Tidak boleh character, harus angka"
     );
 });
+tanggalretur.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+        returprimer.focus();
+        returprimer.select();
+
+    }
+});
+qty_terima.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+        qty_terima.value = parseFloat(qty_terima.value).toFixed(4)
+        tanggalretur.focus();
+    }
+});
+returprimer.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+        returprimer.value = parseFloat(returprimer.value).toFixed(2)
+        sekunder.focus();
+        sekunder.select();
+    }
+});
+sekunder.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+        sekunder.value = parseFloat(sekunder.value).toFixed(2)
+        tertier.focus();
+        tertier.select();
+
+    }
+});
+tertier.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+        tertier.value = parseFloat(tertier.value).toFixed(2)
+        alasan.select();
+    }
+});
+
 function clearHeader() {
     suplier.value = "";
     payment.value = "";
@@ -372,7 +421,7 @@ nomor_po.addEventListener("keypress", function (event) {
     }
 });
 
-$("#tabelretur tbody").on("click", "tr", function () {
+$("#tabelretur tbody").on("dblclick", "tr", function () {
     $("#tabelretur tr.selected").not(this).removeClass("selected");
     clearRetur();
     clearInv();
@@ -391,7 +440,7 @@ $("#tabelretur tbody").on("click", "tr", function () {
     alasan.value = rowData[13] || "";
     sj.value = rowData[1] || "";
     id_terima.value = rowData[2] || "";
-    qty_terima.value = rowData[6] || "";
+    qty_terima.value = parseFloat(rowData[6]).toFixed(4) || "";
     if (rowData[13]) {
         returbutton.disabled = false;
     }
@@ -434,7 +483,7 @@ $("#tabelretur tbody").on("click", "tr", function () {
     }
 });
 
-$("#tabelretur1 tbody").on("click", "tr", function () {
+$("#tabelretur1 tbody").on("dblclick", "tr", function () {
     $("#tabelretur1 tr.selected").not(this).removeClass("selected");
     clearInv();
     $(this).toggleClass("selected");
@@ -442,9 +491,9 @@ $("#tabelretur1 tbody").on("click", "tr", function () {
     let rowData = tabelretur1.row(this).data();
     type.value = rowData[0];
     kelompok.value = rowData[10];
-    returprimer.value = parseFloat(rowData[3]);
-    sekunder.value = parseFloat(rowData[5]);
-    tertier.value = parseFloat(rowData[7]);
+    returprimer.value = parseFloat(rowData[3]).toFixed(2);
+    sekunder.value = parseFloat(rowData[5]).toFixed(2);
+    tertier.value = parseFloat(rowData[7]).toFixed(2);
 
     let No_terima = idterima;
     let returDitemukan = data.filter((obj) => obj.No_terima === No_terima);
@@ -492,10 +541,9 @@ function checkInn(data) {
 }
 
 function responseData(datas) {
-    let tabelData = $("#tabelretur").DataTable();
-    tabelData.clear().draw();
+    tabelretur.clear().draw();
     datas.forEach(function (data) {
-        tabelData.row
+        tabelretur.row
             .add([
                 data.No_BTTB,
                 data.No_SuratJalan,
@@ -518,19 +566,18 @@ function responseData(datas) {
 }
 
 function responseDataTabelRetur1(datas) {
-    let tabelData = $("#tabelretur1").DataTable();
-    tabelData.clear().draw();
+    tabelretur1.clear().draw();
     datas.forEach(function (data) {
-        tabelData.row
+        tabelretur1.row
             .add([
                 data.IdType,
                 data.KodeBarang,
                 data.NamaType,
-                parseFloat(data.SaldoPrimer) || 0,
+                data.SaldoPrimer || 0,
                 data.satPrimer,
-                parseFloat(data.SaldoSekunder) || 0,
+                data.SaldoSekunder || 0,
                 data.satSekunder,
-                parseFloat(data.SaldoTritier) || 0,
+                data.SaldoTritier || 0,
                 data.nama_satuan,
                 data.NamaSubKelompok,
                 data.NamaKelompok,

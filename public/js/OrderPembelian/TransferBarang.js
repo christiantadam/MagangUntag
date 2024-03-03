@@ -4,7 +4,6 @@ let select_divisi = document.getElementById("select_divisi");
 let no_bttb = document.getElementById("no_bttb");
 let check_koreksi = document.getElementById("check_koreksi");
 
-redisplay.disabled = true;
 formCekRedisplay.addEventListener("input", function (event) {
     let radioButtons = document.getElementsByName("filter_radioButton");
     console.log(select_divisi.selectedIndex != 0);
@@ -81,6 +80,9 @@ function redisplayData(Kd_Div, noBTTB, kd) {
         processing: true,
         serverSide: true,
         searching: false,
+        scrollY: "400px",
+        paging: false,
+        scrollX: true,
         ajax: {
             url: "/TransferBrg/Redisplay",
             type: "GET",

@@ -23,7 +23,7 @@
                                 <div class="row align-items-center">
                                     <div class="pl-3">
                                         <input type="radio" name="filter_radioButton" id="filter_radioButtonDivisi"
-                                            value="Divisi" class="radio-button">
+                                            value="Divisi" class="radio-button" checked>
                                         Divisi
                                     </div>
                                     <div class="col-xl-12">
@@ -56,7 +56,7 @@
                                 </div>
                             </div>
                             <div class="col-12 mt-2">
-                                <table id="table_trasferBarang" class="table table-bordered table-striped" style="width:100%">
+                                <table id="table_trasferBarang" class="table table-bordered" style="width:100%">
                                     <thead class="thead-dark">
                                         <tr>
                                             <th>No. PO</th>

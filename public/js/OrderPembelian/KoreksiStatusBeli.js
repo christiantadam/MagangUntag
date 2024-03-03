@@ -7,9 +7,9 @@ let no_po = document.getElementById("no_po");
 let csrfToken = $('meta[name="csrf-token"]').attr("content");
 
 btn_update.disabled = true;
-redisplay.disabled = true;
 formCekRedisplay.addEventListener("change", function (event) {
     redisplay.disabled = !radioButtonIsSelected();
+    redisplay.focus();
 });
 
 redisplay.addEventListener("click", function (event) {
@@ -64,7 +64,10 @@ function redisplayData(noTrans, requester, kd) {
         responsive: true,
         processing: true,
         serverSide: true,
-        searching : false,
+        scrollX: true,
+        searching: false,
+        scrollY: "400px",
+        paging: false,
         ajax: {
             url: "/StatusBeli/Redisplay",
             type: "GET",
@@ -86,7 +89,7 @@ function redisplayData(noTrans, requester, kd) {
             { data: "Kd_div" },
         ],
         rowCallback: function (row, data) {
-            $(row).on("click", function (event) {
+            $(row).on("dblclick", function (event) {
                 clearData();
                 no_po.value = data.No_trans;
                 document.getElementById(
@@ -103,7 +106,7 @@ function redisplayData(noTrans, requester, kd) {
         },
     });
 
-    table.on("click", "tbody tr", (e) => {
+    table.on("dblclick", "tbody tr", (e) => {
         const classList = e.currentTarget.classList;
 
         if (classList.contains("selected")) {

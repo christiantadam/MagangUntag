@@ -90,7 +90,20 @@ class TransferBarangController extends Controller
                 if ($koreksi == 1) {
                     $data = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @noBTTB = ?, @kd = ?', [$noBTTB, 34]);
                 } else if ($koreksi == 0) {
-                    $data = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @noBTTB = ?, @kd = ?', [$noBTTB, 19]);
+                    // $data = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @noBTTB = ?, @kd = ?', [$noBTTB, 19]);
+                    $data = DB::connection('ConnPurchase')
+                        ->table('YTERIMA')
+                        ->join('YTRANSBL', 'YTERIMA.No_trans', '=', 'YTRANSBL.No_trans')
+                        ->join('Y_BARANG', 'YTRANSBL.Kd_brg', '=', 'Y_BARANG.KD_BRG')
+                        ->join('Y_KATEGORI_SUB', 'Y_BARANG.NO_SUB_KATEGORI', '=', 'Y_KATEGORI_SUB.no_sub_kategori')
+                        ->join('Y_KATEGORY', 'Y_KATEGORI_SUB.no_kategori', '=', 'Y_KATEGORY.no_kategori')
+                        ->join('Y_KATEGORI_UTAMA', 'Y_KATEGORY.no_kat_utama', '=', 'Y_KATEGORI_UTAMA.no_kat_utama')
+                        ->join('YSATUAN', 'YTRANSBL.NoSatuan', '=', 'YSATUAN.No_satuan')
+                        ->select('YTERIMA.No_terima', 'Y_KATEGORY.nama_kategori', 'Y_KATEGORI_SUB.nama_sub_kategori', 'YTRANSBL.Kd_brg', 'Y_BARANG.NAMA_BRG', 'YTERIMA.Qty_Terima', 'YSATUAN.Nama_satuan', 'YTERIMA.No_BTTB','YTERIMA.No_PIB')
+                        ->whereNull('YTERIMA.NoTransaksiTmp')
+                        ->where('YTERIMA.No_BTTB', '=', $noBTTB)
+                        ->where('YTERIMA.Qty_Terima', '>', 0)
+                        ->get();
                 }
 
                 return datatables($data)->make(true);

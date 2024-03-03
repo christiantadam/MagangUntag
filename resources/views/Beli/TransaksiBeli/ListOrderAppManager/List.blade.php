@@ -91,33 +91,36 @@
                                     <button class="btn btn-success w-100" id="button_redisplay">Redisplay</button>
                                 </div>
                             </div>
-                            <div class="acs-form3">
-                                <table id="table_ListOrder" class="table table-bordered table-striped" style="width:100%">
-                                    <thead class="thead-dark">
-                                        <tr>
-                                            <th><input type="checkbox" name="CheckedAll" id="CheckedAll"
-                                                    class="RDZCheckBoxSize" /></th>
-                                            <th>No. Order</th>
-                                            <th>Tgl & Jam Approve</th>
-                                            <th>Status Beli</th>
-                                            <th>Kd. Barang</th>
-                                            <th>Type</th>
-                                            <th>Sub Kategori</th>
-                                            <th>Qty</th>
-                                            <th>Satuan</th>
-                                            <th>User</th>
-                                            <th>Divisi</th>
-                                            <th>Tgl Dibutuhkan</th>
-                                            <th>Keterangan Order</th>
-                                            <th>Keterangan Internal</th>
+                            <div class="col-12">
+                                <div class="acs-form3">
+                                    <table id="table_ListOrder" class="table table-bordered" style="width:100%">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th><input type="checkbox" name="CheckedAll" id="CheckedAll"
+                                                        class="RDZCheckBoxSize" /></th>
+                                                <th>No. Order</th>
+                                                <th>Tgl & Jam Approve</th>
+                                                <th>Status Beli</th>
+                                                <th>Kd. Barang</th>
+                                                <th>Type</th>
+                                                <th>Sub Kategori</th>
+                                                <th>Qty</th>
+                                                <th>Satuan</th>
+                                                <th>User</th>
+                                                <th>Divisi</th>
+                                                <th>Tgl Dibutuhkan</th>
+                                                <th>Keterangan Order</th>
+                                                <th>Keterangan Internal</th>
 
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
 
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
+
                             <div class="col-md-2 mt-2">
                                 <div class="col-4 col-md-12 p-0">
                                     <button class="btn btn-info w-100" id="btn_print">Print</button>

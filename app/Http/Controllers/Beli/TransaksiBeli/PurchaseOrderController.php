@@ -142,7 +142,7 @@ class PurchaseOrderController extends Controller
                 $print = DB::connection('ConnPurchase')->table('VW_5409_PRINT_PO')->where('VW_5409_PRINT_PO.NO_PO', $noPO)->get();
                 $printHeader = DB::connection('ConnPurchase')->table('VW_5409_PRINT_HEADER_PO')->where('VW_5409_PRINT_HEADER_PO.NO_PO', $noPO)->get();
 
-                return Response()->json(["print"=>$print,"printHeader" => $printHeader]);
+                return Response()->json(["print" => $print, "printHeader" => $printHeader]);
             } catch (\Throwable $Error) {
                 return Response()->json($Error);
             }
@@ -150,9 +150,25 @@ class PurchaseOrderController extends Controller
             return Response()->json('Parameter harus di isi');
         }
     }
-
+    public function submit(Request $request)
+    {
+        $kd = 15;
+        $noTrans = $request->input('noTrans');
+        $QtyDelay = $request->input('QtyDelay');
+        if (($noTrans !== null && $QtyDelay !== null)) {
+            try {
+                $submit = DB::connection('ConnPurchase')->statement('exec SP_5409_SAVE_ORDER @kd = ?, @noTrans = ?, @QtyDelay = ?', [$kd, $noTrans,$QtyDelay]);
+                return Response()->json(['message' => 'Data Berhasil Ditambahkan']);
+            } catch (\Throwable $Error) {
+                return Response()->json($Error);
+            }
+        } else {
+            return Response()->json('Parameter harus di isi');
+        }
+    }
     public function update(Request $request)
     {
+        $No_PO = $request->input('No_PO');
         $kd = 3;
         $Qty = $request->input('Qty');
         $QtyCancel = $request->input('QtyCancel');
@@ -190,7 +206,8 @@ class PurchaseOrderController extends Controller
         ) {
             try {
                 $update = DB::connection('ConnPurchase')->statement('exec SP_5409_MAINT_PO @kd = ?, @Qty = ?, @QtyCancel = ?, @kurs = ?, @pUnit = ?, @pSub = ?, @idPPN = ?, @pPPN = ?, @pTot = ?, @pIDRUnit = ?, @pIDRSub = ?, @pIDRPPN = ?, @pIDRTot = ?, @Operator = ?, @persen = ?, @disc = ?, @discIDR = ?, @noTrans = ?', [$kd, $Qty, $QtyCancel, $kurs, $pUnit, $pSub, $idPPN, $pPPN, $pTot, $pIDRUnit, $pIDRSub, $pIDRPPN, $pIDRTot, $Operator, $persen, $disc, $discIDR, $noTrans]);
-                return Response()->json(['message' => 'Data Berhasil diupdate']);
+                $loadPermohonan = db::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd = ?, @noPO = ?', [13, $No_PO]);
+                return Response()->json(['message' => 'Data Berhasil diupdate', 'data' => $loadPermohonan]);
             } catch (\Throwable $Error) {
                 return Response()->json($Error);
             }
@@ -224,7 +241,7 @@ class PurchaseOrderController extends Controller
             ($alasan !== null)
         ) {
             try {
-                $remove = DB::connection('ConnPurchase')->statement('exec SP_5409_MAINT_PO @kd = ?, @noTrans = ?, @alasan = ?, @Operator = ?', [$kd, $noTrans, $alasan, $Operator]);
+                $reject = DB::connection('ConnPurchase')->statement('exec SP_5409_MAINT_PO @kd = ?, @noTrans = ?, @alasan = ?, @Operator = ?', [$kd, $noTrans, $alasan, $Operator]);
                 return Response()->json(['message' => 'Data Berhasil Reject']);
             } catch (\Throwable $Error) {
                 return Response()->json($Error);
@@ -305,7 +322,7 @@ class PurchaseOrderController extends Controller
         $noTrans = $request->input('noTrans');
         $kd = 15;
 
-        $purchaseorder = DB::connection('ConnPurchase')->statement('exec SP_5409_MAINT_PO @kd=?, @noTrans=?' , [$kd, $noTrans]);
+        $purchaseorder = DB::connection('ConnPurchase')->statement('exec SP_5409_MAINT_PO @kd=?, @noTrans=?', [$kd, $noTrans]);
 
         return response()->json($purchaseorder);
     }
@@ -318,7 +335,7 @@ class PurchaseOrderController extends Controller
         $noTrans = $request->input('noTrans');
         $kd = 16;
 
-        $purchaseorder = DB::connection('ConnPurchase')->statement('exec SP_5409_MAINT_PO @kd=?, @Operator=?, @QtyCancel=?, @alasan=?, @noTrans=?' ,  [$kd, $Operator, $QtyCancel, $alasan, $noTrans]);
+        $purchaseorder = DB::connection('ConnPurchase')->statement('exec SP_5409_MAINT_PO @kd=?, @Operator=?, @QtyCancel=?, @alasan=?, @noTrans=?',  [$kd, $Operator, $QtyCancel, $alasan, $noTrans]);
 
         return response()->json($purchaseorder);
     }
