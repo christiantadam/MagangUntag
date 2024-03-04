@@ -28,12 +28,14 @@
                                                     <label for="supplier">Supplier</label>
                                                 </div>
                                                 <div class="col-8 col-md-10">
-                                                    <select name="select_supplier" id="select_supplier" class="form-control">
+                                                    <select name="select_supplier" id="select_supplier" class="form-control"
+                                                        disabled>
+                                                        <option class="w-100 text-center" selected disabled>-- Pilih
+                                                            Supplier --
+                                                        </option>
                                                         @foreach ($sup as $bttb)
                                                             <option value="{{ $bttb->NO_SUP }}">{{ $bttb->NM_SUP }}</option>
                                                         @endforeach
-                                                        <option class="w-100 text-center" selected disabled>-- Pilih Supplier --
-                                                        </option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -44,10 +46,8 @@
                                                     <label for="noPO">No. PO</label>
                                                 </div>
                                                 <div class="col-8 col-md-10">
-                                                    <select name="select_noPO" id="select_noPO" class="form-control">
-                                                        <option class="w-100">
-                                                        </option>
-                                                    </select>
+                                                    <input type="text" name="select_noPO" id="select_noPO"
+                                                        class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -55,7 +55,7 @@
                                 </div>
                             </div>
                             <div id="div_tablePO" class="acs-form3">
-                                <table id="tableharga" class="table table-bordered table-striped scrollmenu"
+                                <table id="tableharga" class="table table-bordered"
                                     style="width:100%">
                                     <thead class="thead-dark">
                                         <tr>
@@ -184,8 +184,10 @@
                                         </div>
                                     </div>
                                     <div class="col-md-12 d-flex justify-content-end pb-4">
-                                        <button type="button" class="btn btn-danger btn-lg mr-3 mb-6" id="removebutton" > Close</button>
-                                        <button type="button" class="btn btn-danger btn-lg mr-3 mb-6" id="buttoncancel" > Cancel PO</button>
+                                        <button type="button" class="btn btn-danger btn-lg mr-3 mb-6" id="removebutton">
+                                            Close</button>
+                                        <button type="button" class="btn btn-danger btn-lg mr-3 mb-6" id="buttoncancel">
+                                            Cancel PO</button>
                                     </div>
                                 </div>
                             </div>

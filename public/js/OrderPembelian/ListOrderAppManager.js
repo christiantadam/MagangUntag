@@ -32,6 +32,8 @@ buttonRedisplay.addEventListener("click", function (event) {
         statusPembelian = 0;
     }
     $("#table_ListOrder").DataTable().clear().destroy();
+    $('input[type="checkbox"]:checked').prop("checked", false);
+    $('#checkedCount').text(`Jumlah Data Yang TerCentang 0`);
     $.ajax({
         url: "/ListOrderAppManager/Redisplay",
         method: "GET",
@@ -56,6 +58,10 @@ buttonRedisplay.addEventListener("click", function (event) {
 function initializeDataTable(response) {
     let table = $("#table_ListOrder").DataTable({
         responsive: true,
+        scrollX: true,
+        searching: false,
+        scrollY: "400px",
+        paging: false,
         data: response,
         columns: [
             {
@@ -93,6 +99,15 @@ function initializeDataTable(response) {
             { data: "keterangan" },
             { data: "Ket_Internal" },
         ],
+    });
+    $('#table_ListOrder tbody').off('dblclick', 'tr').on('dblclick', 'tr', function () {
+        let checkbox = $(this).find('input[type="checkbox"]');
+        console.log(checkbox)
+        checkbox.prop('checked', !checkbox.prop('checked'));
+        let checkedCount = $('input[type="checkbox"]:checked').length;
+
+
+        $('#checkedCount').text(`Jumlah Data Yang TerCentang ${checkedCount}`);
     });
 }
 

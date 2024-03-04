@@ -24,6 +24,8 @@ let table_PurchaseOrder = document.getElementById("table_PurchaseOrder");
 let checkbox_centangSemuaBaris = document.getElementById(
     "checkbox_centangSemuaBaris"
 );
+let checkedAll = document.getElementById("CheckedAll");
+
 let csrfToken = $('meta[name="csrf-token"]').attr("content");
 let create_po = document.getElementById("create_po");
 let form_createSPPB = document.getElementById("form_createSPPB");
@@ -38,6 +40,9 @@ let table = $("#table_PurchaseOrder").DataTable({
     searching: false,
     scrollY: "400px",
     paging: false,
+    columnDefs: [
+        { orderable: false, targets: 0 }, // Kolom pertama memiliki indeks 0
+    ],
 });
 
 backGroup.style.display = "none";
@@ -50,6 +55,22 @@ check_nyantol.addEventListener("click", function (event) {
         backGroup.style.display = "none";
         form_createSPPB.style.display = "block";
     }
+});
+
+checkedAll.addEventListener("click", function (event) {
+    let rows = table
+        .rows({
+            search: "applied",
+        })
+        .nodes();
+    if (checkedAll.checked == true) {
+        $('input[type="checkbox"]', rows).prop("checked", true);
+        selectedRows = table.rows().data().toArray();
+    } else {
+        $('input[type="checkbox"]', rows).prop("checked", false);
+        selectedRows = [];
+    }
+    console.log(selectedRows, "asd");
 });
 
 btn_backCreatePO.addEventListener("click", function (event) {
@@ -206,7 +227,8 @@ filter_radioButtonUserInput.addEventListener("change", function (event) {
 
 redisplay.addEventListener("click", function (event) {
     event.preventDefault();
-
+    $('input[type="checkbox"]:checked').prop("checked", false);
+    $('#checkedCount').text(`Jumlah Data Yang TerCentang 0`);
     if (check_nyantol.checked == true) {
         if (filter_radioButton1.checked == true) {
             proses = 1;
@@ -258,8 +280,8 @@ create_po.addEventListener("click", function (event) {
         let sameValues = true;
         for (let i = 0; i < selectedRows.length; i++) {
             if (
-                selectedRows[0][0] !== selectedRows[i][0] ||
-                selectedRows[0][1] !== selectedRows[i][1]
+                selectedRows[0][1] !== selectedRows[i][1] ||
+                selectedRows[0][2] !== selectedRows[i][2]
             ) {
                 sameValues = false;
                 alert("Ada data supplier dan divisi yang tidak sama!");
@@ -269,7 +291,7 @@ create_po.addEventListener("click", function (event) {
         if (sameValues == true) {
             let noTrans = [];
             for (let index = 0; index < selectedRows.length; index++) {
-                noTrans.push(selectedRows[index][4]);
+                noTrans.push(selectedRows[index][5]);
             }
             let input = document.createElement("input");
             input.type = "hidden";
@@ -297,6 +319,7 @@ function LoadPermohonan(proses, stbeli) {
                 console.log(data);
                 const rows = data.map((item) => {
                     return [
+                        `<input type="checkbox" name="checked" value="${item.No_trans.trim()}" id="${item.No_trans.trim()}" style="width: 20px;height: 20px;" />`,
                         item.NM_SUP.trim(),
                         item.Kd_div.trim(),
                         item.NmUser.trim(),
@@ -320,27 +343,51 @@ function LoadPermohonan(proses, stbeli) {
                         item.AppDir.trim(),
                     ];
                 });
-
-                // const table = $("#table_PurchaseOrder").DataTable({
-                //     responsive: true,
-                //     searching: false,
-                //     scrollY: "400px",
-                //     paging: false,
-                // });
                 table.clear();
                 table.rows.add(rows);
                 table.draw();
-                $("#table_PurchaseOrder tbody").off("click", "tr");
-                $("#table_PurchaseOrder tbody").on("click", "tr", function () {
-                    $(this).toggleClass("selected");
-                    selectedRows = table.rows(".selected").data().toArray();
-                    console.log(selectedRows);
-                });
-                $("#checkbox_centangSemuaBaris").on("click", function () {
-                    let allRows = table.rows().nodes();
-                    $(allRows).toggleClass("selected");
-                    selectedRows = table.rows(".selected").data().toArray();
-                });
+                $("#table_PurchaseOrder tbody").off("dblclick", "tr");
+                $("#table_PurchaseOrder tbody").on(
+                    "dblclick",
+                    "tr",
+                    function () {
+                        let checkbox = $(this).find('input[type="checkbox"]');
+                        checkbox.prop("checked", !checkbox.prop("checked"));
+                        let checkedCount = $(
+                            'input[type="checkbox"]:checked'
+                        ).length;
+
+                        $("#checkedCount").text(
+                            `Jumlah Data Yang TerCentang ${checkedCount}`
+                        );
+                        selectedRows = [];
+                        $(
+                            '#table_PurchaseOrder tbody input[type="checkbox"]:checked'
+                        ).each(function () {
+                            let row = $(this).closest("tr");
+                            let rowData = table.row(row).data();
+                            selectedRows.push(rowData);
+                        });
+                        console.log(selectedRows);
+                    }
+                );
+                $("#table_PurchaseOrder tbody").on(
+                    "click",
+                    'input[type="checkbox"]',
+                    function () {
+                        let selectedRows = [];
+
+                        $(
+                            '#table_PurchaseOrder tbody input[type="checkbox"]:checked'
+                        ).each(function () {
+                            let row = $(this).closest("tr");
+                            let rowData = table.row(row).data();
+                            selectedRows.push(rowData);
+                        });
+
+                        console.log(selectedRows);
+                    }
+                );
             });
     } else if (proses == 2) {
         fetch("/get/dataPermohonanUser/" + filter_radioButtonUserInput.value)
@@ -349,6 +396,7 @@ function LoadPermohonan(proses, stbeli) {
                 console.log(data);
                 const rows = data.map((item) => {
                     return [
+                        `<input type="checkbox" name="checked" value="${item.No_trans.trim()}" id="${item.No_trans.trim()}" style="width: 20px;height: 20px;" />`,
                         item.NM_SUP.trim(),
                         item.Kd_div.trim(),
                         item.NmUser.trim(),
@@ -372,27 +420,51 @@ function LoadPermohonan(proses, stbeli) {
                         item.AppDir.trim(),
                     ];
                 });
-
-                // const table = $("#table_PurchaseOrder").DataTable({
-                //     responsive: true,
-                //     searching: false,
-                //     scrollY: "400px",
-                //     paging: false,
-                // });
                 table.clear();
                 table.rows.add(rows);
                 table.draw();
-                $("#table_PurchaseOrder tbody").off("click", "tr");
-                $("#table_PurchaseOrder tbody").on("click", "tr", function () {
-                    $(this).toggleClass("selected");
-                    selectedRows = table.rows(".selected").data().toArray();
-                    console.log(selectedRows);
-                });
-                $("#checkbox_centangSemuaBaris").on("click", function () {
-                    let allRows = table.rows().nodes();
-                    $(allRows).toggleClass("selected");
-                    selectedRows = table.rows(".selected").data().toArray();
-                });
+                $("#table_PurchaseOrder tbody").off("dblclick", "tr");
+                $("#table_PurchaseOrder tbody").on(
+                    "dblclick",
+                    "tr",
+                    function () {
+                        let checkbox = $(this).find('input[type="checkbox"]');
+                        checkbox.prop("checked", !checkbox.prop("checked"));
+                        let checkedCount = $(
+                            'input[type="checkbox"]:checked'
+                        ).length;
+
+                        $("#checkedCount").text(
+                            `Jumlah Data Yang TerCentang ${checkedCount}`
+                        );
+                        selectedRows = [];
+                        $(
+                            '#table_PurchaseOrder tbody input[type="checkbox"]:checked'
+                        ).each(function () {
+                            let row = $(this).closest("tr");
+                            let rowData = table.row(row).data();
+                            selectedRows.push(rowData);
+                        });
+                        console.log(selectedRows);
+                    }
+                );
+                $("#table_PurchaseOrder tbody").on(
+                    "click",
+                    'input[type="checkbox"]',
+                    function () {
+                        let selectedRows = [];
+
+                        $(
+                            '#table_PurchaseOrder tbody input[type="checkbox"]:checked'
+                        ).each(function () {
+                            let row = $(this).closest("tr");
+                            let rowData = table.row(row).data();
+                            selectedRows.push(rowData);
+                        });
+
+                        console.log(selectedRows);
+                    }
+                );
             });
     } else if (proses == 3) {
         fetch("/get/dataPermohonanOrder/" + filter_radioButtonOrderInput.value)
@@ -401,6 +473,7 @@ function LoadPermohonan(proses, stbeli) {
                 console.log(data);
                 const rows = data.map((item) => {
                     return [
+                        `<input type="checkbox" name="checked" value="${item.No_trans.trim()}" id="${item.No_trans.trim()}" style="width: 20px;height: 20px;" />`,
                         item.NM_SUP.trim(),
                         item.Kd_div.trim(),
                         item.NmUser.trim(),
@@ -424,27 +497,51 @@ function LoadPermohonan(proses, stbeli) {
                         item.AppDir.trim(),
                     ];
                 });
-
-                // const table = $("#table_PurchaseOrder").DataTable({
-                //     responsive: true,
-                //     searching: false,
-                //     scrollY: "400px",
-                //     paging: false,
-                // });
                 table.clear();
                 table.rows.add(rows);
                 table.draw();
-                $("#table_PurchaseOrder tbody").off("click", "tr");
-                $("#table_PurchaseOrder tbody").on("click", "tr", function () {
-                    $(this).toggleClass("selected");
-                    selectedRows = table.rows(".selected").data().toArray();
-                    console.log(selectedRows);
-                });
-                $("#checkbox_centangSemuaBaris").on("click", function () {
-                    let allRows = table.rows().nodes();
-                    $(allRows).toggleClass("selected");
-                    selectedRows = table.rows(".selected").data().toArray();
-                });
+                $("#table_PurchaseOrder tbody").off("dblclick", "tr");
+                $("#table_PurchaseOrder tbody").on(
+                    "dblclick",
+                    "tr",
+                    function () {
+                        let checkbox = $(this).find('input[type="checkbox"]');
+                        checkbox.prop("checked", !checkbox.prop("checked"));
+                        let checkedCount = $(
+                            'input[type="checkbox"]:checked'
+                        ).length;
+
+                        $("#checkedCount").text(
+                            `Jumlah Data Yang TerCentang ${checkedCount}`
+                        );
+                        selectedRows = [];
+                        $(
+                            '#table_PurchaseOrder tbody input[type="checkbox"]:checked'
+                        ).each(function () {
+                            let row = $(this).closest("tr");
+                            let rowData = table.row(row).data();
+                            selectedRows.push(rowData);
+                        });
+                        console.log(selectedRows);
+                    }
+                );
+                $("#table_PurchaseOrder tbody").on(
+                    "click",
+                    'input[type="checkbox"]',
+                    function () {
+                        let selectedRows = [];
+
+                        $(
+                            '#table_PurchaseOrder tbody input[type="checkbox"]:checked'
+                        ).each(function () {
+                            let row = $(this).closest("tr");
+                            let rowData = table.row(row).data();
+                            selectedRows.push(rowData);
+                        });
+
+                        console.log(selectedRows);
+                    }
+                );
             });
     }
 }
@@ -462,6 +559,7 @@ function LoadPermohonanNyantol(proses, stbeli) {
                 // console.log(data);
                 const rows = data.map((item) => {
                     return [
+                        `<input type="checkbox" name="checked" value="${item.No_trans.trim()}" id="${item.No_trans.trim()}" style="width: 20px;height: 20px;" />`,
                         item.NM_SUP.trim(),
                         item.Kd_div.trim(),
                         item.NmUser.trim(),
@@ -485,27 +583,51 @@ function LoadPermohonanNyantol(proses, stbeli) {
                         item.AppDir.trim(),
                     ];
                 });
-
-                // const table = $("#table_PurchaseOrder").DataTable({
-                //     responsive: true,
-                //     searching: false,
-                //     scrollY: "400px",
-                //     paging: false,
-                // });
                 table.clear();
                 table.rows.add(rows);
                 table.draw();
-                $("#table_PurchaseOrder tbody").off("click", "tr");
-                $("#table_PurchaseOrder tbody").on("click", "tr", function () {
-                    $(this).toggleClass("selected");
-                    selectedRows = table.rows(".selected").data().toArray();
-                    console.log(selectedRows);
-                });
-                $("#checkbox_centangSemuaBaris").on("click", function () {
-                    let allRows = table.rows().nodes();
-                    $(allRows).toggleClass("selected");
-                    selectedRows = table.rows(".selected").data().toArray();
-                });
+                $("#table_PurchaseOrder tbody").off("dblclick", "tr");
+                $("#table_PurchaseOrder tbody").on(
+                    "dblclick",
+                    "tr",
+                    function () {
+                        let checkbox = $(this).find('input[type="checkbox"]');
+                        checkbox.prop("checked", !checkbox.prop("checked"));
+                        let checkedCount = $(
+                            'input[type="checkbox"]:checked'
+                        ).length;
+
+                        $("#checkedCount").text(
+                            `Jumlah Data Yang TerCentang ${checkedCount}`
+                        );
+                        selectedRows = [];
+                        $(
+                            '#table_PurchaseOrder tbody input[type="checkbox"]:checked'
+                        ).each(function () {
+                            let row = $(this).closest("tr");
+                            let rowData = table.row(row).data();
+                            selectedRows.push(rowData);
+                        });
+                        console.log(selectedRows);
+                    }
+                );
+                $("#table_PurchaseOrder tbody").on(
+                    "click",
+                    'input[type="checkbox"]',
+                    function () {
+                        let selectedRows = [];
+
+                        $(
+                            '#table_PurchaseOrder tbody input[type="checkbox"]:checked'
+                        ).each(function () {
+                            let row = $(this).closest("tr");
+                            let rowData = table.row(row).data();
+                            selectedRows.push(rowData);
+                        });
+
+                        console.log(selectedRows);
+                    }
+                );
             });
     } else if (proses == 2) {
         fetch(
@@ -517,6 +639,7 @@ function LoadPermohonanNyantol(proses, stbeli) {
                 console.log(data);
                 const rows = data.map((item) => {
                     return [
+                        `<input type="checkbox" name="checked" value="${item.No_trans.trim()}" id="${item.No_trans.trim()}" style="width: 20px;height: 20px;" />`,
                         item.NM_SUP.trim(),
                         item.Kd_div.trim(),
                         item.NmUser.trim(),
@@ -540,27 +663,51 @@ function LoadPermohonanNyantol(proses, stbeli) {
                         item.AppDir.trim(),
                     ];
                 });
-
-                // const table = $("#table_PurchaseOrder").DataTable({
-                //     responsive: true,
-                //     searching: false,
-                //     scrollY: "400px",
-                //     paging: false,
-                // });
                 table.clear();
                 table.rows.add(rows);
                 table.draw();
-                $("#table_PurchaseOrder tbody").off("click", "tr");
-                $("#table_PurchaseOrder tbody").on("click", "tr", function () {
-                    $(this).toggleClass("selected");
-                    selectedRows = table.rows(".selected").data().toArray();
-                    console.log(selectedRows);
-                });
-                $("#checkbox_centangSemuaBaris").on("click", function () {
-                    let allRows = table.rows().nodes();
-                    $(allRows).toggleClass("selected");
-                    selectedRows = table.rows(".selected").data().toArray();
-                });
+                $("#table_PurchaseOrder tbody").off("dblclick", "tr");
+                $("#table_PurchaseOrder tbody").on(
+                    "dblclick",
+                    "tr",
+                    function () {
+                        let checkbox = $(this).find('input[type="checkbox"]');
+                        checkbox.prop("checked", !checkbox.prop("checked"));
+                        let checkedCount = $(
+                            'input[type="checkbox"]:checked'
+                        ).length;
+
+                        $("#checkedCount").text(
+                            `Jumlah Data Yang TerCentang ${checkedCount}`
+                        );
+                        selectedRows = [];
+                        $(
+                            '#table_PurchaseOrder tbody input[type="checkbox"]:checked'
+                        ).each(function () {
+                            let row = $(this).closest("tr");
+                            let rowData = table.row(row).data();
+                            selectedRows.push(rowData);
+                        });
+                        console.log(selectedRows);
+                    }
+                );
+                $("#table_PurchaseOrder tbody").on(
+                    "click",
+                    'input[type="checkbox"]',
+                    function () {
+                        let selectedRows = [];
+
+                        $(
+                            '#table_PurchaseOrder tbody input[type="checkbox"]:checked'
+                        ).each(function () {
+                            let row = $(this).closest("tr");
+                            let rowData = table.row(row).data();
+                            selectedRows.push(rowData);
+                        });
+
+                        console.log(selectedRows);
+                    }
+                );
             });
     } else if (proses == 3) {
         fetch(
@@ -572,6 +719,7 @@ function LoadPermohonanNyantol(proses, stbeli) {
                 console.log(data);
                 const rows = data.map((item) => {
                     return [
+                        `<input type="checkbox" name="checked" value="${item.No_trans.trim()}" id="${item.No_trans.trim()}" style="width: 20px;height: 20px;" />`,
                         item.NM_SUP.trim(),
                         item.Kd_div.trim(),
                         item.NmUser.trim(),
@@ -596,26 +744,51 @@ function LoadPermohonanNyantol(proses, stbeli) {
                     ];
                 });
 
-                // const table = $("#table_PurchaseOrder").DataTable({
-                //     responsive: true,
-                //     searching: false,
-                //     scrollY: "400px",
-                //     paging: false,
-                // });
                 table.clear();
                 table.rows.add(rows);
                 table.draw();
-                $("#table_PurchaseOrder tbody").off("click", "tr");
-                $("#table_PurchaseOrder tbody").on("click", "tr", function () {
-                    $(this).toggleClass("selected");
-                    selectedRows = table.rows(".selected").data().toArray();
-                    console.log(selectedRows);
-                });
-                $("#checkbox_centangSemuaBaris").on("click", function () {
-                    let allRows = table.rows().nodes();
-                    $(allRows).toggleClass("selected");
-                    selectedRows = table.rows(".selected").data().toArray();
-                });
+                $("#table_PurchaseOrder tbody").off("dblclick", "tr");
+                $("#table_PurchaseOrder tbody").on(
+                    "dblclick",
+                    "tr",
+                    function () {
+                        let checkbox = $(this).find('input[type="checkbox"]');
+                        checkbox.prop("checked", !checkbox.prop("checked"));
+                        let checkedCount = $(
+                            'input[type="checkbox"]:checked'
+                        ).length;
+
+                        $("#checkedCount").text(
+                            `Jumlah Data Yang TerCentang ${checkedCount}`
+                        );
+                        selectedRows = [];
+                        $(
+                            '#table_PurchaseOrder tbody input[type="checkbox"]:checked'
+                        ).each(function () {
+                            let row = $(this).closest("tr");
+                            let rowData = table.row(row).data();
+                            selectedRows.push(rowData);
+                        });
+                        console.log(selectedRows);
+                    }
+                );
+                $("#table_PurchaseOrder tbody").on(
+                    "click",
+                    'input[type="checkbox"]',
+                    function () {
+                        let selectedRows = [];
+
+                        $(
+                            '#table_PurchaseOrder tbody input[type="checkbox"]:checked'
+                        ).each(function () {
+                            let row = $(this).closest("tr");
+                            let rowData = table.row(row).data();
+                            selectedRows.push(rowData);
+                        });
+
+                        console.log(selectedRows);
+                    }
+                );
             });
     }
 }

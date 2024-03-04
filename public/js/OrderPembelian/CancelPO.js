@@ -18,6 +18,14 @@ function clearOptions(selectElement) {
     }
 }
 
+let tabelData = $("#tableharga").DataTable({
+    responsive: true,
+    scrollX: true,
+    searching: false,
+    scrollY: "200px",
+    paging: false,
+});
+
 function clearData() {
     document.getElementById("no_po").value = "";
     document.getElementById("kd_barang").value = "";
@@ -33,15 +41,28 @@ function clearData() {
 }
 
 function dropdownData() {
-    $("#tableharga").DataTable().clear();
     $.ajax({
         url: "/GETabel",
         type: "GET",
         data: {
-            noPO: noPODropdown.value,
+            noPO: noPODropdown.value.trim(),
         },
         success: function (response) {
-            responseData(response);
+            if (response.data.length == 0) {
+                supplierDropdown.selectedIndex = 0;
+                tabelData.clear().draw();
+                alert("Data Tidak Ada");
+            } else {
+                for (let i = 0; i < supplierDropdown.options.length; i++) {
+                    if (
+                        supplierDropdown.options[i].value.replace(/\s/g, "") ===
+                        response.supplier[0].Supplier.replace(/\s/g, "")
+                    ) {
+                        supplierDropdown.selectedIndex = i;
+                    }
+                }
+                responseData(response.data);
+            }
         },
         error: function (error) {
             console.error("Error Fetch Data:", error);
@@ -49,41 +70,10 @@ function dropdownData() {
     });
 }
 
-supplierDropdown.addEventListener("change", function (event) {
-    if (supplierDropdown.selectedIndex != 0) {
-        clearOptions(noPODropdown);
-        console.log(noPODropdown);
-        $.ajax({
-            url: "/GETPost",
-            type: "GET",
-            data: {
-                idSup: supplierDropdown.value,
-            },
-            success: function (response) {
-                // console.log(response)
-                if(response.length == 0){
-                    alert('Data No. PO di Supplier Ini Tidak Ada')
-                }else{
-                    response.forEach(function (data) {
-                        console.log(data);
-                        let option = document.createElement("option");
-                        option.value = data.NO_PO;
-                        option.text = data.NO_PO;
-                        noPODropdown.add(option);
-                    });
-                }
-            },
-            error: function (error) {
-                console.error("Error Fetch Data:", error);
-            },
-        });
-    } else {
-        noPODropdown.disabled = true;
+noPODropdown.addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+        dropdownData();
     }
-});
-
-noPODropdown.addEventListener("change", function (event) {
-    dropdownData();
 });
 
 document.getElementById("removebutton").addEventListener("click", function () {
@@ -103,7 +93,7 @@ document.getElementById("removebutton").addEventListener("click", function () {
                 timer: "2000",
             });
             dropdownData();
-            clearData()
+            clearData();
         },
         error: function (xhr, status, error) {
             Swal.fire({
@@ -139,7 +129,7 @@ document.getElementById("buttoncancel").addEventListener("click", function () {
                 timer: "2000",
             });
             dropdownData();
-            clearData()
+            clearData();
         },
         error: function (xhr, status, error) {
             Swal.fire({
@@ -154,30 +144,6 @@ document.getElementById("buttoncancel").addEventListener("click", function () {
 });
 
 function responseData(datas) {
-    let tableData = $("#tableharga").DataTable();
-    tableData.clear().destroy();
-    datas.forEach(function (data) {
-        tableData.row
-            .add([
-                data.No_trans,
-                data.Kd_brg,
-                data.NAMA_BRG,
-                data.nama_sub_kategori,
-                data.Qty,
-                data.Nama_satuan,
-                data.QtyRcv,
-                data.QtyRemain,
-                data.JumPPN,
-                data.Status,
-            ])
-            .draw();
-    });
-}
-
-let tabelData;
-
-function responseData(datas) {
-    tabelData = $("#tableharga").DataTable();
     tabelData.clear().draw();
     datas.forEach(function (data) {
         tabelData.row.add([
@@ -197,6 +163,8 @@ function responseData(datas) {
 
     $("#tableharga").off("dblclick", "tr");
     $("#tableharga").on("dblclick", "tr", function () {
+        $("#tableharga tr.selected").not(this).removeClass("selected");
+        $(this).toggleClass("selected");
         var rowData = tabelData.row(this).data();
         if (rowData && rowData.length > 9) {
             var cancel = rowData[9];

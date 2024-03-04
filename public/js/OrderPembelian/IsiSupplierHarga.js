@@ -102,10 +102,8 @@ formApprove.addEventListener("change", function (event) {
             success: function (response) {
                 for (let i = 0; i < matauang_select.options.length; i++) {
                     if (
-                        matauang_select.options[i].value.replace(
-                            /\s/g,
-                            ""
-                        ) === response[0].Id_MataUang.replace(/\s/g, "")
+                        matauang_select.options[i].value.replace(/\s/g, "") ===
+                        response[0].Id_MataUang.replace(/\s/g, "")
                     ) {
                         matauang_select.selectedIndex = i;
                     }
@@ -278,7 +276,16 @@ function redisplayData(noTrans, requester, kd) {
             {
                 data: "Tgl_Dibutuhkan",
                 render: function (data, type, row) {
-                    return data.split(" ")[0];
+                    let parts = data.split(" ")[0].split("-");
+                    console.log(parts)
+
+                    let tgl =
+                        parts[1] +
+                        "-" +
+                        parts[2] +
+                        "-" +
+                        parts[0];
+                    return tgl;
                 },
             },
             { data: "keterangan" },

@@ -157,7 +157,7 @@ class PurchaseOrderController extends Controller
         $QtyDelay = $request->input('QtyDelay');
         if (($noTrans !== null && $QtyDelay !== null)) {
             try {
-                $submit = DB::connection('ConnPurchase')->statement('exec SP_5409_SAVE_ORDER @kd = ?, @noTrans = ?, @QtyDelay = ?', [$kd, $noTrans,$QtyDelay]);
+                $submit = DB::connection('ConnPurchase')->statement('exec SP_5409_SAVE_ORDER @kd = ?, @noTrans = ?, @QtyDelay = ?', [$kd, $noTrans, $QtyDelay]);
                 return Response()->json(['message' => 'Data Berhasil Ditambahkan']);
             } catch (\Throwable $Error) {
                 return Response()->json($Error);
@@ -312,8 +312,10 @@ class PurchaseOrderController extends Controller
         $kd = 16;
 
         $purchaseorder = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd =?, @noPO =?', [$kd, $noPO]);
+        $supp = DB::connection('ConnPurchase')->table('YTRANSBL')->select('Supplier')->where('NO_PO', '=', $noPO)->get();
+        return Response()->json(['data' => $purchaseorder, 'supplier' => $supp]);
 
-        return response()->json($purchaseorder);
+        // return response()->json($purchaseorder);
     }
 
 

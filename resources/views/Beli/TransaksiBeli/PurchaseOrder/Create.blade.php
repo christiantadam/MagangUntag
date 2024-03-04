@@ -75,6 +75,8 @@
                             <table id="table_PurchaseOrder" class="table table-bordered" style="width:100%">
                                 <thead class="thead-dark">
                                     <tr>
+                                        <th><input type="checkbox" name="CheckedAll"
+                                                id="CheckedAll" class="RDZCheckBoxSize"></th>
                                         <th>Supplier</th>
                                         <th>Id_Div</th>
                                         <th>User</th>
@@ -106,11 +108,10 @@
                         <div class="button-align-right">
                             <div style="display: block">
                                 <div class="">
-                                    <input type="checkbox" name="checkbox_centangSemuaBaris"
-                                        id="checkbox_centangSemuaBaris">Centang Semua
+                                    <p id="checkedCount">Jumlah Data Yang TerCentang 0</p>
                                 </div>
                                 <div class="">
-                                    <button class="btn btn-danger" id="btn_close">Close Order</button>
+                                    <button class="btn btn-danger w-50" id="btn_close">Close Order</button>
                                 </div>
                             </div>
 

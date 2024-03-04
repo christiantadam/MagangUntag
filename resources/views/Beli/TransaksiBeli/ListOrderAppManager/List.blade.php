@@ -120,7 +120,9 @@
                                     </table>
                                 </div>
                             </div>
-
+                            <div class="col-12">
+                            <p id="checkedCount">Jumlah Data Yang TerCentang 0</p>
+                            </div>
                             <div class="col-md-2 mt-2">
                                 <div class="col-4 col-md-12 p-0">
                                     <button class="btn btn-info w-100" id="btn_print">Print</button>
