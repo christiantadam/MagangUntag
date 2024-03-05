@@ -17,11 +17,11 @@
                     </div>
                 @endif
                 <div class="card">
-                    <div class="card-header">Daftar Harga</div>
+                    <div class="card-header">History Pembelian</div>
                     <div class="card-body ">
                         <form action="" id="formDaftarHarga">
-                            <div class="scrollmenu">
-                                <table id="tabelData" class="table table-bordered table-striped"  style="width:100%">
+                            <div class="">
+                                <table id="tabelData" class="table table-bordered">
                                     <thead class="thead-dark">
                                         <tr>
                                             <th>KD Divisi</th>

@@ -4,7 +4,6 @@ let tabelData = document.getElementById("tabelData");
 let kdbarang = document.getElementById("search_kode_barang");
 
 let kdBarangAslinya;
-tabelData.style.display = "none";
 redisplay.disabled = true;
 formDaftarHarga.addEventListener("change", function (event) {
     redisplay.disabled = !radioButtonIsSelected();
@@ -60,7 +59,7 @@ function getSelectedInputValue() {
 }
 
 function redisplayData(nm_brg, req, sup, kdbrg) {
-    tabelData.style.display = "block";
+
     if (kdbrg != null) {
         while (kdbrg.length < 9) {
             kdbrg = "0" + kdbrg;
@@ -72,6 +71,9 @@ function redisplayData(nm_brg, req, sup, kdbrg) {
         responsive: true,
         processing: true,
         serverSide: true,
+        scrollX: true,
+        scrollY: "400px",
+        paging: false,
         ajax: {
             url: "/DaftarHargaRedisplay",
             type: "GET",
@@ -93,7 +95,16 @@ function redisplayData(nm_brg, req, sup, kdbrg) {
             { data: "Hrg_trm" },
             { data: "Id_MataUang_BC" },
             { data: "Nama" },
-            { data: "Tgl_order" },
+            {
+                data: "Tgl_order",
+                render: function (data, type, row) {
+                    let parts = data.split(" ")[0].split("-");
+                    console.log(parts);
+
+                    let tgl = parts[1] + "-" + parts[2] + "-" + parts[0];
+                    return tgl + ' ' + data.split(" ")[1];;
+                },
+            },
         ],
     });
 }

@@ -375,6 +375,13 @@ function LoadPermohonan(proses, stbeli) {
                     "click",
                     'input[type="checkbox"]',
                     function () {
+                        let checkedCount = $(
+                            'input[type="checkbox"]:checked'
+                        ).length;
+
+                        $("#checkedCount").text(
+                            `Jumlah Data Yang TerCentang ${checkedCount}`
+                        );
                         let selectedRows = [];
 
                         $(
@@ -452,6 +459,13 @@ function LoadPermohonan(proses, stbeli) {
                     "click",
                     'input[type="checkbox"]',
                     function () {
+                        let checkedCount = $(
+                            'input[type="checkbox"]:checked'
+                        ).length;
+
+                        $("#checkedCount").text(
+                            `Jumlah Data Yang TerCentang ${checkedCount}`
+                        );
                         let selectedRows = [];
 
                         $(
@@ -529,6 +543,13 @@ function LoadPermohonan(proses, stbeli) {
                     "click",
                     'input[type="checkbox"]',
                     function () {
+                        let checkedCount = $(
+                            'input[type="checkbox"]:checked'
+                        ).length;
+
+                        $("#checkedCount").text(
+                            `Jumlah Data Yang TerCentang ${checkedCount}`
+                        );
                         let selectedRows = [];
 
                         $(
@@ -615,6 +636,13 @@ function LoadPermohonanNyantol(proses, stbeli) {
                     "click",
                     'input[type="checkbox"]',
                     function () {
+                        let checkedCount = $(
+                            'input[type="checkbox"]:checked'
+                        ).length;
+
+                        $("#checkedCount").text(
+                            `Jumlah Data Yang TerCentang ${checkedCount}`
+                        );
                         let selectedRows = [];
 
                         $(
@@ -695,6 +723,13 @@ function LoadPermohonanNyantol(proses, stbeli) {
                     "click",
                     'input[type="checkbox"]',
                     function () {
+                        let checkedCount = $(
+                            'input[type="checkbox"]:checked'
+                        ).length;
+
+                        $("#checkedCount").text(
+                            `Jumlah Data Yang TerCentang ${checkedCount}`
+                        );
                         let selectedRows = [];
 
                         $(
@@ -776,6 +811,13 @@ function LoadPermohonanNyantol(proses, stbeli) {
                     "click",
                     'input[type="checkbox"]',
                     function () {
+                        let checkedCount = $(
+                            'input[type="checkbox"]:checked'
+                        ).length;
+
+                        $("#checkedCount").text(
+                            `Jumlah Data Yang TerCentang ${checkedCount}`
+                        );
                         let selectedRows = [];
 
                         $(
