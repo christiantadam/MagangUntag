@@ -15,7 +15,7 @@ class PurchaseOrderController extends Controller
     public function index()
     {
         $access = (new HakAksesController)->HakAksesFiturMaster('Beli');
-        return view('Beli.TransaksiBeli.PurchaseOrder.List', compact('access'));
+        return view('Beli.TransaksiBeli.PurchaseOrder.ListPO.List', compact('access'));
     }
 
     //Show the form for creating a new resource.
@@ -255,7 +255,7 @@ class PurchaseOrderController extends Controller
         $kd = 5;
         $noTrans = $request->input('noTrans');
         $mtUang = $request->input('mtUang');
-        $tglPO = $request->input('tglPO');
+        $tglPO =Carbon::parse($request->input('tglPO'));
         $Operator = trim(Auth::user()->NomorUser);
         $idpay = $request->input('idpay');
         $jumCetak = 1;
@@ -366,7 +366,37 @@ class PurchaseOrderController extends Controller
         return response()->json($purchaseorder);
     }
 
+    public function reviewPO(Request $request)
+    {
+        $access = (new HakAksesController)->HakAksesFiturMaster('Beli');
+        $No_PO = $request->query('No_PO');
+        $loadPermohonan = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd =?, @noPO =?', [26, $No_PO]);
+        $loadHeader =DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd =?, @noPO =?', [25, $No_PO]);
+        // dd($No_PO);
+        return view('Beli.TransaksiBeli.PurchaseOrder.ListPO.ReviewPO', compact('access', 'No_PO' , 'loadPermohonan','loadHeader'));
+    }
 
+    public function printReviewPO(Request $request)
+    {
+        $kd = 12;
+        $NoPO = $request->input('NoPO');
+        $tglPO = Carbon::parse($request->input('tglPO'));
+        $Tgl_Dibutuhkan = Carbon::parse($request->input('Tgl_Dibutuhkan'));
+
+        if (($NoPO !== null) ||
+            ($tglPO !== null) ||
+            ($Tgl_Dibutuhkan !== null)
+        ) {
+            try {
+                $post = DB::connection('ConnPurchase')->statement('exec SP_5409_MAINT_PO @kd = ?, @NoPO = ?,  @tglPO =?, @Tgl_Dibutuhkan = ?', [$kd, $NoPO, $tglPO, $Tgl_Dibutuhkan]);
+                return Response()->json(['message' => 'Data Berhasil Post', 'status' => $post]);
+            } catch (\Throwable $Error) {
+                return Response()->json($Error);
+            }
+        } else {
+            return Response()->json('Parameter harus di isi');
+        }
+    }
     //Show the form for editing the specified resource.
     public function edit($id)
     {

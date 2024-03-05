@@ -294,5 +294,5 @@
             </div>
         </div>
     </div>
-    <script src="{{ asset('js/OrderPembelian/MaintenceOrderPembelian.js') }}"></script>
+    <script src="{{ asset('js/OrderPembelian/MaintenanceOrderPembelian/MaintenceOrderPembelian.js') }}"></script>
 @endsection

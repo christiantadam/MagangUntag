@@ -94,7 +94,6 @@ function submit(nomor, qtydelay) {
             QtyDelay: qtydelay,
         },
         success: function (response) {
-            console.log(response, "sdkj");
         },
         error: function (error) {
             console.error("Error Send Data:", error);
@@ -283,7 +282,6 @@ btn_update.addEventListener("click", function (event) {
                     showConfirmButton: false,
                     timer: "2000",
                 });
-                console.log(response);
                 if (qtydelay > 0) {
                     submit(nomor, qtydelay);
                 } else {
@@ -325,7 +323,6 @@ btn_remove.addEventListener("click", function (event) {
                 showConfirmButton: false,
                 timer: "2000",
             });
-            console.log(response);
             clearData();
             location.reload(true);
         },
@@ -358,7 +355,6 @@ btn_reject.addEventListener("click", function (event) {
                 showConfirmButton: false,
                 timer: "2000",
             });
-            console.log(response);
             let noOrder = no_po.value;
             let objekDitemukan = loadPermohonanData.filter(
                 (obj) => obj.No_trans !== noOrder
@@ -402,7 +398,6 @@ btn_post.addEventListener("click", function (event) {
                     idSup: supplier_select.value,
                 },
                 success: function (response) {
-                    // console.log(response);
                     Swal.fire({
                         icon: "success",
                         title: "Data Berhasil DiPost!",
@@ -435,7 +430,6 @@ function dataPrint() {
             noPO: nomor_purchaseOrder.value.trim(),
         },
         success: function (response) {
-            console.log(response);
             print(response);
         },
         error: function (error) {
@@ -715,8 +709,9 @@ function print(data) {
 
 $(document).ready(function () {
     LoadPermohonan(loadPermohonanData);
-    console.log(loadPermohonanData);
-    console.log(numeral('2,000.010').value())
+    // console.log(loadPermohonanData);
+    // console.log(loadHeaderData);
+
     $("#matauang_select").val(loadPermohonanData[0].ID_MATAUANG);
     $("#supplier_select option").each(function () {
         if ($(this).text() === loadPermohonanData[0].NM_SUP) {

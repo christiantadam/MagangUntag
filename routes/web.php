@@ -66,6 +66,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/GETOrder', 'App\Http\Controllers\Beli\TransaksiBeli\PurchaseOrderController@display');
     Route::get('/GETPost', 'App\Http\Controllers\Beli\TransaksiBeli\PurchaseOrderController@show1');
     Route::get('/GETabel', 'App\Http\Controllers\Beli\TransaksiBeli\PurchaseOrderController@showtbl');
+    Route::get('/OpenReviewPO', 'App\Http\Controllers\Beli\TransaksiBeli\PurchaseOrderController@reviewPO');
+    Route::put('/OpenReviewPO/Print', 'App\Http\Controllers\Beli\TransaksiBeli\PurchaseOrderController@printReviewPO');
     Route::post('/PurchaseOrder/Cancel/Close', 'App\Http\Controllers\Beli\TransaksiBeli\PurchaseOrderController@cancel');
     Route::post('/PurchaseOrder/Cancel/Close1', 'App\Http\Controllers\Beli\TransaksiBeli\PurchaseOrderController@cancel1');
     Route::get('/get/dataPermohonanDivisi/{stBeli}/{Kd_Div}', 'App\Http\Controllers\Beli\TransaksiBeli\PurchaseOrderController@getPermohonanDivisi');

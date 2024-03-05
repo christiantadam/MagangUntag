@@ -1,7 +1,7 @@
 @extends('layouts.appOrderPembelian')
 @section('content')
     @include('Beli/Transaksi/Approve/modalDetailApprove')
-    <script src="{{ asset('js/OrderPembelian/Approve.js') }}"></script>
+    <script src="{{ asset('js/OrderPembelian/Approve/Approve.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('#table_Approve').DataTable({

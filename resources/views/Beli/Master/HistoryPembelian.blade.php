@@ -105,5 +105,5 @@
                 </div>
             </div>
         </div>
-        <script src="{{ asset('js/OrderPembelian/HistoryPembelianMaster.js') }}"></script>
+        <script src="{{ asset('js/OrderPembelian/HistoryPembelianMaster/HistoryPembelianMaster.js') }}"></script>
     @endsection

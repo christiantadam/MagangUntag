@@ -105,5 +105,5 @@
                 </div>
             </div>
         </div>
-        <script src="{{ asset('js/OrderPembelian/DaftarHarga.js') }}"></script>
+        <script src="{{ asset('js/OrderPembelian/DaftarHarga/DaftarHarga.js') }}"></script>
     @endsection

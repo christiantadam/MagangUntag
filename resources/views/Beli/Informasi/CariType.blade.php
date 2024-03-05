@@ -18,7 +18,7 @@
                 <div class="card">
                     <div class="card-header">Cari Type</div>
                     <div class="card-body">
-                        <div action="" id="formCari">
+                        <div  id="formCari">
                             <div class="scrollmenu">
                                 <table id="tabelData" class="table table-bordered table-striped" style="width:100%">
                                     <thead class="thead-dark">
@@ -66,6 +66,6 @@
                 </div>
             </div>
         </div>
-        <script src="{{ asset('js/OrderPembelian/CariType.js') }}"></script>
+        <script src="{{ asset('js/OrderPembelian/CariType/CariType.js') }}"></script>
 
     @endsection

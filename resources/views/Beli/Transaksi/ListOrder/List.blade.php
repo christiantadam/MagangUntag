@@ -3,7 +3,7 @@
     <link href="{{ asset('css/ListOrderPembelian.css') }}" rel="stylesheet">
 
     @include('Beli/Transaksi/ListOrder/modalDetailListOrder')
-    <script src="{{ asset('js/OrderPembelian/ListOrder.js') }}"></script>
+    <script src="{{ asset('js/OrderPembelian/ListOrder/ListOrder.js') }}"></script>
     <script>
         let idUser = {!! json_encode($idUser) !!};
         $(document).ready(function() {

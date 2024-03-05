@@ -24,6 +24,25 @@ jamAkhir.value =
     ":" +
     ("0" + currentDate.getMinutes()).slice(-2);
 
+tglAwal.addEventListener("keypress",function(event){
+    if (event.key === "Enter") {
+        jamAwal.focus();
+    }
+})
+
+jamAwal.addEventListener("keypress",function(event){
+    if (event.key === "Enter") {
+        tglAkhir.focus();
+    }
+})
+
+tglAkhir.addEventListener("keypress",function(event){
+    if (event.key === "Enter") {
+        jamAkhir.focus();
+    }
+})
+
+
 buttonRedisplay.addEventListener("click", function (event) {
     let statusPembelian = 1;
     if (statusPengadaan.checked == true) {
