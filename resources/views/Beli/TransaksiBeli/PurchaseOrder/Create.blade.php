@@ -126,5 +126,5 @@
                 </div>
             </div>
         </div>
-        <script src="{{ asset('js/OrderPembelian/CreatePurchaseOrder.js') }}"></script>
+        <script src="{{ asset('js/OrderPembelian/CreatePurchaseOrder/CreatePurchaseOrder.js') }}"></script>
     @endsection

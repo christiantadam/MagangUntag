@@ -92,29 +92,6 @@ btn_reject.addEventListener("click", function (event) {
 btn_approve.disabled = true;
 formApprove.addEventListener("change", function (event) {
     btn_approve.disabled = !supplier_select.selectedIndex === 0;
-    if (supplier_select.selectedIndex !== 0) {
-        $.ajax({
-            url: "/IsiSupplierHarga/" + id + "/DaftarSupplier",
-            type: "GET",
-            data: {
-                idsup: supplier_select.value,
-            },
-            success: function (response) {
-                for (let i = 0; i < matauang_select.options.length; i++) {
-                    if (
-                        matauang_select.options[i].value.replace(/\s/g, "") ===
-                        response[0].Id_MataUang.replace(/\s/g, "")
-                    ) {
-                        matauang_select.selectedIndex = i;
-                    }
-                }
-                jenisSupplier = response[0].JNS_SUP;
-            },
-            error: function (error) {
-                console.error("Error Send Data:", error);
-            },
-        });
-    }
 });
 
 function clearData() {
@@ -277,14 +254,9 @@ function redisplayData(noTrans, requester, kd) {
                 data: "Tgl_Dibutuhkan",
                 render: function (data, type, row) {
                     let parts = data.split(" ")[0].split("-");
-                    console.log(parts)
+                    console.log(parts);
 
-                    let tgl =
-                        parts[1] +
-                        "-" +
-                        parts[2] +
-                        "-" +
-                        parts[0];
+                    let tgl = parts[1] + "-" + parts[2] + "-" + parts[0];
                     return tgl;
                 },
             },
@@ -467,6 +439,31 @@ $(document).ready(function () {
         }
     });
     supplier_select.addEventListener("change", function (event) {
+        if (supplier_select.selectedIndex !== 0) {
+            $.ajax({
+                url: "/IsiSupplierHarga/" + id + "/DaftarSupplier",
+                type: "GET",
+                data: {
+                    idsup: supplier_select.value,
+                },
+                success: function (response) {
+                    for (let i = 0; i < matauang_select.options.length; i++) {
+                        if (
+                            matauang_select.options[i].value.replace(
+                                /\s/g,
+                                ""
+                            ) === response[0].Id_MataUang.replace(/\s/g, "")
+                        ) {
+                            matauang_select.selectedIndex = i;
+                        }
+                    }
+                    jenisSupplier = response[0].JNS_SUP;
+                },
+                error: function (error) {
+                    console.error("Error Send Data:", error);
+                },
+            });
+        }
         if (supplier_select.selectedIndex !== 0) {
             kurs.focus();
         }

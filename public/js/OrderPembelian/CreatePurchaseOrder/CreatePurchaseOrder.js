@@ -40,9 +40,7 @@ let table = $("#table_PurchaseOrder").DataTable({
     searching: false,
     scrollY: "400px",
     paging: false,
-    columnDefs: [
-        { orderable: false, targets: 0 }, // Kolom pertama memiliki indeks 0
-    ],
+    columnDefs: [{ orderable: false, targets: 0 }],
 });
 
 backGroup.style.display = "none";
@@ -65,10 +63,22 @@ checkedAll.addEventListener("click", function (event) {
         .nodes();
     if (checkedAll.checked == true) {
         $('input[type="checkbox"]', rows).prop("checked", true);
+        let checkbox = $(this).find('input[type="checkbox"]');
+        checkbox.prop("checked", !checkbox.prop("checked"));
+        let checkedCount = $(
+            '#table_PurchaseOrder tbody input[type="checkbox"]:checked'
+        ).length;
+
+        $("#checkedCount").text(`Jumlah Data Yang TerCentang ${checkedCount}`);
         selectedRows = table.rows().data().toArray();
     } else {
         $('input[type="checkbox"]', rows).prop("checked", false);
         selectedRows = [];
+        let checkedCount = $(
+            '#table_PurchaseOrder tbody input[type="checkbox"]:checked'
+        ).length;
+
+        $("#checkedCount").text(`Jumlah Data Yang TerCentang ${checkedCount}`);
     }
     console.log(selectedRows, "asd");
 });
@@ -85,7 +95,7 @@ btn_backCreatePO.addEventListener("click", function (event) {
                     "X-CSRF-TOKEN": csrfToken,
                 },
                 data: {
-                    noTrans: selectedRows[i][4].trim(),
+                    noTrans: selectedRows[i][5].trim(),
                 },
                 success: function (response) {
                     Swal.fire({
@@ -157,8 +167,8 @@ btn_close.addEventListener("click", function (event) {
                     "X-CSRF-TOKEN": csrfToken,
                 },
                 data: {
-                    noTrans: selectedRows[i][4].trim(),
-                    QtyCancel: parseFloat(selectedRows[i][8]),
+                    noTrans: selectedRows[i][5].trim(),
+                    QtyCancel: parseFloat(selectedRows[i][9]),
                 },
                 success: function (response) {
                     Swal.fire({
@@ -227,8 +237,20 @@ filter_radioButtonUserInput.addEventListener("change", function (event) {
 
 redisplay.addEventListener("click", function (event) {
     event.preventDefault();
+    let nyantol = false;
+    if (check_nyantol.checked == true) {
+        nyantol = true;
+    } else {
+        nyantol = false;
+    }
+    console.log(nyantol);
     $('input[type="checkbox"]:checked').prop("checked", false);
-    $('#checkedCount').text(`Jumlah Data Yang TerCentang 0`);
+    $("#checkedCount").text(`Jumlah Data Yang TerCentang 0`);
+    if (nyantol == true) {
+        check_nyantol.checked = true;
+    } else {
+        check_nyantol.checked = false;
+    }
     if (check_nyantol.checked == true) {
         if (filter_radioButton1.checked == true) {
             proses = 1;
@@ -340,7 +362,7 @@ function LoadPermohonan(proses, stbeli) {
                         item.Ket_Internal.trim(),
                         item.AppMan.trim(),
                         item.AppPBL.trim(),
-                        item.AppDir.trim(),
+                        item.AppDir.trim() + " " + item.Tgl_Direktur.trim(),
                     ];
                 });
                 table.clear();
@@ -354,7 +376,7 @@ function LoadPermohonan(proses, stbeli) {
                         let checkbox = $(this).find('input[type="checkbox"]');
                         checkbox.prop("checked", !checkbox.prop("checked"));
                         let checkedCount = $(
-                            'input[type="checkbox"]:checked'
+                            '#table_PurchaseOrder tbody input[type="checkbox"]:checked'
                         ).length;
 
                         $("#checkedCount").text(
@@ -376,7 +398,7 @@ function LoadPermohonan(proses, stbeli) {
                     'input[type="checkbox"]',
                     function () {
                         let checkedCount = $(
-                            'input[type="checkbox"]:checked'
+                            '#table_PurchaseOrder tbody input[type="checkbox"]:checked'
                         ).length;
 
                         $("#checkedCount").text(
@@ -424,7 +446,7 @@ function LoadPermohonan(proses, stbeli) {
                         item.Ket_Internal.trim(),
                         item.AppMan.trim(),
                         item.AppPBL.trim(),
-                        item.AppDir.trim(),
+                        item.AppDir.trim() + " " + item.Tgl_Direktur.trim(),
                     ];
                 });
                 table.clear();
@@ -438,7 +460,7 @@ function LoadPermohonan(proses, stbeli) {
                         let checkbox = $(this).find('input[type="checkbox"]');
                         checkbox.prop("checked", !checkbox.prop("checked"));
                         let checkedCount = $(
-                            'input[type="checkbox"]:checked'
+                            '#table_PurchaseOrder tbody input[type="checkbox"]:checked'
                         ).length;
 
                         $("#checkedCount").text(
@@ -460,7 +482,7 @@ function LoadPermohonan(proses, stbeli) {
                     'input[type="checkbox"]',
                     function () {
                         let checkedCount = $(
-                            'input[type="checkbox"]:checked'
+                            '#table_PurchaseOrder tbody input[type="checkbox"]:checked'
                         ).length;
 
                         $("#checkedCount").text(
@@ -508,7 +530,7 @@ function LoadPermohonan(proses, stbeli) {
                         item.Ket_Internal.trim(),
                         item.AppMan.trim(),
                         item.AppPBL.trim(),
-                        item.AppDir.trim(),
+                        item.AppDir.trim() + " " + item.Tgl_Direktur.trim(),
                     ];
                 });
                 table.clear();
@@ -522,7 +544,7 @@ function LoadPermohonan(proses, stbeli) {
                         let checkbox = $(this).find('input[type="checkbox"]');
                         checkbox.prop("checked", !checkbox.prop("checked"));
                         let checkedCount = $(
-                            'input[type="checkbox"]:checked'
+                            '#table_PurchaseOrder tbody input[type="checkbox"]:checked'
                         ).length;
 
                         $("#checkedCount").text(
@@ -544,7 +566,7 @@ function LoadPermohonan(proses, stbeli) {
                     'input[type="checkbox"]',
                     function () {
                         let checkedCount = $(
-                            'input[type="checkbox"]:checked'
+                            '#table_PurchaseOrder tbody input[type="checkbox"]:checked'
                         ).length;
 
                         $("#checkedCount").text(
@@ -601,7 +623,7 @@ function LoadPermohonanNyantol(proses, stbeli) {
                         item.Ket_Internal.trim(),
                         item.AppMan.trim(),
                         item.AppPBL.trim(),
-                        item.AppDir.trim(),
+                        item.AppDir.trim() + " " + item.Tgl_Direktur.trim(),
                     ];
                 });
                 table.clear();
@@ -615,7 +637,7 @@ function LoadPermohonanNyantol(proses, stbeli) {
                         let checkbox = $(this).find('input[type="checkbox"]');
                         checkbox.prop("checked", !checkbox.prop("checked"));
                         let checkedCount = $(
-                            'input[type="checkbox"]:checked'
+                            '#table_PurchaseOrder tbody input[type="checkbox"]:checked'
                         ).length;
 
                         $("#checkedCount").text(
@@ -637,7 +659,7 @@ function LoadPermohonanNyantol(proses, stbeli) {
                     'input[type="checkbox"]',
                     function () {
                         let checkedCount = $(
-                            'input[type="checkbox"]:checked'
+                            '#table_PurchaseOrder tbody input[type="checkbox"]:checked'
                         ).length;
 
                         $("#checkedCount").text(
@@ -688,7 +710,7 @@ function LoadPermohonanNyantol(proses, stbeli) {
                         item.Ket_Internal.trim(),
                         item.AppMan.trim(),
                         item.AppPBL.trim(),
-                        item.AppDir.trim(),
+                        item.AppDir.trim() + " " + item.Tgl_Direktur.trim(),
                     ];
                 });
                 table.clear();
@@ -702,7 +724,7 @@ function LoadPermohonanNyantol(proses, stbeli) {
                         let checkbox = $(this).find('input[type="checkbox"]');
                         checkbox.prop("checked", !checkbox.prop("checked"));
                         let checkedCount = $(
-                            'input[type="checkbox"]:checked'
+                            '#table_PurchaseOrder tbody input[type="checkbox"]:checked'
                         ).length;
 
                         $("#checkedCount").text(
@@ -724,7 +746,7 @@ function LoadPermohonanNyantol(proses, stbeli) {
                     'input[type="checkbox"]',
                     function () {
                         let checkedCount = $(
-                            'input[type="checkbox"]:checked'
+                            '#table_PurchaseOrder tbody input[type="checkbox"]:checked'
                         ).length;
 
                         $("#checkedCount").text(
@@ -775,7 +797,7 @@ function LoadPermohonanNyantol(proses, stbeli) {
                         item.Ket_Internal.trim(),
                         item.AppMan.trim(),
                         item.AppPBL.trim(),
-                        item.AppDir.trim(),
+                        item.AppDir.trim() + " " + item.Tgl_Direktur.trim(),
                     ];
                 });
 
@@ -790,7 +812,7 @@ function LoadPermohonanNyantol(proses, stbeli) {
                         let checkbox = $(this).find('input[type="checkbox"]');
                         checkbox.prop("checked", !checkbox.prop("checked"));
                         let checkedCount = $(
-                            'input[type="checkbox"]:checked'
+                            '#table_PurchaseOrder tbody input[type="checkbox"]:checked'
                         ).length;
 
                         $("#checkedCount").text(
@@ -812,7 +834,7 @@ function LoadPermohonanNyantol(proses, stbeli) {
                     'input[type="checkbox"]',
                     function () {
                         let checkedCount = $(
-                            'input[type="checkbox"]:checked'
+                            '#table_PurchaseOrder tbody input[type="checkbox"]:checked'
                         ).length;
 
                         $("#checkedCount").text(

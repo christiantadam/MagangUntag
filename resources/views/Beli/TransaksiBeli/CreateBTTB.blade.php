@@ -62,19 +62,19 @@
                             </div>
                             <div class="col-md-3 mb-2">
                                 <label for="nopibext" class="form-label">No. PIB Ext</label>
-                                <input type="float" class="form-control" id="nopibext" name="nopibext">
+                                <input type="text" class="form-control" id="nopibext" name="nopibext">
                             </div>
                             <div class="col-md-3 mb-2">
                                 <label for="skbm" class="form-label">No SKBM</label>
-                                <input type="float" class="form-control" id="skbm" name="skbm">
+                                <input type="text" class="form-control" id="skbm" name="skbm">
                             </div>
                             <div class="col-md-3 mb-2">
                                 <label for="kodehs" class="form-label">Kode HS</label>
-                                <input type="float" class="form-control" id="kodehs" name="kodehs">
+                                <input type="text" class="form-control" id="kodehs" name="kodehs">
                             </div>
                             <div class="col-md-3">
                                 <label for="po" class="form-label">No. PO</label>
-                                <input type="float" class="form-control" id="po" name="po">
+                                <input type="text" class="form-control" id="po" name="po">
                             </div>
                             <div class="col-md-3">
                                 <label for="tglpib" class="form-label">Tgl PIB</label>
@@ -399,5 +399,5 @@
         </div>
     </div>
 
-    <script src="{{ asset('js/OrderPembelian/CreateBTTB.js') }}"></script>
+    <script src="{{ asset('js/OrderPembelian/CreateBTTB/CreateBTTB.js') }}"></script>
 @endsection

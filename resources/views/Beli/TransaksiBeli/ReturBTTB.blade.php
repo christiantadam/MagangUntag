@@ -92,7 +92,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="mx-auto">
+                            <div class="mx-auto acs-form3">
                                 <div class="table-responsive">
                                     <table class="mx-auto table table-bordered" id="tabelretur">
                                         <thead class="table-dark">
@@ -121,7 +121,7 @@
                                 </div>
                             </div>
 
-                            <div class="mx-auto">
+                            <div class="mx-auto acs-form3">
                                 <div class="table-responsive">
                                     <table class="mx-auto table table-bordered" id="tabelretur1">
                                         <thead class="table-dark">
@@ -328,5 +328,5 @@
                     </div>
                 </div>
             </div>
-            <script src="{{ asset('js/OrderPembelian/Retur.js') }}"></script>
+            <script src="{{ asset('js/OrderPembelian/ReturBTTB/Retur.js') }}"></script>
         @endsection

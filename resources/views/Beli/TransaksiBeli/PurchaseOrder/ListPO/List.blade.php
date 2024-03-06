@@ -26,7 +26,7 @@
                                         checked value="{{ date('Y-m-d') }}">
                                     Betwen Date
                                     <input type="date" class="form-control" id="betwendate1" name="betwendate1">
-                                    <label for="betwendate1" class="form-label"> </label>
+                                    <label for="betwendate1" class="form-label"></label>
                                     <input type="date" class="form-control" id="betwendate2" name="betwendate2">
                                     <label for="betwendate2" class="form-label"></label>
                                 </div>

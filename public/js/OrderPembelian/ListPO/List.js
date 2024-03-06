@@ -2,10 +2,10 @@ let bet1 = document.getElementById("betwendate1");
 let bet2 = document.getElementById("betwendate2");
 let no = document.getElementById("no_po");
 let redisplayButton = document.getElementById("redisplayButton");
+let lihat_BTTB = document.getElementById("lihat_BTTB");
 
-
-bet1.valueAsDate = new Date()
-bet2.valueAsDate = new Date()
+bet1.valueAsDate = new Date();
+bet2.valueAsDate = new Date();
 
 let tabelData = $("#tabelchelsy").DataTable({
     searching: false,
@@ -14,16 +14,30 @@ let tabelData = $("#tabelchelsy").DataTable({
 });
 
 $(document).ready(function () {
-    tabelData.on("click","tbody tr", function (event) {
+    lihat_BTTB.addEventListener("click", function (event) {
+        let data = []
+        data = tabelData.row(".selected").data()
+        if(data == undefined ){
+            alert('Pilih Data Yang Mau Di Review BTTB')
+        }else{
+        if(data[5] == null || data[5] == ''){
+            alert('Data Tidak Dapat Di Review BTTB')
+
+        }else{
+            // const url = "/OpenReviewBTTB" + "?No_BTTB=" + data[5];
+            // window.location.href = url;
+            alert('anjay')
+        }
+        }
+        console.log(data);
+    });
+    tabelData.on("click", "tbody tr", function (event) {
         const classList = event.currentTarget.classList;
 
         if (classList.contains("selected")) {
             const data = tabelData.row(event.currentTarget).data();
-                const url =
-                    "/OpenReviewPO" +
-                    "?No_PO=" +
-                    data[0]
-                window.location.href = url;
+            const url = "/OpenReviewPO" + "?No_PO=" + data[0];
+            window.location.href = url;
         } else {
             tabelData
                 .rows(".selected")
@@ -32,27 +46,27 @@ $(document).ready(function () {
             classList.add("selected");
         }
     });
-    bet1.addEventListener("keypress", function(event){
+    bet1.addEventListener("keypress", function (event) {
         if (event.key === "Enter") {
             bet2.focus();
         }
-    })
-    bet2.addEventListener("keypress", function(event){
+    });
+    bet2.addEventListener("keypress", function (event) {
         if (event.key === "Enter") {
             redisplayButton.focus();
         }
-    })
-    no.addEventListener("keypress", function(event){
+    });
+    no.addEventListener("keypress", function (event) {
         if (event.key === "Enter") {
             redisplayButton.focus();
         }
-    })
+    });
     redisplayButton.addEventListener("click", function (event) {
         if (radioButtonIsSelected()) {
             let radioButtonChecked = radioButtonIsSelected();
             let value = getSelectedDateRange();
             console.log(value);
-            if (typeof value === 'object') {
+            if (typeof value === "object") {
                 redisplay(value.startDate, value.endDate, null);
             } else {
                 display(value);
@@ -64,7 +78,9 @@ $(document).ready(function () {
         let radioButtons = document.getElementsByName("radiobutton");
         for (let i = 0; i < radioButtons.length; i++) {
             if (radioButtons[i].checked) {
-                return radioButtons[i].value === "nomor_po" ? no.value.trim() : { startDate: bet1.value, endDate: bet2.value };
+                return radioButtons[i].value === "nomor_po"
+                    ? no.value.trim()
+                    : { startDate: bet1.value, endDate: bet2.value };
             }
         }
     }
@@ -90,17 +106,16 @@ $(document).ready(function () {
                 noPO: noPO,
             },
             success: function (response) {
-                console.log('Data successfully sent to the server');
-                console.log('Server response:', response);
+                console.log("Data successfully sent to the server");
+                console.log("Server response:", response);
                 responseData(response);
             },
             error: function (error) {
-                console.error('Error sending data to the server:', error);
+                console.error("Error sending data to the server:", error);
             },
         });
     }
 });
-
 
 function display(noPO) {
     $.ajax({
@@ -110,19 +125,28 @@ function display(noPO) {
             noPO: noPO,
         },
         success: function (response) {
-            console.log('Data successfully sent to the server');
-            console.log('Server response:', response);
+            console.log("Data successfully sent to the server");
+            console.log("Server response:", response);
             responseData(response);
         },
         error: function (error) {
-            console.error('Error sending data to the server:', error);
+            console.error("Error sending data to the server:", error);
         },
     });
 }
 
-function responseData (datas) {
+function responseData(datas) {
     tabelData.clear().draw();
     datas.forEach(function (data) {
-        tabelData.row.add([data.NO_PO, data.Status, data.Tgl_sppb, data.Kd_div, data.Nama, data.No_BTTB]).draw();
+        tabelData.row
+            .add([
+                data.NO_PO,
+                data.Status,
+                data.Tgl_sppb,
+                data.Kd_div,
+                data.Nama,
+                data.No_BTTB,
+            ])
+            .draw();
     });
 }
