@@ -35,7 +35,11 @@ class InputGangguanPanelController extends Controller
             $keterangan = $request->input('Keterangan');
             $UserInput = Auth::user()->NomorUser;
 
-            $data = DB::connection('ConnUtility')->statement('exec SP_INSERT_PANEL_INDUK ? , ? , ? , ? , ? , ? , ? ', [$tanggal, $feeder, $start, $end, $gangguan, $keterangan, $UserInput]);
+            $datetimeNow = now();
+            $datetimeStart = $datetimeNow->toDateString() . ' ' . $start;
+            $datetimeEnd = $datetimeNow->toDateString() . ' ' . $end;
+
+            $data = DB::connection('ConnUtility')->statement('exec SP_INSERT_PANEL_INDUK ? , ? , ? , ? , ? , ? , ? ', [$tanggal, $feeder, $datetimeStart, $datetimeEnd, $gangguan, $keterangan, $UserInput]);
             return response()->json($data);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'An error occurred while saving the data. Please try again.');

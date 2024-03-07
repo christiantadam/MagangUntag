@@ -124,6 +124,7 @@
                                             <th scope="col">Jam Selesai</th>
                                             <th scope="col">Ket. Gangguan</th>
                                             <th scope="col">Keterangan</th>
+                                            <th scope="col">Teknisi</th>
                                         </tr>
                                     </thead>
                                     <tbody>

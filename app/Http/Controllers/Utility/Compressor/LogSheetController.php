@@ -41,7 +41,11 @@ class LogSheetController extends Controller
             $Keterangan = $request->input('Keterangan');
             $UserInput = Auth::user()->NomorUser;
 
-            $data = DB::connection('ConnUtility')->statement('exec SP_INSERT_LOG_SHEET_COMPRESSOR ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?', [$Tanggal, $Mesin, $Jam, $Temp, $Bar, $RM_Hours, $LM_Hours, $R_Hours, $L_Hours, $Efs, $Tech, $Keterangan, $UserInput]);
+            $datetimeNow = now();
+            $datetimeJam = $datetimeNow->toDateString() . ' ' . $Jam;
+
+
+            $data = DB::connection('ConnUtility')->statement('exec SP_INSERT_LOG_SHEET_COMPRESSOR ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?', [$Tanggal, $Mesin, $datetimeJam, $Temp, $Bar, $RM_Hours, $LM_Hours, $R_Hours, $L_Hours, $Efs, $Tech, $Keterangan, $UserInput]);
             return response()->json($data);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'An error occurred while saving the data. Please try again.');

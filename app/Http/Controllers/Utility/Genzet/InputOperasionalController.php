@@ -69,7 +69,12 @@ class InputOperasionalController extends Controller
             $teknisi = $request->input('Teknisi');
             $keterangan = $request->input('Keterangan');
             $UserInput = Auth::user()->NomorUser;
-            $data = DB::connection('ConnUtility')->statement('exec SP_INSERT_OPERASIONAL_GENZET ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?', [$tanggal, $mesingenzet, $jamawal, $jamakhir, $operationhours, $lubeoil, $coolwater, $volt, $hz, $amp, $tambahbbm, $tambahoil, $statuslog, $keterangan, $teknisi, $UserInput]);
+
+            $datetimeNow = now();
+            $datetimeJamAwal = $datetimeNow->toDateString() . ' ' . $jamawal;
+            $datetimeJamAkhir = $datetimeNow->toDateString() . ' ' . $jamakhir;
+
+            $data = DB::connection('ConnUtility')->statement('exec SP_INSERT_OPERASIONAL_GENZET ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?', [$tanggal, $mesingenzet, $datetimeJamAwal, $datetimeJamAkhir, $operationhours, $lubeoil, $coolwater, $volt, $hz, $amp, $tambahbbm, $tambahoil, $statuslog, $keterangan, $teknisi, $UserInput]);
 
             return response()->json($data);
         } catch (\Exception $e) {
