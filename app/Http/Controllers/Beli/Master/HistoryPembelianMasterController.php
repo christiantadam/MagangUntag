@@ -1,6 +1,5 @@
 <?php
-
-namespace App\Http\Controllers\Beli\Master;
+namespace APP\Http\Controllers\Beli\Master;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -39,6 +38,7 @@ class HistoryPembelianMasterController extends Controller
                         'YTRANSBL.Kd_div',
                         'YTRANSBL.Kd_brg',
                         'YTRANSBL.Tgl_order',
+                        'YTRANSBL.PriceUnit',
                         'YTRANSBL.Qty',
                         'Y_BARANG.NAMA_BRG',
                         'YSATUAN.Nama_satuan',
@@ -63,6 +63,7 @@ class HistoryPembelianMasterController extends Controller
                         'YTRANSBL.Kd_div',
                         'YTRANSBL.Kd_brg',
                         'YTRANSBL.Tgl_order',
+                        'YTRANSBL.PriceUnit',
                         'YTRANSBL.Qty',
                         'Y_BARANG.NAMA_BRG',
                         'YSATUAN.Nama_satuan',
@@ -87,6 +88,7 @@ class HistoryPembelianMasterController extends Controller
                         'YTRANSBL.Kd_div',
                         'YTRANSBL.Kd_brg',
                         'YTRANSBL.Tgl_order',
+                        'YTRANSBL.PriceUnit',
                         'YTRANSBL.Qty',
                         'Y_BARANG.NAMA_BRG',
                         'YSATUAN.Nama_satuan',
@@ -111,6 +113,7 @@ class HistoryPembelianMasterController extends Controller
                         'YTRANSBL.Kd_div',
                         'YTRANSBL.Kd_brg',
                         'YTRANSBL.Tgl_order',
+                        'YTRANSBL.PriceUnit',
                         'YTRANSBL.Qty',
                         'Y_BARANG.NAMA_BRG',
                         'YSATUAN.Nama_satuan',

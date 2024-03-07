@@ -24,9 +24,9 @@ $(document).ready(function () {
             alert('Data Tidak Dapat Di Review BTTB')
 
         }else{
-            // const url = "/OpenReviewBTTB" + "?No_BTTB=" + data[5];
-            // window.location.href = url;
-            alert('anjay')
+            const url = "/OpenReviewBTTB" + "?No_BTTB=" + data[5];
+            window.location.href = url;
+            // alert('anjay')
         }
         }
         console.log(data);
