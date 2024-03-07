@@ -441,13 +441,6 @@ btn_tambahSubKategori.addEventListener("click", function (event) {
     });
 });
 btn_namaBarang.addEventListener("click", function (event) {
-    let namaBarang;
-    if (kd_barang.value.replace(/\s/g, "") == 0) {
-        namaBarang = "";
-    } else {
-        namaBarang = kd_barang.value.replace(/\s/g, "");
-    }
-
     let table = $("#table_cekNamaBarang").DataTable({
         responsive: true,
         processing: true,
@@ -456,7 +449,7 @@ btn_namaBarang.addEventListener("click", function (event) {
             url: "/Maintenance/CekNamaBarang",
             type: "GET",
             data: function (data) {
-                data.kd_barang = namaBarang;
+                data.namaBarang = nama_Barang.value.trim();
             },
             beforeSend: function(xhr) {
                 requestCekNamaBarang = xhr;
@@ -503,6 +496,11 @@ select_subKategori.addEventListener("change", function (event) {
     $("#table_namaBarang").DataTable().clear().destroy();
     let myValue = select_subKategori.value;
     namaBarang(myValue);
+    if (btnActive == "isi") {
+        btn_cekNamaBarang.disabled = true;
+    } else {
+        btn_cekNamaBarang.disabled = false;
+    }
 });
 
 function clearOptions(selectElement) {

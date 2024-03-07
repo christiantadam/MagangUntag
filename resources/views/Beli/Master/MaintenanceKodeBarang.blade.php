@@ -385,7 +385,7 @@
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="tambahKategoriModalLabel">Nama Barang
+                                            <h5 class="modal-title" id="namaBarangModalModalLabel">Nama Barang
                                             </h5>
                                         </div>
                                         <div class="modal-body">
@@ -414,7 +414,7 @@
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="tambahKategoriModalLabel">Cek Daftar Nama Barang
+                                            <h5 class="modal-title" id="cekNamaBarangModalModalLabel">Cek Daftar Nama Barang
                                             </h5>
                                         </div>
                                         <div class="modal-body">

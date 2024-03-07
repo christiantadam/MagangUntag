@@ -127,16 +127,16 @@ class MaintenanceKodeBarangController extends Controller
     }
     public function cekNamaBarang(Request $request)
     {
-        $kd_barang = $request->input('kd_barang');
-        if ($kd_barang == null) {
-            $kd_barang = '';
+        $namaBarang = $request->input('namaBarang');
+        if ($namaBarang == null) {
+            $namaBarang = '';
         }
         try {
             $data = DB::connection('ConnPurchase')
                 ->table('Y_BARANG')
                 ->select('Y_BARANG.KD_BRG', 'Y_BARANG.NAMA_BRG', 'Y_KATEGORI_SUB.nama_sub_kategori')
                 ->join('Y_KATEGORI_SUB', 'Y_BARANG.NO_SUB_KATEGORI', '=', 'Y_KATEGORI_SUB.no_sub_kategori')
-                ->where('Y_BARANG.KD_BRG', 'like', $kd_barang . '%')->get();
+                ->where('Y_BARANG.NAMA_BRG', 'like', $namaBarang . '%')->get();
             // dd($data);
             return datatables($data)->make(true);
         } catch (\Throwable $Error) {
