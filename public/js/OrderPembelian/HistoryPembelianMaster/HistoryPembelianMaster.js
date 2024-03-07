@@ -75,7 +75,7 @@ function redisplayData(nm_brg, req, sup, kdbrg) {
         scrollY: "400px",
         paging: false,
         ajax: {
-            url: "/DaftarHargaRedisplay",
+            url: "/HistoryPembelianMasterRedisplay",
             type: "GET",
             data: function (data) {
                 (data.nm_brg = nm_brg),
@@ -99,8 +99,6 @@ function redisplayData(nm_brg, req, sup, kdbrg) {
                 data: "Tgl_order",
                 render: function (data, type, row) {
                     let parts = data.split(" ")[0].split("-");
-                    console.log(parts);
-
                     let tgl = parts[1] + "-" + parts[2] + "-" + parts[0];
                     return tgl + ' ' + data.split(" ")[1];;
                 },

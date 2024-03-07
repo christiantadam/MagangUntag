@@ -29,7 +29,7 @@ class PurchaseOrderController extends Controller
 
     public function getPermohonanDivisi($stBeli, $Kd_Div)
     {
-        if($Kd_Div == 'ALL'){
+        if ($Kd_Div == 'ALL') {
             $data = db::connection('ConnPurchase')->table('Ytransbl')->select(
                 'Y_KATEGORI_UTAMA.no_kat_utama',
                 'Y_KATEGORI_UTAMA.nama',
@@ -77,25 +77,25 @@ class PurchaseOrderController extends Controller
                 'YSATUAN.Nama_satuan',
                 'YTRANSBL.Supplier as IdSup'
             )
-            ->join('Y_BARANG', 'YTRANSBL.Kd_brg', '=', 'Y_BARANG.KD_BRG')
-            ->join('Y_KATEGORI_SUB', 'Y_BARANG.NO_SUB_KATEGORI', '=', 'Y_KATEGORI_SUB.no_sub_kategori')
-            ->join('Y_KATEGORY', function ($join) {
-                $join->on('Y_KATEGORI_SUB.no_kategori', '=', 'Y_KATEGORY.no_kategori')
-                    ->orWhere('Y_KATEGORI_SUB.no_kategori', '=', 'Y_KATEGORY.no_kategori');
-            })
-            ->join('Y_KATEGORI_UTAMA', 'Y_KATEGORY.no_kat_utama', '=', 'Y_KATEGORI_UTAMA.no_kat_utama')
-            ->join('YSUPPLIER', 'YTRANSBL.Supplier', '=', 'YSUPPLIER.NO_SUP')
-            ->join('YUSER', 'YTRANSBL.Operator', '=', 'YUSER.kd_user')
-            ->join('YUSER as YUSER_1', 'YTRANSBL.Manager', '=', 'YUSER_1.kd_user')
-            ->join('YUSER as YUSER_2', 'YTRANSBL.PBL_Acc', '=', 'YUSER_2.kd_user')
-            ->join('ACCOUNTING.dbo.T_MATAUANG', 'YTRANSBL.Currency', '=', 'ACCOUNTING.dbo.T_MATAUANG.Id_MataUang')
-            ->join('YUSER as YUSER_3', 'YTRANSBL.Direktur', '=', 'YUSER_3.kd_user')
-            ->join('YSATUAN', 'YTRANSBL.NoSatuan', '=', 'YSATUAN.No_satuan')
-            ->where('YTRANSBL.StatusOrder', 4)
-            ->where('YTRANSBL.StatusBeli', $stBeli)
-            ->orderBy('YSUPPLIER.NM_SUP')
-            ->get();
-        }else{
+                ->join('Y_BARANG', 'YTRANSBL.Kd_brg', '=', 'Y_BARANG.KD_BRG')
+                ->join('Y_KATEGORI_SUB', 'Y_BARANG.NO_SUB_KATEGORI', '=', 'Y_KATEGORI_SUB.no_sub_kategori')
+                ->join('Y_KATEGORY', function ($join) {
+                    $join->on('Y_KATEGORI_SUB.no_kategori', '=', 'Y_KATEGORY.no_kategori')
+                        ->orWhere('Y_KATEGORI_SUB.no_kategori', '=', 'Y_KATEGORY.no_kategori');
+                })
+                ->join('Y_KATEGORI_UTAMA', 'Y_KATEGORY.no_kat_utama', '=', 'Y_KATEGORI_UTAMA.no_kat_utama')
+                ->join('YSUPPLIER', 'YTRANSBL.Supplier', '=', 'YSUPPLIER.NO_SUP')
+                ->join('YUSER', 'YTRANSBL.Operator', '=', 'YUSER.kd_user')
+                ->join('YUSER as YUSER_1', 'YTRANSBL.Manager', '=', 'YUSER_1.kd_user')
+                ->join('YUSER as YUSER_2', 'YTRANSBL.PBL_Acc', '=', 'YUSER_2.kd_user')
+                ->join('ACCOUNTING.dbo.T_MATAUANG', 'YTRANSBL.Currency', '=', 'ACCOUNTING.dbo.T_MATAUANG.Id_MataUang')
+                ->join('YUSER as YUSER_3', 'YTRANSBL.Direktur', '=', 'YUSER_3.kd_user')
+                ->join('YSATUAN', 'YTRANSBL.NoSatuan', '=', 'YSATUAN.No_satuan')
+                ->where('YTRANSBL.StatusOrder', 4)
+                ->where('YTRANSBL.StatusBeli', $stBeli)
+                ->orderBy('YSUPPLIER.NM_SUP')
+                ->get();
+        } else {
             $data = db::connection('ConnPurchase')->table('Ytransbl')->select(
                 'Y_KATEGORI_UTAMA.no_kat_utama',
                 'Y_KATEGORI_UTAMA.nama',
@@ -143,25 +143,25 @@ class PurchaseOrderController extends Controller
                 'YSATUAN.Nama_satuan',
                 'YTRANSBL.Supplier as IdSup'
             )
-            ->join('Y_BARANG', 'YTRANSBL.Kd_brg', '=', 'Y_BARANG.KD_BRG')
-            ->join('Y_KATEGORI_SUB', 'Y_BARANG.NO_SUB_KATEGORI', '=', 'Y_KATEGORI_SUB.no_sub_kategori')
-            ->join('Y_KATEGORY', function ($join) {
-                $join->on('Y_KATEGORI_SUB.no_kategori', '=', 'Y_KATEGORY.no_kategori')
-                    ->orWhere('Y_KATEGORI_SUB.no_kategori', '=', 'Y_KATEGORY.no_kategori');
-            })
-            ->join('Y_KATEGORI_UTAMA', 'Y_KATEGORY.no_kat_utama', '=', 'Y_KATEGORI_UTAMA.no_kat_utama')
-            ->join('YSUPPLIER', 'YTRANSBL.Supplier', '=', 'YSUPPLIER.NO_SUP')
-            ->join('YUSER', 'YTRANSBL.Operator', '=', 'YUSER.kd_user')
-            ->join('YUSER as YUSER_1', 'YTRANSBL.Manager', '=', 'YUSER_1.kd_user')
-            ->join('YUSER as YUSER_2', 'YTRANSBL.PBL_Acc', '=', 'YUSER_2.kd_user')
-            ->join('ACCOUNTING.dbo.T_MATAUANG', 'YTRANSBL.Currency', '=', 'ACCOUNTING.dbo.T_MATAUANG.Id_MataUang')
-            ->join('YUSER as YUSER_3', 'YTRANSBL.Direktur', '=', 'YUSER_3.kd_user')
-            ->join('YSATUAN', 'YTRANSBL.NoSatuan', '=', 'YSATUAN.No_satuan')
-            ->where('YTRANSBL.StatusOrder', 4)
-            ->where('YTRANSBL.StatusBeli', $stBeli)
-            ->where('YTRANSBL.Kd_div', $Kd_Div)
-            ->orderBy('YSUPPLIER.NM_SUP')
-            ->get();
+                ->join('Y_BARANG', 'YTRANSBL.Kd_brg', '=', 'Y_BARANG.KD_BRG')
+                ->join('Y_KATEGORI_SUB', 'Y_BARANG.NO_SUB_KATEGORI', '=', 'Y_KATEGORI_SUB.no_sub_kategori')
+                ->join('Y_KATEGORY', function ($join) {
+                    $join->on('Y_KATEGORI_SUB.no_kategori', '=', 'Y_KATEGORY.no_kategori')
+                        ->orWhere('Y_KATEGORI_SUB.no_kategori', '=', 'Y_KATEGORY.no_kategori');
+                })
+                ->join('Y_KATEGORI_UTAMA', 'Y_KATEGORY.no_kat_utama', '=', 'Y_KATEGORI_UTAMA.no_kat_utama')
+                ->join('YSUPPLIER', 'YTRANSBL.Supplier', '=', 'YSUPPLIER.NO_SUP')
+                ->join('YUSER', 'YTRANSBL.Operator', '=', 'YUSER.kd_user')
+                ->join('YUSER as YUSER_1', 'YTRANSBL.Manager', '=', 'YUSER_1.kd_user')
+                ->join('YUSER as YUSER_2', 'YTRANSBL.PBL_Acc', '=', 'YUSER_2.kd_user')
+                ->join('ACCOUNTING.dbo.T_MATAUANG', 'YTRANSBL.Currency', '=', 'ACCOUNTING.dbo.T_MATAUANG.Id_MataUang')
+                ->join('YUSER as YUSER_3', 'YTRANSBL.Direktur', '=', 'YUSER_3.kd_user')
+                ->join('YSATUAN', 'YTRANSBL.NoSatuan', '=', 'YSATUAN.No_satuan')
+                ->where('YTRANSBL.StatusOrder', 4)
+                ->where('YTRANSBL.StatusBeli', $stBeli)
+                ->where('YTRANSBL.Kd_div', $Kd_Div)
+                ->orderBy('YSUPPLIER.NM_SUP')
+                ->get();
         }
 
 
@@ -218,23 +218,23 @@ class PurchaseOrderController extends Controller
             'YSATUAN.Nama_satuan',
             'YTRANSBL.Supplier as IdSup'
         )
-        ->join('Y_BARANG', 'YTRANSBL.Kd_brg', '=', 'Y_BARANG.KD_BRG')
-        ->join('Y_KATEGORI_SUB', 'Y_BARANG.NO_SUB_KATEGORI', '=', 'Y_KATEGORI_SUB.no_sub_kategori')
-        ->join('Y_KATEGORY', function ($join) {
-            $join->on('Y_KATEGORI_SUB.no_kategori', '=', 'Y_KATEGORY.no_kategori')
-                ->orWhere('Y_KATEGORI_SUB.no_kategori', '=', 'Y_KATEGORY.no_kategori');
-        })
-        ->join('Y_KATEGORI_UTAMA', 'Y_KATEGORY.no_kat_utama', '=', 'Y_KATEGORI_UTAMA.no_kat_utama')
-        ->join('YSUPPLIER', 'YTRANSBL.Supplier', '=', 'YSUPPLIER.NO_SUP')
-        ->join('YUSER', 'YTRANSBL.Operator', '=', 'YUSER.kd_user')
-        ->join('YUSER as YUSER_1', 'YTRANSBL.Manager', '=', 'YUSER_1.kd_user')
-        ->join('YUSER as YUSER_2', 'YTRANSBL.PBL_Acc', '=', 'YUSER_2.kd_user')
-        ->join('ACCOUNTING.dbo.T_MATAUANG', 'YTRANSBL.Currency', '=', 'ACCOUNTING.dbo.T_MATAUANG.Id_MataUang')
-        ->join('YUSER as YUSER_3', 'YTRANSBL.Direktur', '=', 'YUSER_3.kd_user')
-        ->join('YSATUAN', 'YTRANSBL.NoSatuan', '=', 'YSATUAN.No_satuan')
-        ->where('YTRANSBL.StatusOrder', 4)
-        ->where('YUSER.Nama', 'like', '%' . $requester . '%')
-        ->get();
+            ->join('Y_BARANG', 'YTRANSBL.Kd_brg', '=', 'Y_BARANG.KD_BRG')
+            ->join('Y_KATEGORI_SUB', 'Y_BARANG.NO_SUB_KATEGORI', '=', 'Y_KATEGORI_SUB.no_sub_kategori')
+            ->join('Y_KATEGORY', function ($join) {
+                $join->on('Y_KATEGORI_SUB.no_kategori', '=', 'Y_KATEGORY.no_kategori')
+                    ->orWhere('Y_KATEGORI_SUB.no_kategori', '=', 'Y_KATEGORY.no_kategori');
+            })
+            ->join('Y_KATEGORI_UTAMA', 'Y_KATEGORY.no_kat_utama', '=', 'Y_KATEGORI_UTAMA.no_kat_utama')
+            ->join('YSUPPLIER', 'YTRANSBL.Supplier', '=', 'YSUPPLIER.NO_SUP')
+            ->join('YUSER', 'YTRANSBL.Operator', '=', 'YUSER.kd_user')
+            ->join('YUSER as YUSER_1', 'YTRANSBL.Manager', '=', 'YUSER_1.kd_user')
+            ->join('YUSER as YUSER_2', 'YTRANSBL.PBL_Acc', '=', 'YUSER_2.kd_user')
+            ->join('ACCOUNTING.dbo.T_MATAUANG', 'YTRANSBL.Currency', '=', 'ACCOUNTING.dbo.T_MATAUANG.Id_MataUang')
+            ->join('YUSER as YUSER_3', 'YTRANSBL.Direktur', '=', 'YUSER_3.kd_user')
+            ->join('YSATUAN', 'YTRANSBL.NoSatuan', '=', 'YSATUAN.No_satuan')
+            ->where('YTRANSBL.StatusOrder', 4)
+            ->where('YUSER.Nama', 'like', '%' . $requester . '%')
+            ->get();
         // $data = db::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd = ?, @requester = ?', [29, $requester]);
         return response()->json($data);
     }
@@ -288,30 +288,30 @@ class PurchaseOrderController extends Controller
             'YSATUAN.Nama_satuan',
             'YTRANSBL.Supplier as IdSup'
         )
-        ->join('Y_BARANG', 'YTRANSBL.Kd_brg', '=', 'Y_BARANG.KD_BRG')
-        ->join('Y_KATEGORI_SUB', 'Y_BARANG.NO_SUB_KATEGORI', '=', 'Y_KATEGORI_SUB.no_sub_kategori')
-        ->join('Y_KATEGORY', function ($join) {
-            $join->on('Y_KATEGORI_SUB.no_kategori', '=', 'Y_KATEGORY.no_kategori')
-                ->orWhere('Y_KATEGORI_SUB.no_kategori', '=', 'Y_KATEGORY.no_kategori');
-        })
-        ->join('Y_KATEGORI_UTAMA', 'Y_KATEGORY.no_kat_utama', '=', 'Y_KATEGORI_UTAMA.no_kat_utama')
-        ->join('YSUPPLIER', 'YTRANSBL.Supplier', '=', 'YSUPPLIER.NO_SUP')
-        ->join('YUSER', 'YTRANSBL.Operator', '=', 'YUSER.kd_user')
-        ->join('YUSER as YUSER_1', 'YTRANSBL.Manager', '=', 'YUSER_1.kd_user')
-        ->join('YUSER as YUSER_2', 'YTRANSBL.PBL_Acc', '=', 'YUSER_2.kd_user')
-        ->join('ACCOUNTING.dbo.T_MATAUANG', 'YTRANSBL.Currency', '=', 'ACCOUNTING.dbo.T_MATAUANG.Id_MataUang')
-        ->join('YUSER as YUSER_3', 'YTRANSBL.Direktur', '=', 'YUSER_3.kd_user')
-        ->join('YSATUAN', 'YTRANSBL.NoSatuan', '=', 'YSATUAN.No_satuan')
-        ->where('YTRANSBL.StatusOrder', 4)
-        ->where('YTRANSBL.No_trans', $noTrans)
-        ->get();
+            ->join('Y_BARANG', 'YTRANSBL.Kd_brg', '=', 'Y_BARANG.KD_BRG')
+            ->join('Y_KATEGORI_SUB', 'Y_BARANG.NO_SUB_KATEGORI', '=', 'Y_KATEGORI_SUB.no_sub_kategori')
+            ->join('Y_KATEGORY', function ($join) {
+                $join->on('Y_KATEGORI_SUB.no_kategori', '=', 'Y_KATEGORY.no_kategori')
+                    ->orWhere('Y_KATEGORI_SUB.no_kategori', '=', 'Y_KATEGORY.no_kategori');
+            })
+            ->join('Y_KATEGORI_UTAMA', 'Y_KATEGORY.no_kat_utama', '=', 'Y_KATEGORI_UTAMA.no_kat_utama')
+            ->join('YSUPPLIER', 'YTRANSBL.Supplier', '=', 'YSUPPLIER.NO_SUP')
+            ->join('YUSER', 'YTRANSBL.Operator', '=', 'YUSER.kd_user')
+            ->join('YUSER as YUSER_1', 'YTRANSBL.Manager', '=', 'YUSER_1.kd_user')
+            ->join('YUSER as YUSER_2', 'YTRANSBL.PBL_Acc', '=', 'YUSER_2.kd_user')
+            ->join('ACCOUNTING.dbo.T_MATAUANG', 'YTRANSBL.Currency', '=', 'ACCOUNTING.dbo.T_MATAUANG.Id_MataUang')
+            ->join('YUSER as YUSER_3', 'YTRANSBL.Direktur', '=', 'YUSER_3.kd_user')
+            ->join('YSATUAN', 'YTRANSBL.NoSatuan', '=', 'YSATUAN.No_satuan')
+            ->where('YTRANSBL.StatusOrder', 4)
+            ->where('YTRANSBL.No_trans', $noTrans)
+            ->get();
         // $data = db::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd = ?, @noTrans = ?', [30, $noTrans]);
         return response()->json($data);
     }
 
     public function getPermohonanDivisiNyantol($stBeli, $Kd_Div)
     {
-        if($Kd_Div == 'ALL'){
+        if ($Kd_Div == 'ALL') {
             $data = db::connection('ConnPurchase')->table('Ytransbl')->select(
                 'Y_KATEGORI_UTAMA.no_kat_utama',
                 'Y_KATEGORI_UTAMA.nama',
@@ -359,25 +359,25 @@ class PurchaseOrderController extends Controller
                 'YSATUAN.Nama_satuan',
                 'YTRANSBL.Supplier as IdSup'
             )
-            ->join('Y_BARANG', 'YTRANSBL.Kd_brg', '=', 'Y_BARANG.KD_BRG')
-            ->join('Y_KATEGORI_SUB', 'Y_BARANG.NO_SUB_KATEGORI', '=', 'Y_KATEGORI_SUB.no_sub_kategori')
-            ->join('Y_KATEGORY', function ($join) {
-                $join->on('Y_KATEGORI_SUB.no_kategori', '=', 'Y_KATEGORY.no_kategori')
-                    ->orWhere('Y_KATEGORI_SUB.no_kategori', '=', 'Y_KATEGORY.no_kategori');
-            })
-            ->join('Y_KATEGORI_UTAMA', 'Y_KATEGORY.no_kat_utama', '=', 'Y_KATEGORI_UTAMA.no_kat_utama')
-            ->join('YSUPPLIER', 'YTRANSBL.Supplier', '=', 'YSUPPLIER.NO_SUP')
-            ->join('YUSER', 'YTRANSBL.Operator', '=', 'YUSER.kd_user')
-            ->join('YUSER as YUSER_1', 'YTRANSBL.Manager', '=', 'YUSER_1.kd_user')
-            ->join('YUSER as YUSER_2', 'YTRANSBL.PBL_Acc', '=', 'YUSER_2.kd_user')
-            ->join('ACCOUNTING.dbo.T_MATAUANG', 'YTRANSBL.Currency', '=', 'ACCOUNTING.dbo.T_MATAUANG.Id_MataUang')
-            ->join('YUSER as YUSER_3', 'YTRANSBL.Direktur', '=', 'YUSER_3.kd_user')
-            ->join('YSATUAN', 'YTRANSBL.NoSatuan', '=', 'YSATUAN.No_satuan')
-            ->where('YTRANSBL.StatusOrder', 5)
-            ->where('YTRANSBL.StatusBeli', $stBeli)
-            ->orderBy('YSUPPLIER.NM_SUP')
-            ->get();
-        }else{
+                ->join('Y_BARANG', 'YTRANSBL.Kd_brg', '=', 'Y_BARANG.KD_BRG')
+                ->join('Y_KATEGORI_SUB', 'Y_BARANG.NO_SUB_KATEGORI', '=', 'Y_KATEGORI_SUB.no_sub_kategori')
+                ->join('Y_KATEGORY', function ($join) {
+                    $join->on('Y_KATEGORI_SUB.no_kategori', '=', 'Y_KATEGORY.no_kategori')
+                        ->orWhere('Y_KATEGORI_SUB.no_kategori', '=', 'Y_KATEGORY.no_kategori');
+                })
+                ->join('Y_KATEGORI_UTAMA', 'Y_KATEGORY.no_kat_utama', '=', 'Y_KATEGORI_UTAMA.no_kat_utama')
+                ->join('YSUPPLIER', 'YTRANSBL.Supplier', '=', 'YSUPPLIER.NO_SUP')
+                ->join('YUSER', 'YTRANSBL.Operator', '=', 'YUSER.kd_user')
+                ->join('YUSER as YUSER_1', 'YTRANSBL.Manager', '=', 'YUSER_1.kd_user')
+                ->join('YUSER as YUSER_2', 'YTRANSBL.PBL_Acc', '=', 'YUSER_2.kd_user')
+                ->join('ACCOUNTING.dbo.T_MATAUANG', 'YTRANSBL.Currency', '=', 'ACCOUNTING.dbo.T_MATAUANG.Id_MataUang')
+                ->join('YUSER as YUSER_3', 'YTRANSBL.Direktur', '=', 'YUSER_3.kd_user')
+                ->join('YSATUAN', 'YTRANSBL.NoSatuan', '=', 'YSATUAN.No_satuan')
+                ->where('YTRANSBL.StatusOrder', 5)
+                ->where('YTRANSBL.StatusBeli', $stBeli)
+                ->orderBy('YSUPPLIER.NM_SUP')
+                ->get();
+        } else {
             $data = db::connection('ConnPurchase')->table('Ytransbl')->select(
                 'Y_KATEGORI_UTAMA.no_kat_utama',
                 'Y_KATEGORI_UTAMA.nama',
@@ -425,25 +425,25 @@ class PurchaseOrderController extends Controller
                 'YSATUAN.Nama_satuan',
                 'YTRANSBL.Supplier as IdSup'
             )
-            ->join('Y_BARANG', 'YTRANSBL.Kd_brg', '=', 'Y_BARANG.KD_BRG')
-            ->join('Y_KATEGORI_SUB', 'Y_BARANG.NO_SUB_KATEGORI', '=', 'Y_KATEGORI_SUB.no_sub_kategori')
-            ->join('Y_KATEGORY', function ($join) {
-                $join->on('Y_KATEGORI_SUB.no_kategori', '=', 'Y_KATEGORY.no_kategori')
-                    ->orWhere('Y_KATEGORI_SUB.no_kategori', '=', 'Y_KATEGORY.no_kategori');
-            })
-            ->join('Y_KATEGORI_UTAMA', 'Y_KATEGORY.no_kat_utama', '=', 'Y_KATEGORI_UTAMA.no_kat_utama')
-            ->join('YSUPPLIER', 'YTRANSBL.Supplier', '=', 'YSUPPLIER.NO_SUP')
-            ->join('YUSER', 'YTRANSBL.Operator', '=', 'YUSER.kd_user')
-            ->join('YUSER as YUSER_1', 'YTRANSBL.Manager', '=', 'YUSER_1.kd_user')
-            ->join('YUSER as YUSER_2', 'YTRANSBL.PBL_Acc', '=', 'YUSER_2.kd_user')
-            ->join('ACCOUNTING.dbo.T_MATAUANG', 'YTRANSBL.Currency', '=', 'ACCOUNTING.dbo.T_MATAUANG.Id_MataUang')
-            ->join('YUSER as YUSER_3', 'YTRANSBL.Direktur', '=', 'YUSER_3.kd_user')
-            ->join('YSATUAN', 'YTRANSBL.NoSatuan', '=', 'YSATUAN.No_satuan')
-            ->where('YTRANSBL.StatusOrder', 5)
-            ->where('YTRANSBL.StatusBeli', $stBeli)
-            ->where('YTRANSBL.Kd_div', $Kd_Div)
-            ->orderBy('YSUPPLIER.NM_SUP')
-            ->get();
+                ->join('Y_BARANG', 'YTRANSBL.Kd_brg', '=', 'Y_BARANG.KD_BRG')
+                ->join('Y_KATEGORI_SUB', 'Y_BARANG.NO_SUB_KATEGORI', '=', 'Y_KATEGORI_SUB.no_sub_kategori')
+                ->join('Y_KATEGORY', function ($join) {
+                    $join->on('Y_KATEGORI_SUB.no_kategori', '=', 'Y_KATEGORY.no_kategori')
+                        ->orWhere('Y_KATEGORI_SUB.no_kategori', '=', 'Y_KATEGORY.no_kategori');
+                })
+                ->join('Y_KATEGORI_UTAMA', 'Y_KATEGORY.no_kat_utama', '=', 'Y_KATEGORI_UTAMA.no_kat_utama')
+                ->join('YSUPPLIER', 'YTRANSBL.Supplier', '=', 'YSUPPLIER.NO_SUP')
+                ->join('YUSER', 'YTRANSBL.Operator', '=', 'YUSER.kd_user')
+                ->join('YUSER as YUSER_1', 'YTRANSBL.Manager', '=', 'YUSER_1.kd_user')
+                ->join('YUSER as YUSER_2', 'YTRANSBL.PBL_Acc', '=', 'YUSER_2.kd_user')
+                ->join('ACCOUNTING.dbo.T_MATAUANG', 'YTRANSBL.Currency', '=', 'ACCOUNTING.dbo.T_MATAUANG.Id_MataUang')
+                ->join('YUSER as YUSER_3', 'YTRANSBL.Direktur', '=', 'YUSER_3.kd_user')
+                ->join('YSATUAN', 'YTRANSBL.NoSatuan', '=', 'YSATUAN.No_satuan')
+                ->where('YTRANSBL.StatusOrder', 5)
+                ->where('YTRANSBL.StatusBeli', $stBeli)
+                ->where('YTRANSBL.Kd_div', $Kd_Div)
+                ->orderBy('YSUPPLIER.NM_SUP')
+                ->get();
         }
 
         // $data = db::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd = ?, @stBeli = ?, @Kd_Div = ?', [38, $stBeli, $Kd_Div]);
@@ -499,23 +499,23 @@ class PurchaseOrderController extends Controller
             'YSATUAN.Nama_satuan',
             'YTRANSBL.Supplier as IdSup'
         )
-        ->join('Y_BARANG', 'YTRANSBL.Kd_brg', '=', 'Y_BARANG.KD_BRG')
-        ->join('Y_KATEGORI_SUB', 'Y_BARANG.NO_SUB_KATEGORI', '=', 'Y_KATEGORI_SUB.no_sub_kategori')
-        ->join('Y_KATEGORY', function ($join) {
-            $join->on('Y_KATEGORI_SUB.no_kategori', '=', 'Y_KATEGORY.no_kategori')
-                ->orWhere('Y_KATEGORI_SUB.no_kategori', '=', 'Y_KATEGORY.no_kategori');
-        })
-        ->join('Y_KATEGORI_UTAMA', 'Y_KATEGORY.no_kat_utama', '=', 'Y_KATEGORI_UTAMA.no_kat_utama')
-        ->join('YSUPPLIER', 'YTRANSBL.Supplier', '=', 'YSUPPLIER.NO_SUP')
-        ->join('YUSER', 'YTRANSBL.Operator', '=', 'YUSER.kd_user')
-        ->join('YUSER as YUSER_1', 'YTRANSBL.Manager', '=', 'YUSER_1.kd_user')
-        ->join('YUSER as YUSER_2', 'YTRANSBL.PBL_Acc', '=', 'YUSER_2.kd_user')
-        ->join('ACCOUNTING.dbo.T_MATAUANG', 'YTRANSBL.Currency', '=', 'ACCOUNTING.dbo.T_MATAUANG.Id_MataUang')
-        ->join('YUSER as YUSER_3', 'YTRANSBL.Direktur', '=', 'YUSER_3.kd_user')
-        ->join('YSATUAN', 'YTRANSBL.NoSatuan', '=', 'YSATUAN.No_satuan')
-        ->where('YTRANSBL.StatusOrder', 5)
-        ->where('YUSER.Nama', 'like', '%' . $requester . '%')
-        ->get();
+            ->join('Y_BARANG', 'YTRANSBL.Kd_brg', '=', 'Y_BARANG.KD_BRG')
+            ->join('Y_KATEGORI_SUB', 'Y_BARANG.NO_SUB_KATEGORI', '=', 'Y_KATEGORI_SUB.no_sub_kategori')
+            ->join('Y_KATEGORY', function ($join) {
+                $join->on('Y_KATEGORI_SUB.no_kategori', '=', 'Y_KATEGORY.no_kategori')
+                    ->orWhere('Y_KATEGORI_SUB.no_kategori', '=', 'Y_KATEGORY.no_kategori');
+            })
+            ->join('Y_KATEGORI_UTAMA', 'Y_KATEGORY.no_kat_utama', '=', 'Y_KATEGORI_UTAMA.no_kat_utama')
+            ->join('YSUPPLIER', 'YTRANSBL.Supplier', '=', 'YSUPPLIER.NO_SUP')
+            ->join('YUSER', 'YTRANSBL.Operator', '=', 'YUSER.kd_user')
+            ->join('YUSER as YUSER_1', 'YTRANSBL.Manager', '=', 'YUSER_1.kd_user')
+            ->join('YUSER as YUSER_2', 'YTRANSBL.PBL_Acc', '=', 'YUSER_2.kd_user')
+            ->join('ACCOUNTING.dbo.T_MATAUANG', 'YTRANSBL.Currency', '=', 'ACCOUNTING.dbo.T_MATAUANG.Id_MataUang')
+            ->join('YUSER as YUSER_3', 'YTRANSBL.Direktur', '=', 'YUSER_3.kd_user')
+            ->join('YSATUAN', 'YTRANSBL.NoSatuan', '=', 'YSATUAN.No_satuan')
+            ->where('YTRANSBL.StatusOrder', 5)
+            ->where('YUSER.Nama', 'like', '%' . $requester . '%')
+            ->get();
         // $data = db::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd = ?, @requester = ?', [39, $requester]);
         return response()->json($data);
     }
@@ -569,23 +569,23 @@ class PurchaseOrderController extends Controller
             'YSATUAN.Nama_satuan',
             'YTRANSBL.Supplier as IdSup'
         )
-        ->join('Y_BARANG', 'YTRANSBL.Kd_brg', '=', 'Y_BARANG.KD_BRG')
-        ->join('Y_KATEGORI_SUB', 'Y_BARANG.NO_SUB_KATEGORI', '=', 'Y_KATEGORI_SUB.no_sub_kategori')
-        ->join('Y_KATEGORY', function ($join) {
-            $join->on('Y_KATEGORI_SUB.no_kategori', '=', 'Y_KATEGORY.no_kategori')
-                ->orWhere('Y_KATEGORI_SUB.no_kategori', '=', 'Y_KATEGORY.no_kategori');
-        })
-        ->join('Y_KATEGORI_UTAMA', 'Y_KATEGORY.no_kat_utama', '=', 'Y_KATEGORI_UTAMA.no_kat_utama')
-        ->join('YSUPPLIER', 'YTRANSBL.Supplier', '=', 'YSUPPLIER.NO_SUP')
-        ->join('YUSER', 'YTRANSBL.Operator', '=', 'YUSER.kd_user')
-        ->join('YUSER as YUSER_1', 'YTRANSBL.Manager', '=', 'YUSER_1.kd_user')
-        ->join('YUSER as YUSER_2', 'YTRANSBL.PBL_Acc', '=', 'YUSER_2.kd_user')
-        ->join('ACCOUNTING.dbo.T_MATAUANG', 'YTRANSBL.Currency', '=', 'ACCOUNTING.dbo.T_MATAUANG.Id_MataUang')
-        ->join('YUSER as YUSER_3', 'YTRANSBL.Direktur', '=', 'YUSER_3.kd_user')
-        ->join('YSATUAN', 'YTRANSBL.NoSatuan', '=', 'YSATUAN.No_satuan')
-        ->where('YTRANSBL.StatusOrder', 5)
-        ->where('YTRANSBL.No_trans', $noTrans)
-        ->get();
+            ->join('Y_BARANG', 'YTRANSBL.Kd_brg', '=', 'Y_BARANG.KD_BRG')
+            ->join('Y_KATEGORI_SUB', 'Y_BARANG.NO_SUB_KATEGORI', '=', 'Y_KATEGORI_SUB.no_sub_kategori')
+            ->join('Y_KATEGORY', function ($join) {
+                $join->on('Y_KATEGORI_SUB.no_kategori', '=', 'Y_KATEGORY.no_kategori')
+                    ->orWhere('Y_KATEGORI_SUB.no_kategori', '=', 'Y_KATEGORY.no_kategori');
+            })
+            ->join('Y_KATEGORI_UTAMA', 'Y_KATEGORY.no_kat_utama', '=', 'Y_KATEGORI_UTAMA.no_kat_utama')
+            ->join('YSUPPLIER', 'YTRANSBL.Supplier', '=', 'YSUPPLIER.NO_SUP')
+            ->join('YUSER', 'YTRANSBL.Operator', '=', 'YUSER.kd_user')
+            ->join('YUSER as YUSER_1', 'YTRANSBL.Manager', '=', 'YUSER_1.kd_user')
+            ->join('YUSER as YUSER_2', 'YTRANSBL.PBL_Acc', '=', 'YUSER_2.kd_user')
+            ->join('ACCOUNTING.dbo.T_MATAUANG', 'YTRANSBL.Currency', '=', 'ACCOUNTING.dbo.T_MATAUANG.Id_MataUang')
+            ->join('YUSER as YUSER_3', 'YTRANSBL.Direktur', '=', 'YUSER_3.kd_user')
+            ->join('YSATUAN', 'YTRANSBL.NoSatuan', '=', 'YSATUAN.No_satuan')
+            ->where('YTRANSBL.StatusOrder', 5)
+            ->where('YTRANSBL.No_trans', $noTrans)
+            ->get();
         // $data = db::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd = ?, @noTrans = ?', [40, $noTrans]);
         return response()->json($data);
     }
@@ -782,7 +782,7 @@ class PurchaseOrderController extends Controller
         $kd = 5;
         $noTrans = $request->input('noTrans');
         $mtUang = $request->input('mtUang');
-        $tglPO =Carbon::parse($request->input('tglPO'));
+        $tglPO = Carbon::parse($request->input('tglPO'));
         $Operator = trim(Auth::user()->NomorUser);
         $idpay = $request->input('idpay');
         $jumCetak = 1;
@@ -898,9 +898,9 @@ class PurchaseOrderController extends Controller
         $access = (new HakAksesController)->HakAksesFiturMaster('Beli');
         $No_PO = $request->query('No_PO');
         $loadPermohonan = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd =?, @noPO =?', [26, $No_PO]);
-        $loadHeader =DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd =?, @noPO =?', [25, $No_PO]);
+        $loadHeader = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd =?, @noPO =?', [25, $No_PO]);
         // dd($No_PO);
-        return view('Beli.TransaksiBeli.PurchaseOrder.ListPO.ReviewPO', compact('access', 'No_PO' , 'loadPermohonan','loadHeader'));
+        return view('Beli.TransaksiBeli.PurchaseOrder.ListPO.ReviewPO', compact('access', 'No_PO', 'loadPermohonan', 'loadHeader'));
     }
 
     public function printReviewPO(Request $request)
@@ -916,6 +916,56 @@ class PurchaseOrderController extends Controller
         ) {
             try {
                 $post = DB::connection('ConnPurchase')->statement('exec SP_5409_MAINT_PO @kd = ?, @NoPO = ?,  @tglPO =?, @Tgl_Dibutuhkan = ?', [$kd, $NoPO, $tglPO, $Tgl_Dibutuhkan]);
+                return Response()->json(['message' => 'Data Berhasil Post', 'status' => $post]);
+            } catch (\Throwable $Error) {
+                return Response()->json($Error);
+            }
+        } else {
+            return Response()->json('Parameter harus di isi');
+        }
+    }
+    public function reviewBTTB(Request $request)
+    {
+        $access = (new HakAksesController)->HakAksesFiturMaster('Beli');
+        $No_BTTB = $request->query('No_BTTB');
+        $loadPermohonan = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd =?, @noBTTB =?', [28, $No_BTTB]);
+        $loadHeader = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd =?, @noBTTB =?', [31, $No_BTTB]);
+        // dd($No_BTTB);
+        return view('Beli.TransaksiBeli.PurchaseOrder.ListPO.ReviewBTTB', compact('access', 'No_BTTB', 'loadPermohonan', 'loadHeader'));
+    }
+    public function printReviewBTTB(Request $request)
+    {
+        $kd = 13;
+        $tglDatang = Carbon::parse($request->input('tglDatang'));
+        $SJ = $request->input('SJ');
+        $NoPIB = $request->input('NoPIB');
+        $BTTB = $request->input('BTTB');
+        $NoPIBExt = $request->input('NoPIBExt');
+        $TglPIB = Carbon::parse($request->input('TglPIB'));
+        $NoSPPBBC = $request->input('NoSPPBBC');
+        $TglSPPBBC = Carbon::parse($request->input('TglSPPBBC'));
+        $NoSKBM = $request->input('NoSKBM');
+        $TglSKBM = Carbon::parse($request->input('TglSKBM'));
+        $NoReg = $request->input('NoReg');
+        $TglReg = Carbon::parse($request->input('TglReg'));
+
+        if (($BTTB !== null)) {
+            try {
+                $post = DB::connection('ConnPurchase')->statement('exec SP_5409_MAINT_PO @kd = ?,@tglDatang = ?, @SJ = ?, @NoPIB = ?, @BTTB = ?,@NoPIBExt = ?,@TglPIB = ?,@NoSPPBBC = ?,@TglSPPBBC = ?,@NoSKBM = ?,@TglSKBM = ?,@NoReg = ?,@TglReg = ?', [
+                    $kd,
+                    $tglDatang,
+                    $SJ,
+                    $NoPIB,
+                    $BTTB,
+                    $NoPIBExt,
+                    $TglPIB,
+                    $NoSPPBBC,
+                    $TglSPPBBC,
+                    $NoSKBM,
+                    $TglSKBM,
+                    $NoReg,
+                    $TglReg
+                ]);
                 return Response()->json(['message' => 'Data Berhasil Post', 'status' => $post]);
             } catch (\Throwable $Error) {
                 return Response()->json($Error);
