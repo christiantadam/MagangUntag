@@ -31,9 +31,6 @@ if (jam) {
         jam.value = timeString;
     }
     updateCurrentTime();
-
-    // Update time every second (1000 milliseconds)
-    setInterval(updateCurrentTime, 1000);
 }
 
 var currentDateTime = new Date();
@@ -206,6 +203,7 @@ $(document).ready(function () {
                           timer: "2000",
                       });
                 tanggal.disabled = true;
+                jam.value = timeString;
                 jam.disabled = true;
                 lwbp.disabled = true;
                 wbp.disabled = true;

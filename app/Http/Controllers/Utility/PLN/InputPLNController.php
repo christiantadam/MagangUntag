@@ -16,8 +16,16 @@ class InputPLNController extends Controller
     {
 
         $teknisigenzet = DB::connection('ConnUtility')->select('exec SP_LIST_TEKNISI_GENZET');
-        $teknisi = DB::connection('ConnUtility')->select('exec SP_LIST_UTILITY_TEKNISI');
+        $IDUser = auth::user()->IDUser;
+        $lokasiResult = DB::connection('ConnUtility')->table('Utility_Teknisi')
+            ->select('Lokasi')
+            ->where('IdUserMaster', $IDUser)
+            ->first();
 
+        $lokasi = $lokasiResult ? $lokasiResult->Lokasi : null;
+
+        $teknisi = DB::connection('ConnUtility')
+            ->select("exec SP_LIST_UTILITY_TEKNISI @lokasi = ?", [$lokasi]);
         $sdp = DB::connection('ConnUtility')->select('exec SP_LIST_PRODUKSI_SPD');
 
         $access = (new HakAksesController)->HakAksesFiturMaster('Utility');
@@ -35,7 +43,10 @@ class InputPLNController extends Controller
             $teknisi = $request->input('Teknisi');
             $UserInput = Auth::user()->NomorUser;
 
-            $data = DB::connection('ConnUtility')->statement('exec SP_INSERT_PLN ? , ? , ? , ? , ? , ? , ?', [$tanggal, $jam, $lwbp, $wbp, $kvar, $teknisi, $UserInput]);
+            $datetimeNow = now();
+            $datetimeJam = $datetimeNow->toDateString() . ' ' . $jam;
+
+            $data = DB::connection('ConnUtility')->statement('exec SP_INSERT_PLN ? , ? , ? , ? , ? , ? , ?', [$tanggal, $datetimeJam, $lwbp, $wbp, $kvar, $teknisi, $UserInput]);
             return response()->json($data);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'An error occurred while saving the data. Please try again.');

@@ -34,15 +34,15 @@ if (jam_gangguan) {
     updateCurrentTime();
 
     // Update time every second (1000 milliseconds)
-    setInterval(updateCurrentTime, 1000);
+    //setInterval(updateCurrentTime, 1000);
 }
 
-// var currentDateTime = new Date();
-// var hours = currentDateTime.getHours().toString().padStart(2, "0");
-// var minutes = currentDateTime.getMinutes().toString().padStart(2, "0");
-// var timeString = hours + ":" + minutes;
+var currentDateTime = new Date();
+var hours = currentDateTime.getHours().toString().padStart(2, "0");
+var minutes = currentDateTime.getMinutes().toString().padStart(2, "0");
+var timeString = hours + ":" + minutes;
 
-// jam_gangguan.value = timeString;
+jam_gangguan.value = timeString;
 
 // Form Button
 let inputButton = document.getElementById("inputButton");
@@ -58,6 +58,7 @@ function clearForm() {
     ket_gangguan.value = "";
     keterangan.value = "";
     id_transaksi.value = "";
+    jam_gangguan = timeString;
 }
 saveButton.disabled = true;
 tanggal.disabled = true;
@@ -205,6 +206,7 @@ $(document).ready(function () {
                 jam_gangguan.disabled = true;
                 jam_selesai.disabled = true;
                 ket_gangguan.disabled = true;
+                jam_gangguan.value = timeString;
                 keterangan.disabled = true;
                 updateButton.disabled = false;
                 deleteButton.disabled = false;

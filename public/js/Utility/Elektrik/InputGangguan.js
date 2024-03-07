@@ -38,7 +38,7 @@ let agree = document.getElementById("agree");
 var bulanInput = document.getElementById("bulan");
 var sampaiDenganInput = document.getElementById("sampaiDengan");
 var tanggalInput = document.getElementById("tanggal");
-var JamLapor = document.getElementById("jam_lapor");
+let JamLapor = document.getElementById("jam_lapor");
 
 if (tanggal && bulanInput && tanggalInput && JamLapor && sampaiDenganInput) {
     function updateCurrentTime() {
@@ -52,7 +52,7 @@ if (tanggal && bulanInput && tanggalInput && JamLapor && sampaiDenganInput) {
     updateCurrentTime();
 
     // Update time every second (1000 milliseconds)
-    setInterval(updateCurrentTime, 1000);
+    //setInterval(updateCurrentTime, 1000);
 
     // Update date values
     var tanggal_akhirOutput = new Date().toISOString().split("T")[0];
@@ -61,6 +61,13 @@ if (tanggal && bulanInput && tanggalInput && JamLapor && sampaiDenganInput) {
     sampaiDenganInput.value = tanggal_akhirOutput;
     tanggal.value = tanggal_akhirOutput;
 }
+
+var currentDateTime = new Date();
+var hours = currentDateTime.getHours().toString().padStart(2, "0");
+var minutes = currentDateTime.getMinutes().toString().padStart(2, "0");
+var timeString = hours + ":" + minutes;
+
+JamLapor.value = timeString;
 
 function clearForm() {
     $("#id_laporan").val("");
@@ -422,6 +429,7 @@ $(document).ready(function () {
                     dataTable.ajax.reload();
                     disableForm();
                     clearForm();
+                    jamLapor.value = timeString;
                     koreksiButton.disabled = false;
                     hapusButton.disabled = false;
                 } else {
@@ -443,6 +451,7 @@ $(document).ready(function () {
                 dataTable.ajax.reload();
                 console.log("Data berhasil disimpan.");
                 tanggal.value = tanggal_akhirOutput;
+                JamLapor.value = timeString;
             },
             error: function (xhr, status, error) {
                 if (xhr.status === 419) {

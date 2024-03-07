@@ -51,15 +51,15 @@ if (jam_awal) {
     updateCurrentTime();
 
     // Update time every second (1000 milliseconds)
-    setInterval(updateCurrentTime, 1000);
+    //setInterval(updateCurrentTime, 1000);
 }
 
-// var currentDateTime = new Date();
-// var hours = currentDateTime.getHours().toString().padStart(2, "0");
-// var minutes = currentDateTime.getMinutes().toString().padStart(2, "0");
-// var timeString = hours + ":" + minutes;
+var currentDateTime = new Date();
+var hours = currentDateTime.getHours().toString().padStart(2, "0");
+var minutes = currentDateTime.getMinutes().toString().padStart(2, "0");
+var timeString = hours + ":" + minutes;
 
-// jam_awal.value = timeString;
+jam_awal.value = timeString;
 
 tanggal.disabled = true;
 mesingenzet.disabled = true;
@@ -405,6 +405,7 @@ $(document).ready(function () {
                 teknisi.disabled = true;
                 keterangan.disabled = true;
                 tanggal_Input.value = tanggal_Output;
+                jam_awal.value = timeString;
             },
             error: function (error) {
                 Swal.fire({

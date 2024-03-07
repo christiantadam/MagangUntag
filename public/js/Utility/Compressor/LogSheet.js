@@ -40,9 +40,14 @@ if (jam_operasi) {
     }
     updateCurrentTime();
 
-    // Update time every second (1000 milliseconds)
-    setInterval(updateCurrentTime, 1000);
+    // // Update time every second (1000 milliseconds)
+    // setInterval(updateCurrentTime, 1000);
 }
+var currentDateTime = new Date();
+var hours = currentDateTime.getHours().toString().padStart(2, "0");
+var minutes = currentDateTime.getMinutes().toString().padStart(2, "0");
+var timeString = hours + ":" + minutes;
+jam_operasi.value = timeString;
 
 // Form Button
 let inputButton = document.getElementById("inputButton");
@@ -281,6 +286,7 @@ $(document).ready(function () {
                 tech.disabled = true;
                 keterangan.disabled = true;
                 tanggal.value = tanggal_Output;
+                jam_operasi.value = timeString;
             },
             error: function (error) {
                 console.error("Error saving data:", error);

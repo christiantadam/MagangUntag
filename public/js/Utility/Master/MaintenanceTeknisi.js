@@ -216,6 +216,8 @@ $(document).ready(function () {
             $("#teknisi").hide();
             $("#teknisi").val("");
             $("#hiddenIdTeknisi").val("");
+            updateButtonTeknisi.disabled = false;
+            deleteButtonTeknisi.disabled = false;
         }
     });
 
