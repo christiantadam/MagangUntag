@@ -4,6 +4,10 @@
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-10 RDZMobilePaddingLR0">
+                <button class="acs-icon-btn acs-add-btn acs-float">
+                    <div class="acs-add-icon"></div>
+                    <div class="acs-btn-txt">Tambah XXX</div>
+                </button>
                 <div class="card">
                     <div class="card-header">Input Gangguan</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
