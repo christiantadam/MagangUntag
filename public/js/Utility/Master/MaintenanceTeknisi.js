@@ -126,12 +126,25 @@ $(document).ready(function () {
                 data: null,
                 render: function (data, type, full, meta) {
                     return (
-                        '<button class="btn btn-primary" onclick="yourFunction()">Edit</button><br>' +
+                        '<button class="btn btn-primary editButton" data-id="' +
+                        full.Id_Teknisi +
+                        '">Edit</button><br>' +
                         '<button class="btn btn-secondary" onclick="yourFunction()">hapus</button>'
                     );
                 },
             },
         ],
+    });
+    // Tambahkan fungsi berikut ke MaintenanceTeknisi.js
+    $(document).on("click", ".editButton", function () {
+        // Mengambil ID atau data lainnya dari baris yang diklik
+        var teknisiId = $(this).data("id");
+
+        // Mengisi modal dengan data yang diperlukan, bisa menggunakan AJAX jika perlu
+        // Contoh: $.get('/get-teknisi-details/' + teknisiId, function(data) { ... });
+
+        // Menampilkan modal
+        $("#modalMaintenanceTeknisi").modal("show");
     });
 
     $("#searchTeknisi").on("keypress", function (e) {
