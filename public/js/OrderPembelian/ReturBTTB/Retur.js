@@ -38,7 +38,6 @@ let tabelretur = $("#tabelretur").DataTable({
     scrollY: "100px",
     searching: false,
     scrollX: true,
-
 });
 let tabelretur1 = $("#tabelretur1").DataTable({
     paging: false,
@@ -46,7 +45,6 @@ let tabelretur1 = $("#tabelretur1").DataTable({
     scrollY: "100px",
     searching: false,
     scrollX: true,
-
 });
 let csrfToken = $('meta[name="csrf-token"]').attr("content");
 
@@ -97,33 +95,31 @@ tanggalretur.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
         returprimer.focus();
         returprimer.select();
-
     }
 });
 qty_terima.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
-        qty_terima.value = parseFloat(qty_terima.value).toFixed(4)
+        qty_terima.value = parseFloat(qty_terima.value).toFixed(4);
         tanggalretur.focus();
     }
 });
 returprimer.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
-        returprimer.value = parseFloat(returprimer.value).toFixed(2)
+        returprimer.value = parseFloat(returprimer.value).toFixed(2);
         sekunder.focus();
         sekunder.select();
     }
 });
 sekunder.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
-        sekunder.value = parseFloat(sekunder.value).toFixed(2)
+        sekunder.value = parseFloat(sekunder.value).toFixed(2);
         tertier.focus();
         tertier.select();
-
     }
 });
 tertier.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
-        tertier.value = parseFloat(tertier.value).toFixed(2)
+        tertier.value = parseFloat(tertier.value).toFixed(2);
         alasan.select();
     }
 });
@@ -551,12 +547,12 @@ function responseData(datas) {
                 data.Kd_brg,
                 data.NAMA_BRG,
                 data.nama_sub_kategori,
-                data.Qty_Terima,
+                numeral(parseFloat(data.Qty_Terima)).format("0.0000"),
                 data.Nama_satuan,
                 data.NoTransaksiTmp,
                 data.NoTransaksiInv,
                 data.No_trans,
-                data.JmlRetur,
+                numeral(parseFloat(data.JmlRetur)).format("0.00"),
                 data.TglRetur,
                 data.KetRetur,
                 data.Id_Penagihan,
@@ -573,11 +569,11 @@ function responseDataTabelRetur1(datas) {
                 data.IdType,
                 data.KodeBarang,
                 data.NamaType,
-                data.SaldoPrimer || 0,
+                numeral(parseFloat(data.SaldoPrimer)).format("0.00") || 0,
                 data.satPrimer,
-                data.SaldoSekunder || 0,
+                numeral(parseFloat(data.SaldoSekunder)).format("0.00") || 0,
                 data.satSekunder,
-                data.SaldoTritier || 0,
+                numeral(parseFloat(data.SaldoTritier)).format("0.00") || 0,
                 data.nama_satuan,
                 data.NamaSubKelompok,
                 data.NamaKelompok,

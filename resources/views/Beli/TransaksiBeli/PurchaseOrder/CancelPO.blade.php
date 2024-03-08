@@ -57,7 +57,7 @@
                             <div id="div_tablePO" class="acs-form3">
                                 <table id="tableharga" class="table table-bordered"
                                     style="width:100%">
-                                    <thead class="thead-dark">
+                                    <thead class="table-primary">
                                         <tr>
                                             <th>No. Order</th>
                                             <th>Kode Barang</th>

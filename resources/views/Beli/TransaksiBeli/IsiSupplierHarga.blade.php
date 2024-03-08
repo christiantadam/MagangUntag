@@ -54,7 +54,7 @@
                         </div>
                         <div id="div_tablePO" class="acs-form3">
                             <table id="table_IsiHarga" class="table table-bordered" style="width:100%">
-                                <thead class="thead-dark">
+                                <thead class="table-primary">
                                     <tr>
                                         <th>No. Order</th>
                                         <th>Status Beli</th>

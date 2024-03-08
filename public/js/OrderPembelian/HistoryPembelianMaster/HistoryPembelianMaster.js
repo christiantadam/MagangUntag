@@ -59,7 +59,6 @@ function getSelectedInputValue() {
 }
 
 function redisplayData(nm_brg, req, sup, kdbrg) {
-
     if (kdbrg != null) {
         while (kdbrg.length < 9) {
             kdbrg = "0" + kdbrg;
@@ -92,15 +91,20 @@ function redisplayData(nm_brg, req, sup, kdbrg) {
             { data: "NM_SUP" },
             { data: "KOTA1" },
             { data: "NEGARA1" },
-            { data: "Hrg_trm" },
+            {
+                data: "Hrg_trm",
+                render: function (data) {
+                    return numeral(parseFloat(data)).format("0,0.0000");
+                },
+            },
             { data: "Id_MataUang_BC" },
             { data: "Nama" },
             {
                 data: "Tgl_order",
-                render: function (data, type, row) {
+                render: function (data) {
                     let parts = data.split(" ")[0].split("-");
                     let tgl = parts[1] + "-" + parts[2] + "-" + parts[0];
-                    return tgl + ' ' + data.split(" ")[1];;
+                    return tgl + " " + data.split(" ")[1];
                 },
             },
         ],

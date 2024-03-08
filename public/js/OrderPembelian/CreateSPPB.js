@@ -134,48 +134,90 @@ function LoadPermohonan(data) {
             },
             {
                 data: "Qty",
+                render: function (data) {
+                    return numeral(parseFloat(data)).format("0.00");
+                },
             },
             {
                 data: "Nama_satuan",
             },
             {
                 data: "QtyCancel",
+                render: function (data) {
+                    return numeral(parseFloat(data)).format("0.00");
+                },
             },
             {
                 data: "PriceUnit",
+                render: function (data) {
+                    return numeral(parseFloat(data)).format("0,0.0000");
+                },
             },
             {
                 data: "PriceSub",
+                render: function (data) {
+                    return numeral(parseFloat(data)).format("0,0.0000");
+                },
             },
             {
                 data: "PPN",
+                render: function (data) {
+                    return numeral(parseFloat(data)).format("0,0.0000");
+                },
             },
             {
                 data: "PriceExt",
+                render: function (data) {
+                    return numeral(parseFloat(data)).format("0,0.0000");
+                },
             },
             {
                 data: "Kurs",
+                render: function (data) {
+                    return numeral(parseFloat(data)).format("0.0000");
+                },
             },
             {
                 data: "PriceUnitIDR",
+                render: function (data) {
+                    return numeral(parseFloat(data)).format("0,0.0000");
+                },
             },
             {
                 data: "PriceSubIDR",
+                render: function (data) {
+                    return numeral(parseFloat(data)).format("0,0.0000");
+                },
             },
             {
                 data: "PriceUnitIDR_PPN",
+                render: function (data) {
+                    return numeral(parseFloat(data)).format("0,0.0000");
+                },
             },
             {
                 data: "PriceExtIDR",
+                render: function (data) {
+                    return numeral(parseFloat(data)).format("0,0.0000");
+                },
             },
             {
                 data: "Disc",
+                render: function (data) {
+                    return numeral(parseFloat(data)).format("0.00");
+                },
             },
             {
                 data: "harga_disc",
+                render: function (data) {
+                    return numeral(parseFloat(data)).format("0,0.0000");
+                },
             },
             {
                 data: "DiscIDR",
+                render: function (data) {
+                    return numeral(parseFloat(data)).format("0,0.0000");
+                },
             },
         ],
         rowCallback: function (row, data) {

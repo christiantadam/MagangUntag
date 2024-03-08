@@ -57,7 +57,7 @@
                             </div>
                             <div class="col-12 mt-2">
                                 <table id="table_trasferBarang" class="table table-bordered" style="width:100%">
-                                    <thead class="thead-dark">
+                                    <thead class="table-primary">
                                         <tr>
                                             <th>No. PO</th>
                                             <th>No. BTTB</th>

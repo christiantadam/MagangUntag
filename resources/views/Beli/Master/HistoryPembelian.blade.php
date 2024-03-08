@@ -22,7 +22,7 @@
                         <form action="" id="formDaftarHarga">
                             <div class="">
                                 <table id="tabelData" class="table table-bordered">
-                                    <thead class="thead-dark">
+                                    <thead class="table-primary">
                                         <tr>
                                             <th>KD Divisi</th>
                                             <th >Kode Barang</th>

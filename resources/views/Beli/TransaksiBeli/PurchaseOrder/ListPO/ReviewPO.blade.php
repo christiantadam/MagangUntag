@@ -25,7 +25,7 @@
                     </div>
                 @endif
                 <div class="card">
-                    <div class="card-header">Create Purchase Order</div>
+                    <div class="card-header">Review PO</div>
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-6 col-xl-4">
@@ -100,7 +100,7 @@
                         <div id="div_tablePO" class="acs-form-table">
                             <table id="table_CreatePurchaseOrder" class="table table-bordered"
                                 style="width:100%">
-                                <thead class="thead-dark">
+                                <thead class="table-primary">
                                     <tr>
                                         <th>No Order</th>
                                         <th>Kd. Barang</th>

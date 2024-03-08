@@ -73,7 +73,7 @@
                         </div>
                         <div id="div_tablePO" class="acs-form3">
                             <table id="table_PurchaseOrder" class="table table-bordered" style="width:100%">
-                                <thead class="thead-dark">
+                                <thead class="table-primary">
                                     <tr>
                                         <th><input type="checkbox" name="CheckedAll"
                                                 id="CheckedAll" class="RDZCheckBoxSize"></th>

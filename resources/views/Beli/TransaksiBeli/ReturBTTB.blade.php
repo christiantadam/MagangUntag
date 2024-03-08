@@ -95,7 +95,7 @@
                             <div class="mx-auto acs-form3">
                                 <div class="table-responsive">
                                     <table class="mx-auto table table-bordered" id="tabelretur">
-                                        <thead class="table-dark">
+                                        <thead class="table-primary">
                                             <tr>
                                                 <th id="nobttb"> BTTB</th>
                                                 <th>No. SJ</th>
@@ -124,7 +124,7 @@
                             <div class="mx-auto acs-form3">
                                 <div class="table-responsive">
                                     <table class="mx-auto table table-bordered" id="tabelretur1">
-                                        <thead class="table-dark">
+                                        <thead class="table-primary">
                                             <tr>
                                                 <th>Id Type</th>
                                                 <th>Kd Barang</th>
