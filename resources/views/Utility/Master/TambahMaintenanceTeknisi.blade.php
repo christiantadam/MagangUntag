@@ -10,7 +10,8 @@
                     <div class="col-lg-12 d-flex">
                         <div class="acs-div-filter mb-2">
                             <label for="teknisi">Teknisi</label>
-                            <select name="teknisi" id="teknisi" class="form-select mt-3" style="display: none">
+                            <select name="teknisi" id="teknisi" class="form-select mt-3">
+                                <option selected disabled>Pilih Teknisi</option>
                                 @foreach ($teknisi as $data)
                                     <option value="{{ $data->IDUser }}">
                                         {{ $data->NamaUser }} - ( {{ $data->NomorUser }} )</option>
@@ -25,13 +26,11 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="ms-2">
-                            <button type="button" class="btn btn-primary" id="saveButton">Simpan</button>
-                        </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer d-flex justify-content-end">
+                <button type="button" class="btn btn-primary" id="saveButtonTeknisi">Simpan</button>
                 <button type="button text-end" class="btn btn-danger" data-bs-dismiss="modal">Keluar</button>
             </div>
         </div>
