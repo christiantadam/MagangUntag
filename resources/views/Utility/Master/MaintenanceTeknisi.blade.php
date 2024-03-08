@@ -28,9 +28,11 @@
                                     <table class="table" id="table-teknisi">
                                         <thead class="thead-dark">
                                             <tr>
-                                                <th scope="col">Aksi</th>
+                                                <th scope="col"></th>
                                                 <th scope="col">Lokasi</th>
                                                 <th scope="col">Teknisi</th>
+                                                <th scope="col">Aksi</th>
+
                                             </tr>
                                         </thead>
                                         <tbody>

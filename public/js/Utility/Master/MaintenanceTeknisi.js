@@ -122,6 +122,15 @@ $(document).ready(function () {
             },
             { data: "Lokasi" },
             { data: "NamaUser" },
+            {
+                data: null,
+                render: function (data, type, full, meta) {
+                    return (
+                        '<button class="btn btn-primary" onclick="yourFunction()">Edit</button><br>' +
+                        '<button class="btn btn-secondary" onclick="yourFunction()">hapus</button>'
+                    );
+                },
+            },
         ],
     });
 
