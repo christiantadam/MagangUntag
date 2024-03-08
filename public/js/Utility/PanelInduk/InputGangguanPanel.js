@@ -287,7 +287,7 @@ $(document).ready(function () {
                 },
             },
             { data: "Keterangan" },
-            { data: "Keterangan" },
+            { data: "Teknisi_Utility" },
         ],
     });
 
