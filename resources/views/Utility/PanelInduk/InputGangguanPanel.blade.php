@@ -62,6 +62,9 @@
                                     </div>
 
                                 </div>
+
+
+                                {{-- komen untuk tambah column teknisi di database --}}
                                 <div class="acs-div-filter pt-4">
                                     <label for="ket_gangguan">Pilih Teknisi</label>
                                     <div class="d-flex">
@@ -76,6 +79,9 @@
                                         </select>
                                     </div>
                                 </div>
+                                {{-- komen untuk tambah column teknisi di database --}}
+
+
                                 <div class="acs-div-filter pt-4">
 
                                     <label for="keterangan">Keterangan</label>
