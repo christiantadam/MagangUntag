@@ -56,9 +56,12 @@ $(document).ready(function () {
             {
                 data: null,
                 render: function (data, type, full, meta) {
+                    var rowID = data.id;
                     return (
                         '<button class="btn btn-primary" id="editteknisi" data-bs-toggle="modal" data-bs-target="#editmodal" type="button">Edit</button>' +
-                        '<button class="btn btn-secondary" id="deleteButtonTeknisi">Hapus</button>'
+                        '<button class="btn btn-secondary deleteButtonTeknisi" data-id="' +
+                        rowID +
+                        '">Hapus</button>'
                     );
                 },
             },
@@ -104,10 +107,11 @@ $(document).ready(function () {
     // });
 
     // DeleteButton click
-    $("#deleteButtonTeknisi").click(function (e) {
+    $(document).on("click", ".deleteButtonTeknisi", function (e) {
         e.preventDefault();
 
         var csrfToken = $('meta[name="csrf-token"]').attr("content");
+        var rowID = $(this).data("id");
 
         // var checkboxValues = $(".checkboxteknisi:checked")
         //     .map(function () {
@@ -137,7 +141,7 @@ $(document).ready(function () {
         }).then((result) => {
             if (result.isConfirmed) {
                 var requestData = {
-                    id: checkboxValues,
+                    id: rowID,
                 };
                 $.ajax({
                     url: "/delete-teknisi",
@@ -202,10 +206,10 @@ $(document).ready(function () {
                 // Clear Form
                 $("#hiddenIdTeknisi").val("");
 
-                dataTableTeknisi.ajax.reload();
                 $("#searchTeknisi").val("");
                 $("#lokasi").val("");
-                $("#teknisi").hide();
+                dataTableTeknisi.ajax.reload();
+                //$("#teknisi").hide();
             },
             error: function (error) {
                 Swal.fire({

@@ -100,6 +100,7 @@ class MaintenanceTeknisi extends Controller
 
             return response()->json(['success' => true]);
         } catch (\Exception $e) {
+            //Log::error('Error deleting Teknisi: ' . $e->getMessage());
             return response()->json(['error' => 'An error occurred while deleting the data. Please try again.']);
         }
     }
