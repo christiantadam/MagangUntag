@@ -3,9 +3,8 @@
     <link href="{{ asset('css/CreateSPPB.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/PrintSPPB.css') }}" rel="stylesheet">
-
     <head>
-        <link href="{{ asset('css/PrintSPPB.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/PrintSPPB.css') }}" rel="stylesheet">
 
     </head>
     <script>
@@ -27,8 +26,7 @@
                 <div class="card">
                     <div class="card-header">Create Purchase Order</div>
                     <div class="card-body">
-                        <input type="text" value="{{ trim($namaDiv[0]->NM_DIV) }}" name="" id="nmDiv"
-                            style="display: none">
+                        <input type="text" value="{{trim($namaDiv[0]->NM_DIV)}}" name="" id="nmDiv" style="display: none">
                         <div class="row align-items-center">
                             <div class="col-6 col-xl-4">
                                 <div class="row align-items-center">
@@ -113,7 +111,8 @@
                             </div>
                         </div>
                         <div id="div_tablePO" class="acs-form-table">
-                            <table id="table_CreatePurchaseOrder" class="table table-bordered" style="width:100%">
+                            <table id="table_CreatePurchaseOrder" class="table table-bordered"
+                                style="width:100%">
                                 <thead class="table-primary">
                                     <tr>
                                         <th>No Order</th>
@@ -146,7 +145,7 @@
                             </table>
                         </div>
                         <div class="row">
-                            <div class="col-md-5">
+                            <div class="col-md-6">
                                 <div class="col-12 mb-2">
                                     <div class="row align-items-center">
                                         <div class="col-4">
@@ -165,8 +164,8 @@
                                             <label for="kode_barang">Kode Barang</label>
                                         </div>
                                         <div class="col-8 col-md-6">
-                                            <input type="text" name="kode_barang" id="kode_barang"
-                                                class="form-control" readonly>
+                                            <input type="text" name="kode_barang" id="kode_barang" class="form-control"
+                                                readonly>
 
                                         </div>
                                     </div>
@@ -177,8 +176,8 @@
                                             <label for="nama_barang">Nama Barang</label>
                                         </div>
                                         <div class="col-8 col-md-6">
-                                            <input type="text" name="nama_barang" id="nama_barang"
-                                                class="form-control" readonly>
+                                            <input type="text" name="nama_barang" id="nama_barang" class="form-control"
+                                                readonly>
 
                                         </div>
                                     </div>
@@ -225,13 +224,14 @@
                                             <label for="alasan_reject">Alasan Reject</label>
                                         </div>
                                         <div class="col-8 col-md-6">
-                                            <textarea rows="4" type="text" name="alasan_reject" id="alasan_reject" class="form-control"></textarea>
+                                            <textarea rows="4" type="text" name="alasan_reject" id="alasan_reject"
+                                                class="form-control"></textarea>
 
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-5">
+                            <div class="col-md-6">
                                 <div class="col-12 mb-2">
                                     <div class="row align-items-center">
                                         <div class="col-6">
@@ -282,8 +282,7 @@
                                                     <input type="text" name="total_disc" id="total_disc"
                                                         class="form-control" value="0">
                                                     <input type="text" name="idr_total_disc" id="idr_total_disc"
-                                                        class="form-control" value="0" style="display: none"
-                                                        readonly>
+                                                        class="form-control" value="0" style="display: none" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -401,21 +400,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-md-2">
-                                <div class="row">
-                                    <div class="col-4 col-md-12">
-                                        <button class="btn btn-success" id="btn_update" style="width: 100px;height: 40px;">Update</button>
-                                    </div>
-                                    <div class="col-4 col-md-12" style="display: none">
-                                        <button class="btn btn-info" id="btn_remove" style="display: none;width: 100px;height: 40px;">Remove</button>
-                                    </div>
-                                    <div class="col-4 col-md-12">
-                                        <button class="btn btn-danger" id="btn_reject" style="width: 100px;height: 40px;">Reject</button>
-                                    </div>
-                                    <div class="col-4 col-md-12">
-                                        <button class="btn btn-success" id="btn_post" style="width: 100px;height: 40px;">Post PO</button>
-                                    </div>
-                                </div>
+                            <div class="col-12">
+                                <button class="btn btn-success" id="btn_update">Update</button>
+                                <button class="btn btn-info" id="btn_remove" style="display: none">Remove</button>
+                                <button class="btn btn-danger" id="btn_reject">Reject</button>
+                                <button class="btn btn-success" id="btn_post">Post PO</button>
+
                             </div>
                         </div>
                         <div id="printContent"></div>

@@ -21,12 +21,11 @@
                             <div class="w-100 h-auto">
                                 <label for="filter">Search by:</label>
                                 <div class="row" id="formCekRedisplay">
-                                    <div class="col-12 col-xl-10" style="height: 40px;">
+                                    <div class="col-12 col-xl-10">
                                         <div class="row align-items-center mx-2 mb-4 " style="border: 0.5px grey solid;">
                                             <div class="col-xl-2">
                                                 <input type="radio" name="filter_radioButton"
-                                                    id="filter_radioButtonAllOrder" value="AllOrder" class="radio-button"
-                                                    checked>
+                                                    id="filter_radioButtonAllOrder" value="AllOrder" class="radio-button" checked>
                                                 All Order
                                             </div>
                                             <div class="col-xl-2">
@@ -76,9 +75,9 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="" id="formApprove">
+                        <div class="mt-4" id="formApprove">
                             <div class="row">
-                                <div class="col-md-5">
+                                <div class="col-md-6">
                                     <div class="col-12 mb-2">
                                         <div class="row align-items-center">
                                             <div class="col-4">
@@ -96,8 +95,7 @@
                                         <div class="row align-items-center">
                                             <div class="col-6">
                                                 <input type="radio" name="status_beliRadioButton"
-                                                    id="status_beliPengadaanPembelian" class="input" disabled
-                                                    checked>Pengadaan
+                                                    id="status_beliPengadaanPembelian" class="input" disabled checked>Pengadaan
                                                 Pembelian
                                             </div>
                                             <div style="col-6">
@@ -201,7 +199,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-6">
                                     <div class="col-12 mb-2">
                                         <div class="row align-items-center">
                                             <div class="col-6">
@@ -246,8 +244,7 @@
                                                 <label for="mata_uang">Mata Uang</label>
                                             </div>
                                             <div class="col-8 col-md-10">
-                                                <select name="matauang_select" id="matauang_select" class="w-100 input"
-                                                    disabled>
+                                                <select name="matauang_select" id="matauang_select" class="w-100 input" disabled>
                                                     <option class="w-100" selected disabled>-- Pilih Mata Uang --</option>
                                                 </select>
                                             </div>
@@ -377,24 +374,17 @@
                                                 <label for="alasan_reject">Alasan Reject</label>
                                             </div>
                                             <div class="col-8 col-md-10">
-                                                <textarea rows="4" type="text" name="alasan_reject" id="alasan_reject" class="form-control"></textarea>
+                                                <textarea rows="4" type="text" name="alasan_reject" id="alasan_reject"
+                                                    class="form-control"></textarea>
 
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 col-md-2">
-                                    <div class="row">
-                                        <div class="col-4 col-md-12">
-                                            <button class="btn btn-success" style="width: 100px;height: 40px;" id="btn_approve">Approve</button>
-                                        </div>
-                                        <div class="col-4 col-md-12">
-                                            <button class="btn btn-info" style="width: 100px;height: 40px;" id="btn_clear">Clear</button>
-                                        </div>
-                                        <div class="col-4 col-md-12">
-                                            <button class="btn btn-danger" style="width: 100px;height: 40px;" id="btn_reject">Reject</button>
-                                        </div>
-                                    </div>
+                                <div class="col-12">
+                                    <button class="btn btn-success" id="btn_approve">Approve</button>
+                                    <button class="btn btn-info" id="btn_clear">Clear</button>
+                                    <button class="btn btn-danger" id="btn_reject">Reject</button>
                                 </div>
                             </div>
 
