@@ -512,13 +512,13 @@ function print(data) {
         chunk.forEach((item, index) => {
             tableRows += `
                 <tr>
-                    <td sty><p style="line-height: 13.8px; font-size: 12px;">${
+                    <td sty><p style="line-height: 13.8px; font-size: 14px;font-family: Helvetica;">${
                         No + 1
                     }</p></td>
-                    <td style="text-align: center;"><p style="line-height: 13.8px; font-size: 12px;">${
+                    <td style="text-align: center;"><p style="line-height: 13.8px; font-size: 14px;font-family: Helvetica;">${
                         item.Kd_brg
                     }</p></td>
-                    <td><p style="line-height: 13.8px; font-size: 12px;">
+                    <td><p style="line-height: 13.8px; font-size: 14px;font-family: Helvetica;">
                     ${item.NAMA_BRG}
                     <br>
                     ${item.keterangan}
@@ -529,44 +529,44 @@ function print(data) {
                     <br>
                     ${item.No_trans}</p>
                     </td>
-                    <td style="text-align: center;"><p style="line-height: 13.8px; font-size: 12px;">${
+                    <td style="text-align: center;"><p style="line-height: 13.8px; font-size: 14px;font-family: Helvetica;">${
                         !parseFloat(item.Qty)
                             .toLocaleString("en-US")
                             .includes(".")
                             ? parseFloat(item.Qty).toLocaleString("en-US") +
-                              ".00"
+                            ".00"
                             : parseFloat(item.Qty).toLocaleString("en-US")
                     }</p></td>
-                    <td style="text-align: center;"><p style="line-height: 13.8px; font-size: 12px;">${item.Nama_satuan.trim()}</p></td>
-                    <td style="text-align: center;"><p style="line-height: 13.8px; font-size: 12px;">${
+                    <td style="text-align: center;"><p style="line-height: 13.8px; font-size: 14px;font-family: Helvetica;">${item.Nama_satuan.trim()}</p></td>
+                    <td style="text-align: center;"><p style="line-height: 13.8px; font-size: 14px;font-family: Helvetica;">${
                         !parseFloat(item.PriceUnit)
                             .toLocaleString("en-US")
                             .includes(".")
                             ? parseFloat(item.PriceUnit).toLocaleString(
-                                  "en-US"
-                              ) + ".00"
+                                "en-US"
+                            ) + ".00"
                             : parseFloat(item.PriceUnit).toLocaleString("en-US")
                     }</p></td>
-                    <td style="text-align: center;"><p style="line-height: 13.8px; font-size: 12px;">${
+                    <td style="text-align: center;"><p style="line-height: 13.8px; font-size: 14px;font-family: Helvetica;">${
                         !parseFloat(
                             item.harga_disc == null ? 0 : item.harga_disc
                         )
                             .toLocaleString("en-US")
                             .includes(".")
                             ? parseFloat(
-                                  item.harga_disc == null ? 0 : item.harga_disc
-                              ).toLocaleString("en-US") + ".00"
+                                item.harga_disc == null ? 0 : item.harga_disc
+                            ).toLocaleString("en-US") + ".00"
                             : parseFloat(
-                                  item.harga_disc == null ? 0 : item.harga_disc
-                              ).toLocaleString("en-US")
+                                item.harga_disc == null ? 0 : item.harga_disc
+                            ).toLocaleString("en-US")
                     }</p></td>
-                    <td style="text-align: center;"><p style="line-height: 13.8px; font-size: 12px;">${
+                    <td style="text-align: center;"><p style="line-height: 13.8px; font-size: 14px;font-family: Helvetica;">${
                         !parseFloat(item.PriceSub)
                             .toLocaleString("en-US")
                             .includes(".")
                             ? parseFloat(item.PriceSub).toLocaleString(
-                                  "en-US"
-                              ) + ".00"
+                                "en-US"
+                            ) + ".00"
                             : parseFloat(item.PriceSub).toLocaleString("en-US")
                     }</p></td>
                 </tr>
@@ -583,90 +583,90 @@ function print(data) {
             <main style="width: 100%; height : 70%;">
                 <div style="width: 100%; height: auto; display: flex;">
                     <div style="width: 50%; height: auto; margin-right: 20px;">
-                        <h1 style="font-size: 12px; font-weight: bold; margin-bottom: 5px;">Issued To:</h1>
-                        <p style="font-size: 12px; margin: 2px 0;">${
+                        <h1 style="font-size: 14px;font-family: Helvetica; font-weight: bold; margin-bottom: 5px;">Issued To:</h1>
+                        <p style="font-size: 14px;font-family: Helvetica; margin: 2px 0;">${
                             data.printHeader[0].NM_SUP
                         }</p>
-                        <p style="font-size: 12px; margin: 2px 0;">${
+                        <p style="font-size: 14px;font-family: Helvetica; margin: 2px 0;">${
                             data.printHeader[0].ALAMAT1
                         }</p>
-                        <p style="font-size: 12px; margin: 2px 0;">${
+                        <p style="font-size: 14px;font-family: Helvetica; margin: 2px 0;">${
                             data.printHeader[0].KOTA1
                         }</p>
-                        <p style="font-size: 12px; margin: 2px 0;">${
+                        <p style="font-size: 14px;font-family: Helvetica; margin: 2px 0;">${
                             data.printHeader[0].NEGARA1
                         }</p>
                         <br>
-                        <h1 style="font-size: 12px; font-weight: bold; margin-top: 10px; margin-bottom: 5px;">Delivery To:</h1>
-                        <p style="font-size: 12px; margin: 2px 0;">PT. Kerta Rajasa Raya</p>
-                        <p style="font-size: 12px; margin: 2px 0;">Jl. Raya Tropodo No. 1</p>
-                        <p style="font-size: 12px; margin: 2px 0;">Waru - Sidoarjo 61256 East Java, Indonesia</p>
+                        <h1 style="font-size: 14px;font-family: Helvetica; font-weight: bold; margin-top: 10px; margin-bottom: 5px;">Delivery To:</h1>
+                        <p style="font-size: 14px;font-family: Helvetica; margin: 2px 0;">PT. Kerta Rajasa Raya</p>
+                        <p style="font-size: 14px;font-family: Helvetica; margin: 2px 0;">Jl. Raya Tropodo No. 1</p>
+                        <p style="font-size: 14px;font-family: Helvetica; margin: 2px 0;">Waru - Sidoarjo 61256 East Java, Indonesia</p>
                     </div>
                     <div style="width: 50%; height: auto; margin-left: 20px;">
                         <div style="width: 100%; display: flex;">
                             <div style="width: 30%; height: auto;">
-                                <h1 style="font-size: 12px; font-weight: bold; margin: 2px 0;">Number</h1>
+                                <h1 style="font-size: 14px;font-family: Helvetica; font-weight: bold; margin: 2px 0;">Number</h1>
                             </div>
                             <div style="width: 70%; height: auto;">
-                                <p style="font-size: 12px; margin: 2px 0;">: ${
+                                <p style="font-size: 14px;font-family: Helvetica; margin: 2px 0;">: ${
                                     data.printHeader[0].NO_PO
                                 }</p>
                             </div>
                         </div>
                         <div style="width: 100%; display: flex;">
                             <div style="width: 30%; height: auto;">
-                                <h1 style="font-size: 12px; font-weight: bold; margin: 2px 0;">Date</h1>
+                                <h1 style="font-size: 14px;font-family: Helvetica; font-weight: bold; margin: 2px 0;">Date</h1>
                             </div>
                             <div style="width: 70%; height: auto;">
-                                <p style="font-size: 12px; margin: 2px 0;">: ${
+                                <p style="font-size: 14px;font-family: Helvetica; margin: 2px 0;">: ${
                                     data.printHeader[0].Tgl_sppb
                                 }</p>
                             </div>
                         </div>
                         <div style="width: 100%; display: flex;">
                             <div style="width: 30%; height: auto;">
-                                <h1 style="font-size: 12px; font-weight: bold; margin: 2px 0;">Delivery Date</h1>
+                                <h1 style="font-size: 14px;font-family: Helvetica; font-weight: bold; margin: 2px 0;">Delivery Date</h1>
                             </div>
                             <div style="width: 70%; height: auto;">
-                                <p style="font-size: 12px; margin: 2px 0;">: ${
+                                <p style="font-size: 14px;font-family: Helvetica; margin: 2px 0;">: ${
                                     data.printHeader[0].Est_Date
                                 }</p>
                             </div>
                         </div>
                         <div style="width: 100%; display: flex;">
                             <div style="width: 30%; height: auto;">
-                                <h1 style="font-size: 12px; font-weight: bold; margin: 2px 0;">Payment Term</h1>
+                                <h1 style="font-size: 14px;font-family: Helvetica; font-weight: bold; margin: 2px 0;">Payment Term</h1>
                             </div>
                             <div style="width: 70%; height: auto;">
-                                <p style="font-size: 12px; margin: 2px 0;">: ${
+                                <p style="font-size: 14px;font-family: Helvetica; margin: 2px 0;">: ${
                                     data.printHeader[0].Pembayaran
                                 }</p>
                             </div>
                         </div>
                         <div style="width: 100%; display: flex;">
                             <div style="width: 30%; height: auto;">
-                                <h1 style="font-size: 12px; font-weight: bold; margin: 2px 0;">Divisi</h1>
+                                <h1 style="font-size: 14px;font-family: Helvetica; font-weight: bold; margin: 2px 0;">Divisi</h1>
                             </div>
                             <div style="width: 70%; height: auto;">
-                                <p style="font-size: 12px; margin: 2px 0;">: ${data.printHeader[0].Kd_div.trim()} - ${data.printHeader[0].NM_DIV.trim()}</p>
+                                <p style="font-size: 14px;font-family: Helvetica; margin: 2px 0;">: ${data.printHeader[0].Kd_div.trim()} - ${data.printHeader[0].NM_DIV.trim()}</p>
                             </div>
                         </div>
                         <div style="width: 100%; display: flex;">
                             <div style="width: 30%; height: auto;">
-                                <h1 style="font-size: 12px; font-weight: bold; margin: 2px 0;">Requester</h1>
+                                <h1 style="font-size: 14px;font-family: Helvetica; font-weight: bold; margin: 2px 0;">Requester</h1>
                             </div>
                             <div style="width: 70%; height: auto;">
-                                <p style="font-size: 12px; margin: 2px 0;">: ${
+                                <p style="font-size: 14px;font-family: Helvetica; margin: 2px 0;">: ${
                                     data.printHeader[0].Nama
                                 }</p>
                             </div>
                         </div>
                         <div style="width: 100%; display: flex;">
                             <div style="width: 30%; height: auto;">
-                                <h1 style="font-size: 12px; font-weight: bold; margin: 2px 0;">Page</h1>
+                                <h1 style="font-size: 14px;font-family: Helvetica; font-weight: bold; margin: 2px 0;">Page</h1>
                             </div>
                             <div style="width: 70%; height: auto;">
-                                <p style="font-size: 12px; margin: 2px 0;">: Page ${
+                                <p style="font-size: 14px;font-family: Helvetica; margin: 2px 0;">: Page ${
                                     Page + 1
                                 } of ${chunkedData.length}</p>
                             </div>
@@ -674,62 +674,62 @@ function print(data) {
                     </div>
                 </div>
                 <div class="details" style="margin-top: 20px;">
-                    <table style="width: 100%;">
+                    <table style="width: 100%; border-collapse: collapse;">
                         <thead>
                             <tr>
-                                <th><h1 style="font-size: 12px; font-weight: bold; line-height: 13.8px">No.</h1></th>
-                                <th style="text-align: center;"><h1 style="font-size: 12px; font-weight: bold; line-height: 13.8px">Item Number</h1></th>
-                                <th style="text-align: center;"><h1 style="font-size: 12px; font-weight: bold; line-height: 13.8px">Description</h1></th>
-                                <th style="text-align: center;"><h1 style="font-size: 12px; font-weight: bold; line-height: 13.8px">Qty</h1></th>
-                                <th style="text-align: center;"><h1 style="font-size: 12px; font-weight: bold; line-height: 13.8px">Unit</h1></th>
-                                <th style="text-align: center;"><h1 style="font-size: 12px; font-weight: bold; line-height: 13.8px">Unit Price IDR</h1></th>
-                                <th style="text-align: center;"><h1 style="font-size: 12px; font-weight: bold; line-height: 13.8px">Disc. IDR</h1></th>
-                                <th style="text-align: center;"><h1 style="font-size: 12px; font-weight: bold; line-height: 13.8px">Amount IDR</h1></th>
+                                <th><h1 style="font-size: 14px;font-family: Helvetica; font-weight: bold; line-height: 13.8px">No.</h1></th>
+                                <th style="text-align: center;"><h1 style="font-size: 14px;font-family: Helvetica; font-weight: bold; line-height: 13.8px">Item Number</h1></th>
+                                <th style="text-align: center;"><h1 style="font-size: 14px;font-family: Helvetica; font-weight: bold; line-height: 13.8px">Description</h1></th>
+                                <th style="text-align: center;"><h1 style="font-size: 14px;font-family: Helvetica; font-weight: bold; line-height: 13.8px">Qty</h1></th>
+                                <th style="text-align: center;"><h1 style="font-size: 14px;font-family: Helvetica; font-weight: bold; line-height: 13.8px">Unit</h1></th>
+                                <th style="text-align: center;"><h1 style="font-size: 14px;font-family: Helvetica; font-weight: bold; line-height: 13.8px">Unit Price IDR</h1></th>
+                                <th style="text-align: center;"><h1 style="font-size: 14px;font-family: Helvetica; font-weight: bold; line-height: 13.8px">Disc. IDR</h1></th>
+                                <th style="text-align: center;"><h1 style="font-size: 14px;font-family: Helvetica; font-weight: bold; line-height: 13.8px">Amount IDR</h1></th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody style="border-top: 1px solid black; border-bottom: 1px solid black;">
                             ${tableRows}
                         </tbody>
                     </table>
                 </div>
-                <div style="width: 100%; display: flex; margin-top: 20px;">
+                <div style="width: 100%; display: flex;">
                     <div style="width: 50%;">
-                        <h1 style="font-size: 12px; font-weight: bold;">Document Copy of ${
+                        <h1 style="font-size: 14px;font-family: Helvetica; font-weight: bold;margin-top:50px">Document Copy of ${
                             data.print[0].JumCetak
                         }</h1>
                     </div>
                     <div style="width: 50%;">
                         <div style="width: 100%; display: flex;">
                             <div style="width: 30%; margin-right: 3rem;">
-                                <h1 style="font-size: 12px; font-weight: bold; margin: 2px 0;">Sub Total</h1>
+                                <h1 style="font-size: 14px;font-family: Helvetica; font-weight: bold; margin: 2px 0;">Sub Total</h1>
                             </div>
                             <div style="width: 70%; border-bottom: 1px solid; text-align: right;">
-                                <p style="line-height: 13.8px; font-size: 12px; margin: 2px 0;">${sumAmountFix}</p>
+                                <p style="line-height: 13.8px; font-size: 14px;font-family: Helvetica; margin: 2px 0;">${sumAmountFix}</p>
                             </div>
                         </div>
                         <div style="width: 100%; display: flex;">
                             <div style="width: 30%; margin-right: 3rem;">
-                                <h1 style="font-size: 12px; font-weight: bold; margin: 2px 0;">VAT</h1>
+                                <h1 style="font-size: 14px;font-family: Helvetica; font-weight: bold; margin: 2px 0;">VAT</h1>
                             </div>
                             <div style="width: 70%; border-bottom: 1px solid; text-align: right;">
-                                <p style="line-height: 13.8px; font-size: 12px; margin: 2px 0;">${ppnFix}</p>
+                                <p style="line-height: 13.8px; font-size: 14px;font-family: Helvetica; margin: 2px 0;">${ppnFix}</p>
                             </div>
                         </div>
                         <div style="width: 100%; display: flex;">
                             <div style="width: 30%; margin-right: 3rem;">
-                                <h1 style="font-size: 12px; font-weight: bold; margin: 2px 0;">Total</h1>
+                                <h1 style="font-size: 14px;font-family: Helvetica; font-weight: bold; margin: 2px 0;">Total</h1>
                             </div>
                             <div style="width: 70%; border-bottom: 1px solid; text-align: right;">
-                                <p style="line-height: 13.8px; font-size: 12px; margin: 2px 0;">${
+                                <p style="line-height: 13.8px; font-size: 14px;font-family: Helvetica; margin: 2px 0;">${
                                     !(sumAmount + ppn)
                                         .toLocaleString("en-US")
                                         .includes(".")
                                         ? (sumAmount + ppn).toLocaleString(
-                                              "en-US"
-                                          ) + ".00"
+                                            "en-US"
+                                        ) + ".00"
                                         : (sumAmount + ppn).toLocaleString(
-                                              "en-US"
-                                          )
+                                            "en-US"
+                                        )
                                 }</p>
                             </div>
                         </div>

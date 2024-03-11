@@ -19,12 +19,25 @@
                     <div class="card-header">List Order App Manager</div>
                     <div class="card-body">
                         <div class="row" id="formCekRedisplay">
-                            <div class="col-xl-4 mt-2">
+                            <div class="col-xl-3 mt-2">
                                 <div class="row align-items-center">
-                                    <div class="pl-3">
-                                        <label for="divisi">
-                                            Divisi
-                                        </label>
+                                    <div class="col-12">
+                                        <input type="radio" name="filter_radioButton" id="filter_radioButtonNomorOrder"
+                                            value="NomorOrder" class="radio-button">
+                                        No. Order
+                                    </div>
+                                    <div class="col-xl-12">
+                                        <input type="text" name="nomor_order" id="nomor_order"
+                                        class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 mt-2">
+                                <div class="row align-items-center">
+                                    <div class="col-12">
+                                        <input type="radio" name="filter_radioButton" id="filter_radioButtonDivisi"
+                                            value="Divisi" class="radio-button" checked>
+                                        Divisi
                                     </div>
                                     <div class="col-xl-12">
                                         <select name="select_divisi" id="select_divisi" class="input w-100">
@@ -34,7 +47,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-4 mt-2">
+                            <div class="col-xl-3 mt-2">
                                 <div class="row align-items-center">
                                     <div class="col-6">
                                         <div class="pl-3">
@@ -68,7 +81,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-4 mt-2">
+                            <div class="col-xl-3 mt-2">
                                 <div class="row align-items-center">
                                     <div class="col-12 mb-2">
                                         <label for="status_beli">Status Beli</label>
@@ -121,7 +134,7 @@
                                 </div>
                             </div>
                             <div class="col-12">
-                            <p id="checkedCount">Jumlah Data Yang TerCentang 0</p>
+                                <p id="checkedCount">Jumlah Data Yang TerCentang 0</p>
                             </div>
                             <div class="col-md-2 mt-2">
                                 <div class="col-4 col-md-12 p-0">

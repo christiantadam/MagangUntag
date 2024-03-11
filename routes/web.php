@@ -22,7 +22,6 @@ Route::get('/', function () {
     } else {
         return redirect('/home');
     }
-
 });
 
 //Auth::routes();
@@ -126,6 +125,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/StatusBeli/Update', 'App\Http\Controllers\Beli\TransaksiBeli\KoreksiStatusBeliController@update')->name('koreksistatusbeli.update');
     Route::resource('ListOrderSudahAppManager', App\Http\Controllers\Beli\TransaksiBeli\ListOrderAppManagerController::class);
     Route::get('/ListOrderAppManager/Redisplay', 'App\Http\Controllers\Beli\TransaksiBeli\ListOrderAppManagerController@redisplay')->name('listordersudahappmanager.redisplay');
+    Route::get('/ListOrderAppManager/RedisplayNoOrder', 'App\Http\Controllers\Beli\TransaksiBeli\ListOrderAppManagerController@redisplayNoOrder')->name('listordersudahappmanager.redisplayNoOrder');
     Route::get('/ListOrderAppManager/Divisi', 'App\Http\Controllers\Beli\TransaksiBeli\ListOrderAppManagerController@divisi')->name('listordersudahappmanager.divisi');
     //transaksi
     Route::resource('OrderPembelian', App\Http\Controllers\Beli\Transaksi\OrderPembelianController::class);
