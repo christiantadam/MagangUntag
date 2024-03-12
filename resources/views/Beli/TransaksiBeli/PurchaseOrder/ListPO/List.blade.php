@@ -49,7 +49,7 @@
                         </div>
                         <div class="col-12">
                             <table class ="table" id="tabelchelsy" style="width: 100%">
-                                <thead class="table-dark">
+                                <thead class="table-primary">
                                     <tr>
                                         <th>No po</th>
                                         <th>Status</th>

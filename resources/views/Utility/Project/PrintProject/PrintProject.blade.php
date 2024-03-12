@@ -13,7 +13,7 @@
                             <h6 class="mt-2">Bulan</h6>
                             <input type="number" name="tanggal_dibutuhkan" pattern="[0-9]" min="0" id="bulan"
                                 class="input form-control">
-                            <h6 class="mt-2">Tanggal</h6>
+                            <h6 class="mt-2">Tahun</h6>
                             <input type="number" pattern="[0-9]" name="tanggal_dibutuhkan" min="0" id="tahun"
                                 class="input form-control ml-1">
 

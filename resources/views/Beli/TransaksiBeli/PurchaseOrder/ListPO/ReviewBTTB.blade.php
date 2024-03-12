@@ -94,7 +94,7 @@
                         <div class="mt-4">
                             <div class="table-responsive">
                                 <table class="mx-auto table table-bordered" id="tabelcreate">
-                                    <thead class="table-dark">
+                                    <thead class="table-primary">
                                         <tr>
                                             <th>No Order</th>
                                             <th>Kd Barang</th>
@@ -120,8 +120,7 @@
                         <div class="row mt-4">
                             <div class="col-md-12 d-flex justify-content-end pb-4">
                                 <div class="col-md-12 d-flex justify-content-end">
-                                    <button type="button" class="btn btn-success btn-lg mr-3" id="post_btn">Post
-                                        BTTB</button>
+                                    <button type="button" class="btn btn-success btn-lg mr-3" id="post_btn">Print</button>
                                 </div>
                             </div>
                         </div>

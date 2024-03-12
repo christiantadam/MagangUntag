@@ -18,7 +18,7 @@
                     </div>
                 @endif
                 <div class="card">
-                    <div class="card-header">Create Purchase Order</div>
+                    <div class="card-header">Transfer BTTB</div>
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col-md-6 col-xl-4 mb-2">

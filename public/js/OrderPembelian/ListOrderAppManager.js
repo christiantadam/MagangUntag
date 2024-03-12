@@ -1,4 +1,11 @@
 let selectDivisi = document.getElementById("select_divisi");
+let filter_radioButtonDivisi = document.getElementById(
+    "filter_radioButtonDivisi"
+);
+let nomor_order = document.getElementById("nomor_order");
+let filter_radioButtonNomorOrder = document.getElementById(
+    "filter_radioButtonNomorOrder"
+);
 let tglAwal = document.getElementById("tglAwal");
 let jamAwal = document.getElementById("jamAwal");
 let tglAkhir = document.getElementById("tglAkhir");
@@ -24,57 +31,81 @@ jamAkhir.value =
     ":" +
     ("0" + currentDate.getMinutes()).slice(-2);
 
-tglAwal.addEventListener("keypress",function(event){
+tglAwal.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
         jamAwal.focus();
     }
-})
+});
 
-jamAwal.addEventListener("keypress",function(event){
+jamAwal.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
         tglAkhir.focus();
     }
-})
+});
 
-tglAkhir.addEventListener("keypress",function(event){
+tglAkhir.addEventListener("keypress", function (event) {
     if (event.key === "Enter") {
         jamAkhir.focus();
     }
-})
-
-
-buttonRedisplay.addEventListener("click", function (event) {
-    let statusPembelian = 1;
-    if (statusPengadaan.checked == true) {
-        statusPembelian = 1;
-    } else {
-        statusPembelian = 0;
-    }
-    $("#table_ListOrder").DataTable().clear().destroy();
-    $('input[type="checkbox"]:checked').prop("checked", false);
-    $('#checkedCount').text(`Jumlah Data Yang TerCentang 0`);
-    $.ajax({
-        url: "/ListOrderAppManager/Redisplay",
-        method: "GET",
-        data: {
-            Kd_Div: selectDivisi.value,
-            stBeli: statusPembelian,
-            MinDate: tglAwal.value + " " + jamAwal.value,
-            MaxDate: tglAkhir.value + " " + jamAkhir.value,
-        },
-        success: function (response) {
-            if (response.recordTotal != 0) {
-                checkedAll.disabled = false;
-            }
-            initializeDataTable(response.data);
-        },
-        error: function (xhr, status, error) {
-            console.error("Error fetching data from server:", error);
-        },
-    });
+});
+nomor_order.addEventListener("change", function (event) {
+    buttonRedisplay.focus();
 });
 
-function initializeDataTable(response) {
+buttonRedisplay.addEventListener("click", function (event) {
+    if (filter_radioButtonDivisi.checked == true) {
+        let statusPembelian = 1;
+        if (statusPengadaan.checked == true) {
+            statusPembelian = 1;
+        } else {
+            statusPembelian = 0;
+        }
+        $("#table_ListOrder").DataTable().clear().destroy();
+        $('input[type="checkbox"]:checked').prop("checked", false);
+        $("#checkedCount").text(`Jumlah Data Yang TerCentang 0`);
+        $.ajax({
+            url: "/ListOrderAppManager/Redisplay",
+            method: "GET",
+            data: {
+                Kd_Div: selectDivisi.value,
+                stBeli: statusPembelian,
+                MinDate: tglAwal.value + " " + jamAwal.value,
+                MaxDate: tglAkhir.value + " " + jamAkhir.value,
+            },
+            success: function (response) {
+                if (response.recordTotal != 0) {
+                    checkedAll.disabled = false;
+                }
+                inisialisasiDataTable(response.data);
+            },
+            error: function (error) {
+                console.error("Error fetching data from server:", error);
+            },
+        });
+    } else if (filter_radioButtonNomorOrder.checked == true) {
+        $("#table_ListOrder").DataTable().clear().destroy();
+        $('input[type="checkbox"]:checked').prop("checked", false);
+        $("#checkedCount").text(`Jumlah Data Yang TerCentang 0`);
+        $.ajax({
+            url: "/ListOrderAppManager/RedisplayNoOrder",
+            method: "GET",
+            data: {
+                noOrder: nomor_order.value.trim(),
+            },
+            success: function (response) {
+                if (response.recordTotal != 0) {
+                    checkedAll.disabled = false;
+                }
+                inisialisasiDataTable(response.data);
+            },
+            error: function (error) {
+                console.error("Error fetching data from server:", error);
+            },
+        });
+    }
+});
+
+function inisialisasiDataTable(response) {
     let table = $("#table_ListOrder").DataTable({
         responsive: true,
         scrollX: true,
@@ -119,15 +150,18 @@ function initializeDataTable(response) {
             { data: "Ket_Internal" },
         ],
     });
-    $('#table_ListOrder tbody').off('dblclick', 'tr').on('dblclick', 'tr', function () {
-        let checkbox = $(this).find('input[type="checkbox"]');
-        console.log(checkbox)
-        checkbox.prop('checked', !checkbox.prop('checked'));
-        let checkedCount = $('input[type="checkbox"]:checked').length;
+    $("#table_ListOrder tbody")
+        .off("dblclick", "tr")
+        .on("dblclick", "tr", function () {
+            let checkbox = $(this).find('input[type="checkbox"]');
+            console.log(checkbox);
+            checkbox.prop("checked", !checkbox.prop("checked"));
+            let checkedCount = $('input[type="checkbox"]:checked').length;
 
-
-        $('#checkedCount').text(`Jumlah Data Yang TerCentang ${checkedCount}`);
-    });
+            $("#checkedCount").text(
+                `Jumlah Data Yang TerCentang ${checkedCount}`
+            );
+        });
 }
 
 checkedAll.addEventListener("click", function (event) {
@@ -186,7 +220,7 @@ btnPrint.addEventListener("click", function () {
 
         XLSX.writeFile(wb, "data.xlsx");
     } else {
-     alert('Pilih Data Yang Akan DiPrint Terlebih Dahulu')
+        alert("Pilih Data Yang Akan DiPrint Terlebih Dahulu");
     }
 });
 

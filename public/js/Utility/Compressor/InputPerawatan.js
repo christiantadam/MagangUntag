@@ -231,7 +231,12 @@ $(document).ready(function () {
             { data: "JamOperasi" },
             { data: "NamaPart" },
             { data: "Keterangan" },
-            { data: "Teknisi" },
+            {
+                data: "Teknisi",
+                render: function (data, type, full, meta) {
+                    return full.Teknisi;
+                },
+            },
         ],
     });
 

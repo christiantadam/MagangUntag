@@ -138,14 +138,15 @@ cancelButton.addEventListener("click", function () {
     tanggal.disabled = true;
     inputButton.disabled = false;
     feeder.disabled = true;
-    jam_gangguan.disabled = true;
     jam_selesai.disabled = true;
+    jam_gangguan.disabled = true;
     ket_gangguan.disabled = true;
     keterangan.disabled = true;
     updateButton.disabled = false;
     deleteButton.disabled = false;
     clearForm();
     saveButton.disabled = true;
+
     $(".checkboxpanel").prop("checked", false);
 });
 

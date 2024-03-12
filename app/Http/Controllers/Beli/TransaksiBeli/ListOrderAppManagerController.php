@@ -20,6 +20,48 @@ class ListOrderAppManagerController extends Controller
             abort(404);
         }
     }
+    public function redisplayNoOrder(Request $request)
+    {
+        $noOrder = $request->input('noOrder');
+        if (($noOrder != null)) {
+            try {
+                $redisplay = DB::connection('ConnPurchase')->table('YTRANSBL')
+                    ->select(
+                        'YTRANSBL.Tgl_acc',
+                        'YTRANSBL.No_trans',
+                        DB::raw("CASE WHEN YTRANSBL.StatusBeli = 1 THEN 'Pengadaan Pembelian' ELSE 'Beli Sendiri' END AS StatusBeli"),
+                        'YTRANSBL.Kd_brg',
+                        'Y_BARANG.NAMA_BRG',
+                        'Y_KATEGORI_SUB.nama_sub_kategori',
+                        'YTRANSBL.Qty',
+                        'YSATUAN.Nama_satuan',
+                        'YUSER.Nama',
+                        'YTRANSBL.Kd_div',
+                        'YTRANSBL.Tgl_Dibutuhkan',
+                        'YTRANSBL.keterangan',
+                        'YTRANSBL.Ket_Internal',
+                        'STATUS_ORDER.Status',
+                        'YTRANSBL.Operator',
+                        'YTRANSBL.StatusOrder',
+                        'YDIVISI.NM_DIV'
+                    )
+                    ->join('Y_BARANG', 'YTRANSBL.Kd_brg', '=', 'Y_BARANG.KD_BRG')
+                    ->join('STATUS_ORDER', 'YTRANSBL.StatusOrder', '=', 'STATUS_ORDER.KdStatus')
+                    ->join('YUSER', 'YTRANSBL.Operator', '=', 'YUSER.kd_user')
+                    ->join('YSATUAN', 'YTRANSBL.NoSatuan', '=', 'YSATUAN.No_satuan')
+                    ->join('Y_KATEGORI_SUB', 'Y_BARANG.NO_SUB_KATEGORI', '=', 'Y_KATEGORI_SUB.no_sub_kategori')
+                    ->join('YDIVISI', 'YTRANSBL.Kd_div', '=', 'YDIVISI.KD_DIV')
+                    ->where('YTRANSBL.StatusOrder', 2)
+                    ->where('YTRANSBL.No_trans', $noOrder)
+                    ->get();
+                return datatables($redisplay)->make(true);
+            } catch (\Throwable $Error) {
+                return Response()->json($Error);
+            }
+        } else {
+            return Response()->json('Parameter harus di isi');
+        }
+    }
     public function redisplay(Request $request)
     {
         $kd = 10;
@@ -31,7 +73,7 @@ class ListOrderAppManagerController extends Controller
             try {
                 $redisplay = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @stBeli=?, @Kd_Div = ?, @kd = ?, @MinDate = ?, @MaxDate = ?', [$stBeli, $Kd_Div, $kd, $MinDate, $MaxDate]);
                 return datatables($redisplay)->make(true);
-              } catch (\Throwable $Error) {
+            } catch (\Throwable $Error) {
                 return Response()->json($Error);
             }
         } else {

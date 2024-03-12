@@ -60,15 +60,8 @@ $(document).ready(function () {
             {
                 data: "TglMulai",
                 render: function (data, type, full, meta) {
-                    // Assuming data is in UTC format, adjust it to the local timezone
                     var localDate = moment.utc(data).local();
-
-                    // Check if Keterangan is "Progress"
-                    if (full.Keterangan === "Progress") {
-                        return ""; // Jika "Progress", kembalikan string kosong
-                    } else {
-                        return localDate.format("MM/DD/YYYY"); // Jika bukan "Progress", kembalikan tanggal yang diformat
-                    }
+                    return localDate.format("MM/DD/YYYY");
                 },
             },
             {
@@ -90,7 +83,7 @@ $(document).ready(function () {
             {
                 data: "Nama",
                 render: function (data, type, full, meta) {
-                    return data ? data : "-";
+                    return data ? data : "";
                 },
             },
         ],
@@ -135,7 +128,15 @@ $(document).ready(function () {
                                 responseType: "blob",
                             },
                             success: function (data, status, xhr) {
-                                displayImage(data, `hasil_gambar${index + 1}`);
+                                if (data instanceof Blob) {
+                                    displayImage(
+                                        data,
+                                        `hasil_gambar${index + 1}`
+                                    );
+                                } else {
+                                    // If no image data, leave the container empty
+                                    $(`#hasil_gambar${index + 1}`).html("");
+                                }
                             },
                             error: function (xhr, status, error) {
                                 //console.error("Error:", status, error);
@@ -148,7 +149,7 @@ $(document).ready(function () {
                         var objectURL = URL.createObjectURL(blob);
 
                         $("#" + containerId).html(
-                            `<img src="${objectURL}" alt="Image">`
+                            `<img src="${objectURL}" alt="">`
                         );
                         $("#" + containerId)
                             .attr("src", objectURL)
@@ -227,10 +228,20 @@ $(document).ready(function () {
                         <h3 class="mb-5 text-center">JL. Raya Tropodo No.1 Waru - SIDOARJO</h3>
                         <div class="row">
                             <div class="col-12 mt-2">
-                                <p class="mb-2"><strong>Nama Mesin:</strong> ${data.NamaMesin}</p>
-                                <p class="mb-2"><strong>Merk Mesin:</strong> ${data.MerkMesin}</p>
-                                <p class="mb-2"><strong>Lokasi Mesin:</strong> ${data.LokasiMesin}</p>
-                                <p class="mb-5"><strong>Tahun Pembuatan:</strong> ${data.TahunPembuatan}</p>
+                                <p class="mb-2"><strong>Nama Mesin:</strong> ${
+                                    data.NamaMesin ? data.NamaMesin : ""
+                                }</p>
+                                <p class="mb-2"><strong>Merk Mesin:</strong> ${
+                                    data.MerkMesin ? data.MerkMesin : ""
+                                }</p>
+                                <p class="mb-2"><strong>Lokasi Mesin:</strong> ${
+                                    data.LokasiMesin ? data.LokasiMesin : ""
+                                }</p>
+                                <p class="mb-5"><strong>Tahun Pembuatan:</strong> ${
+                                    data.TahunPembuatan
+                                        ? data.TahunPembuatan
+                                        : ""
+                                }</p>
                             </div>
                         </div>
                         <div class="table-container">
@@ -244,9 +255,19 @@ $(document).ready(function () {
                                 </thead>
                                 <tbody>
                                     <tr class="text-left">
-                                        <td class="col-md-4" style="width: 100%; height: 175px;">${data.KeteranganKerja}</td>
-                                        <td class="col-md-4" style="width: 100%; height: 175px;">${data.Perbaikan}</td>
-                                        <td class="col-md-4" style="width: 100%; height: 175px;">${data.Keterangan}</td>
+                                        <td class="col-md-4" style="width: 100%; height: 175px;">${
+                                            data.KeteranganKerja
+                                                ? data.KeteranganKerja
+                                                : ""
+                                        }</td>
+                                        <td class="col-md-4" style="width: 100%; height: 175px;">${
+                                            data.Perbaikan ? data.Perbaikan : ""
+                                        }</td>
+                                        <td class="col-md-4" style="width: 100%; height: 175px;">${
+                                            data.Keterangan
+                                                ? data.Keterangan
+                                                : ""
+                                        }</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -259,10 +280,21 @@ $(document).ready(function () {
                                         <th class="col-md-6"><strong>Gambar 2</strong></th>
                                     </tr>
                                 </thead>
+                                <style>
+                                    table {
+                                        border-collapse: separate;
+                                        border-spacing: 10px; /* Ganti nilai ini sesuai kebutuhan jarak yang diinginkan */
+                                    }
+
+                                    td {
+                                        padding: 35px; /* Ganti nilai ini sesuai kebutuhan jarak yang diinginkan */
+                                        border: 1px solid #000; /* Ganti warna dan ketebalan garis sesuai kebutuhan */
+                                    }
+                                </style>
                                 <tbody>
                                     <tr>
-                                        <td class="col-md-6"><img src="" id="hasil_gambar1" alt="" style="width: 100%; height: 200px; object-fit: cover;" /></td>
-                                        <td class="col-md-6"><img src="" id="hasil_gambar2" alt="" style="width: 100%; height: 200px; object-fit: cover;" /></td>
+                                        <td class="col-md-6"><img  id="hasil_gambar1"  style="width: 100%; height: 200px; " /></td>
+                                        <td class="col-md-6"><img  id="hasil_gambar2"  style="width: 100%; height: 200px; " /></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -270,7 +302,7 @@ $(document).ready(function () {
                         <div class="row mt-5 print-footer justify-content-between">
                             <div class="col-3">
                                 <strong>Pelaksana,</strong>
-                                <div class="data">(${selectedData.Nama})</div>
+                                <div class="data">${selectedData.Nama}</div>
                             </div>
                             <div class="col-3">
                                 <strong>Penanggung jawab,</strong>
