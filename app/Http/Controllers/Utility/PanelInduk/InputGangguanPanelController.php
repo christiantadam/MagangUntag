@@ -42,12 +42,18 @@ class InputGangguanPanelController extends Controller
             $gangguan = $request->input('Gangguan');
             $keterangan = $request->input('Keterangan');
             $UserInput = Auth::user()->NomorUser;
+            $Teknisi = $request->input('teknisi');
 
             $datetimeNow = now();
             $datetimeStart = $datetimeNow->toDateString() . ' ' . $start;
             $datetimeEnd = $datetimeNow->toDateString() . ' ' . $end;
 
-            $data = DB::connection('ConnUtility')->statement('exec SP_INSERT_PANEL_INDUK ? , ? , ? , ? , ? , ? , ? ', [$tanggal, $feeder, $datetimeStart, $datetimeEnd, $gangguan, $keterangan, $UserInput]);
+            // $dataTeknisi = DB::connection('ConnUtility')->table('E_Panel_induk')->insert([
+            //     'Teknisi_Utility'=>$Teknisi,
+            // ]);
+
+
+            $data = DB::connection('ConnUtility')->statement('exec SP_INSERT_PANEL_INDUK ? , ? , ? , ? , ? , ? , ?, ? ', [$tanggal, $feeder, $datetimeStart, $datetimeEnd, $gangguan, $keterangan, $UserInput,$Teknisi]);
             return response()->json($data);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'An error occurred while saving the data. Please try again.');

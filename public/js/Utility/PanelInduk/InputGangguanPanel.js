@@ -4,6 +4,7 @@ let feeder = document.getElementById("feeder");
 let jam_gangguan = document.getElementById("jam_gangguan");
 let jam_selesai = document.getElementById("jam_selesai");
 let ket_gangguan = document.getElementById("ket_gangguan");
+let teknisi = document.getElementById("teknisi");
 let keterangan = document.getElementById("keterangan");
 let id_transaksi = document.getElementById("hiddenNomorpanel");
 
@@ -60,7 +61,7 @@ function clearForm() {
     id_transaksi.value = "";
     jam_gangguan = timeString;
 }
-saveButton.disabled = true;
+saveButton.disabled = false;
 tanggal.disabled = true;
 feeder.disabled = true;
 jam_gangguan.disabled = true;
@@ -75,7 +76,7 @@ function checkAllFieldsFilled() {
     return (
         tanggal.value.trim() !== "" &&
         feeder.value.trim() !== "" &&
-        jam_gangguan.value.trim() !== "" &&
+        jam_gangguan.value !== "" &&
         jam_selesai.value.trim() !== "" &&
         ket_gangguan.value.trim() !== ""
     );
@@ -103,6 +104,7 @@ inputButton.addEventListener("click", function () {
     deleteButton.disabled = true;
     inputButton.disabled = true;
     $(".checkboxpanel").prop("checked", false);
+    console.log(jam_gangguan);
 });
 
 // UpdateButton click
@@ -164,6 +166,7 @@ $(document).ready(function () {
         var startValue = jam_gangguan.value;
         var endValue = jam_selesai.value;
         var ket_ganggguanValue = ket_gangguan.value;
+        var teknisiValue = teknisi.value;
         var keteranganValue = keterangan.value;
         var nomorpanelValue = $("#hiddenNomorpanel").val();
 
@@ -175,6 +178,7 @@ $(document).ready(function () {
             JamMulai: startValue,
             JamSelesai: endValue,
             Gangguan: ket_ganggguanValue,
+            Teknisi: teknisiValue,
             Keterangan: keteranganValue,
         };
         if (nomorpanelValue) {
@@ -219,6 +223,7 @@ $(document).ready(function () {
 
                 clearForm();
                 dataTable.ajax.reload();
+                console.log(response);
             },
             error: function (error) {
                 Swal.fire({

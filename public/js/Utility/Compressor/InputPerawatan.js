@@ -121,7 +121,7 @@ updateButton.addEventListener("click", function () {
         jam.disabled = false;
         part.disabled = true;
         keterangan.disabled = true;
-        teknisi.disabled = true;
+        teknisi.disabled = false;
         deleteButton.disabled = true;
         inputButton.disabled = true;
     }
@@ -233,9 +233,6 @@ $(document).ready(function () {
             { data: "Keterangan" },
             {
                 data: "Teknisi",
-                render: function (data, type, full, meta) {
-                    return full.Teknisi;
-                },
             },
         ],
     });
