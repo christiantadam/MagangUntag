@@ -219,7 +219,7 @@ function print(data) {
     let No = 0;
     let Page = 0;
 
-    const chunkSize = 5;
+    const chunkSize = 10;
     const chunkedData = [];
     for (let i = 0; i < data.print.length; i += chunkSize) {
         chunkedData.push(data.print.slice(i, i + chunkSize));
@@ -399,7 +399,7 @@ function print(data) {
                                 <th style="text-align: center;"><h1 style="font-size: 14px;font-family: Helvetica; font-weight: bold; line-height: 13.8px">Remaining</h1></th>
                             </tr>
                         </thead>
-                        <tbody style="border-top: 1px solid black; border-bottom: 1px dotted black;">
+                        <tbody style="border-top: 1px dotted black; border-bottom: 1px dotted black;">
                             ${tableRows}
                         </tbody>
                     </table>

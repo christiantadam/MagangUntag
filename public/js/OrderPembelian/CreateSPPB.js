@@ -93,8 +93,7 @@ function submit(nomor, qtydelay) {
             noTrans: nomor,
             QtyDelay: qtydelay,
         },
-        success: function (response) {
-        },
+        success: function (response) {},
         error: function (error) {
             console.error("Error Send Data:", error);
         },
@@ -231,17 +230,35 @@ function LoadPermohonan(data) {
                 keterangan_order.value = data.keterangan;
                 keterangan_internal.value = data.Ket_Internal;
                 qty_delay.value = parseFloat(data.QtyCancel).toFixed(2);
-                harga_unit.value = numeral(parseFloat(data.PriceUnit)).format("0,0.0000");
-                idr_unit.value = numeral(parseFloat(data.PriceUnitIDR)).format("0,0.0000");
-                harga_sub_total.value = numeral(parseFloat(data.PriceSub)).format("0,0.0000");
-                idr_sub_total.value = numeral(parseFloat(data.PriceSubIDR)).format("0,0.0000");
-                harga_total.value = numeral(parseFloat(data.PriceExt)).format("0,0.0000");
-                idr_harga_total.value = numeral(parseFloat(data.PriceExtIDR)).format("0,0.0000");
+                harga_unit.value = numeral(parseFloat(data.PriceUnit)).format(
+                    "0,0.0000"
+                );
+                idr_unit.value = numeral(parseFloat(data.PriceUnitIDR)).format(
+                    "0,0.0000"
+                );
+                harga_sub_total.value = numeral(
+                    parseFloat(data.PriceSub)
+                ).format("0,0.0000");
+                idr_sub_total.value = numeral(
+                    parseFloat(data.PriceSubIDR)
+                ).format("0,0.0000");
+                harga_total.value = numeral(parseFloat(data.PriceExt)).format(
+                    "0,0.0000"
+                );
+                idr_harga_total.value = numeral(
+                    parseFloat(data.PriceExtIDR)
+                ).format("0,0.0000");
                 ppn.value = numeral(parseFloat(data.PPN)).format("0,0.0000");
-                idr_ppn.value = numeral(parseFloat(data.PPN)).format("0,0.0000");
+                idr_ppn.value = numeral(parseFloat(data.PPN)).format(
+                    "0,0.0000"
+                );
                 disc.value = numeral(parseFloat(data.Disc)).format("0,0.00");
-                total_disc.value = numeral(parseFloat(data.harga_disc)).format("0,0.0000");
-                idr_total_disc.value = numeral(parseFloat(data.DiscIDR)).format("0,0.0000");
+                total_disc.value = numeral(parseFloat(data.harga_disc)).format(
+                    "0,0.0000"
+                );
+                idr_total_disc.value = numeral(parseFloat(data.DiscIDR)).format(
+                    "0,0.0000"
+                );
                 kurs.value = parseFloat(data.Currency).toFixed(4);
                 $("#ppn_select").val(data.IdPPN);
                 fixValueQTYOrder = data.Qty;
@@ -534,7 +551,7 @@ function print(data) {
                             .toLocaleString("en-US")
                             .includes(".")
                             ? parseFloat(item.Qty).toLocaleString("en-US") +
-                            ".00"
+                              ".00"
                             : parseFloat(item.Qty).toLocaleString("en-US")
                     }</p></td>
                     <td style="text-align: center;"><p style="line-height: 13.8px; font-size: 14px;font-family: Helvetica;">${item.Nama_satuan.trim()}</p></td>
@@ -543,8 +560,8 @@ function print(data) {
                             .toLocaleString("en-US")
                             .includes(".")
                             ? parseFloat(item.PriceUnit).toLocaleString(
-                                "en-US"
-                            ) + ".00"
+                                  "en-US"
+                              ) + ".00"
                             : parseFloat(item.PriceUnit).toLocaleString("en-US")
                     }</p></td>
                     <td style="text-align: center;"><p style="line-height: 13.8px; font-size: 14px;font-family: Helvetica;">${
@@ -554,19 +571,19 @@ function print(data) {
                             .toLocaleString("en-US")
                             .includes(".")
                             ? parseFloat(
-                                item.harga_disc == null ? 0 : item.harga_disc
-                            ).toLocaleString("en-US") + ".00"
+                                  item.harga_disc == null ? 0 : item.harga_disc
+                              ).toLocaleString("en-US") + ".00"
                             : parseFloat(
-                                item.harga_disc == null ? 0 : item.harga_disc
-                            ).toLocaleString("en-US")
+                                  item.harga_disc == null ? 0 : item.harga_disc
+                              ).toLocaleString("en-US")
                     }</p></td>
                     <td style="text-align: center;"><p style="line-height: 13.8px; font-size: 14px;font-family: Helvetica;">${
                         !parseFloat(item.PriceSub)
                             .toLocaleString("en-US")
                             .includes(".")
                             ? parseFloat(item.PriceSub).toLocaleString(
-                                "en-US"
-                            ) + ".00"
+                                  "en-US"
+                              ) + ".00"
                             : parseFloat(item.PriceSub).toLocaleString("en-US")
                     }</p></td>
                 </tr>
@@ -725,11 +742,11 @@ function print(data) {
                                         .toLocaleString("en-US")
                                         .includes(".")
                                         ? (sumAmount + ppn).toLocaleString(
-                                            "en-US"
-                                        ) + ".00"
+                                              "en-US"
+                                          ) + ".00"
                                         : (sumAmount + ppn).toLocaleString(
-                                            "en-US"
-                                        )
+                                              "en-US"
+                                          )
                                 }</p>
                             </div>
                         </div>
@@ -743,6 +760,7 @@ function print(data) {
         tableRows = "";
         Page += 1;
     });
+    console.log(printContentDiv);
     const printWindow = window.open("", "_blank");
     window.location.href = "/PurchaseOrder/create";
     printWindow.document.body.appendChild(printContentDiv);
@@ -954,7 +972,6 @@ $(document).ready(function () {
         }
     });
 });
-
 
 function updateIdrUnit() {
     let kurs = numeral(document.getElementById("kurs").value).value();
