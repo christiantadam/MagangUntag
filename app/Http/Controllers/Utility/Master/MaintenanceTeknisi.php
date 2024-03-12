@@ -84,7 +84,8 @@ class MaintenanceTeknisi extends Controller
 
     public function getTeknisi()
     {
-        $listTeknisi = DB::connection('ConnUtility')->select('exec SP_LIST_UTILITY_TEKNISI');
+        // $listTeknisi = DB::connection('ConnUtility')->select('exec SP_LIST_UTILITY_TEKNISI');
+        $listTeknisi = DB::connection('ConnUtility')->table('Utility_Teknisi')->get();
 
         return datatables($listTeknisi)->make(true);
     }

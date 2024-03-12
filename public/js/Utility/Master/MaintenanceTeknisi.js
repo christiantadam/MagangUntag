@@ -42,6 +42,10 @@
 //     });
 // });
 $(document).ready(function () {
+    $("#teknisi").selectpicker();
+    $("#editteknisi").selectpicker();
+    $("#lokasi").selectpicker();
+    $("#editlokasi").selectpicker();
     var dataTableTeknisi = $("#table-teknisi").DataTable({
         serverSide: true,
         responsive: true,
@@ -52,9 +56,10 @@ $(document).ready(function () {
         },
         columns: [
             { data: "Lokasi" },
-            { data: "NamaUser" },
+            // { data: "NamaUser" },
+            { data: "IdUserMaster" },
             {
-                data: null,
+                data: "Id_Teknisi",
                 render: function (data, type, full, meta) {
                     return (
                         '<button class="btn btn-primary" id="editteknisi" data-bs-toggle="modal" data-bs-target="#editmodal" type="button">Edit</button>' +
@@ -176,8 +181,8 @@ $(document).ready(function () {
         var csrfToken = $('meta[name="csrf-token"]').attr("content");
 
         var requestData = {
-            NamaTeknisi: TeknisiValue.trim(),
-            Lokasi: LokasiValue.trim(),
+            NamaTeknisi: TeknisiValue,
+            Lokasi: LokasiValue,
         };
         if (nomorIdValue) {
             requestData.NomorId = nomorIdValue;

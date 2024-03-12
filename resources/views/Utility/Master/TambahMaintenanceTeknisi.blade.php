@@ -8,24 +8,32 @@
             <div class="modal-body">
                 <div class="row-lg-12 mb-2">
                     <div class="col-lg-12 d-flex">
-                        <div class="acs-div-filter mb-2">
-                            <label for="teknisi">Teknisi</label>
-                            <select name="teknisi" id="teknisi" class="form-select mt-3">
-                                <option selected disabled>Pilih Teknisi</option>
-                                @foreach ($teknisi as $data)
-                                    <option value="{{ $data->IDUser }}">
-                                        {{ $data->NamaUser }} - ( {{ $data->NomorUser }} )</option>
-                                @endforeach
-                            </select>
-                            <label for="lokasi" class="mt-3">Lokasi</label>
-                            <select name="lokasi" id="lokasi" class="form-select">
-                                <option selected disabled>Pilih Lokasi</option>
-                                @foreach ($lokasi as $lok)
-                                    <option value="{{ $lok->Id_Lokasi }}">
-                                        {{ $lok->Lokasi }} - ( {{ $lok->Id_Lokasi }} )</option>
-                                @endforeach
-                            </select>
-                        </div>
+                        <label for="teknisi">Teknisi</label>
+                    </div>
+                    <div class="col-lg-12 d-flex">
+                        <select name="teknisi" id="teknisi" class="form-select" data-live-search="true"
+                            data-width="100%" multiple title="Pilih Teknisi..." multiple data-max-options="1">
+                            @foreach ($teknisi as $data)
+                                <option value="{{ $data->IDUser }}" data-subtext={{ $data->NomorUser }}>
+                                    {{ $data->NamaUser }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="row-lg-12 mb-2">
+                    <div class="col-lg-12 d-flex">
+                        <label for="lokasi">Lokasi</label>
+                    </div>
+                    <div class="col-lg-12 d-flex">
+                        <select name="lokasi" id="lokasi" class="form-select" data-live-search="true"
+                            data-width="100%" multiple title="Pilih Lokasi..." multiple data-max-options="1">
+                            @foreach ($lokasi as $lok)
+                                <option value="{{ $lok->Id_Lokasi }}" data-subtext={{ $lok->Id_Lokasi }}>
+                                    {{ $lok->Lokasi }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
             </div>
