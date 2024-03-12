@@ -120,6 +120,7 @@ class InputGangguanElektrikController extends Controller
         $tanggal1 = $request->input('tanggal1');
         $tanggal2 = $request->input('tanggal2');
         $l_div_pelapor = $request->input('divisi');
+
         $data = DB::connection('ConnUtility')->select('exec SP_DT_LIST_GANGGUAN_ELEKTRIK_BLN_THN2 @date1 = ?, @date2 = ?,  @divisi = ?', [$tanggal1, $tanggal2, $l_div_pelapor]);
         return datatables($data)->make(true);
     }

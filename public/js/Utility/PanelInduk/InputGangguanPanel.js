@@ -59,8 +59,9 @@ function clearForm() {
     ket_gangguan.value = "";
     keterangan.value = "";
     id_transaksi.value = "";
-    jam_gangguan = timeString;
+    jam_gangguan.value = timeString;
 }
+
 saveButton.disabled = false;
 tanggal.disabled = true;
 feeder.disabled = true;
@@ -70,6 +71,7 @@ ket_gangguan.disabled = true;
 keterangan.disabled = true;
 updateButton.disabled = false;
 deleteButton.disabled = false;
+teknisi.disabled = true;
 
 // Function to check if all fields are filled
 function checkAllFieldsFilled() {
@@ -103,6 +105,7 @@ inputButton.addEventListener("click", function () {
     updateButton.disabled = true;
     deleteButton.disabled = true;
     inputButton.disabled = true;
+    teknisi.disabled = false;
     $(".checkboxpanel").prop("checked", false);
     console.log(jam_gangguan);
 });
@@ -140,12 +143,13 @@ cancelButton.addEventListener("click", function () {
     tanggal.disabled = true;
     inputButton.disabled = false;
     feeder.disabled = true;
-    jam_selesai.disabled = true;
     jam_gangguan.disabled = true;
+    jam_selesai.disabled = true;
     ket_gangguan.disabled = true;
     keterangan.disabled = true;
     updateButton.disabled = false;
     deleteButton.disabled = false;
+    teknisi.disabled = true;
     clearForm();
     saveButton.disabled = true;
 
