@@ -42,7 +42,7 @@ class InputGangguanPanelController extends Controller
             $gangguan = $request->input('Gangguan');
             $keterangan = $request->input('Keterangan');
             $UserInput = Auth::user()->NomorUser;
-            $Teknisi = $request->input('teknisi');
+            $Teknisi = $request->input('Teknisi');
 
             $datetimeNow = now();
             $datetimeStart = $datetimeNow->toDateString() . ' ' . $start;
@@ -53,7 +53,7 @@ class InputGangguanPanelController extends Controller
             // ]);
 
 
-            $data = DB::connection('ConnUtility')->statement('exec SP_INSERT_PANEL_INDUK ? , ? , ? , ? , ? , ? , ?, ? ', [$tanggal, $feeder, $datetimeStart, $datetimeEnd, $gangguan, $keterangan, $UserInput,$Teknisi]);
+            $data = DB::connection('ConnUtility')->statement('exec SP_INSERT_PANEL_INDUK ? , ? , ? , ? , ? , ? , ?, ? ', [$tanggal, $feeder, $datetimeStart, $datetimeEnd, $gangguan, $keterangan, $UserInput, $Teknisi]);
             return response()->json($data);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'An error occurred while saving the data. Please try again.');
@@ -77,7 +77,8 @@ class InputGangguanPanelController extends Controller
             $gangguan = $request->input('Gangguan');
             $keterangan = $request->input('Keterangan');
             $UserInput = Auth::user()->NomorUser;
-            $data = DB::connection('ConnUtility')->statement('exec SP_KOREKSI_PANEL_INDUK ?, ? , ? , ? , ? , ? , ? , ? ', [$tanggal, $feeder, $start, $end, $gangguan, $keterangan, $UserInput, $id]);
+            $Teknisi = $request->input('Teknisi');
+            $data = DB::connection('ConnUtility')->statement('exec SP_KOREKSI_PANEL_INDUK ?, ? , ? , ? , ? , ? , ? , ? , ? ', [$tanggal, $feeder, $start, $end, $gangguan, $keterangan, $UserInput, $id, $Teknisi]);
             return response()->json($data);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'An error occurred while saving the data. Please try again.');

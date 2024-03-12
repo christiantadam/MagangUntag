@@ -66,14 +66,14 @@
 
                                 {{-- komen untuk tambah column teknisi di database --}}
                                 <div class="acs-div-filter pt-4">
-                                    <label for="ket_gangguan">Pilih Teknisi</label>
+                                    <label for="teknisi">Pilih Teknisi</label>
                                     <div class="d-flex">
                                         <select class="form-select flex-grow-1" aria-label="Default select example"
                                             id="teknisi">
                                             <option selected disabled>Pilih Teknisi...</option>
                                             @foreach ($teknisi as $data)
-                                                <option value="{{ $data->NamaUser }}">{{ $data->NamaUser }} - (
-                                                    {{ $data->Lokasi }} )
+                                                <option value="{{ $data->Id_Teknisi }}">
+                                                    {{ $data->NamaUser }} - ( {{ $data->Lokasi }} )
                                                 </option>
                                             @endforeach
                                         </select>

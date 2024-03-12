@@ -185,6 +185,8 @@ $(document).ready(function () {
             requestData.NomorPanel = nomorpanelValue;
         }
 
+        console.log(requestData);
+
         $.ajax({
             url: nomorpanelValue ? "/update-panel" : "/save-panel",
             method: nomorpanelValue ? "PUT" : "POST",
@@ -293,7 +295,7 @@ $(document).ready(function () {
                 },
             },
             { data: "Keterangan" },
-            { data: "Teknisi_Utility" },
+            { data: "NamaUser" },
         ],
     });
 
@@ -351,6 +353,7 @@ $(document).ready(function () {
                     jam_selesai.value = endHours + ":" + endMinutes;
 
                     ket_gangguan.value = data.L_Gangguan_panel_induk;
+                    teknisi.value = data.Teknisi_Utility;
                     keterangan.value = data.Keterangan;
                 },
                 error: function (xhr, status, error) {
