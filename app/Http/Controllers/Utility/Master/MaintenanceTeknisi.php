@@ -29,9 +29,8 @@ class MaintenanceTeknisi extends Controller
         try {
             $NamaUser = $request->input('NamaTeknisi');
             $Lokasi = $request->input('Lokasi');
-            $Aktif = true; // Atur sesuai kebutuhan
+            $Aktif = true;
 
-            // Memanggil stored procedure dengan DB::connection
             DB::connection('ConnUtility')->statement('EXEC SP_INSERT_UTILITY_TEKNISI ?,?,?', [$NamaUser, $Lokasi, $Aktif]);
 
             return response()->json(['success' => 'Data Teknisi berhasil disimpan']);
@@ -44,30 +43,31 @@ class MaintenanceTeknisi extends Controller
     public function updateTeknisi(Request $request)
     {
         try {
-            $id = $request->input('NomorId');
+            $id = $request->input('ID');
             $Teknisi = $request->input('Teknisi');
+            $Lokasi = $request->input('Lokasi');
 
-            $data = DB::connection('ConnUtility')->statement('exec SP_KOREKSI_TEKNISI_GENZET ? , ? ', [$id, $Teknisi]);
+            $data = DB::connection('ConnUtility')->statement('EXEC SP_UPDATE_UTILITY_TEKNISI ?,?,?', [$id, $Teknisi, $Lokasi]);
             return response()->json($data);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'An error occurred while saving the data. Please try again.');
         }
     }
 
-    public function searchTeknisi(Request $request)
-    {
-        // Mendapatkan nilai input pencarian dari request
-        $nama = $request->input('searchTeknisi');
+    // public function searchTeknisi(Request $request)
+    // {
+    //     // Mendapatkan nilai input pencarian dari request
+    //     $nama = $request->input('searchTeknisi');
 
-        // Melakukan query untuk mencari NamaUser yang cocok dengan input
-        $listNamaUser = DB::connection('ConnEDP')
-            ->table('UserMaster')
-            ->where('NamaUser', 'LIKE', "%$nama%")
-            ->get();
+    //     // Melakukan query untuk mencari NamaUser yang cocok dengan input
+    //     $listNamaUser = DB::connection('ConnEDP')
+    //         ->table('UserMaster')
+    //         ->where('NamaUser', 'LIKE', "%$nama%")
+    //         ->get();
 
-        // Mengembalikan hasil pencarian dalam bentuk JSON
-        return response()->json($listNamaUser);
-    }
+    //     // Mengembalikan hasil pencarian dalam bentuk JSON
+    //     return response()->json($listNamaUser);
+    // }
 
     public function getTeknisiById(Request $request)
     {
@@ -84,8 +84,7 @@ class MaintenanceTeknisi extends Controller
 
     public function getTeknisi()
     {
-        // $listTeknisi = DB::connection('ConnUtility')->select('exec SP_LIST_UTILITY_TEKNISI');
-        $listTeknisi = DB::connection('ConnUtility')->table('Utility_Teknisi')->get();
+        $listTeknisi = DB::connection('ConnUtility')->select('exec SP_LIST_UTILITY_TEKNISI');
 
         return datatables($listTeknisi)->make(true);
     }
@@ -95,13 +94,11 @@ class MaintenanceTeknisi extends Controller
         try {
             $Id = $request->input('id');
 
-            foreach ($Id as $id) {
-                DB::connection('ConnUtility')->statement('exec SP_HAPUS_UTILITY_TEKNISI @Id_Teknisi = ?', [$id]);
-            }
+            DB::connection('ConnUtility')->statement('exec SP_HAPUS_UTILITY_TEKNISI @Id_Teknisi = ?', [$Id]);
 
             return response()->json(['success' => true]);
         } catch (\Exception $e) {
-            //Log::error('Error deleting Teknisi: ' . $e->getMessage());
+            // Log::error('Error deleting Teknisi: ' . $e->getMessage());
             return response()->json(['error' => 'An error occurred while deleting the data. Please try again.']);
         }
     }
