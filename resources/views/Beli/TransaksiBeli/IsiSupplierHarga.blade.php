@@ -202,7 +202,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-5">
-                                    <div class="col-12 mb-2">
+                                    <div class="col-12">
                                         <div class="row align-items-center">
                                             <div class="col-6">
                                                 <div class="row">
@@ -228,7 +228,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12 mb-2">
+                                    <div class="col-12">
                                         <div class="row align-items-center">
                                             <div class="col-4 col-md-2">
                                                 <label for="supplier">Supplier</label>
@@ -240,7 +240,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12 mb-2">
+                                    <div class="col-12">
                                         <div class="row align-items-center">
                                             <div class="col-4 col-md-2">
                                                 <label for="mata_uang">Mata Uang</label>
@@ -253,7 +253,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12 mb-2">
+                                    <div class="col-12">
                                         <div class="row align-items-center">
                                             <div class="col-4 col-md-2">
                                                 <label for="kurs">Kurs</label>
@@ -264,7 +264,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12 mb-2">
+                                    <div class="col-12">
                                         <div class="row align-items-center">
                                             <div class="col-6">
                                                 <div class="row">
@@ -290,7 +290,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12 mb-2">
+                                    <div class="col-12">
                                         <div class="row align-items-center">
                                             <div class="col-6">
                                                 <div class="row">
@@ -316,7 +316,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12 mb-2">
+                                    <div class="col-12">
                                         <div class="row align-items-center">
                                             <div class="col-6">
                                                 <div class="row">
@@ -345,7 +345,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12 mb-2">
+                                    <div class="col-12">
                                         <div class="row align-items-center">
                                             <div class="col-6">
                                                 <div class="row">
@@ -371,13 +371,13 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12 mb-2">
+                                    <div class="col-12">
                                         <div class="row align-items-center">
                                             <div class="col-4 col-md-2">
                                                 <label for="alasan_reject">Alasan Reject</label>
                                             </div>
                                             <div class="col-8 col-md-10">
-                                                <textarea rows="4" type="text" name="alasan_reject" id="alasan_reject" class="form-control"></textarea>
+                                                <textarea rows="1" type="text" name="alasan_reject" id="alasan_reject" class="form-control"></textarea>
 
                                             </div>
                                         </div>

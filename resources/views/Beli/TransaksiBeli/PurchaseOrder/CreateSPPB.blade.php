@@ -225,7 +225,7 @@
                                             <label for="alasan_reject">Alasan Reject</label>
                                         </div>
                                         <div class="col-8 col-md-6">
-                                            <textarea rows="4" type="text" name="alasan_reject" id="alasan_reject" class="form-control"></textarea>
+                                            <textarea rows="2" type="text" name="alasan_reject" id="alasan_reject" class="form-control"></textarea>
 
                                         </div>
                                     </div>
@@ -258,7 +258,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 mb-2">
+                                <div class="col-12">
                                     <div class="row align-items-center">
                                         <div class="col-6">
                                             <div class="row">
@@ -289,7 +289,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 mb-2">
+                                <div class="col-12">
                                     <div class="row align-items-center">
                                         <div class="col-6">
                                             <div class="row">
@@ -315,7 +315,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 mb-2">
+                                <div class="col-12">
                                     <div class="row align-items-center">
                                         <div class="col-6">
                                             <div class="row">
@@ -341,7 +341,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 mb-2">
+                                <div class="col-12">
                                     <div class="row align-items-center">
                                         <div class="col-6">
                                             <div class="row">
@@ -374,7 +374,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 mb-2">
+                                <div class="col-12">
                                     <div class="row align-items-center">
                                         <div class="col-6">
                                             <div class="row">
