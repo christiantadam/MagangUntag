@@ -63,7 +63,11 @@
 
                                 </div>
 
+                                <div class="acs-div-filter pt-4">
 
+                                    <label for="keterangan">Keterangan</label>
+                                    <input type="text" class="form-control" id="keterangan" name="keterangan">
+                                </div>
                                 {{-- komen untuk tambah column teknisi di database --}}
                                 <div class="acs-div-filter pt-4">
                                     <label for="teknisi">Pilih Teknisi</label>
@@ -82,11 +86,7 @@
                                 {{-- komen untuk tambah column teknisi di database --}}
 
 
-                                <div class="acs-div-filter pt-4">
 
-                                    <label for="keterangan">Keterangan</label>
-                                    <input type="text" class="form-control" id="keterangan" name="keterangan">
-                                </div>
 
                             </div>
                             <div class="col-lg-2 p-4">
