@@ -120,7 +120,7 @@ updateButton.addEventListener("click", function () {
         mesin.disabled = true;
         jam.disabled = false;
         part.disabled = true;
-        keterangan.disabled = true;
+        keterangan.disabled = false;
         teknisi.disabled = false;
         deleteButton.disabled = true;
         inputButton.disabled = true;
@@ -263,7 +263,7 @@ $(document).ready(function () {
                     mesin.value = data.NoMesin;
                     jam.value = data.JamOperasi;
                     part.value = data.IdPart;
-                    // keterangan.value = data.NoKeteranganPart;
+                    keterangan.value = data.Keterangan;
                     teknisi.value = data.Teknisi;
 
                     getKeteranganData(data.IdPart);

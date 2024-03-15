@@ -101,11 +101,45 @@ class InputPerawatanController extends Controller
                 $id, $tanggal, $noMesin, $jamOperasi, $idPart, $keterangan, $teknisi, $UserInput
             ]);
 
-            return response()->json($data);
+            return response('hehe');//->json($data);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'An error occurred while saving the data. Please try again.');
         }
     }
+
+
+    // public function updatePerawatan2(Request $request)
+    // {
+    //     try {
+    //         $id = $request->input('id');
+    //         $tanggal = $request->input('Tanggal');
+    //         $noMesin = $request->input('NoMesin');
+    //         $jamOperasi = $request->input('JamOperasi');
+    //         $idPart = $request->input('IdPart');
+    //         $keterangan = $request->input('Keterangan');
+    //         $teknisi = $request->input('Teknisi');
+    //         $UserInput = Auth::user()->NomorUser;
+
+    //         $data = DB::connection('ConnUtility')->table('PERAWATAN_COMPRESSOR')->where('NoPerawatan',$id)->update([
+    //             'Tanggal'=>$tanggal,
+    //             'NoMesin'=>$noMesin,
+    //             'JamOperasi'=>$jamOperasi,
+    //             'IdPart'=>$idPart,
+    //             'NoKeteranganPart'=>$keterangan,
+    //             'Teknisi'=>$teknisi,
+    //             'UserInput'=>$UserInput,
+
+    //         ]);
+
+    //         return response()->json($data);
+    //     } catch (\Exception $e) {
+    //         return redirect()->back()->with('error', 'An error occurred while saving the data. Please try again.');
+    //     }
+    // }
+
+
+
+
 
     public function hapusPerawatan(Request $request)
     {
