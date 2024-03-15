@@ -19,7 +19,7 @@
                     <div class="card-body">
                         <div class="w-100 h-auto">
                             <div class="w-100 h-auto">
-                                <label for="filter">Search by:</label>
+                                <label class="font-weight-bold" for="filter">Search by:</label>
                                 <div class="row" id="formCekRedisplay">
                                     <div class="col-12 col-xl-10" style="height: 40px;">
                                         <div class="row align-items-center mx-2 mb-4 " style="border: 0.5px grey solid;">
@@ -32,14 +32,14 @@
                                             <div class="col-xl-2">
                                                 <input type="radio" name="filter_radioButton"
                                                     id="filter_radioButtonNomorOrder" value="NomorOrder"
-                                                    class="radio-button">
+                                                    class="radio-button font-weight-bold">
                                                 No. Order
                                             </div>
                                             <input type="text" name="search_NomorOrder" id="nomor_order"
                                                 class="input col-12 col-xl-3">
                                             <div class="col-xl-2">
                                                 <input type="radio" name="filter_radioButton" id="filter_radioButtonUser"
-                                                    value="User" class="radio-button">
+                                                    value="User" class="radio-button font-weight-bold">
                                                 User
                                             </div>
                                             <input type="text" name="search_User" id="user"
@@ -82,38 +82,38 @@
                                     <div class="col-12 mb-2">
                                         <div class="row align-items-center">
                                             <div class="col-4">
-                                                <label for="no_po">Nomor Order</label>
+                                                <label class="font-weight-bold" for="no_po">Nomor Order</label>
                                             </div>
                                             <div class="col-8 col-md-6">
-                                                <input type="text" name="no_po" id="no_po" class="form-control"
+                                                <input type="text" name="no_po" id="no_po" class="form-control font-weight-bold"
                                                     readonly>
                                             </div>
 
                                         </div>
                                     </div>
                                     <div class="col-12 mb-2">
-                                        <label for="status_beli">Status Beli</label>
+                                        <label class="font-weight-bold" for="status_beli">Status Beli</label>
                                         <div class="row align-items-center">
                                             <div class="col-6">
                                                 <input type="radio" name="status_beliRadioButton"
-                                                    id="status_beliPengadaanPembelian" class="input" disabled
+                                                    id="status_beliPengadaanPembelian" class="input font-weight-bold" disabled
                                                     checked>Pengadaan
                                                 Pembelian
                                             </div>
                                             <div style="col-6">
                                                 <input type="radio" name="status_beliRadioButton"
-                                                    id="status_beliBeliSendiri" class="input" disabled>Beli Sendiri
+                                                    id="status_beliBeliSendiri" class="input font-weight-bold" disabled>Beli Sendiri
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-12 mb-2">
                                         <div class="row align-items-center">
                                             <div class="col-4">
-                                                <label for="tanggal_dibutuhkan">Tanggal Dibutuhkan</label>
+                                                <label class="font-weight-bold" for="tanggal_dibutuhkan">Tanggal Dibutuhkan</label>
                                             </div>
                                             <div class="col-8 col-md-6">
                                                 <input type="date" name="tanggal_dibutuhkan" id="tanggal_dibutuhkan"
-                                                    class="form-control" readonly>
+                                                    class="form-control font-weight-bold" readonly>
                                             </div>
 
                                         </div>
@@ -121,10 +121,10 @@
                                     <div class="col-12 mb-2">
                                         <div class="row align-items-center">
                                             <div class="col-4">
-                                                <label for="divisi">Divisi</label>
+                                                <label class="font-weight-bold" for="divisi">Divisi</label>
                                             </div>
                                             <div class="col-8 col-md-6">
-                                                <input type="text" name="divisi" id="divisi" class="form-control"
+                                                <input type="text" name="divisi" id="divisi" class="form-control font-weight-bold"
                                                     readonly>
                                             </div>
                                         </div>
@@ -132,11 +132,11 @@
                                     <div class="col-12 mb-2">
                                         <div class="row align-items-center">
                                             <div class="col-4">
-                                                <label for="kode_barang">Kode Barang</label>
+                                                <label class="font-weight-bold" for="kode_barang">Kode Barang</label>
                                             </div>
                                             <div class="col-8 col-md-6">
                                                 <input type="text" name="kode_barang" id="kode_barang"
-                                                    class="form-control" readonly>
+                                                    class="form-control font-weight-bold" readonly>
 
                                             </div>
                                         </div>
@@ -144,11 +144,11 @@
                                     <div class="col-12 mb-2">
                                         <div class="row align-items-center">
                                             <div class="col-4">
-                                                <label for="nama_barang">Nama Barang</label>
+                                                <label class="font-weight-bold" for="nama_barang">Nama Barang</label>
                                             </div>
                                             <div class="col-8 col-md-6">
                                                 <input type="text" name="nama_barang" id="nama_barang"
-                                                    class="form-control" readonly>
+                                                    class="form-control font-weight-bold" readonly>
 
                                             </div>
                                         </div>
@@ -156,11 +156,11 @@
                                     <div class="col-12 mb-2">
                                         <div class="row align-items-center">
                                             <div class="col-4">
-                                                <label for="sub_kategori">Sub Kategori</label>
+                                                <label class="font-weight-bold" for="sub_kategori">Sub Kategori</label>
                                             </div>
                                             <div class="col-8 col-md-6">
                                                 <input type="text" name="sub_kategori" id="sub_kategori"
-                                                    class="form-control" readonly>
+                                                    class="form-control font-weight-bold" readonly>
 
                                             </div>
                                         </div>
@@ -168,11 +168,11 @@
                                     <div class="col-12 mb-2">
                                         <div class="row align-items-center">
                                             <div class="col-4">
-                                                <label for="keterangan_order">Keterangan Order</label>
+                                                <label class="font-weight-bold" for="keterangan_order">Keterangan Order</label>
                                             </div>
                                             <div class="col-8 col-md-6">
                                                 <input type="text" name="keterangan_order" id="keterangan_order"
-                                                    class="form-control" value="-" readonly>
+                                                    class="form-control font-weight-bold" value="-" readonly>
 
                                             </div>
                                         </div>
@@ -180,11 +180,11 @@
                                     <div class="col-12 mb-2">
                                         <div class="row align-items-center">
                                             <div class="col-4">
-                                                <label for="keterangan_internal">Keterangan Internal</label>
+                                                <label class="font-weight-bold" for="keterangan_internal">Keterangan Internal</label>
                                             </div>
                                             <div class="col-8 col-md-6">
                                                 <input type="text" name="keterangan_internal" id="keterangan_internal"
-                                                    class="form-control" value="-" readonly>
+                                                    class="form-control font-weight-bold" value="-" readonly>
 
                                             </div>
                                         </div>
@@ -192,11 +192,11 @@
                                     <div class="col-12 mb-2">
                                         <div class="row align-items-center">
                                             <div class="col-4">
-                                                <label for="user_input">User</label>
+                                                <label class="font-weight-bold" for="user_input">User</label>
                                             </div>
                                             <div class="col-8 col-md-6">
                                                 <input type="text" name="user_input" id="user_input"
-                                                    class="form-control" readonly>
+                                                    class="form-control font-weight-bold" readonly>
                                             </div>
                                         </div>
                                     </div>
@@ -207,22 +207,22 @@
                                             <div class="col-6">
                                                 <div class="row">
                                                     <div class="col-4">
-                                                        <label for="qty_order">Qty Order</label>
+                                                        <label class="font-weight-bold" for="qty_order">Qty Order</label>
                                                     </div>
                                                     <div class="col-8">
                                                         <input type="text" name="qty_order" id="qty_order"
-                                                            class="form-control" value="0">
+                                                            class="form-control font-weight-bold" value="0">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="row">
                                                     <div class="col-4">
-                                                        <label for="qty_delay">Qty Delay</label>
+                                                        <label class="font-weight-bold" for="qty_delay">Qty Delay</label>
                                                     </div>
                                                     <div class="col-8">
                                                         <input type="text" name="qty_delay" id="qty_delay"
-                                                            class="form-control" value="0">
+                                                            class="form-control font-weight-bold" value="0">
                                                     </div>
                                                 </div>
                                             </div>
@@ -231,7 +231,7 @@
                                     <div class="col-12">
                                         <div class="row align-items-center">
                                             <div class="col-4 col-md-2">
-                                                <label for="supplier">Supplier</label>
+                                                <label class="font-weight-bold" for="supplier">Supplier</label>
                                             </div>
                                             <div class="col-8 col-md-10">
                                                 <select name="supplier_select" id="supplier_select" class="w-100 input">
@@ -243,7 +243,7 @@
                                     <div class="col-12">
                                         <div class="row align-items-center">
                                             <div class="col-4 col-md-2">
-                                                <label for="mata_uang">Mata Uang</label>
+                                                <label class="font-weight-bold" for="mata_uang">Mata Uang</label>
                                             </div>
                                             <div class="col-8 col-md-10">
                                                 <select name="matauang_select" id="matauang_select" class="w-100 input"
@@ -256,10 +256,10 @@
                                     <div class="col-12">
                                         <div class="row align-items-center">
                                             <div class="col-4 col-md-2">
-                                                <label for="kurs">Kurs</label>
+                                                <label class="font-weight-bold" for="kurs">Kurs</label>
                                             </div>
                                             <div class="col-8 col-md-10">
-                                                <input type="text" name="kurs" id="kurs" class="form-control"
+                                                <input type="text" name="kurs" id="kurs" class="form-control font-weight-bold"
                                                     value="1">
                                             </div>
                                         </div>
@@ -269,22 +269,22 @@
                                             <div class="col-6">
                                                 <div class="row">
                                                     <div class="col-4">
-                                                        <label for="harga_unit">Harga Unit</label>
+                                                        <label class="font-weight-bold" for="harga_unit">Harga Unit</label>
                                                     </div>
                                                     <div class="col-8">
                                                         <input type="text" name="harga_unit" id="harga_unit"
-                                                            class="form-control" value="0">
+                                                            class="form-control font-weight-bold" value="0">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="row">
                                                     <div class="col-4">
-                                                        <label for="idr_unit">IDR Unit</label>
+                                                        <label class="font-weight-bold" for="idr_unit">IDR Unit</label>
                                                     </div>
                                                     <div class="col-8">
                                                         <input type="text" name="idr_unit" id="idr_unit"
-                                                            class="form-control" value="0" readonly>
+                                                            class="form-control font-weight-bold" value="0" readonly>
                                                     </div>
                                                 </div>
                                             </div>
@@ -295,22 +295,22 @@
                                             <div class="col-6">
                                                 <div class="row">
                                                     <div class="col-4">
-                                                        <label for="harga_sub_total">Harga Sub Total</label>
+                                                        <label class="font-weight-bold" for="harga_sub_total">Harga Sub Total</label>
                                                     </div>
                                                     <div class="col-8">
                                                         <input type="text" name="harga_sub_total" id="harga_sub_total"
-                                                            class="form-control" value="0" readonly>
+                                                            class="form-control font-weight-bold" value="0" readonly>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="row">
                                                     <div class="col-4">
-                                                        <label for="idr_sub_total">IDR Sub Total</label>
+                                                        <label class="font-weight-bold" for="idr_sub_total">IDR Sub Total</label>
                                                     </div>
                                                     <div class="col-8">
                                                         <input type="text" name="idr_sub_total" id="idr_sub_total"
-                                                            class="form-control" value="0" readonly>
+                                                            class="form-control font-weight-bold" value="0" readonly>
                                                     </div>
                                                 </div>
                                             </div>
@@ -321,25 +321,25 @@
                                             <div class="col-6">
                                                 <div class="row">
                                                     <div class="col-4">
-                                                        <label for="ppn">PPN %</label>
+                                                        <label class="font-weight-bold" for="ppn">PPN %</label>
                                                     </div>
                                                     <div class="col-8">
                                                         <select name="ppn_select" id="ppn_select" class="w-100 input">
                                                             <option class="w-100" selected disabled></option>
                                                         </select>
                                                         <input type="text" name="ppn" id="ppn"
-                                                            class="form-control" value="0" readonly>
+                                                            class="form-control font-weight-bold" value="0" readonly>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="row">
                                                     <div class="col-4">
-                                                        <label for="idr_ppn">IDR PPN</label>
+                                                        <label class="font-weight-bold" for="idr_ppn">IDR PPN</label>
                                                     </div>
                                                     <div class="col-8">
                                                         <input type="text" name="idr_ppn" id="idr_ppn"
-                                                            class="form-control" value="0" readonly>
+                                                            class="form-control font-weight-bold" value="0" readonly>
                                                     </div>
                                                 </div>
                                             </div>
@@ -350,22 +350,22 @@
                                             <div class="col-6">
                                                 <div class="row">
                                                     <div class="col-4">
-                                                        <label for="harga_total">Harga Total</label>
+                                                        <label class="font-weight-bold" for="harga_total">Harga Total</label>
                                                     </div>
                                                     <div class="col-8">
                                                         <input type="text" name="harga_total" id="harga_total"
-                                                            class="form-control" readonly>
+                                                            class="form-control font-weight-bold" readonly>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-6">
                                                 <div class="row">
                                                     <div class="col-4">
-                                                        <label for="idr_harga_total">IDR Total</label>
+                                                        <label class="font-weight-bold" for="idr_harga_total">IDR Total</label>
                                                     </div>
                                                     <div class="col-8">
                                                         <input type="text" name="idr_harga_total" id="idr_harga_total"
-                                                            class="form-control" readonly>
+                                                            class="form-control font-weight-bold" readonly>
                                                     </div>
                                                 </div>
                                             </div>
@@ -374,10 +374,10 @@
                                     <div class="col-12">
                                         <div class="row align-items-center">
                                             <div class="col-4 col-md-2">
-                                                <label for="alasan_reject">Alasan Reject</label>
+                                                <label class="font-weight-bold" for="alasan_reject">Alasan Reject</label>
                                             </div>
                                             <div class="col-8 col-md-10">
-                                                <textarea rows="1" type="text" name="alasan_reject" id="alasan_reject" class="form-control"></textarea>
+                                                <textarea rows="1" type="text" name="alasan_reject" id="alasan_reject" class="form-control font-weight-bold"></textarea>
 
                                             </div>
                                         </div>

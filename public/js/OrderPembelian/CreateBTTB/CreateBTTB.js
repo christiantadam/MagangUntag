@@ -399,7 +399,7 @@ function print(data) {
                                 <th style="text-align: center;"><h1 style="font-size: 13px;font-family: Helvetica; font-weight: bold; line-height: 13.8px">Remaining</h1></th>
                             </tr>
                         </thead>
-                        <tbody style="border-top: 4px dotted black;">
+                        <tbody style="border-top: 1px solid black;">
                             ${tableRows}
                         </tbody>
                     </table>

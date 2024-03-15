@@ -22,26 +22,26 @@
                             <div class="col-6 col-xl-4">
                                 <div class="row align-items-center">
                                     <div class="col-2">
-                                        <label for="nomor_po" class="form-label">No PO</label>
+                                        <label for="nomor_po" class="form-label font-weight-bold">No PO</label>
                                     </div>
                                     <div class="col-10">
-                                        <input type="text" class="form-control" id="nomor_po" name="nomor_po">
+                                        <input type="text" class="form-control font-weight-bold" id="nomor_po" name="nomor_po">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-6 col-xl-4">
                                 <div class="row align-items-center">
                                     <div class="col-2">
-                                        <label for="suplier" class="form-label">Suplier</label>
+                                        <label for="suplier" class="form-label font-weight-bold">Suplier</label>
                                     </div>
                                     <div class="col-10">
                                         <div class="row">
                                             <div class="col-4">
-                                                <input type="text" class="form-control" id="idsuplier"
+                                                <input type="text" class="form-control font-weight-bold" id="idsuplier"
                                                     name="idsuplier"readonly>
                                             </div>
                                             <div class="col-8">
-                                                <input type="text" class="form-control" id="suplier"
+                                                <input type="text" class="form-control font-weight-bold" id="suplier"
                                                     name="suplier" readonly>
                                             </div>
                                         </div>
@@ -51,10 +51,10 @@
                             <div class="col-6 col-xl-4">
                                 <div class="row align-items-center">
                                     <div class="col-2">
-                                        <label for="payment" class="form-label">Payment Term</label>
+                                        <label for="payment" class="form-label font-weight-bold">Payment Term</label>
                                     </div>
                                     <div class="col-10">
-                                        <input type="text" class="form-control" id="payment"
+                                        <input type="text" class="form-control font-weight-bold" id="payment"
                                             name="payment"readonly>
                                     </div>
                                 </div>
@@ -62,10 +62,10 @@
                             <div class="col-6 col-xl-4">
                                 <div class="row align-items-center">
                                     <div class="col-2">
-                                        <label for="tanggal_po" class="form-label">Tanggal PO</label>
+                                        <label for="tanggal_po" class="form-label font-weight-bold">Tanggal PO</label>
                                     </div>
                                     <div class="col-10">
-                                        <input type="date" class="form-control" id="tanggal_po" name="tanggal_po"
+                                        <input type="date" class="form-control font-weight-bold" id="tanggal_po" name="tanggal_po"
                                             value="{{ date('Y-m-d') }}" readonly>
                                     </div>
                                 </div>
@@ -73,10 +73,10 @@
                             <div class="col-6 col-xl-4">
                                 <div class="row align-items-center">
                                     <div class="col-2">
-                                        <label for="tanggalkirim" class="form-label">Tanggal Mohon Kirim</label>
+                                        <label for="tanggalkirim" class="form-label font-weight-bold">Tanggal Mohon Kirim</label>
                                     </div>
                                     <div class="col-10">
-                                        <input type="date" class="form-control" id="tanggalkirim"
+                                        <input type="date" class="form-control font-weight-bold" id="tanggalkirim"
                                             name="tanggalkirim" value="{{ date('Y-m-d') }}" readonly>
                                     </div>
                                 </div>
@@ -84,10 +84,10 @@
                             <div class="col-6 col-xl-4">
                                 <div class="row align-items-center">
                                     <div class="col-2">
-                                        <label for="matauang" class="form-label">Mata uang</label>
+                                        <label for="matauang" class="form-label font-weight-bold">Mata uang</label>
                                     </div>
                                     <div class="col-10">
-                                        <input type="text" class="form-control" id="matauang"
+                                        <input type="text" class="form-control font-weight-bold" id="matauang"
                                             name="matauang"readonly>
                                     </div>
                                 </div>
@@ -153,10 +153,10 @@
                                 <div class="col-12 mb-2">
                                     <div class="row align-items-center">
                                         <div class="col-4">
-                                            <label for="kdbarang" class="form-label">Kode Barang</label>
+                                            <label for="kdbarang" class="form-label font-weight-bold">Kode Barang</label>
                                         </div>
                                         <div class="col-8 col-md-6">
-                                            <input type="text" class="form-control" id="kdbarang"
+                                            <input type="text" class="form-control font-weight-bold" id="kdbarang"
                                                 name="kdbarang" readonly>
                                         </div>
 
@@ -165,10 +165,10 @@
                                 <div class="col-12 mb-2">
                                     <div class="row align-items-center">
                                         <div class="col-4">
-                                            <label for="namabarang" class="form-label">Nama Barang</label>
+                                            <label for="namabarang" class="form-label font-weight-bold">Nama Barang</label>
                                         </div>
                                         <div class="col-8 col-md-6">
-                                            <input type="text" class="form-control" id="namabarang"
+                                            <input type="text" class="form-control font-weight-bold" id="namabarang"
                                                 name="namabarang" readonly>
                                         </div>
                                     </div>
@@ -176,10 +176,10 @@
                                 <div class="col-12 mb-2">
                                     <div class="row align-items-center">
                                         <div class="col-4">
-                                            <label for="subkategori" class="form-label">Sub Kategori</label>
+                                            <label for="subkategori" class="form-label font-weight-bold">Sub Kategori</label>
                                         </div>
                                         <div class="col-8 col-md-6">
-                                            <input type="text" class="form-control" id="subkategori"
+                                            <input type="text" class="form-control font-weight-bold" id="subkategori"
                                                 name="subkategori"readonly>
                                         </div>
                                     </div>
@@ -187,10 +187,10 @@
                                 <div class="col-12 mb-2">
                                     <div class="row align-items-center">
                                         <div class="col-4">
-                                            <label for="bttb" class="form-label">No. BTTB</label>
+                                            <label for="bttb" class="form-label font-weight-bold">No. BTTB</label>
                                         </div>
                                         <div class="col-8 col-md-6">
-                                            <input type="text" class="form-control" id="bttb"
+                                            <input type="text" class="form-control font-weight-bold" id="bttb"
                                                 name="bttb"readonly>
                                         </div>
                                     </div>
@@ -198,10 +198,10 @@
                                 <div class="col-12 mb-2">
                                     <div class="row align-items-center">
                                         <div class="col-4">
-                                            <label for="sj" class="form-label">No. SJ</label>
+                                            <label for="sj" class="form-label font-weight-bold">No. SJ</label>
                                         </div>
                                         <div class="col-8 col-md-6">
-                                            <input type="text" class="form-control" id="sj"
+                                            <input type="text" class="form-control font-weight-bold" id="sj"
                                                 name="sj"readonly>
                                         </div>
                                     </div>
@@ -209,10 +209,10 @@
                                 <div class="col-12 mb-2">
                                     <div class="row align-items-center">
                                         <div class="col-4">
-                                            <label for="id_terima" class="form-label">Id Terima</label>
+                                            <label for="id_terima" class="form-label font-weight-bold">Id Terima</label>
                                         </div>
                                         <div class="col-8 col-md-6">
-                                            <input type="text" class="form-control" id="id_terima"
+                                            <input type="text" class="form-control font-weight-bold" id="id_terima"
                                                 name="id_terima"readonly>
                                         </div>
                                     </div>
@@ -220,10 +220,10 @@
                                 <div class="col-12 mb-2">
                                     <div class="row align-items-center">
                                         <div class="col-4">
-                                            <label for="qty_terima" class="form-label">Qty Terima</label>
+                                            <label for="qty_terima" class="form-label font-weight-bold">Qty Terima</label>
                                         </div>
                                         <div class="col-8 col-md-6">
-                                            <input type="text" class="form-control" id="qty_terima"
+                                            <input type="text" class="form-control font-weight-bold" id="qty_terima"
                                                 name="qty_terima">
                                         </div>
                                     </div>
@@ -233,10 +233,10 @@
                                 <div class="col-12 mb-2">
                                     <div class="row align-items-center">
                                         <div class="col-4">
-                                            <label for="tanggalretur" class="form-label">Tanggal Retur</label>
+                                            <label for="tanggalretur" class="form-label font-weight-bold">Tanggal Retur</label>
                                         </div>
                                         <div class="col-8 col-md-6">
-                                            <input type="date" class="form-control" id="tanggalretur"
+                                            <input type="date" class="form-control font-weight-bold" id="tanggalretur"
                                                 name="tanggalretur" value="{{ date('Y-m-d') }}">
                                         </div>
                                     </div>
@@ -244,10 +244,10 @@
                                 <div class="col-12 mb-2">
                                     <div class="row align-items-center">
                                         <div class="col-4">
-                                            <label for="type" class="form-label">Id Type</label>
+                                            <label for="type" class="form-label font-weight-bold">Id Type</label>
                                         </div>
                                         <div class="col-8 col-md-6">
-                                            <input type="text" class="form-control" id="type"
+                                            <input type="text" class="form-control font-weight-bold" id="type"
                                                 name="type" readonly>
                                         </div>
                                     </div>
@@ -255,10 +255,10 @@
                                 <div class="col-12 mb-2">
                                     <div class="row align-items-center">
                                         <div class="col-4">
-                                            <label for="kelompok" class="form-label">Kelompok</label>
+                                            <label for="kelompok" class="form-label font-weight-bold">Kelompok</label>
                                         </div>
                                         <div class="col-8 col-md-6">
-                                            <input type="text" class="form-control" id="kelompok"
+                                            <input type="text" class="form-control font-weight-bold" id="kelompok"
                                                 name="kelompok"readonly>
                                         </div>
                                     </div>
@@ -266,10 +266,10 @@
                                 <div class="col-12 mb-2">
                                     <div class="row align-items-center">
                                         <div class="col-4">
-                                            <label for="returprimer" class="form-label">Qty Primer</label>
+                                            <label for="returprimer" class="form-label font-weight-bold">Qty Primer</label>
                                         </div>
                                         <div class="col-8 col-md-6">
-                                            <input type="text" class="form-control" id="returprimer"
+                                            <input type="text" class="form-control font-weight-bold" id="returprimer"
                                                 name="returprimer">
                                         </div>
                                     </div>
@@ -277,10 +277,10 @@
                                 <div class="col-12 mb-2">
                                     <div class="row align-items-center">
                                         <div class="col-4">
-                                            <label for="sekunder" class="form-label">Qty Sekunder</label>
+                                            <label for="sekunder" class="form-label font-weight-bold">Qty Sekunder</label>
                                         </div>
                                         <div class="col-8 col-md-6">
-                                            <input type="text" class="form-control" id="sekunder"
+                                            <input type="text" class="form-control font-weight-bold" id="sekunder"
                                                 name="sekunder">
                                         </div>
                                     </div>
@@ -288,10 +288,10 @@
                                 <div class="col-12 mb-2">
                                     <div class="row align-items-center">
                                         <div class="col-4">
-                                            <label for="tertier" class="form-label">Qty Tertier</label>
+                                            <label for="tertier" class="form-label font-weight-bold">Qty Tertier</label>
                                         </div>
                                         <div class="col-8 col-md-6">
-                                            <input type="text" class="form-control" id="tertier"
+                                            <input type="text" class="form-control font-weight-bold" id="tertier"
                                                 name="tertier">
                                         </div>
                                     </div>
@@ -299,10 +299,10 @@
                                 <div class="col-12 mb-2">
                                     <div class="row align-items-center">
                                         <div class="col-4">
-                                            <label for="alasan" class="form-label">Alasan</label>
+                                            <label for="alasan" class="form-label font-weight-bold">Alasan</label>
                                         </div>
                                         <div class="col-8 col-md-6">
-                                            <textarea rows="4" type="text" class="form-control" id="alasan"
+                                            <textarea rows="4" type="text" class="form-control font-weight-bold" id="alasan"
                                                 name="alasan"></textarea>
                                         </div>
                                     </div>
@@ -310,7 +310,7 @@
                                 <div class="col-12 mb-2">
                                     <div class="row align-items-center">
                                         <div class="col-4">
-                                            <label for="keterangan" class="form-label">Keterangan :</label>
+                                            <label for="keterangan" class="form-label font-weight-bold">Keterangan :</label>
                                         </div>
                                         <div class="col-8 col-md-6">
                                             <span id="keterangan"></span>
