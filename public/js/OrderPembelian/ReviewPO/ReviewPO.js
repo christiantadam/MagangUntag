@@ -45,48 +45,90 @@ function LoadPermohonan(data) {
             },
             {
                 data: "Qty",
+                render: function (data) {
+                    return numeral(parseFloat(data)).format("0.00");
+                },
             },
             {
                 data: "Nama_satuan",
             },
             {
                 data: "QtyCancel",
+                render: function (data) {
+                    return numeral(parseFloat(data)).format("0.00");
+                },
             },
             {
                 data: "PriceUnit",
+                render: function (data) {
+                    return numeral(parseFloat(data)).format("0,0.0000");
+                },
             },
             {
                 data: "PriceSub",
+                render: function (data) {
+                    return numeral(parseFloat(data)).format("0,0.0000");
+                },
             },
             {
                 data: "PPN",
+                render: function (data) {
+                    return numeral(parseFloat(data)).format("0,0.0000");
+                },
             },
             {
                 data: "PriceExt",
+                render: function (data) {
+                    return numeral(parseFloat(data)).format("0,0.0000");
+                },
             },
             {
                 data: "Kurs",
+                render: function (data) {
+                    return numeral(parseFloat(data)).format("0.0000");
+                },
             },
             {
                 data: "PriceUnitIDR",
+                render: function (data) {
+                    return numeral(parseFloat(data)).format("0,0.0000");
+                },
             },
             {
                 data: "PriceSubIDR",
+                render: function (data) {
+                    return numeral(parseFloat(data)).format("0,0.0000");
+                },
             },
             {
                 data: "PriceUnitIDR_PPN",
+                render: function (data) {
+                    return numeral(parseFloat(data)).format("0,0.0000");
+                },
             },
             {
                 data: "PriceExtIDR",
+                render: function (data) {
+                    return numeral(parseFloat(data)).format("0,0.0000");
+                },
             },
             {
                 data: "Disc",
+                render: function (data) {
+                    return numeral(parseFloat(data)).format("0.00");
+                },
             },
             {
                 data: "DiscHarga",
+                render: function (data) {
+                    return numeral(parseFloat(data)).format("0,0.0000");
+                },
             },
             {
                 data: "DiscIDR",
+                render: function (data) {
+                    return numeral(parseFloat(data)).format("0,0.0000");
+                },
             },
         ],
     });
@@ -231,7 +273,7 @@ function print(data) {
                                   item.harga_disc == null ? 0 : item.harga_disc
                               ).toLocaleString("en-US")
                     }</p></td>
-                    <td style="text-align: center;"><p style="line-height: 13.8px; font-size: 13px;font-family: Helvetica;">${
+                    <td style="text-align: right;"><p style="line-height: 13.8px; font-size: 13px;font-family: Helvetica;">${
                         !parseFloat(item.PriceSub)
                             .toLocaleString("en-US")
                             .includes(".")
@@ -246,7 +288,7 @@ function print(data) {
         });
 
         const print = `
-        <div style="width: 20.5cm; height: 27.94cm; padding: 8px; margin: 0; background: #FFFFFF; box-sizing: border-box; page-break-after: ${
+        <div style="width: 20.5cm; height: 27.94cm; padding: 30px 10px 0px 10px; margin: 0; background: #FFFFFF; box-sizing: border-box; page-break-after: ${
             chunkIndex < chunkedData.length - 1 ? `always` : `avoid`
         };">
             <div style="width: 100%; height : 15%;">
@@ -254,7 +296,7 @@ function print(data) {
             <main style="width: 100%; height : 70%;">
                 <div style="width: 100%; height: auto; display: flex;">
                     <div style="width: 50%; height: auto; margin-right: 20px;">
-                        <h1 style="font-size: 13px;font-family: Helvetica; font-weight: bold; margin:2px 0;">Issued To:</h1>
+                        <h1 style="font-size: 13px;font-family: Helvetica; font-weight: bold; margin:2px 0 10px 0;">Issued To:</h1>
                         <p style="font-size: 13px;font-family: Helvetica; margin: 2px 0;">${
                             data.printHeader[0].NM_SUP
                         }</p>
@@ -319,7 +361,7 @@ function print(data) {
                                 <h1 style="font-size: 13px;font-family: Helvetica; font-weight: bold; margin: 2px 0;">Divisi</h1>
                             </div>
                             <div style="width: 70%; height: auto;">
-                                <p style="font-size: 13px;font-family: Helvetica; margin: 2px 0;">: ${data.printHeader[0].Kd_div.trim()} - ${data.printHeader[0].NM_DIV.trim()}</p>
+                                <div  style="font-size: 13px;font-family: Helvetica; margin: 2px 0; display:flex"><span>:</span> <p style="font-size: 13px;font-family: Helvetica; margin: 0 0 0 4px">${data.printHeader[0].Kd_div.trim()} - ${data.printHeader[0].NM_DIV.trim()}</p></div>
                             </div>
                         </div>
                         <div style="width: 100%; display: flex;">

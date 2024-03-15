@@ -33,21 +33,21 @@
                             <div class="col-6 col-xl-4">
                                 <div class="row align-items-center">
                                     <div class="col-2">
-                                        <label for="nomor_purchaseOrder">No. PO</label>
+                                        <label class="font-weight-bold" for="nomor_purchaseOrder">No. PO</label>
                                     </div>
                                     <div class="col-10">
                                         <input type="text" name="nomor_purchaseOrder" id="nomor_purchaseOrder"
-                                            class="form-control" value="{{ $No_PO }}" readonly>
+                                            class="form-control font-weight-bold" value="{{ $No_PO }}" readonly>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-6 col-xl-4">
                                 <div class="row align-items-center">
                                     <div class="col-2">
-                                        <label for="supplier">Supplier</label>
+                                        <label class="font-weight-bold" for="supplier">Supplier</label>
                                     </div>
                                     <div class="col-10">
-                                        <select class="form-control" name="supplier_select" id="supplier_select" disabled>
+                                        <select class="form-control font-weight-bold" name="supplier_select" id="supplier_select" disabled>
                                             <option selected disabled>-- Pilih Supplier --</option>
                                             @foreach ($supplier as $data)
                                                 <option value="{{ $data->NO_SUP }}">{{ $data->NM_SUP }}</option>
@@ -59,11 +59,11 @@
                             <div class="col-6 col-xl-4">
                                 <div class="row align-items-center">
                                     <div class="col-2">
-                                        <label for="paymentTerm">Payment Term</label>
+                                        <label class="font-weight-bold" for="paymentTerm">Payment Term</label>
 
                                     </div>
                                     <div class="col-10">
-                                        <select class="form-control" name="paymentTerm_select" id="paymentTerm_select">
+                                        <select class="form-control font-weight-bold" name="paymentTerm_select" id="paymentTerm_select">
                                             <option selected disabled>-- Choose Payment Term --</option>
                                             @foreach ($listPayment as $data)
                                                 <option value="{{ $data->Kode }}">{{ $data->Pembayaran }}</option>
@@ -75,33 +75,33 @@
                             <div class="col-6 col-xl-4">
                                 <div class="row align-items-center">
                                     <div class="col-2">
-                                        <label for="tanggal_mohonKirim">Tanggal Mohon Kirim</label>
+                                        <label class="font-weight-bold" for="tanggal_mohonKirim">Tanggal Mohon Kirim</label>
                                     </div>
                                     <div class="col-10">
                                         <input type="date" name="tanggal_mohonKirim" id="tanggal_mohonKirim"
-                                            class="form-control">
+                                            class="form-control font-weight-bold">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-6 col-xl-4">
                                 <div class="row align-items-center">
                                     <div class="col-2">
-                                        <label for="tanggal_purchaseOrder">Tanggal PO</label>
+                                        <label class="font-weight-bold" for="tanggal_purchaseOrder">Tanggal PO</label>
                                     </div>
                                     <div class="col-10">
                                         <input type="date" name="tanggal_purchaseOrder" id="tanggal_purchaseOrder"
-                                            class="form-control">
+                                            class="form-control font-weight-bold">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-6 col-xl-4">
                                 <div class="row align-items-center">
                                     <div class="col-2">
-                                        <label for="mata_uang">Mata Uang</label>
+                                        <label class="font-weight-bold" for="mata_uang">Mata Uang</label>
 
                                     </div>
                                     <div class="col-10">
-                                        <select class="form-control" name="matauang_select" id="matauang_select" disabled>
+                                        <select class="form-control font-weight-bold" name="matauang_select" id="matauang_select" disabled>
                                             <option selected disabled>-- Pilih Mata Uang --</option>
                                             @foreach ($mataUang as $data)
                                                 <option value="{{ $data->Id_MataUang }}">{{ $data->Nama_MataUang }}
@@ -150,10 +150,10 @@
                                 <div class="col-12 mb-2">
                                     <div class="row align-items-center">
                                         <div class="col-4">
-                                            <label for="no_po">Nomor Order</label>
+                                            <label class="font-weight-bold" for="no_po">Nomor Order</label>
                                         </div>
                                         <div class="col-8 col-md-6">
-                                            <input type="text" name="no_po" id="no_po" class="form-control"
+                                            <input type="text" name="no_po" id="no_po" class="form-control font-weight-bold"
                                                 readonly>
                                         </div>
 
@@ -162,11 +162,11 @@
                                 <div class="col-12 mb-2">
                                     <div class="row align-items-center">
                                         <div class="col-4">
-                                            <label for="kode_barang">Kode Barang</label>
+                                            <label class="font-weight-bold" for="kode_barang">Kode Barang</label>
                                         </div>
                                         <div class="col-8 col-md-6">
                                             <input type="text" name="kode_barang" id="kode_barang"
-                                                class="form-control" readonly>
+                                                class="form-control font-weight-bold" readonly>
 
                                         </div>
                                     </div>
@@ -174,11 +174,11 @@
                                 <div class="col-12 mb-2">
                                     <div class="row align-items-center">
                                         <div class="col-4">
-                                            <label for="nama_barang">Nama Barang</label>
+                                            <label class="font-weight-bold" for="nama_barang">Nama Barang</label>
                                         </div>
                                         <div class="col-8 col-md-6">
                                             <input type="text" name="nama_barang" id="nama_barang"
-                                                class="form-control" readonly>
+                                                class="form-control font-weight-bold" readonly>
 
                                         </div>
                                     </div>
@@ -186,11 +186,11 @@
                                 <div class="col-12 mb-2">
                                     <div class="row align-items-center">
                                         <div class="col-4">
-                                            <label for="sub_kategori">Sub Kategori</label>
+                                            <label class="font-weight-bold" for="sub_kategori">Sub Kategori</label>
                                         </div>
                                         <div class="col-8 col-md-6">
                                             <input type="text" name="sub_kategori" id="sub_kategori"
-                                                class="form-control" readonly>
+                                                class="form-control font-weight-bold" readonly>
 
                                         </div>
                                     </div>
@@ -198,11 +198,11 @@
                                 <div class="col-12 mb-2">
                                     <div class="row align-items-center">
                                         <div class="col-4">
-                                            <label for="keterangan_order">Keterangan Order</label>
+                                            <label class="font-weight-bold" for="keterangan_order">Keterangan Order</label>
                                         </div>
                                         <div class="col-8 col-md-6">
                                             <input type="text" name="keterangan_order" id="keterangan_order"
-                                                class="form-control" value="-" readonly>
+                                                class="form-control font-weight-bold" value="-" readonly>
 
                                         </div>
                                     </div>
@@ -210,11 +210,11 @@
                                 <div class="col-12 mb-2">
                                     <div class="row align-items-center">
                                         <div class="col-4">
-                                            <label for="keterangan_internal">Keterangan Internal</label>
+                                            <label class="font-weight-bold" for="keterangan_internal">Keterangan Internal</label>
                                         </div>
                                         <div class="col-8 col-md-6">
                                             <input type="text" name="keterangan_internal" id="keterangan_internal"
-                                                class="form-control" value="-" readonly>
+                                                class="form-control font-weight-bold" value="-" readonly>
 
                                         </div>
                                     </div>
@@ -222,10 +222,10 @@
                                 <div class="col-12 mb-2">
                                     <div class="row align-items-center">
                                         <div class="col-4">
-                                            <label for="alasan_reject">Alasan Reject</label>
+                                            <label class="font-weight-bold" for="alasan_reject">Alasan Reject</label>
                                         </div>
                                         <div class="col-8 col-md-6">
-                                            <textarea rows="4" type="text" name="alasan_reject" id="alasan_reject" class="form-control"></textarea>
+                                            <textarea rows="2" type="text" name="alasan_reject" id="alasan_reject" class="form-control font-weight-bold"></textarea>
 
                                         </div>
                                     </div>
@@ -237,116 +237,116 @@
                                         <div class="col-6">
                                             <div class="row">
                                                 <div class="col-4">
-                                                    <label for="qty_order">Qty Order</label>
+                                                    <label class="font-weight-bold" for="qty_order">Qty Order</label>
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="qty_order" id="qty_order"
-                                                        class="form-control" value="0">
+                                                        class="form-control font-weight-bold" value="0">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="row">
                                                 <div class="col-4">
-                                                    <label for="qty_delay">Qty Delay</label>
+                                                    <label class="font-weight-bold" for="qty_delay">Qty Delay</label>
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="qty_delay" id="qty_delay"
-                                                        class="form-control" value="0">
+                                                        class="form-control font-weight-bold" value="0">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 mb-2">
+                                <div class="col-12">
                                     <div class="row align-items-center">
                                         <div class="col-6">
                                             <div class="row">
                                                 <div class="col-4">
-                                                    <label for="kurs">Kurs</label>
+                                                    <label class="font-weight-bold" for="kurs">Kurs</label>
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="kurs" id="kurs"
-                                                        class="form-control" value="1">
+                                                        class="form-control font-weight-bold" value="1">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="row">
                                                 <div class="col-4">
-                                                    <label for="disc">Disc %</label>
+                                                    <label class="font-weight-bold" for="disc">Disc %</label>
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="disc" id="disc"
-                                                        class="form-control" value="0">
+                                                        class="form-control font-weight-bold" value="0">
                                                     <input type="text" name="total_disc" id="total_disc"
-                                                        class="form-control" value="0">
+                                                        class="form-control font-weight-bold" value="0">
                                                     <input type="text" name="idr_total_disc" id="idr_total_disc"
-                                                        class="form-control" value="0" style="display: none"
+                                                        class="form-control font-weight-bold" value="0" style="display: none"
                                                         readonly>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 mb-2">
+                                <div class="col-12">
                                     <div class="row align-items-center">
                                         <div class="col-6">
                                             <div class="row">
                                                 <div class="col-4">
-                                                    <label for="harga_unit">Harga Unit</label>
+                                                    <label class="font-weight-bold" for="harga_unit">Harga Unit</label>
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="harga_unit" id="harga_unit"
-                                                        class="form-control" value="0">
+                                                        class="form-control font-weight-bold" value="0">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="row">
                                                 <div class="col-4">
-                                                    <label for="idr_unit">IDR Unit</label>
+                                                    <label class="font-weight-bold" for="idr_unit">IDR Unit</label>
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="idr_unit" id="idr_unit"
-                                                        class="form-control" value="0" readonly>
+                                                        class="form-control font-weight-bold" value="0" readonly>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 mb-2">
+                                <div class="col-12">
                                     <div class="row align-items-center">
                                         <div class="col-6">
                                             <div class="row">
                                                 <div class="col-4">
-                                                    <label for="harga_sub_total">Harga Sub Total</label>
+                                                    <label class="font-weight-bold" for="harga_sub_total">Harga Sub Total</label>
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="harga_sub_total" id="harga_sub_total"
-                                                        class="form-control" value="0" readonly>
+                                                        class="form-control font-weight-bold" value="0" readonly>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="row">
                                                 <div class="col-4">
-                                                    <label for="idr_sub_total">IDR Sub Total</label>
+                                                    <label class="font-weight-bold" for="idr_sub_total">IDR Sub Total</label>
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="idr_sub_total" id="idr_sub_total"
-                                                        class="form-control" value="0" readonly>
+                                                        class="form-control font-weight-bold" value="0" readonly>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 mb-2">
+                                <div class="col-12">
                                     <div class="row align-items-center">
                                         <div class="col-6">
                                             <div class="row">
                                                 <div class="col-4">
-                                                    <label for="ppn">PPN %</label>
+                                                    <label class="font-weight-bold" for="ppn">PPN %</label>
                                                 </div>
                                                 <div class="col-8">
                                                     <select name="ppn_select" id="ppn_select" class="w-100 input">
@@ -357,44 +357,44 @@
                                                         @endforeach
                                                     </select>
                                                     <input type="text" name="ppn" id="ppn"
-                                                        class="form-control" value="0" readonly>
+                                                        class="form-control font-weight-bold" value="0" readonly>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="row">
                                                 <div class="col-4">
-                                                    <label for="idr_ppn">IDR PPN</label>
+                                                    <label class="font-weight-bold" for="idr_ppn">IDR PPN</label>
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="idr_ppn" id="idr_ppn"
-                                                        class="form-control" value="0" readonly>
+                                                        class="form-control font-weight-bold" value="0" readonly>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 mb-2">
+                                <div class="col-12">
                                     <div class="row align-items-center">
                                         <div class="col-6">
                                             <div class="row">
                                                 <div class="col-4">
-                                                    <label for="harga_total">Harga Total</label>
+                                                    <label class="font-weight-bold" for="harga_total">Harga Total</label>
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="harga_total" id="harga_total"
-                                                        class="form-control" readonly>
+                                                        class="form-control font-weight-bold" readonly>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <div class="row">
                                                 <div class="col-4">
-                                                    <label for="idr_harga_total">IDR Total</label>
+                                                    <label class="font-weight-bold" for="idr_harga_total">IDR Total</label>
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="idr_harga_total" id="idr_harga_total"
-                                                        class="form-control" readonly>
+                                                        class="form-control font-weight-bold" readonly>
                                                 </div>
                                             </div>
                                         </div>

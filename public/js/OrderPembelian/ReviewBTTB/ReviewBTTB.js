@@ -50,7 +50,7 @@ function print(data) {
     let No = 0;
     let Page = 0;
 
-    const chunkSize = 10;
+    const chunkSize = 8;
     const chunkedData = [];
     for (let i = 0; i < data.print.length; i += chunkSize) {
         chunkedData.push(data.print.slice(i, i + chunkSize));
@@ -104,7 +104,7 @@ function print(data) {
         });
 
         const print = `
-        <div style="width: 20.5cm; height: 27.94cm; padding: 8px; margin: 0; background: #FFFFFF; box-sizing: border-box; page-break-after: ${
+        <div style="width: 20.5cm; height: 27.94cm; padding: 30px 10px 0px 10px; margin: 0; background: #FFFFFF; box-sizing: border-box; page-break-after: ${
             chunkIndex < chunkedData.length - 1 ? `always` : `avoid`
         };">
             <main style="width: 100%; height : 70%;">
@@ -129,83 +129,83 @@ function print(data) {
                     </div>
                     <div style="width: 50%; height: auto; margin-left: 20px;">
                     <div style="width: 100%; display: flex;">
-                            <div style="width: 30%; height: auto;">
+                            <div style="width: 50%; height: auto;">
                                 <h1 style="font-size: 13px; font-family: Helvetica; font-weight: bold; margin: 2px 0;">Telephone</h1>
                             </div>
-                            <div style="width: 70%; height: auto;">
+                            <div style="width: 50%; height: auto;">
                                 <p style="font-size: 13px; font-family: Helvetica; margin: 2px 0;">: (031)8669595</p>
                             </div>
                         </div>
                         <div style="width: 100%; display: flex;">
-                            <div style="width: 30%; height: auto;">
+                            <div style="width: 50%; height: auto;">
                                 <h1 style="font-size: 13px; font-family: Helvetica; font-weight: bold; margin: 2px 0;">Fax</h1>
                             </div>
-                            <div style="width: 70%; height: auto;">
+                            <div style="width: 50%; height: auto;">
                                 <p style="font-size: 13px; font-family: Helvetica; margin: 2px 0;">: (031)8669989</p>
                             </div>
                         </div>
                         <div style="width: 100%; display: flex;">
-                            <div style="width: 30%; height: auto;">
+                            <div style="width: 50%; height: auto;">
                                 <h1 style="font-size: 13px; font-family: Helvetica; font-weight: bold; margin: 2px 0;">Giro</h1>
                             </div>
-                            <div style="width: 70%; height: auto;">
+                            <div style="width: 50%; height: auto;">
                                 <p style="font-size: 13px; font-family: Helvetica; margin: 2px 0;">: </p>
                             </div>
                         </div>
                         <div style="width: 100%; display: flex;">
-                            <div style="width: 30%; height: auto;">
+                            <div style="width: 50%; height: auto;">
                                 <h1 style="font-size: 13px; font-family: Helvetica; font-weight: bold; margin: 2px 0;">Tax Registration Number</h1>
                             </div>
-                            <div style="width: 70%; height: auto;">
+                            <div style="width: 50%; height: auto;">
                                 <p style="font-size: 13px; font-family: Helvetica; margin: 2px 0;">: 01.140.897.8-641.000</p>
                             </div>
                         </div>
                         <br>
                         <div style="width: 100%; display: flex;">
-                            <div style="width: 30%; height: auto;">
+                            <div style="width: 50%; height: auto;">
                                 <h1 style="font-size: 13px; font-family: Helvetica; font-weight: bold; margin: 2px 0;">Page</h1>
                             </div>
-                            <div style="width: 70%; height: auto;">
+                            <div style="width: 50%; height: auto;">
                                 <p style="font-size: 13px; font-family: Helvetica; margin: 2px 0;">: Page ${
                                     Page + 1
                                 } of ${chunkedData.length}</p>
                             </div>
                         </div>
                         <div style="width: 100%; display: flex;">
-                            <div style="width: 30%; height: auto;">
+                            <div style="width: 50%; height: auto;">
                                 <h1 style="font-size: 13px; font-family: Helvetica; font-weight: bold; margin: 2px 0;">Number</h1>
                             </div>
-                            <div style="width: 70%; height: auto;">
+                            <div style="width: 50%; height: auto;">
                                 <p style="font-size: 13px; font-family: Helvetica; margin: 2px 0;">: ${
                                     data.printHeader[0].No_PO
                                 }</p>
                             </div>
                         </div>
                         <div style="width: 100%; display: flex;">
-                            <div style="width: 30%; height: auto;">
+                            <div style="width: 50%; height: auto;">
                                 <h1 style="font-size: 13px; font-family: Helvetica; font-weight: bold; margin: 2px 0;">Date</h1>
                             </div>
-                            <div style="width: 70%; height: auto;">
+                            <div style="width: 50%; height: auto;">
                                 <p style="font-size: 13px; font-family: Helvetica; margin: 2px 0;">: ${
                                     data.printHeader[0].Datang.split(" ")[0]
                                 }</p>
                             </div>
                         </div>
                         <div style="width: 100%; display: flex;">
-                            <div style="width: 30%; height: auto;">
+                            <div style="width: 50%; height: auto;">
                                 <h1 style="font-size: 13px; font-family: Helvetica; font-weight: bold; margin: 2px 0;">Packing Slip</h1>
                             </div>
-                            <div style="width: 70%; height: auto;">
+                            <div style="width: 50%; height: auto;">
                                 <p style="font-size: 13px; font-family: Helvetica; margin: 2px 0;">: ${
                                     data.printHeader[0].No_SuratJalan || ""
                                 }</p>
                             </div>
                         </div>
                         <div style="width: 100%; display: flex;">
-                            <div style="width: 30%; height: auto;">
+                            <div style="width: 50%; height: auto;">
                                 <h1 style="font-size: 13px; font-family: Helvetica; font-weight: bold; margin: 2px 0;">Internal Product Receipt</h1>
                             </div>
-                            <div style="width: 70%; height: auto;">
+                            <div style="width: 50%; height: auto;">
                                 <p style="font-size: 13px; font-family: Helvetica; margin: 2px 0;">: ${
                                     data.printHeader[0].No_BTTB
                                 }</p>
@@ -230,7 +230,7 @@ function print(data) {
                                 <th style="text-align: center;"><h1 style="font-size: 13px; font-family: Helvetica; font-weight: bold; line-height: 13.8px">Remaining</h1></th>
                             </tr>
                         </thead>
-                        <tbody style="border-top: 1px dotted black; border-bottom: 1px dotted black;">
+                        <tbody style="border-top: 1px solid black;">
                             ${tableRows}
                         </tbody>
                     </table>
@@ -321,16 +321,16 @@ function responseData(datas) {
                 data.NAMA_BRG,
                 data.nama_sub_kategori,
                 data.Nama_satuan,
-                data.Qty || 0,
-                data.Qty_Terima || 0,
-                data.QtyRemain || 0,
+                numeral(parseFloat(data.Qty)).format("0.00") || 0,
+                numeral(parseFloat(data.Qty_Terima)).format("0.00") || 0,
+                numeral(parseFloat(data.QtyRemain)).format("0.00") || 0,
                 data.Id_MataUang_BC,
-                data.Hrg_trm,
-                data.Hrg_sub_bttb,
-                data.hrg_disc,
-                data.hrg_ppn,
-                data.Hrg_tot_bttb,
-                data.Kurs_Rp,
+                numeral(parseFloat(data.Hrg_trm)).format("0,0.0000"),
+                numeral(parseFloat(data.Hrg_sub_bttb)).format("0,0.0000"),
+                numeral(parseFloat(data.hrg_disc)).format("0,0.0000"),
+                numeral(parseFloat(data.hrg_ppn)).format("0,0.0000"),
+                numeral(parseFloat(data.Hrg_tot_bttb)).format("0,0.0000"),
+                numeral(parseFloat(data.Kurs_Rp)).format("0,0.0000"),
             ])
             .draw();
     });

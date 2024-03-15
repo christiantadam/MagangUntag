@@ -90,7 +90,7 @@ btn_reject.addEventListener("click", function (event) {
 });
 
 btn_approve.disabled = true;
-formApprove.addEventListener("change", function (event) {
+supplier_select.addEventListener("change", function (event) {
     btn_approve.disabled = !supplier_select.selectedIndex === 0;
 });
 
@@ -107,6 +107,11 @@ function clearData() {
     keterangan_order.value = "-";
     keterangan_internal.value = "-";
     supplier_select.selectedIndex = 0;
+    for (let i = 0; i < ppn_select.options.length; i++) {
+        if (ppn_select.options[i].value.replace(/\s/g, "") == "6") {
+            ppn_select.selectedIndex = i;
+        }
+    }
     matauang_select.selectedIndex = 0;
     qty_delay.value = 0;
     qty_order.value = 0;
@@ -114,7 +119,6 @@ function clearData() {
     idr_unit.value = 0;
     harga_sub_total.value = 0;
     idr_sub_total.value = 0;
-    ppn_select.value = "";
     ppn.value = 0;
     idr_ppn.value = 0;
     harga_total.value = "";
@@ -329,6 +333,11 @@ $(document).ready(function () {
                 option.text = data.JumPPN;
                 ppn_select.add(option);
             });
+            for (let i = 0; i < ppn_select.options.length; i++) {
+                if (ppn_select.options[i].value.replace(/\s/g, "") == "6") {
+                    ppn_select.selectedIndex = i;
+                }
+            }
         },
         error: function (error) {
             console.error("Error Fetch Data:", error);

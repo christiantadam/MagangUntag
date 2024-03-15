@@ -219,7 +219,7 @@ function print(data) {
     let No = 0;
     let Page = 0;
 
-    const chunkSize = 10;
+    const chunkSize = 8;
     const chunkedData = [];
     for (let i = 0; i < data.print.length; i += chunkSize) {
         chunkedData.push(data.print.slice(i, i + chunkSize));
@@ -273,7 +273,7 @@ function print(data) {
         });
 
         const print = `
-        <div style="width: 20.5cm; height: 27.94cm; padding: 8px; margin: 0; background: #FFFFFF; box-sizing: border-box; page-break-after: ${
+        <div style="width: 20.5cm; height: 27.94cm; padding: 30px 10px 0px 10px; margin: 0; background: #FFFFFF; box-sizing: border-box; page-break-after: ${
             chunkIndex < chunkedData.length - 1 ? `always` : `avoid`
         };">
             <main style="width: 100%; height : 70%;">
@@ -298,83 +298,83 @@ function print(data) {
                     </div>
                     <div style="width: 50%; height: auto; margin-left: 20px;">
                     <div style="width: 100%; display: flex;">
-                            <div style="width: 30%; height: auto;">
+                            <div style="width: 50%; height: auto;">
                                 <h1 style="font-size: 13px;font-family: Helvetica; font-weight: bold; margin: 2px 0;">Telephone</h1>
                             </div>
-                            <div style="width: 70%; height: auto;">
+                            <div style="width: 50%; height: auto;">
                                 <p style="font-size: 13px;font-family: Helvetica; margin: 2px 0;">: (031)8669595</p>
                             </div>
                         </div>
                         <div style="width: 100%; display: flex;">
-                            <div style="width: 30%; height: auto;">
+                            <div style="width: 50%; height: auto;">
                                 <h1 style="font-size: 13px;font-family: Helvetica; font-weight: bold; margin: 2px 0;">Fax</h1>
                             </div>
-                            <div style="width: 70%; height: auto;">
+                            <div style="width: 50%; height: auto;">
                                 <p style="font-size: 13px;font-family: Helvetica; margin: 2px 0;">: (031)8669989</p>
                             </div>
                         </div>
                         <div style="width: 100%; display: flex;">
-                            <div style="width: 30%; height: auto;">
+                            <div style="width: 50%; height: auto;">
                                 <h1 style="font-size: 13px;font-family: Helvetica; font-weight: bold; margin: 2px 0;">Giro</h1>
                             </div>
-                            <div style="width: 70%; height: auto;">
+                            <div style="width: 50%; height: auto;">
                                 <p style="font-size: 13px;font-family: Helvetica; margin: 2px 0;">: </p>
                             </div>
                         </div>
                         <div style="width: 100%; display: flex;">
-                            <div style="width: 30%; height: auto;">
+                            <div style="width: 50%; height: auto;">
                                 <h1 style="font-size: 13px;font-family: Helvetica; font-weight: bold; margin: 2px 0;">Tax Registration Number</h1>
                             </div>
-                            <div style="width: 70%; height: auto;">
+                            <div style="width: 50%; height: auto;">
                                 <p style="font-size: 13px;font-family: Helvetica; margin: 2px 0;">: 01.140.897.8-641.000</p>
                             </div>
                         </div>
                         <br>
                         <div style="width: 100%; display: flex;">
-                            <div style="width: 30%; height: auto;">
+                            <div style="width: 50%; height: auto;">
                                 <h1 style="font-size: 13px;font-family: Helvetica; font-weight: bold; margin: 2px 0;">Page</h1>
                             </div>
-                            <div style="width: 70%; height: auto;">
+                            <div style="width: 50%; height: auto;">
                                 <p style="font-size: 13px;font-family: Helvetica; margin: 2px 0;">: Page ${
                                     Page + 1
                                 } of ${chunkedData.length}</p>
                             </div>
                         </div>
                         <div style="width: 100%; display: flex;">
-                            <div style="width: 30%; height: auto;">
+                            <div style="width: 50%; height: auto;">
                                 <h1 style="font-size: 13px;font-family: Helvetica; font-weight: bold; margin: 2px 0;">Number</h1>
                             </div>
-                            <div style="width: 70%; height: auto;">
+                            <div style="width: 50%; height: auto;">
                                 <p style="font-size: 13px;font-family: Helvetica; margin: 2px 0;">: ${
                                     data.printHeader[0].No_PO
                                 }</p>
                             </div>
                         </div>
                         <div style="width: 100%; display: flex;">
-                            <div style="width: 30%; height: auto;">
+                            <div style="width: 50%; height: auto;">
                                 <h1 style="font-size: 13px;font-family: Helvetica; font-weight: bold; margin: 2px 0;">Date</h1>
                             </div>
-                            <div style="width: 70%; height: auto;">
+                            <div style="width: 50%; height: auto;">
                                 <p style="font-size: 13px;font-family: Helvetica; margin: 2px 0;">: ${
                                     data.printHeader[0].Datang.split(" ")[0]
                                 }</p>
                             </div>
                         </div>
                         <div style="width: 100%; display: flex;">
-                            <div style="width: 30%; height: auto;">
+                            <div style="width: 50%; height: auto;">
                                 <h1 style="font-size: 13px;font-family: Helvetica; font-weight: bold; margin: 2px 0;">Packing Slip</h1>
                             </div>
-                            <div style="width: 70%; height: auto;">
+                            <div style="width: 50%; height: auto;">
                                 <p style="font-size: 13px;font-family: Helvetica; margin: 2px 0;">: ${
                                     data.printHeader[0].No_SuratJalan || ""
                                 }</p>
                             </div>
                         </div>
                         <div style="width: 100%; display: flex;">
-                            <div style="width: 30%; height: auto;">
+                            <div style="width: 50%; height: auto;">
                                 <h1 style="font-size: 13px;font-family: Helvetica; font-weight: bold; margin: 2px 0;">Internal Product Receipt</h1>
                             </div>
-                            <div style="width: 70%; height: auto;">
+                            <div style="width: 50%; height: auto;">
                                 <p style="font-size: 13px;font-family: Helvetica; margin: 2px 0;">: ${
                                     data.printHeader[0].No_BTTB
                                 }</p>
@@ -399,7 +399,7 @@ function print(data) {
                                 <th style="text-align: center;"><h1 style="font-size: 13px;font-family: Helvetica; font-weight: bold; line-height: 13.8px">Remaining</h1></th>
                             </tr>
                         </thead>
-                        <tbody style="border-top: 1px dotted black; border-bottom: 1px dotted black;">
+                        <tbody style="border-top: 1px solid black;">
                             ${tableRows}
                         </tbody>
                     </table>
@@ -496,19 +496,19 @@ $("#tabelcreate").on("dblclick", "tr", function () {
         parseFloat(rowData[6]).toFixed(2) || 0;
     qty_remaining.value =
         parseFloat(rowData[7]).toFixed(2) || 0;
-    harga_unit.value = numeral(parseFloat(rowData[8])).format("0,0.0000");
-    harga_sub_total.value = numeral(parseFloat(rowData[9])).format("0,0.0000");
-    ppn.value = numeral(parseFloat(rowData[10])).format("0,0.0000");
-    harga_total.value = numeral(parseFloat(rowData[11])).format("0,0.0000");
+    harga_unit.value = numeral(numeral(rowData[8]).value()).format("0,0.0000");
+    harga_sub_total.value = numeral(numeral(rowData[9]).value()).format("0,0.0000");
+    ppn.value = numeral(numeral(rowData[10]).value()).format("0,0.0000");
+    harga_total.value = numeral(numeral(rowData[11]).value()).format("0,0.0000");
     kurs.value = parseFloat(rowData[12]).toFixed(4);
-    idr_unit.value = numeral(parseFloat(rowData[13])).format("0,0.0000");
-    idr_sub_total.value = numeral(parseFloat(rowData[14])).format("0,0.0000");
-    idr_ppn.value = numeral(parseFloat(rowData[15])).format("0,0.0000");
-    idr_harga_total.value = numeral(parseFloat(rowData[16])).format("0,0.0000");
+    idr_unit.value = numeral(numeral(rowData[13]).value()).format("0,0.0000");
+    idr_sub_total.value = numeral(numeral(rowData[14]).value()).format("0,0.0000");
+    idr_ppn.value = numeral(numeral(rowData[15]).value()).format("0,0.0000");
+    idr_harga_total.value = numeral(numeral(rowData[16]).value()).format("0,0.0000");
     mata_uang.value = rowData[17];
-    disc.value = numeral(parseFloat(rowData[18])).format("0,0.00");
-    total_disc.value = numeral(parseFloat(rowData[19])).format("0,0.0000");
-    idr_total_disc.value = numeral(parseFloat(rowData[20])).format("0,0.0000");
+    disc.value = numeral(numeral(rowData[18]).value()).format("0,0.00");
+    total_disc.value = numeral(numeral(rowData[19]).value()).format("0,0.0000");
+    idr_total_disc.value = numeral(numeral(rowData[20]).value()).format("0,0.0000");
     qty_received.value = parseFloat(rowData[21]).toFixed(2);
     fixValueQTYOrder = parseFloat(rowData[4]);
     fixValueQTYReceived = parseFloat(rowData[21]);

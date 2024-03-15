@@ -76,7 +76,23 @@ const SpesifikasiType = {
 check_export.disabled = true;
 labelExport.style.display = "none";
 groupSpek.style.display = "none";
-
+select_satuanTritier.addEventListener("change", function(e){
+    for (
+        let i = 0;
+        i < select_satuanUmum.options.length;
+        i++
+    ) {
+        if (
+            select_satuanUmum.options[i].value.replace(
+                /\s/g,
+                ""
+            ) ==
+            select_satuanTritier.value.replace(/\s/g, "")
+        ) {
+            select_satuanUmum.selectedIndex = i;
+        }
+    }
+})
 kd_barang.addEventListener("input", function (event) {
     setInputFilter(
         document.getElementById("kd_barang"),
