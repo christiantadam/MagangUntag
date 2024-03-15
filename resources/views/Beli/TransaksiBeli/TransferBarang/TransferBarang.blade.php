@@ -15,7 +15,7 @@
                         {{ Session::get('error') }}
                     </div>
                 @endif
-                <div class="card">
+                <div class="card font-weight-bold">
                     <div class="card-header">Transfer Barang</div>
                     <div class="card-body">
                         <div class="row" id="formCekRedisplay">
@@ -27,7 +27,7 @@
                                         Divisi
                                     </div>
                                     <div class="col-xl-12">
-                                        <select name="select_divisi" id="select_divisi" class="input w-100">
+                                        <select name="select_divisi" id="select_divisi" class="input w-100 font-weight-bold">
                                             <option class="w-100 text-center" value="ALL" selected>ALL
                                             </option>
                                         </select>
@@ -42,7 +42,7 @@
                                         No BTTB
                                     </div>
                                     <div class="col-xl-12">
-                                        <input type="text" name="no_bttb" id="no_bttb" class="input w-100">
+                                        <input type="text" name="no_bttb" id="no_bttb" class="input w-100 font-weight-bold">
                                     </div>
                                 </div>
                             </div>
@@ -52,7 +52,7 @@
                                     <label for="spek"">Koreksi</label>
                                 </div>
                                 <div class="col-4 col-md-12 p-0">
-                                    <button class="btn btn-success w-100" id="button_redisplay">Redisplay</button>
+                                    <button class="custom-button2 w-100" id="button_redisplay">Redisplay</button>
                                 </div>
                             </div>
                             <div class="col-12 mt-2">

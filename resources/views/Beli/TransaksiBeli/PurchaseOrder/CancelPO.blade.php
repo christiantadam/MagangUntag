@@ -15,7 +15,7 @@
                         {{ Session::get('error') }}
                     </div>
                 @endif
-                <div class="card">
+                <div class="card font-weight-bold">
                     <div class="card-header">Cancel PO</div>
                     <div class="card-body">
                         <div class="w-100 h-auto">
@@ -28,7 +28,7 @@
                                                     <label for="supplier">Supplier</label>
                                                 </div>
                                                 <div class="col-8 col-md-10">
-                                                    <select name="select_supplier" id="select_supplier" class="form-control"
+                                                    <select name="select_supplier" id="select_supplier" class="form-control font-weight-bold"
                                                         disabled>
                                                         <option class="w-100 text-center" selected disabled>-- Pilih
                                                             Supplier --
@@ -47,7 +47,7 @@
                                                 </div>
                                                 <div class="col-8 col-md-10">
                                                     <input type="text" name="select_noPO" id="select_noPO"
-                                                        class="form-control">
+                                                        class="form-control font-weight-bold">
                                                 </div>
                                             </div>
                                         </div>
@@ -81,7 +81,7 @@
                                             <label for="no_po">Nomor Order</label>
                                         </div>
                                         <div class="col-8 col-md-10">
-                                            <input type="text" name="no_po" id="no_po" class="form-control"
+                                            <input type="text" name="no_po" id="no_po" class="form-control font-weight-bold"
                                                 readonly>
                                         </div>
                                     </div>
@@ -92,7 +92,7 @@
                                             <label for="kd_barang">Kode Barang</label>
                                         </div>
                                         <div class="col-8 col-md-10">
-                                            <input type="text" name="kd_barang" id="kd_barang" class="form-control"
+                                            <input type="text" name="kd_barang" id="kd_barang" class="form-control font-weight-bold"
                                                 readonly>
                                         </div>
                                     </div>
@@ -103,7 +103,7 @@
                                             <label for="nama_barang">Nama Barang</label>
                                         </div>
                                         <div class="col-8 col-md-10">
-                                            <input type="text" name="nama_barang" id="nama_barang" class="form-control"
+                                            <input type="text" name="nama_barang" id="nama_barang" class="form-control font-weight-bold"
                                                 readonly>
                                         </div>
                                     </div>
@@ -114,7 +114,7 @@
                                             <label for="subkategori">Sub Kategori</label>
                                         </div>
                                         <div class="col-8 col-md-10">
-                                            <input type="text" name="subkategori" id="subkategori" class="form-control"
+                                            <input type="text" name="subkategori" id="subkategori" class="form-control font-weight-bold"
                                                 readonly>
                                         </div>
                                     </div>
@@ -128,7 +128,7 @@
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="qty_ordered" id="qty_ordered"
-                                                        class="form-control" readonly>
+                                                        class="form-control font-weight-bold" readonly>
                                                 </div>
 
                                             </div>
@@ -140,7 +140,7 @@
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="qty_remaining" id="qty_remaining"
-                                                        class="form-control" readonly>
+                                                        class="form-control font-weight-bold" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -155,7 +155,7 @@
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="qty_received" id="qty_received"
-                                                        class="form-control" readonly>
+                                                        class="form-control font-weight-bold" readonly>
                                                 </div>
 
                                             </div>
@@ -167,7 +167,7 @@
                                                 </div>
                                                 <div class="col-8">
                                                     <input type="text" name="qty_cancel" id="qty_cancel"
-                                                        class="form-control" readonly>
+                                                        class="form-control font-weight-bold" readonly>
                                                 </div>
                                             </div>
                                         </div>
@@ -180,13 +180,13 @@
                                         </div>
                                         <div class="col-8 col-md-10">
                                             <input type="text" name="alasan_cancel" id="alasan_cancel"
-                                                class="form-control">
+                                                class="form-control font-weight-bold">
                                         </div>
                                     </div>
                                     <div class="col-md-12 d-flex justify-content-end pb-4">
-                                        <button type="button" class="btn btn-danger btn-lg mr-3 mb-6" id="removebutton">
+                                        <button type="button" class="custom-button3 mt-2 mr-3 mb-6" id="removebutton">
                                             Close</button>
-                                        <button type="button" class="btn btn-danger btn-lg mr-3 mb-6" id="buttoncancel">
+                                        <button type="button" class="custom-button3 mt-2 mr-3 mb-6" id="buttoncancel">
                                             Cancel PO</button>
                                     </div>
                                 </div>

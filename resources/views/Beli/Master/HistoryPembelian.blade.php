@@ -16,7 +16,7 @@
                         {{ Session::get('error') }}
                     </div>
                 @endif
-                <div class="card">
+                <div class="card font-weight-bold">
                     <div class="card-header">History Pembelian</div>
                     <div class="card-body ">
                         <form action="" id="formDaftarHarga">
@@ -62,7 +62,7 @@
                                             Kode Barang
                                         </label>
                                         <div class="col-md-10">
-                                            <input type="text" name="search_kode_barang" id="search_kode_barang"class="form-control">
+                                            <input type="text" name="search_kode_barang" id="search_kode_barang"class="form-control font-weight-bold">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -71,7 +71,7 @@
                                             Nama Barang
                                         </label>
                                         <div class="col-md-10">
-                                            <input type="text" name="search_nama_barang" class="form-control">
+                                            <input type="text" name="search_nama_barang" class="form-control font-weight-bold">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -80,7 +80,7 @@
                                             Supplier
                                         </label>
                                         <div class="col-md-10">
-                                            <input type="text" name="search_supplier" class="form-control">
+                                            <input type="text" name="search_supplier" class="form-control font-weight-bold">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -89,13 +89,13 @@
                                             User
                                         </label>
                                         <div class="col-md-10">
-                                            <input type="text" name="search_user" class="form-control">
+                                            <input type="text" name="search_user" class="form-control font-weight-bold">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="d-flex flex-column justify-content-between">
-                                        <button type="button" id="redisplay" class="btn btn-primary mb-2">Redisplay</button>
+                                        <button type="button" id="redisplay" class="custom-button1 mb-2">Redisplay</button>
                                     </div>
                                 </div>
                             </div>

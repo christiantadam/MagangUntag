@@ -105,3 +105,12 @@ td {
     width: 100px;
     height: 40px;
 }
+.div-search {
+    height: 40px;
+}
+
+@media (max-width: 992px) {
+    .div-search {
+      height: 184px;
+    }
+}

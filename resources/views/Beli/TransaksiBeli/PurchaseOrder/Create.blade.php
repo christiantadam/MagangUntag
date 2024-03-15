@@ -14,7 +14,7 @@
                         {{ Session::get('error') }}
                     </div>
                 @endif
-                <div class="card">
+                <div class="card font-weight-bold">
                     <div class="card-header">Daftar Order</div>
                     <div class="card-body">
                         <div class="row px-2 px-md">
@@ -51,7 +51,7 @@
                                     <input type="radio" name="filter_radioButton" id="filter_radioButton2" value="User"
                                         class="radio-button">User
                                 </div>
-                                <input class="w-100" type="text" name="filter_radioButtonUserInput"
+                                <input class="w-100 font-weight-bold" type="text" name="filter_radioButtonUserInput"
                                     id="filter_radioButtonUserInput">
                             </div>
                             <div class="col-md-3 h-auto mb-4 mb-md-0">
@@ -59,7 +59,7 @@
                                     <input type="radio" name="filter_radioButton" id="filter_radioButton3" value="Order"
                                         class="radio-button"> Order
                                 </div>
-                                <input class="w-100" type="text" name="filter_radioButtonOrderInput"
+                                <input class="w-100 font-weight-bold" type="text" name="filter_radioButtonOrderInput"
                                     id="filter_radioButtonOrderInput">
                             </div>
                             <div class="w-auto h-auto pt-3 pl-2 pl-md-0">
@@ -67,7 +67,7 @@
                                     <input type="checkbox" id="check_nyantol">
                                     <label for="">No. Order Nyantol</label>
                                 </div>
-                                <button class="w-full btn btn-success" id="redisplay"
+                                <button class="w-100 custom-button2" id="redisplay"
                                     style="display: block">Redisplay</button>
                             </div>
                         </div>
@@ -105,21 +105,21 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="">
+                            <p id="checkedCount">Jumlah Data Yang TerCentang 0</p>
+                        </div>
                         <div class="button-align-right">
                             <div style="display: block">
                                 <div class="">
-                                    <p id="checkedCount">Jumlah Data Yang TerCentang 0</p>
-                                </div>
-                                <div class="">
-                                    <button class="btn btn-danger w-50" id="btn_close">Close Order</button>
+                                    <button class="custom-button3 w-100" id="btn_close">Close Order</button>
                                 </div>
                             </div>
 
                             <form action="{{ url('openFormCreateSPPB/create') }}" id="form_createSPPB" method="GET">
-                                <button class="btn btn-success" id="create_po">Create PO</button>
+                                <button class="custom-button2" id="create_po">Create PO</button>
                             </form>
                             <div class="" id="backGroup">
-                                <button class="btn btn-success" id="btn_backCreatePO">Back Create PO</button>
+                                <button class="custom-button2" id="btn_backCreatePO">Back Create PO</button>
                             </div>
                         </div>
                     </div>

@@ -24,7 +24,7 @@
                         {{ Session::get('error') }}
                     </div>
                 @endif
-                <div class="card">
+                <div class="card font-weight-bold">
                     <div class="card-header">Create Purchase Order</div>
                     <div class="card-body">
                         <input type="text" value="{{ trim($namaDiv[0]->NM_DIV) }}" name="" id="nmDiv"
@@ -403,17 +403,17 @@
                             </div>
                             <div class="col-12 col-md-2">
                                 <div class="row">
-                                    <div class="col-4 col-md-12">
-                                        <button class="btn btn-success" id="btn_update" style="width: 100px;height: 40px;">Update</button>
+                                    <div class="col-4 col-md-12 mb-2">
+                                        <button class="custom-button2" id="btn_update" style="width: 100px;height: 40px;">Update</button>
                                     </div>
-                                    <div class="col-4 col-md-12" style="display: none">
-                                        <button class="btn btn-info" id="btn_remove" style="display: none;width: 100px;height: 40px;">Remove</button>
+                                    <div class="col-4 col-md-12 mb-2" style="display: none">
+                                        <button class="custom-button1" id="btn_remove" style="display: none;width: 100px;height: 40px;">Remove</button>
                                     </div>
-                                    <div class="col-4 col-md-12">
-                                        <button class="btn btn-danger" id="btn_reject" style="width: 100px;height: 40px;">Reject</button>
+                                    <div class="col-4 col-md-12 mb-2">
+                                        <button class="custom-button3" id="btn_reject" style="width: 100px;height: 40px;">Reject</button>
                                     </div>
-                                    <div class="col-4 col-md-12">
-                                        <button class="btn btn-success" id="btn_post" style="width: 100px;height: 40px;">Post PO</button>
+                                    <div class="col-4 col-md-12 mb-2">
+                                        <button class="custom-button2" id="btn_post" style="width: 100px;height: 40px;">Post PO</button>
                                     </div>
                                 </div>
                             </div>

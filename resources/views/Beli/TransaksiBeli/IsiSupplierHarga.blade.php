@@ -15,13 +15,13 @@
                     </div>
                 @endif
                 <div class="card">
-                    <div class="card-header">Isi Supplier - Harga</div>
-                    <div class="card-body">
+                    <div class="card-header font-weight-bold">Isi Supplier - Harga</div>
+                    <div class="card-body font-weight-bold">
                         <div class="w-100 h-auto">
                             <div class="w-100 h-auto">
                                 <label class="font-weight-bold" for="filter">Search by:</label>
                                 <div class="row" id="formCekRedisplay">
-                                    <div class="col-12 col-xl-10" style="height: 40px;">
+                                    <div class="col-12 col-xl-10 div-search">
                                         <div class="row align-items-center mx-2 mb-4 " style="border: 0.5px grey solid;">
                                             <div class="col-xl-2">
                                                 <input type="radio" name="filter_radioButton"
@@ -36,19 +36,19 @@
                                                 No. Order
                                             </div>
                                             <input type="text" name="search_NomorOrder" id="nomor_order"
-                                                class="input col-12 col-xl-3">
+                                                class="input col-12 col-xl-3 font-weight-bold">
                                             <div class="col-xl-2">
                                                 <input type="radio" name="filter_radioButton" id="filter_radioButtonUser"
                                                     value="User" class="radio-button font-weight-bold">
                                                 User
                                             </div>
                                             <input type="text" name="search_User" id="user"
-                                                class="input col-12 col-xl-3">
+                                                class="input col-12 col-xl-3 font-weight-bold">
                                         </div>
 
                                     </div>
                                     <div class="col-md-2">
-                                        <button class="btn btn-success w-100" id="button_redisplay">Redisplay</button>
+                                        <button class="custom-button2 w-100" id="button_redisplay">Redisplay</button>
                                     </div>
                                 </div>
                             </div>
@@ -234,7 +234,7 @@
                                                 <label class="font-weight-bold" for="supplier">Supplier</label>
                                             </div>
                                             <div class="col-8 col-md-10">
-                                                <select name="supplier_select" id="supplier_select" class="w-100 input">
+                                                <select name="supplier_select" id="supplier_select" class="w-100 input font-weight-bold">
                                                     <option class="w-100" selected disabled>-- Pilih Supplier --</option>
                                                 </select>
                                             </div>
@@ -246,7 +246,7 @@
                                                 <label class="font-weight-bold" for="mata_uang">Mata Uang</label>
                                             </div>
                                             <div class="col-8 col-md-10">
-                                                <select name="matauang_select" id="matauang_select" class="w-100 input"
+                                                <select name="matauang_select" id="matauang_select" class="w-100 input font-weight-bold"
                                                     disabled>
                                                     <option class="w-100" selected disabled>-- Pilih Mata Uang --</option>
                                                 </select>
@@ -324,7 +324,7 @@
                                                         <label class="font-weight-bold" for="ppn">PPN %</label>
                                                     </div>
                                                     <div class="col-8">
-                                                        <select name="ppn_select" id="ppn_select" class="w-100 input">
+                                                        <select name="ppn_select" id="ppn_select" class="w-100 input font-weight-bold">
                                                             <option class="w-100" selected disabled></option>
                                                         </select>
                                                         <input type="text" name="ppn" id="ppn"
@@ -386,13 +386,13 @@
                                 <div class="col-12 col-md-2">
                                     <div class="row">
                                         <div class="col-4 col-md-12">
-                                            <button class="btn btn-success" style="width: 100px;height: 40px;" id="btn_approve">Approve</button>
+                                            <button class="custom-button2" style="width: 100px;height: 40px;" id="btn_approve">Approve</button>
                                         </div>
                                         <div class="col-4 col-md-12">
-                                            <button class="btn btn-info" style="width: 100px;height: 40px;" id="btn_clear">Clear</button>
+                                            <button class="custom-button1" style="width: 100px;height: 40px;" id="btn_clear">Clear</button>
                                         </div>
                                         <div class="col-4 col-md-12">
-                                            <button class="btn btn-danger" style="width: 100px;height: 40px;" id="btn_reject">Reject</button>
+                                            <button class="custom-button3" style="width: 100px;height: 40px;" id="btn_reject">Reject</button>
                                         </div>
                                     </div>
                                 </div>
