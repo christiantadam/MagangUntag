@@ -874,8 +874,9 @@ class PurchaseOrderController extends Controller
     //Display the specified resource.
     public function redisplay(Request $request)
     {
-        $MinDate = $request->input('MinDate');
-        $MaxDate = $request->input('MaxDate');
+        $MinDate = Carbon::parse($request->input('MinDate'));
+        $MaxDate = Carbon::parse($request->input('MaxDate'));
+        $MaxDate->setTimeFrom(Carbon::now()->setTimezone('Asia/Jakarta'));
         $noPO = $request->input('noPO');
         $kd = 22;
 
