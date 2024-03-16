@@ -84,27 +84,36 @@ function redisplayData(nm_brg, req, sup, kdbrg) {
             },
         },
         columns: [
+            { data: "No_trans" },
+            { data: "Status" },
             { data: "Kd_div" },
             { data: "Kd_brg" },
             { data: "NAMA_BRG" },
             { data: "Nama_satuan" },
             { data: "NM_SUP" },
-            { data: "KOTA1" },
-            { data: "NEGARA1" },
             {
                 data: "Hrg_trm",
                 render: function (data) {
                     return numeral(parseFloat(data)).format("0,0.0000");
                 },
             },
-            { data: "Id_MataUang_BC" },
             { data: "Nama" },
             {
-                data: "Tgl_order",
+                data: "Tgl_sppb",
+                width: '100px',
                 render: function (data) {
                     let parts = data.split(" ")[0].split("-");
                     let tgl = parts[1] + "-" + parts[2] + "-" + parts[0];
-                    return tgl + " " + data.split(" ")[1];
+                    return tgl;
+                },
+            },
+            {
+                data: "Tgl_order",
+                width: '100px',
+                render: function (data) {
+                    let parts = data.split(" ")[0].split("-");
+                    let tgl = parts[1] + "-" + parts[2] + "-" + parts[0];
+                    return tgl;
                 },
             },
         ],

@@ -225,7 +225,7 @@ function print(data) {
         chunk.forEach((item, index) => {
             tableRows += `
                 <tr>
-                    <td sty><p style="line-height: 13.8px; font-size: 13px;font-family: Helvetica;">${
+                    <td style="text-align: center;"><p style="line-height: 13.8px; font-size: 13px;font-family: Helvetica;">${
                         No + 1
                     }</p></td>
                     <td style="text-align: center;"><p style="line-height: 13.8px; font-size: 13px;font-family: Helvetica;">${

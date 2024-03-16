@@ -24,16 +24,16 @@
                                 <table id="tabelData" class="table table-bordered">
                                     <thead class="table-primary">
                                         <tr>
+                                            <th>No Order</th>
+                                            <th>Status Order</th>
                                             <th>KD Divisi</th>
                                             <th >Kode Barang</th>
                                             <th>Nama Barang</th>
                                             <th>Satuan</th>
                                             <th>Supplier</th>
-                                            <th>Kota</th>
-                                            <th>Negara</th>
                                             <th>Harga Unit</th>
-                                            <th>Mata Uang</th>
                                             <th>Requester</th>
+                                            <th>Tgl PO</th>
                                             <th>Tgl Order</th>
                                         </tr>
                                     </thead>

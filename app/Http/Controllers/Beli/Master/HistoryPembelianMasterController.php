@@ -35,8 +35,9 @@ class HistoryPembelianMasterController extends Controller
             try {
                 if ($nm_brg != null) {
                     $redisplay = DB::connection('ConnPurchase')->table('YTRANSBL')->select(
-                        'YTRANSBL.StatusOrder',
+                        'STATUS_ORDER.Status',
                         'YTRANSBL.NO_PO',
+                        'YTRANSBL.Tgl_sppb',
                         'YTRANSBL.Kd_div',
                         'YTRANSBL.Kd_brg',
                         'YTRANSBL.Tgl_order',
@@ -49,7 +50,8 @@ class HistoryPembelianMasterController extends Controller
                         'YSUPPLIER.NEGARA1',
                         'YTERIMA.Hrg_trm',
                         'ACCOUNTING.dbo.T_MATAUANG.Id_MataUang_BC',
-                        'YUSER.Nama'
+                        'YUSER.Nama',
+                        'YTERIMA.No_trans',
                     )
                         ->join('Y_BARANG', 'YTRANSBL.Kd_brg', '=', 'Y_BARANG.KD_BRG')
                         ->join('YTERIMA', 'YTRANSBL.No_trans', '=', 'YTERIMA.No_trans')
@@ -57,13 +59,15 @@ class HistoryPembelianMasterController extends Controller
                         ->join('ACCOUNTING.dbo.T_MATAUANG', 'YTERIMA.IdMataUang', '=', 'ACCOUNTING.dbo.T_MATAUANG.Id_MataUang')
                         ->join('YUSER', 'YTRANSBL.Operator', '=', 'YUSER.kd_user')
                         ->join('YSUPPLIER', 'YTERIMA.No_sup', '=', 'YSUPPLIER.NO_SUP')
+                        ->join('STATUS_ORDER', 'YTRANSBL.StatusOrder', '=', 'STATUS_ORDER.KdStatus')
                         ->where('Y_BARANG.NAMA_BRG', 'like', '%' . $nm_brg . '%')
                         ->orderBy('YTRANSBL.Tgl_order')
                         ->get();
                 } else if ($req != null) {
                     $redisplay = DB::connection('ConnPurchase')->table('YTRANSBL')->select(
-                        'YTRANSBL.StatusOrder',
+                        'STATUS_ORDER.Status',
                         'YTRANSBL.NO_PO',
+                        'YTRANSBL.Tgl_sppb',
                         'YTRANSBL.Kd_div',
                         'YTRANSBL.Kd_brg',
                         'YTRANSBL.Tgl_order',
@@ -76,7 +80,8 @@ class HistoryPembelianMasterController extends Controller
                         'YSUPPLIER.NEGARA1',
                         'YTERIMA.Hrg_trm',
                         'ACCOUNTING.dbo.T_MATAUANG.Id_MataUang_BC',
-                        'YUSER.Nama'
+                        'YUSER.Nama',
+                        'YTERIMA.No_trans',
                     )
                         ->join('Y_BARANG', 'YTRANSBL.Kd_brg', '=', 'Y_BARANG.KD_BRG')
                         ->join('YTERIMA', 'YTRANSBL.No_trans', '=', 'YTERIMA.No_trans')
@@ -84,13 +89,15 @@ class HistoryPembelianMasterController extends Controller
                         ->join('ACCOUNTING.dbo.T_MATAUANG', 'YTERIMA.IdMataUang', '=', 'ACCOUNTING.dbo.T_MATAUANG.Id_MataUang')
                         ->join('YUSER', 'YTRANSBL.Operator', '=', 'YUSER.kd_user')
                         ->join('YSUPPLIER', 'YTERIMA.No_sup', '=', 'YSUPPLIER.NO_SUP')
+                        ->join('STATUS_ORDER', 'YTRANSBL.StatusOrder', '=', 'STATUS_ORDER.KdStatus')
                         ->where('YUSER.Nama', 'like', '%' . $req . '%')
                         ->orderBy('YTRANSBL.Tgl_order')
                         ->get();
                 } else if ($sup != null) {
                     $redisplay = DB::connection('ConnPurchase')->table('YTRANSBL')->select(
-                        'YTRANSBL.StatusOrder',
+                        'STATUS_ORDER.Status',
                         'YTRANSBL.NO_PO',
+                        'YTRANSBL.Tgl_sppb',
                         'YTRANSBL.Kd_div',
                         'YTRANSBL.Kd_brg',
                         'YTRANSBL.Tgl_order',
@@ -103,7 +110,8 @@ class HistoryPembelianMasterController extends Controller
                         'YSUPPLIER.NEGARA1',
                         'YTERIMA.Hrg_trm',
                         'ACCOUNTING.dbo.T_MATAUANG.Id_MataUang_BC',
-                        'YUSER.Nama'
+                        'YUSER.Nama',
+                        'YTERIMA.No_trans',
                     )
                         ->join('Y_BARANG', 'YTRANSBL.Kd_brg', '=', 'Y_BARANG.KD_BRG')
                         ->join('YTERIMA', 'YTRANSBL.No_trans', '=', 'YTERIMA.No_trans')
@@ -111,13 +119,15 @@ class HistoryPembelianMasterController extends Controller
                         ->join('ACCOUNTING.dbo.T_MATAUANG', 'YTERIMA.IdMataUang', '=', 'ACCOUNTING.dbo.T_MATAUANG.Id_MataUang')
                         ->join('YUSER', 'YTRANSBL.Operator', '=', 'YUSER.kd_user')
                         ->join('YSUPPLIER', 'YTERIMA.No_sup', '=', 'YSUPPLIER.NO_SUP')
+                        ->join('STATUS_ORDER', 'YTRANSBL.StatusOrder', '=', 'STATUS_ORDER.KdStatus')
                         ->where('YSUPPLIER.NM_SUP', 'like', '%' . $sup . '%')
                         ->orderBy('YTRANSBL.Tgl_order')
                         ->get();
                 } else if ($kdbrg != null) {
                     $redisplay = DB::connection('ConnPurchase')->table('YTRANSBL')->select(
-                        'YTRANSBL.StatusOrder',
+                        'STATUS_ORDER.Status',
                         'YTRANSBL.NO_PO',
+                        'YTRANSBL.Tgl_sppb',
                         'YTRANSBL.Kd_div',
                         'YTRANSBL.Kd_brg',
                         'YTRANSBL.Tgl_order',
@@ -130,7 +140,8 @@ class HistoryPembelianMasterController extends Controller
                         'YSUPPLIER.NEGARA1',
                         'YTERIMA.Hrg_trm',
                         'ACCOUNTING.dbo.T_MATAUANG.Id_MataUang_BC',
-                        'YUSER.Nama'
+                        'YUSER.Nama',
+                        'YTERIMA.No_trans',
                     )
                         ->join('Y_BARANG', 'YTRANSBL.Kd_brg', '=', 'Y_BARANG.KD_BRG')
                         ->join('YTERIMA', 'YTRANSBL.No_trans', '=', 'YTERIMA.No_trans')
@@ -138,6 +149,7 @@ class HistoryPembelianMasterController extends Controller
                         ->join('ACCOUNTING.dbo.T_MATAUANG', 'YTERIMA.IdMataUang', '=', 'ACCOUNTING.dbo.T_MATAUANG.Id_MataUang')
                         ->join('YUSER', 'YTRANSBL.Operator', '=', 'YUSER.kd_user')
                         ->join('YSUPPLIER', 'YTERIMA.No_sup', '=', 'YSUPPLIER.NO_SUP')
+                        ->join('STATUS_ORDER', 'YTRANSBL.StatusOrder', '=', 'STATUS_ORDER.KdStatus')
                         ->where('YTRANSBL.Kd_brg', $kdbrg)
                         ->orderBy('YTRANSBL.Tgl_order')
                         ->get();

@@ -783,6 +783,7 @@ class PurchaseOrderController extends Controller
         $noTrans = $request->input('noTrans');
         $mtUang = $request->input('mtUang');
         $tglPO = Carbon::parse($request->input('tglPO'));
+        $tglPO->setTimeFrom(Carbon::now()->setTimezone('Asia/Jakarta'));
         $Operator = trim(Auth::user()->NomorUser);
         $idpay = $request->input('idpay');
         $jumCetak = 1;
