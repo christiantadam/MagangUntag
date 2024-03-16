@@ -595,8 +595,7 @@ $(document).ready(function () {
 
                 fileInput = [file];
             }
-
-            selectedData = {
+            var selectedData = {
                 Id_Laporan: selectedid_laporan,
                 tanggal: selectedRow.find("td:eq(1)").text(),
                 L_div_pelapor: selectedRow.find("td:eq(2)").text(),
@@ -612,14 +611,19 @@ $(document).ready(function () {
                 Teknisi: selectedRow.find("td:eq(12)").text(),
             };
 
-            var formattanggal = moment(
-                selectedData.tanggal,
-                "DD/MM/YYYY"
-            ).format("YYYY-MM-DD");
+            var parsedDate = new Date(selectedData.tanggal);
+
+            // Format the date as "yyyy-MM-dd"
+            var formattedDate =
+                parsedDate.getFullYear() +
+                "-" +
+                ("0" + (parsedDate.getMonth() + 1)).slice(-2) +
+                "-" +
+                ("0" + parsedDate.getDate()).slice(-2);
 
             // Update the form fields with the selectedData
             $("#id_laporan").val(selectedData.Id_Laporan);
-            $("#tanggal").val(formattanggal);
+            $("#tanggal").val(formattedDate);
             $("#divisi_pelapor1").val(selectedData.L_div_pelapor);
             $("#nama_pelapor").val(selectedData.Nama_pelapor);
             $("#penerima_laporan").val(selectedData.Penerima_laporan);

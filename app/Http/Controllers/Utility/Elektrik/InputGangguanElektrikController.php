@@ -121,7 +121,9 @@ class InputGangguanElektrikController extends Controller
         $tanggal2 = $request->input('tanggal2');
         $l_div_pelapor = $request->input('divisi');
 
-        $data = DB::connection('ConnUtility')->select('exec SP_DT_LIST_GANGGUAN_ELEKTRIK_BLN_THN2 @date1 = ?, @date2 = ?,  @divisi = ?', [$tanggal1, $tanggal2, $l_div_pelapor]);
+        $data = ($l_div_pelapor == 0)
+        ? DB::connection('ConnUtility')->select('exec SP_DT_LIST_GANGGUAN_ELEKTRIK_BLN_THN2 @date1 = ?, @date2 = ?,  @divisi = 0', [$tanggal1, $tanggal2])
+        : DB::connection('ConnUtility')->select('exec SP_DT_LIST_GANGGUAN_ELEKTRIK_BLN_THN2 @date1 = ?, @date2 = ?,  @divisi = ?', [$tanggal1, $tanggal2, $l_div_pelapor]);
         return datatables($data)->make(true);
     }
 
@@ -154,12 +156,6 @@ class InputGangguanElektrikController extends Controller
     public function deleteData(Request $request)
     {
         $Id_Laporan = $request->input('id');
-
-        // // Check if $Id_Laporan is an array
-        // if (!is_array($Id_Laporan)) {
-        //     // If $Id_Laporan is not an array, convert it to an array
-        //     $Id_Laporan = [$Id_Laporan];
-        // }
 
         try {
             foreach ([$Id_Laporan] as $id) {
