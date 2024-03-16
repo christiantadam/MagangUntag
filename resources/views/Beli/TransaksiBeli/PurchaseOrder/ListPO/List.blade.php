@@ -16,7 +16,7 @@
                         {{ Session::get('error') }}
                     </div>
                 @endif
-                <div class="card">
+                <div class="card font-weight-bold">
                     <div class="card-header">List Purchase Order</div>
                     <div class="card-body RDZOverflow RDZMobilePaddingLR0">
                         <div class="col-12">
@@ -25,9 +25,9 @@
                                     <input class="form-check-input" type="radio" name="radiobutton" id="radiobutton"
                                         checked value="{{ date('Y-m-d') }}">
                                     Betwen Date
-                                    <input type="date" class="form-control" id="betwendate1" name="betwendate1">
+                                    <input type="date" class="form-control font-weight-bold" id="betwendate1" name="betwendate1">
                                     <label for="betwendate1" class="form-label"></label>
-                                    <input type="date" class="form-control" id="betwendate2" name="betwendate2">
+                                    <input type="date" class="form-control font-weight-bold" id="betwendate2" name="betwendate2">
                                     <label for="betwendate2" class="form-label"></label>
                                 </div>
 
@@ -35,11 +35,11 @@
                                     <input class="form-check-input" type="radio" name="radiobutton" value="nomor_po">
                                     <label class="form-check-label" for="nomor_po">
                                         Nomor PO </label>
-                                    <input type="text" class="form-control" id="no_po" name="no_po">
+                                    <input type="text" class="form-control font-weight-bold" id="no_po" name="no_po">
                                 </div>
                                 <div class="col-2">
                                     <div class="col-12">
-                                        <button class="btn btn-primary mt-4 w-100" id="redisplayButton">Redisplay</button>
+                                        <button class="custom-button1 mt-4 w-100" id="redisplayButton">Redisplay</button>
                                     </div>
                                     <div class="col-12 mt-5">
                                         <span id="lihat_BTTB" class="text-primary" style="cursor: pointer; font-size: 24px; text-decoration: underline">Lihat BTTB</span>

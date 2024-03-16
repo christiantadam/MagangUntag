@@ -16,8 +16,8 @@
                     </div>
                 @endif
                 <div class="card">
-                    <div class="card-header">Retur BTTB</div>
-                    <div class="card-body">
+                    <div class="card-header font-weight-bold">Retur BTTB</div>
+                    <div class="card-body font-weight-bold">
                         <div class="row align-items-center">
                             <div class="col-6 col-xl-4">
                                 <div class="row align-items-center">
@@ -320,9 +320,9 @@
                             </div>
                             <div class="col-12">
                                 <button type="button " id="returbutton"
-                                    class="btn  btn-lg btn-success mr-3">RETUR</button>
+                                    class="custom-button2 mr-3">RETUR</button>
                                 <button type="button " id="batalbutton"
-                                    class="btn  btn-lg btn-success mr-3">BATAL</button>
+                                    class="custom-button2 mr-3">BATAL</button>
                             </div>
                         </div>
                     </div>

@@ -475,5 +475,7 @@ $(document).ready(function () {
     supplier_select.value = loadHeaderData[0].NM_SUP;
     paymentTerm_select.value = loadHeaderData[0].Pembayaran;
     matauang_select.value = loadHeaderData[0].Curr;
+    tanggal_mohonKirim.value = loadHeaderData[0].Est_Date.split(" ")[0]
+    tanggal_purchaseOrder.value = loadHeaderData[0].Tgl_sppb.split(" ")[0]
     console.log(loadHeaderData);
 });

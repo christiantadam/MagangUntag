@@ -35,6 +35,8 @@ class HistoryPembelianMasterController extends Controller
             try {
                 if ($nm_brg != null) {
                     $redisplay = DB::connection('ConnPurchase')->table('YTRANSBL')->select(
+                        'YTRANSBL.StatusOrder',
+                        'YTRANSBL.NO_PO',
                         'YTRANSBL.Kd_div',
                         'YTRANSBL.Kd_brg',
                         'YTRANSBL.Tgl_order',
@@ -60,6 +62,8 @@ class HistoryPembelianMasterController extends Controller
                         ->get();
                 } else if ($req != null) {
                     $redisplay = DB::connection('ConnPurchase')->table('YTRANSBL')->select(
+                        'YTRANSBL.StatusOrder',
+                        'YTRANSBL.NO_PO',
                         'YTRANSBL.Kd_div',
                         'YTRANSBL.Kd_brg',
                         'YTRANSBL.Tgl_order',
@@ -85,6 +89,8 @@ class HistoryPembelianMasterController extends Controller
                         ->get();
                 } else if ($sup != null) {
                     $redisplay = DB::connection('ConnPurchase')->table('YTRANSBL')->select(
+                        'YTRANSBL.StatusOrder',
+                        'YTRANSBL.NO_PO',
                         'YTRANSBL.Kd_div',
                         'YTRANSBL.Kd_brg',
                         'YTRANSBL.Tgl_order',
@@ -110,6 +116,8 @@ class HistoryPembelianMasterController extends Controller
                         ->get();
                 } else if ($kdbrg != null) {
                     $redisplay = DB::connection('ConnPurchase')->table('YTRANSBL')->select(
+                        'YTRANSBL.StatusOrder',
+                        'YTRANSBL.NO_PO',
                         'YTRANSBL.Kd_div',
                         'YTRANSBL.Kd_brg',
                         'YTRANSBL.Tgl_order',

@@ -14,7 +14,7 @@
                         {{ Session::get('error') }}
                     </div>
                 @endif
-                <div class="card">
+                <div class="card font-weight-bold">
                     <div class="card-header">Koreksi Status Beli</div>
                     <div class="card-body">
                         <div class="w-100 h-auto">
@@ -35,19 +35,19 @@
                                                 No. Order
                                             </div>
                                             <input type="text" name="search_NomorOrder" id="nomor_order"
-                                                class="input col-12 col-xl-3">
+                                                class="input col-12 col-xl-3 font-weight-bold">
                                             <div class="col-xl-2">
                                                 <input type="radio" name="filter_radioButton" id="filter_radioButtonUser"
                                                     value="User" class="radio-button">
                                                 User
                                             </div>
                                             <input type="text" name="search_User" id="user"
-                                                class="input col-12 col-xl-3">
+                                                class="input col-12 col-xl-3 font-weight-bold">
                                         </div>
 
                                     </div>
                                     <div class="col-md-2">
-                                        <button class="btn btn-success w-100" id="button_redisplay">Redisplay</button>
+                                        <button class="custom-button2 w-100" id="button_redisplay">Redisplay</button>
                                     </div>
                                 </div>
                             </div>
@@ -102,7 +102,7 @@
                                 </div>
 
                                 <div class="col-2 mt-4">
-                                    <button class="btn btn-success w-100" id="btn_update">Update</button>
+                                    <button class="custom-button2 w-100" id="btn_update">Update</button>
 
                                 </div>
                             </div>

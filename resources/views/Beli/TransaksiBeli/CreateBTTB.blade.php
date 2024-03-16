@@ -16,8 +16,8 @@
                     </div>
                 @endif
                 <div class="card">
-                    <div class="card-header">Create BTTB</div>
-                    <div class="card-body RDZOverflow RDZMobilePaddingLR0">
+                    <div class="card-header font-weight-bold">Create BTTB</div>
+                    <div class="card-body font-weight-bold">
                         <div class="row">
                             <div class="col-md-3 mb-2">
                                 <label for="nobttb" class="form-label font-weight-bold">No. BTTB</label>
@@ -387,9 +387,9 @@
 
                             <div class="col-md-12 d-flex justify-content-end pb-4">
                                 <div class="col-md-12 d-flex justify-content-end">
-                                    <button type="button" class="btn btn-primary btn-lg mr-3" id="updatedata" onclick="updateData()">Update</button>
-                                    <button type="button" class="btn btn-danger btn-lg mr-3"  id="removebutton" onclick="removeData()"> Remove</button>
-                                    <button type="button" class="btn btn-success btn-lg mr-3" id="post_btn">Post BTTB</button>
+                                    <button type="button" class="custom-button1 mr-3" id="updatedata" onclick="updateData()">Update</button>
+                                    <button type="button" class="custom-button3 mr-3"  id="removebutton" onclick="removeData()"> Remove</button>
+                                    <button type="button" class="custom-button2 mr-3" id="post_btn">Post BTTB</button>
                                 </div>
                             </div>
                         </div>

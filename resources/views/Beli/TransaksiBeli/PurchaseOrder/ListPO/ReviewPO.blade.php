@@ -24,7 +24,7 @@
                         {{ Session::get('error') }}
                     </div>
                 @endif
-                <div class="card">
+                <div class="card font-weight-bold">
                     <div class="card-header">Review PO</div>
                     <div class="card-body">
                         <div class="row align-items-center">
@@ -35,7 +35,7 @@
                                     </div>
                                     <div class="col-10">
                                         <input type="text" name="nomor_purchaseOrder" id="nomor_purchaseOrder"
-                                            class="form-control" value="{{ $No_PO }}" readonly>
+                                            class="form-control font-weight-bold" value="{{ $No_PO }}" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -46,7 +46,7 @@
                                     </div>
                                     <div class="col-10">
                                         <input type="text" name="supplier_select" id="supplier_select" readonly
-                                            class="form-control">
+                                            class="form-control font-weight-bold">
                                     </div>
                                 </div>
                             </div>
@@ -58,7 +58,7 @@
                                     </div>
                                     <div class="col-10">
                                         <input type="text" name="paymentTerm_select" id="paymentTerm_select"
-                                            class="form-control" readonly>
+                                            class="form-control font-weight-bold" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -69,7 +69,7 @@
                                     </div>
                                     <div class="col-10">
                                         <input type="date" name="tanggal_mohonKirim" id="tanggal_mohonKirim"
-                                            class="form-control">
+                                            class="form-control font-weight-bold">
                                     </div>
                                 </div>
                             </div>
@@ -80,7 +80,7 @@
                                     </div>
                                     <div class="col-10">
                                         <input type="date" name="tanggal_purchaseOrder" id="tanggal_purchaseOrder"
-                                            class="form-control">
+                                            class="form-control font-weight-bold">
                                     </div>
                                 </div>
                             </div>
@@ -92,7 +92,7 @@
                                     </div>
                                     <div class="col-10">
                                         <input type="text" name="matauang_select" id="matauang_select"
-                                        class="form-control" readonly>
+                                        class="form-control font-weight-bold" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -134,7 +134,7 @@
 
                         <div class="row mt-4">
                             <div class="col-12">
-                                <button class="btn btn-success" id="btn_post">Print</button>
+                                <button class="custom-button2" id="btn_post">Print</button>
 
                             </div>
                         </div>

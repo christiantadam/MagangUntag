@@ -59,7 +59,7 @@ function print(data) {
     chunkedData.forEach((chunk, chunkIndex) => {
         chunk.forEach((item, index) => {
             tableRows += `
-                <tr>
+                <tr style="margin-bottom: 8px;">
                     <td sty><p style="line-height: 13.8px; font-size: 13px; font-family: Helvetica; text-align: center">${
                         No + 1
                     }</p></td>
