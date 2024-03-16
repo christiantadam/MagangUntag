@@ -263,7 +263,7 @@ $(document).ready(function () {
                     mesin.value = data.NoMesin;
                     jam.value = data.JamOperasi;
                     part.value = data.IdPart;
-                    keterangan.value = data.Keterangan;
+                    keterangan.value = data.NoKeteranganPart;
                     teknisi.value = data.Teknisi;
 
                     getKeteranganData(data.IdPart);
@@ -309,33 +309,44 @@ $(document).ready(function () {
                 "X-CSRF-TOKEN": csrfToken,
             },
             success: function (response) {
-                idValue
-                    ? Swal.fire({
-                          icon: "success",
-                          title: "Data Berhasil Diperbarui!",
-                          showConfirmButton: false,
-                          timer: "2000",
-                      })
-                    : Swal.fire({
-                          icon: "success",
-                          title: "Data Berhasil Disimpan!",
-                          showConfirmButton: false,
-                          timer: "2000",
-                      });
-                clearForm();
-                dataTable.ajax.reload();
-                inputButton.disabled = false;
-                updateButton.disabled = false;
-                deleteButton.disabled = false;
-                saveButton.disabled = true;
-                tanggal.disabled = true;
-                inputButton.disabled = false;
-                mesin.disabled = true;
-                jam.disabled = true;
-                part.disabled = true;
-                keterangan.disabled = true;
-                teknisi.disabled = true;
-                tanggal.value = tanggal_Output;
+                if (response.Error) {
+                    Swal.fire({
+                        icon: "error",
+                        title: response.Error,
+                        showConfirmButton: false,
+                        timer: 2000,
+                    });
+                } else {
+                    if (idValue) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Data Berhasil Diperbarui!",
+                            showConfirmButton: false,
+                            timer: 2000,
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Data Berhasil Disimpan!",
+                            showConfirmButton: false,
+                            timer: 2000,
+                        });
+                    }
+                    clearForm();
+                    dataTable.ajax.reload();
+                    inputButton.disabled = false;
+                    updateButton.disabled = false;
+                    deleteButton.disabled = false;
+                    saveButton.disabled = true;
+                    tanggal.disabled = true;
+                    inputButton.disabled = false;
+                    mesin.disabled = true;
+                    jam.disabled = true;
+                    part.disabled = true;
+                    keterangan.disabled = true;
+                    teknisi.disabled = true;
+                    tanggal.value = tanggal_Output;
+                }
             },
             error: function (error) {
                 console.error("Error saving data:", error);
@@ -351,11 +362,11 @@ $(document).ready(function () {
             success: function (data) {
                 // console.log(data);
                 var selectKeterangan = $("#select_keterangan");
-                selectKeterangan
-                    .empty()
-                    .append(
-                        "<option selected disabled>Pilih keterangan...</option>"
-                    );
+                selectKeterangan;
+                // .empty()
+                // .append(
+                //     "<option selected disabled>Pilih keterangan...</option>"
+                // );
 
                 $.each(data, function (index, item) {
                     selectKeterangan.append(
@@ -365,6 +376,7 @@ $(document).ready(function () {
                             item.Keterangan +
                             "</option>"
                     );
+                    // Di sini, saya menambahkan item.NoKeteranganPart di dalam opsi juga
                 });
 
                 selectKeterangan.prop("disabled", true);

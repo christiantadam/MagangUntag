@@ -68,6 +68,23 @@ class InputPerawatanController extends Controller
     public function savePerawatan(Request $request)
     {
         try {
+
+            $tanggal = $request->input('Tanggal');
+            $noMesin = $request->input('NoMesin');
+
+            // Lakukan pengecekan apakah data dengan tanggal dan nomor mesin sudah tersimpan
+            $existingData = DB::connection('ConnUtility')
+                ->table('PERAWATAN_COMPRESSOR') // Ganti 'nama_tabel' dengan nama tabel yang sesuai
+                ->where('Tanggal', $tanggal)
+                ->where('NoMesin', $noMesin)
+                ->first();
+
+            // Jika data sudah tersimpan, return false
+            if ($existingData) {
+                return response()->json(['Error' => 'Data dengan tanggal dan nomor mesin tersebut sudah tersimpan.']);
+            }
+
+
             $tanggal = $request->input('Tanggal');
             $noMesin = $request->input('NoMesin');
             $jamOperasi = $request->input('JamOperasi');
