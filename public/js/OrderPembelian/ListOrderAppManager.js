@@ -112,6 +112,8 @@ function inisialisasiDataTable(response) {
         searching: false,
         scrollY: "400px",
         paging: false,
+        // lengthChange:false,
+        // pageLength : 500,
         data: response,
         columns: [
             {
@@ -154,14 +156,27 @@ function inisialisasiDataTable(response) {
         .off("dblclick", "tr")
         .on("dblclick", "tr", function () {
             let checkbox = $(this).find('input[type="checkbox"]');
-            console.log(checkbox);
             checkbox.prop("checked", !checkbox.prop("checked"));
-            let checkedCount = $('input[type="checkbox"]:checked').length;
+            let checkedCount = $(
+                '#table_ListOrder tbody input[type="checkbox"]:checked'
+            ).length;
 
             $("#checkedCount").text(
                 `Jumlah Data Yang TerCentang ${checkedCount}`
             );
-        });
+    });
+    $("#table_ListOrder tbody").on(
+        "change",
+        'input[type="checkbox"]',
+        function () {
+            let checkedCount = $(
+                '#table_ListOrder tbody input[type="checkbox"]:checked'
+            ).length;
+            $("#checkedCount").text(
+                `Jumlah Data Yang TerCentang ${checkedCount}`
+            );
+        }
+    );
 }
 
 checkedAll.addEventListener("click", function (event) {
@@ -173,8 +188,18 @@ checkedAll.addEventListener("click", function (event) {
         .nodes();
     if (checkedAll.checked == true) {
         $('input[type="checkbox"]', rows).prop("checked", true);
+        let checkedCount = $(
+            '#table_ListOrder tbody input[type="checkbox"]:checked'
+        ).length;
+
+        $("#checkedCount").text(`Jumlah Data Yang TerCentang ${checkedCount}`);
     } else {
         $('input[type="checkbox"]', rows).prop("checked", false);
+        let checkedCount = $(
+            '#table_ListOrder tbody input[type="checkbox"]:checked'
+        ).length;
+
+        $("#checkedCount").text(`Jumlah Data Yang TerCentang ${checkedCount}`);
     }
 });
 btnPrint.addEventListener("click", function () {

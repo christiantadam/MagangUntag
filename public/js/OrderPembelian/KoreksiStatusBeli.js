@@ -67,7 +67,9 @@ function redisplayData(noTrans, requester, kd) {
         scrollX: true,
         searching: false,
         scrollY: "400px",
-        paging: false,
+        // paging: false,
+        lengthChange:false,
+        pageLength : 100,
         ajax: {
             url: "/StatusBeli/Redisplay",
             type: "GET",

@@ -72,7 +72,9 @@ function redisplayData(nm_brg, req, sup, kdbrg) {
         serverSide: true,
         scrollX: true,
         scrollY: "400px",
-        paging: false,
+        // paging: false,
+        lengthChange:false,
+        pageLength : 100,
         ajax: {
             url: "/HistoryPembelianMasterRedisplay",
             type: "GET",

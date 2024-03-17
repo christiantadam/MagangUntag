@@ -878,11 +878,24 @@ class PurchaseOrderController extends Controller
         $MaxDate = Carbon::parse($request->input('MaxDate'));
         $MaxDate->setTimeFrom(Carbon::now()->setTimezone('Asia/Jakarta'));
         $noPO = $request->input('noPO');
-        $kd = 22;
-
-        $purchaseorder = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd =?, @noPO =?, @MinDate=?, @MaxDate=?', [$kd, $noPO, $MinDate, $MaxDate]);
-
-        return response()->json($purchaseorder);
+        if (($MinDate !== null) ||
+            ($MaxDate !== null) ||
+            ($noPO !== null)
+        ) {
+            try {
+                if ($noPO == null) {
+                    $purchaseorder = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd =?, @MinDate=?, @MaxDate=?', [22, $MinDate, $MaxDate]);
+                } else {
+                    $purchaseorder = DB::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd =?, @noPO =?', [21, $noPO]);
+                }
+                return datatables($purchaseorder)->make(true);
+            } catch (\Throwable $Error) {
+                return Response()->json($Error);
+            }
+        } else {
+            return Response()->json('Parameter harus di isi');
+        }
+        // return response()->json($purchaseorder);
     }
 
     public function display(Request $request)

@@ -80,7 +80,7 @@
                                         <label for="no_po">Nomor Order</label>
                                     </div>
                                     <div class="col-12">
-                                        <input type="text" name="no_po" id="no_po" class="form-control"
+                                        <input type="text" name="no_po" id="no_po" class="form-control font-weight-bold"
                                             readonly>
                                     </div>
                                 </div>

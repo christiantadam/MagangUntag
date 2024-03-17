@@ -234,7 +234,9 @@ function redisplayData(noTrans, requester, kd) {
         scrollX: true,
         searching: false,
         scrollY: "200px",
-        paging: false,
+        // paging: false,
+        lengthChange:false,
+        pageLength : 100,
         ajax: {
             url: "/IsiSupplierHarga/" + id + "/Redisplay",
             type: "GET",
