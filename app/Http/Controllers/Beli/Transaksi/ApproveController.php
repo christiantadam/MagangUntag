@@ -9,6 +9,8 @@ use App\Models\Beli\TransBL;
 use App\User;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\HakAksesController;
+use DateTime;
+use DateTimeZone;
 use DB;
 
 class ApproveController extends Controller
@@ -31,7 +33,8 @@ class ApproveController extends Controller
     public function store(Request $request)
     {
         $Checked = $request->input('checkedBOX');
-        $date = date("Y-m-d H:i:s");
+        $date = new DateTime('now', new DateTimeZone('Asia/Jakarta'));
+        $date->format('Y-m-d H:i:s');
         if (empty($Checked)) {
             echo 'kosong';
             return back()->with('danger', 'Gagal Approve/Reject, Karena Tidak Ada Data yang Dipilih');
@@ -66,12 +69,14 @@ class ApproveController extends Controller
     {
         switch ($request->input('action')) {
             case 'Approve':
-                $date = date("Y-m-d H:i:s");
+                $date = new DateTime('now', new DateTimeZone('Asia/Jakarta'));
+                $date->format('Y-m-d H:i:s');
                 TransBL::where('No_trans', $id)->update(['Tgl_acc' => $date, 'Manager' => trim(Auth::user()->NomorUser), 'StatusOrder' => '2']);
                 return back();
 
             case 'Reject':
-                $date = date("Y-m-d H:i:s");
+                $date = new DateTime('now', new DateTimeZone('Asia/Jakarta'));
+                $date->format('Y-m-d H:i:s');
                 TransBL::where('No_trans', $id)->update(['Tgl_Batal_acc' => $date, 'Batal_acc' => trim(Auth::user()->NomorUser), 'StatusOrder' => '0']);
                 return back();
         }

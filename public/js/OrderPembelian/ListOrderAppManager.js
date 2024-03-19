@@ -76,6 +76,7 @@ buttonRedisplay.addEventListener("click", function (event) {
                 if (response.recordTotal != 0) {
                     checkedAll.disabled = false;
                 }
+                console.log(response)
                 inisialisasiDataTable(response.data);
             },
             error: function (error) {
