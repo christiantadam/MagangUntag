@@ -11,7 +11,7 @@ $(function () {
           document.getElementById("KategoriUtamaFinal").innerHTML="Kategori Utama: "+data.data.KatUtama;
           document.getElementById("KategoriFinal").innerHTML="Kategori: "+data.data.kategori;
           document.getElementById("SubKategoriFinal").innerHTML="Sub Kategori: "+data.data.SubKat;
-          document.getElementById("NamaBarangFinal").innerHTML="Nama Barang: "+data.data.NamaBarang+"<text class='material-symbols-outlined' style='font-size:20px' id='iconKategoriBarang'>expand_more</text>";
+          document.getElementById("NamaBarangFinal").innerHTML="Nama Barang: "+data.data.NamaBarang.replace(/</g, "&lt;").replace(/>/g, "&gt;")+"<text class='material-symbols-outlined' style='font-size:20px' id='iconKategoriBarang'>expand_more</text>";
           document.getElementById("QtyFinal").innerHTML="Qty Order: "+data.data.Qty+" "+data.data.Nama_satuan;
           document.getElementById("DivisiFinal").innerHTML="Divisi: "+data.data.Kd_div;
           // PEMESAN-------------------------------------------------------------------------------------

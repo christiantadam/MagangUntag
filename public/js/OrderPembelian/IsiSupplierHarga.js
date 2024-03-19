@@ -235,8 +235,8 @@ function redisplayData(noTrans, requester, kd) {
         searching: false,
         scrollY: "200px",
         // paging: false,
-        lengthChange:false,
-        pageLength : 100,
+        lengthChange: false,
+        pageLength: 100,
         ajax: {
             url: "/IsiSupplierHarga/" + id + "/Redisplay",
             type: "GET",
@@ -266,8 +266,24 @@ function redisplayData(noTrans, requester, kd) {
                     return tgl;
                 },
             },
-            { data: "keterangan" },
-            { data: "Ket_Internal" },
+            {
+                data: "keterangan",
+                render: function (data) {
+                    return (
+                        data == '-' ? '<p style="text-align:center;font-size: 14px;">-</p>' : data ||
+                        '<p style="text-align:center;font-size: 14px;">-</p>'
+                    );
+                },
+            },
+            {
+                data: "Ket_Internal",
+                render: function (data) {
+                    return (
+                        data == '-' ? '<p style="text-align:center;font-size: 14px;">-</p>' : data ||
+                        '<p style="text-align:center;font-size: 14px;">-</p>'
+                    );
+                },
+            },
         ],
         rowCallback: function (row, data) {
             $(row).on("dblclick", function (event) {
@@ -281,12 +297,15 @@ function redisplayData(noTrans, requester, kd) {
                 tanggal_dibutuhkan.value = data.Tgl_Dibutuhkan.split(" ")[0];
                 divisi.value = data.Kd_div;
                 kode_barang.value = data.Kd_brg;
-                nama_barang.value = data.NAMA_BRG;
+                nama_barang.value = data.NAMA_BRG.replace(/&lt;/g, "<").replace(
+                    /&gt;/g,
+                    ">"
+                );
                 sub_kategori.value = data.nama_sub_kategori;
                 qty_order.value = parseFloat(data.Qty);
                 user_input.value = data.Nama;
-                keterangan_order.value = data.keterangan;
-                keterangan_internal.value = data.Ket_Internal;
+                keterangan_order.value = data.keterangan || "-";
+                keterangan_internal.value = data.Ket_Internal || "-";
                 fixValueQTYOrder = data.Qty;
             });
         },

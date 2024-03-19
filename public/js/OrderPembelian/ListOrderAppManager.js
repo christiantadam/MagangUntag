@@ -148,8 +148,24 @@ function inisialisasiDataTable(response) {
                     return data.split(" ")[0];
                 },
             },
-            { data: "keterangan" },
-            { data: "Ket_Internal" },
+            {
+                data: "keterangan",
+                render: function (data) {
+                    return data == "-"
+                        ? '<p style="text-align:center;font-size: 14px;">-</p>'
+                        : data ||
+                              '<p style="text-align:center;font-size: 14px;">-</p>';
+                },
+            },
+            {
+                data: "Ket_Internal",
+                render: function (data) {
+                    return data == "-"
+                        ? '<p style="text-align:center;font-size: 14px;">-</p>'
+                        : data ||
+                              '<p style="text-align:center;font-size: 14px;">-</p>';
+                },
+            },
         ],
     });
     $("#table_ListOrder tbody")
@@ -164,7 +180,7 @@ function inisialisasiDataTable(response) {
             $("#checkedCount").text(
                 `Jumlah Data Yang TerCentang ${checkedCount}`
             );
-    });
+        });
     $("#table_ListOrder tbody").on(
         "change",
         'input[type="checkbox"]',

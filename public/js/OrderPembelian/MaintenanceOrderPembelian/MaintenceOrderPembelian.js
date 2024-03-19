@@ -541,11 +541,26 @@ function saldo(kdBarang) {
         },
         columns: [
             { data: "NamaDivisi" },
-            { data: "SaldoTritier" },
+            {
+                data: "SaldoTritier",
+                render: function (data) {
+                    return numeral(parseFloat(data)).format("0.00");
+                },
+            },
             { data: "satTertier" },
-            { data: "SaldoSekunder" },
+            {
+                data: "SaldoSekunder",
+                render: function (data) {
+                    return numeral(parseFloat(data)).format("0.00");
+                },
+            },
             { data: "satSekunder" },
-            { data: "SaldoPrimer" },
+            {
+                data: "SaldoPrimer",
+                render: function (data) {
+                    return numeral(parseFloat(data)).format("0.00");
+                },
+            },
             { data: "satPrimer" },
             { data: "NamaObjek" },
             { data: "NamaKelompokUtama" },

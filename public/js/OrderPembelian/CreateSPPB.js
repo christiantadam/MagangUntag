@@ -118,15 +118,30 @@ function LoadPermohonan(data) {
             },
             {
                 data: "NAMA_BRG",
+                render: function (data) {
+                    return data.replace(/</g, "&lt;");
+                },
             },
             {
                 data: "nama_sub_kategori",
             },
             {
                 data: "KET",
+                render: function (data) {
+                    return (
+                        data == '-' ? '<p style="text-align:center;font-size: 14px;">-</p>' : data ||
+                        '<p style="text-align:center;font-size: 14px;">-</p>'
+                    );
+                },
             },
             {
                 data: "Ket_Internal",
+                render: function (data) {
+                    return (
+                        data == '-' ? '<p style="text-align:center;font-size: 14px;">-</p>' : data ||
+                        '<p style="text-align:center;font-size: 14px;">-</p>'
+                    );
+                },
             },
             {
                 data: "NmUser",
@@ -227,8 +242,8 @@ function LoadPermohonan(data) {
                 nama_barang.value = data.NAMA_BRG;
                 sub_kategori.value = data.nama_sub_kategori;
                 qty_order.value = parseFloat(data.Qty).toFixed(2);
-                keterangan_order.value = data.keterangan;
-                keterangan_internal.value = data.Ket_Internal;
+                keterangan_order.value = data.keterangan || '-';
+                keterangan_internal.value = data.Ket_Internal || "-";
                 qty_delay.value = parseFloat(data.QtyCancel).toFixed(2);
                 harga_unit.value = numeral(parseFloat(data.PriceUnit)).format(
                     "0,0.0000"
@@ -536,9 +551,9 @@ function print(data) {
                         item.Kd_brg
                     }</p></td>
                     <td><p style="line-height: 13.8px; font-size: 13px;font-family: Helvetica;">
-                    ${item.NAMA_BRG}
+                    ${item.NAMA_BRG.replace(/</g, "&lt;")}
                     <br>
-                    ${item.keterangan}
+                    ${item.keterangan || "-"}
                     <br>
                     ${item.nama_kategori}
                     <br>
@@ -777,7 +792,7 @@ function print(data) {
 
 $(document).ready(function () {
     LoadPermohonan(loadPermohonanData);
-    // console.log(loadPermohonanData);
+    console.log(loadPermohonanData);
     // console.log(loadHeaderData);
 
     $("#matauang_select").val(loadPermohonanData[0].ID_MATAUANG);

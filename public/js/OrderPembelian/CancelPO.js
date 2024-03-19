@@ -149,12 +149,12 @@ function responseData(datas) {
         tabelData.row.add([
             data.No_trans,
             data.Kd_brg,
-            data.NAMA_BRG,
+            data.NAMA_BRG.replace(/</g, "&lt;"),
             data.nama_sub_kategori,
             data.Qty,
             data.Nama_satuan,
-            data.QtyRcv,
-            data.QtyRemain,
+            data.QtyRcv || "0",
+            data.QtyRemain || "0",
             data.JumPPN,
             data.Status,
         ]);
@@ -186,12 +186,13 @@ function responseData(datas) {
 
             document.getElementById("no_po").value = rowData[0] || "";
             document.getElementById("kd_barang").value = rowData[1] || "";
-            document.getElementById("nama_barang").value = rowData[2] || "";
+            document.getElementById("nama_barang").value =
+                rowData[2].replace(/&lt;/g, "<").replace(/&gt;/g, ">") || "";
             document.getElementById("subkategori").value = rowData[3] || "";
             document.getElementById("subkategori").value = rowData[3] || "";
-            document.getElementById("qty_ordered").value = rowData[4] || "";
-            document.getElementById("qty_remaining").value = rowData[6] || "";
-            document.getElementById("qty_received").value = rowData[6] || "";
+            document.getElementById("qty_ordered").value = rowData[4] || "0";
+            document.getElementById("qty_remaining").value = rowData[6] || "0";
+            document.getElementById("qty_received").value = rowData[6] || "0";
         }
     });
 }

@@ -639,7 +639,7 @@ class PurchaseOrderController extends Controller
                 'exec SP_5409_MAINT_PO
             @kd = ?,
             @noTrans = ?,
-            @noPO = ?,
+            @NoPO = ?,
             @Operator = ?',
                 [
                     2,

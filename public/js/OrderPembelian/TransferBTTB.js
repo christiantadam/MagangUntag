@@ -328,7 +328,10 @@ $(document).ready(function () {
                 clearData();
                 no_terima.value = data.No_terima;
                 kode_barang.value = data.Kd_brg;
-                nama_barang.value = data.NAMA_BRG;
+                nama_barang.value = data.NAMA_BRG.replace(/&lt;/g, "<").replace(
+                    /&gt;/g,
+                    ">"
+                );;
                 qty_terima.value = parseFloat(data.Qty_Terima);
                 ket_qtyTerima.value = data.Nama_satuan;
                 no_pib.value = data.No_PIB;

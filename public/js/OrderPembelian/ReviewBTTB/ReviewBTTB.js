@@ -67,7 +67,7 @@ function print(data) {
                         item.Kd_brg
                     }</p></td>
                     <td><p style="line-height: 13.8px; font-size: 13px; font-family: Helvetica;">
-                    ${item.NAMA_BRG}
+                    ${item.NAMA_BRG.replace(/</g, "&lt;")}
                     </td>
                     <td style="text-align: center;"><p style="line-height: 13.8px; font-size: 13px; font-family: Helvetica;">${
                         !parseFloat(item.Qty)
@@ -318,7 +318,7 @@ function responseData(datas) {
             .add([
                 data.No_trans,
                 data.Kd_brg,
-                data.NAMA_BRG,
+                data.NAMA_BRG.replace(/</g, "&lt;"),
                 data.nama_sub_kategori,
                 data.Nama_satuan,
                 numeral(parseFloat(data.Qty)).format("0.00") || 0,

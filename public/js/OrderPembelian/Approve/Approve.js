@@ -10,7 +10,7 @@ $(function () {
           document.getElementById("KategoriUtama").innerHTML="Kategori Utama: "+data.data.KatUtama;
           document.getElementById("Kategori").innerHTML="Kategori: "+data.data.kategori;
           document.getElementById("SubKategori").innerHTML="Sub Kategori: "+data.data.SubKat;
-          document.getElementById("NamaBarang").innerHTML="Nama Barang: "+data.data.NamaBarang+"<text class='material-symbols-outlined' style='font-size:20px' id='iconKategoriBarang'>expand_more</text>";
+          document.getElementById("NamaBarang").innerHTML="Nama Barang: "+data.data.NamaBarang.replace(/</g, "&lt;").replace(/>/g, "&gt;")+"<text class='material-symbols-outlined' style='font-size:20px' id='iconKategoriBarang'>expand_more</text>";
           document.getElementById("Qty").innerHTML="Qty Order: "+data.data.Qty+" "+data.data.Nama_satuan;
           document.getElementById("Divisi").innerHTML="Divisi: "+data.data.Kd_div;
           // PEMESAN -------------------------------------------------------------------------

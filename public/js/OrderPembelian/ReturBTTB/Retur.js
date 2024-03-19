@@ -430,7 +430,10 @@ $("#tabelretur tbody").on("dblclick", "tr", function () {
     let rowData = tabelretur.row(this).data();
     idterima = rowData[2];
     kdbarang.value = rowData[3] || "";
-    namabarang.value = rowData[4] || "";
+    namabarang.value = rowData[4].replace(/&lt;/g, "<").replace(
+        /&gt;/g,
+        ">"
+    ) || "";
     subkategori.value = rowData[5] || "";
     bttb.value = rowData[0] || "";
     alasan.value = rowData[13] || "";
@@ -545,7 +548,7 @@ function responseData(datas) {
                 data.No_SuratJalan,
                 data.No_terima,
                 data.Kd_brg,
-                data.NAMA_BRG,
+                data.NAMA_BRG.replace(/</g, "&lt;"),
                 data.nama_sub_kategori,
                 numeral(parseFloat(data.Qty_Terima)).format("0.0000"),
                 data.Nama_satuan,
@@ -568,7 +571,7 @@ function responseDataTabelRetur1(datas) {
             .add([
                 data.IdType,
                 data.KodeBarang,
-                data.NamaType,
+                data.NamaType.replace(/</g, "&lt;"),
                 numeral(parseFloat(data.SaldoPrimer)).format("0.00") || 0,
                 data.satPrimer,
                 numeral(parseFloat(data.SaldoSekunder)).format("0.00") || 0,

@@ -314,13 +314,15 @@ create_po.addEventListener("click", function (event) {
             let noTrans = [];
             for (let index = 0; index < selectedRows.length; index++) {
                 noTrans.push(selectedRows[index][5]);
+            console.log(noTrans)
+
             }
             let input = document.createElement("input");
             input.type = "hidden";
             input.name = "noTrans";
             input.value = noTrans;
             form_createSPPB.appendChild(input);
-
+            console.log(form_createSPPB)
             form_createSPPB.submit();
         }
     } else {
@@ -338,28 +340,37 @@ function LoadPermohonan(proses, stbeli) {
         )
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
                 const rows = data.map((item) => {
                     return [
                         `<input type="checkbox" name="checked" value="${item.No_trans.trim()}" id="${item.No_trans.trim()}" style="width: 20px;height: 20px;" />`,
                         item.NM_SUP.trim(),
                         item.Kd_div.trim(),
                         item.NmUser.trim(),
-                        item.StBeli.trim() == 1 ? 'Pengadaan Pembelian' : 'Beli Sendiri',
+                        item.StBeli.trim() == 1
+                            ? "Pengadaan Pembelian"
+                            : "Beli Sendiri",
                         item.No_trans.trim(),
                         item.Kd_brg.trim(),
-                        item.NAMA_BRG.trim(),
+                        item.NAMA_BRG.trim().replace(/</g, "&lt;"),
                         item.nama_sub_kategori.trim(),
                         numeral(parseFloat(item.Qty.trim())).format("0.00"),
                         item.Nama_satuan.trim(),
-                        numeral(parseFloat(item.PriceUnit.trim())).format("0,0.0000"),
-                        numeral(parseFloat(item.PriceSub.trim())).format("0,0.0000"),
+                        numeral(parseFloat(item.PriceUnit.trim())).format(
+                            "0,0.0000"
+                        ),
+                        numeral(parseFloat(item.PriceSub.trim())).format(
+                            "0,0.0000"
+                        ),
                         numeral(parseFloat(item.PPN.trim())).format("0,0.0000"),
-                        numeral(parseFloat(item.PriceExt.trim())).format("0,0.0000"),
+                        numeral(parseFloat(item.PriceExt.trim())).format(
+                            "0,0.0000"
+                        ),
                         item.Curr.trim(),
                         item.Tgl_Dibutuhkan.trim(),
-                        item.keterangan == null ? '' : item.keterangan.trim(),
-                        item.Ket_Internal == null ? '' : item.Ket_Internal.trim(),
+                        item.keterangan == null ? "-" : item.keterangan.trim(),
+                        item.Ket_Internal == null
+                            ? "-"
+                            : item.Ket_Internal.trim(),
                         item.AppMan.trim(),
                         item.AppPBL.trim(),
                         item.AppDir.trim() + " " + item.Tgl_Direktur.trim(),
@@ -404,7 +415,7 @@ function LoadPermohonan(proses, stbeli) {
                         $("#checkedCount").text(
                             `Jumlah Data Yang TerCentang ${checkedCount}`
                         );
-                        let selectedRows = [];
+                        selectedRows = [];
 
                         $(
                             '#table_PurchaseOrder tbody input[type="checkbox"]:checked'
@@ -422,28 +433,37 @@ function LoadPermohonan(proses, stbeli) {
         fetch("/get/dataPermohonanUser/" + filter_radioButtonUserInput.value)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
                 const rows = data.map((item) => {
                     return [
                         `<input type="checkbox" name="checked" value="${item.No_trans.trim()}" id="${item.No_trans.trim()}" style="width: 20px;height: 20px;" />`,
                         item.NM_SUP.trim(),
                         item.Kd_div.trim(),
                         item.NmUser.trim(),
-                        item.StBeli.trim() == 1 ? 'Pengadaan Pembelian' : 'Beli Sendiri',
+                        item.StBeli.trim() == 1
+                            ? "Pengadaan Pembelian"
+                            : "Beli Sendiri",
                         item.No_trans.trim(),
                         item.Kd_brg.trim(),
-                        item.NAMA_BRG.trim(),
+                        item.NAMA_BRG.trim().replace(/</g, "&lt;"),
                         item.nama_sub_kategori.trim(),
                         numeral(parseFloat(item.Qty.trim())).format("0.00"),
                         item.Nama_satuan.trim(),
-                        numeral(parseFloat(item.PriceUnit.trim())).format("0,0.0000"),
-                        numeral(parseFloat(item.PriceSub.trim())).format("0,0.0000"),
+                        numeral(parseFloat(item.PriceUnit.trim())).format(
+                            "0,0.0000"
+                        ),
+                        numeral(parseFloat(item.PriceSub.trim())).format(
+                            "0,0.0000"
+                        ),
                         numeral(parseFloat(item.PPN.trim())).format("0,0.0000"),
-                        numeral(parseFloat(item.PriceExt.trim())).format("0,0.0000"),
+                        numeral(parseFloat(item.PriceExt.trim())).format(
+                            "0,0.0000"
+                        ),
                         item.Curr.trim(),
                         item.Tgl_Dibutuhkan.trim(),
-                        item.keterangan == null ? '' : item.keterangan.trim(),
-                        item.Ket_Internal == null ? '' : item.Ket_Internal.trim(),
+                        item.keterangan == null ? "-" : item.keterangan.trim(),
+                        item.Ket_Internal == null
+                            ? "-"
+                            : item.Ket_Internal.trim(),
                         item.AppMan.trim(),
                         item.AppPBL.trim(),
                         item.AppDir.trim() + " " + item.Tgl_Direktur.trim(),
@@ -488,7 +508,7 @@ function LoadPermohonan(proses, stbeli) {
                         $("#checkedCount").text(
                             `Jumlah Data Yang TerCentang ${checkedCount}`
                         );
-                        let selectedRows = [];
+                        selectedRows = [];
 
                         $(
                             '#table_PurchaseOrder tbody input[type="checkbox"]:checked'
@@ -506,28 +526,37 @@ function LoadPermohonan(proses, stbeli) {
         fetch("/get/dataPermohonanOrder/" + filter_radioButtonOrderInput.value)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
                 const rows = data.map((item) => {
                     return [
                         `<input type="checkbox" name="checked" value="${item.No_trans.trim()}" id="${item.No_trans.trim()}" style="width: 20px;height: 20px;" />`,
                         item.NM_SUP.trim(),
                         item.Kd_div.trim(),
                         item.NmUser.trim(),
-                        item.StBeli.trim() == 1 ? 'Pengadaan Pembelian' : 'Beli Sendiri',
+                        item.StBeli.trim() == 1
+                            ? "Pengadaan Pembelian"
+                            : "Beli Sendiri",
                         item.No_trans.trim(),
                         item.Kd_brg.trim(),
-                        item.NAMA_BRG.trim(),
+                        item.NAMA_BRG.trim().replace(/</g, "&lt;"),
                         item.nama_sub_kategori.trim(),
                         numeral(parseFloat(item.Qty.trim())).format("0.00"),
                         item.Nama_satuan.trim(),
-                        numeral(parseFloat(item.PriceUnit.trim())).format("0,0.0000"),
-                        numeral(parseFloat(item.PriceSub.trim())).format("0,0.0000"),
+                        numeral(parseFloat(item.PriceUnit.trim())).format(
+                            "0,0.0000"
+                        ),
+                        numeral(parseFloat(item.PriceSub.trim())).format(
+                            "0,0.0000"
+                        ),
                         numeral(parseFloat(item.PPN.trim())).format("0,0.0000"),
-                        numeral(parseFloat(item.PriceExt.trim())).format("0,0.0000"),
+                        numeral(parseFloat(item.PriceExt.trim())).format(
+                            "0,0.0000"
+                        ),
                         item.Curr.trim(),
                         item.Tgl_Dibutuhkan.trim(),
-                        item.keterangan == null ? '' : item.keterangan.trim(),
-                        item.Ket_Internal == null ? '' : item.Ket_Internal.trim(),
+                        item.keterangan == null ? "-" : item.keterangan.trim(),
+                        item.Ket_Internal == null
+                            ? "-"
+                            : item.Ket_Internal.trim(),
                         item.AppMan.trim(),
                         item.AppPBL.trim(),
                         item.AppDir.trim() + " " + item.Tgl_Direktur.trim(),
@@ -572,7 +601,7 @@ function LoadPermohonan(proses, stbeli) {
                         $("#checkedCount").text(
                             `Jumlah Data Yang TerCentang ${checkedCount}`
                         );
-                        let selectedRows = [];
+                        selectedRows = [];
 
                         $(
                             '#table_PurchaseOrder tbody input[type="checkbox"]:checked'
@@ -599,28 +628,38 @@ function LoadPermohonanNyantol(proses, stbeli) {
         )
             .then((response) => response.json())
             .then((data) => {
-                // console.log(data);
+                //
                 const rows = data.map((item) => {
                     return [
                         `<input type="checkbox" name="checked" value="${item.No_trans.trim()}" id="${item.No_trans.trim()}" style="width: 20px;height: 20px;" />`,
                         item.NM_SUP.trim(),
                         item.Kd_div.trim(),
                         item.NmUser.trim(),
-                        item.StBeli.trim() == 1 ? 'Pengadaan Pembelian' : 'Beli Sendiri',
+                        item.StBeli.trim() == 1
+                            ? "Pengadaan Pembelian"
+                            : "Beli Sendiri",
                         item.No_trans.trim(),
                         item.Kd_brg.trim(),
-                        item.NAMA_BRG.trim(),
+                        item.NAMA_BRG.trim().replace(/</g, "&lt;"),
                         item.nama_sub_kategori.trim(),
                         numeral(parseFloat(item.Qty.trim())).format("0.00"),
                         item.Nama_satuan.trim(),
-                        numeral(parseFloat(item.PriceUnit.trim())).format("0,0.0000"),
-                        numeral(parseFloat(item.PriceSub.trim())).format("0,0.0000"),
+                        numeral(parseFloat(item.PriceUnit.trim())).format(
+                            "0,0.0000"
+                        ),
+                        numeral(parseFloat(item.PriceSub.trim())).format(
+                            "0,0.0000"
+                        ),
                         numeral(parseFloat(item.PPN.trim())).format("0,0.0000"),
-                        numeral(parseFloat(item.PriceExt.trim())).format("0,0.0000"),
+                        numeral(parseFloat(item.PriceExt.trim())).format(
+                            "0,0.0000"
+                        ),
                         item.Curr.trim(),
                         item.Tgl_Dibutuhkan.trim(),
-                        item.keterangan == null ? '' : item.keterangan.trim(),
-                        item.Ket_Internal == null ? '' : item.Ket_Internal.trim(),
+                        item.keterangan == null ? "-" : item.keterangan.trim(),
+                        item.Ket_Internal == null
+                            ? "-"
+                            : item.Ket_Internal.trim(),
                         item.AppMan.trim(),
                         item.AppPBL.trim(),
                         item.AppDir.trim() + " " + item.Tgl_Direktur.trim(),
@@ -665,7 +704,7 @@ function LoadPermohonanNyantol(proses, stbeli) {
                         $("#checkedCount").text(
                             `Jumlah Data Yang TerCentang ${checkedCount}`
                         );
-                        let selectedRows = [];
+                        selectedRows = [];
 
                         $(
                             '#table_PurchaseOrder tbody input[type="checkbox"]:checked'
@@ -686,28 +725,37 @@ function LoadPermohonanNyantol(proses, stbeli) {
         )
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
                 const rows = data.map((item) => {
                     return [
                         `<input type="checkbox" name="checked" value="${item.No_trans.trim()}" id="${item.No_trans.trim()}" style="width: 20px;height: 20px;" />`,
                         item.NM_SUP.trim(),
                         item.Kd_div.trim(),
                         item.NmUser.trim(),
-                        item.StBeli.trim() == 1 ? 'Pengadaan Pembelian' : 'Beli Sendiri',
+                        item.StBeli.trim() == 1
+                            ? "Pengadaan Pembelian"
+                            : "Beli Sendiri",
                         item.No_trans.trim(),
                         item.Kd_brg.trim(),
-                        item.NAMA_BRG.trim(),
+                        item.NAMA_BRG.trim().replace(/</g, "&lt;"),
                         item.nama_sub_kategori.trim(),
                         numeral(parseFloat(item.Qty.trim())).format("0.00"),
                         item.Nama_satuan.trim(),
-                        numeral(parseFloat(item.PriceUnit.trim())).format("0,0.0000"),
-                        numeral(parseFloat(item.PriceSub.trim())).format("0,0.0000"),
+                        numeral(parseFloat(item.PriceUnit.trim())).format(
+                            "0,0.0000"
+                        ),
+                        numeral(parseFloat(item.PriceSub.trim())).format(
+                            "0,0.0000"
+                        ),
                         numeral(parseFloat(item.PPN.trim())).format("0,0.0000"),
-                        numeral(parseFloat(item.PriceExt.trim())).format("0,0.0000"),
+                        numeral(parseFloat(item.PriceExt.trim())).format(
+                            "0,0.0000"
+                        ),
                         item.Curr.trim(),
                         item.Tgl_Dibutuhkan.trim(),
-                        item.keterangan == null ? '' : item.keterangan.trim(),
-                        item.Ket_Internal == null ? '' : item.Ket_Internal.trim(),
+                        item.keterangan == null ? "-" : item.keterangan.trim(),
+                        item.Ket_Internal == null
+                            ? "-"
+                            : item.Ket_Internal.trim(),
                         item.AppMan.trim(),
                         item.AppPBL.trim(),
                         item.AppDir.trim() + " " + item.Tgl_Direktur.trim(),
@@ -752,7 +800,7 @@ function LoadPermohonanNyantol(proses, stbeli) {
                         $("#checkedCount").text(
                             `Jumlah Data Yang TerCentang ${checkedCount}`
                         );
-                        let selectedRows = [];
+                        selectedRows = [];
 
                         $(
                             '#table_PurchaseOrder tbody input[type="checkbox"]:checked'
@@ -773,28 +821,37 @@ function LoadPermohonanNyantol(proses, stbeli) {
         )
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
                 const rows = data.map((item) => {
                     return [
                         `<input type="checkbox" name="checked" value="${item.No_trans.trim()}" id="${item.No_trans.trim()}" style="width: 20px;height: 20px;" />`,
                         item.NM_SUP.trim(),
                         item.Kd_div.trim(),
                         item.NmUser.trim(),
-                        item.StBeli.trim() == 1 ? 'Pengadaan Pembelian' : 'Beli Sendiri',
+                        item.StBeli.trim() == 1
+                            ? "Pengadaan Pembelian"
+                            : "Beli Sendiri",
                         item.No_trans.trim(),
                         item.Kd_brg.trim(),
-                        item.NAMA_BRG.trim(),
+                        item.NAMA_BRG.trim().replace(/</g, "&lt;"),
                         item.nama_sub_kategori.trim(),
                         numeral(parseFloat(item.Qty.trim())).format("0.00"),
                         item.Nama_satuan.trim(),
-                        numeral(parseFloat(item.PriceUnit.trim())).format("0,0.0000"),
-                        numeral(parseFloat(item.PriceSub.trim())).format("0,0.0000"),
+                        numeral(parseFloat(item.PriceUnit.trim())).format(
+                            "0,0.0000"
+                        ),
+                        numeral(parseFloat(item.PriceSub.trim())).format(
+                            "0,0.0000"
+                        ),
                         numeral(parseFloat(item.PPN.trim())).format("0,0.0000"),
-                        numeral(parseFloat(item.PriceExt.trim())).format("0,0.0000"),
+                        numeral(parseFloat(item.PriceExt.trim())).format(
+                            "0,0.0000"
+                        ),
                         item.Curr.trim(),
                         item.Tgl_Dibutuhkan.trim(),
-                        item.keterangan == null ? '' : item.keterangan.trim(),
-                        item.Ket_Internal == null ? '' : item.Ket_Internal.trim(),
+                        item.keterangan == null ? "-" : item.keterangan.trim(),
+                        item.Ket_Internal == null
+                            ? "-"
+                            : item.Ket_Internal.trim(),
                         item.AppMan.trim(),
                         item.AppPBL.trim(),
                         item.AppDir.trim() + " " + item.Tgl_Direktur.trim(),
@@ -840,7 +897,7 @@ function LoadPermohonanNyantol(proses, stbeli) {
                         $("#checkedCount").text(
                             `Jumlah Data Yang TerCentang ${checkedCount}`
                         );
-                        let selectedRows = [];
+                        selectedRows = [];
 
                         $(
                             '#table_PurchaseOrder tbody input[type="checkbox"]:checked'

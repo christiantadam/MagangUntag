@@ -30,6 +30,9 @@ function LoadPermohonan(data) {
             },
             {
                 data: "NAMA_BRG",
+                render: function (data) {
+                    return data.replace(/</g, "&lt;");
+                },
             },
             {
                 data: "nama_sub_kategori",
@@ -232,9 +235,9 @@ function print(data) {
                         item.Kd_brg
                     }</p></td>
                     <td><p style="line-height: 13.8px; font-size: 13px;font-family: Helvetica;">
-                    ${item.NAMA_BRG}
+                    ${item.NAMA_BRG.replace(/</g, "&lt;")}
                     <br>
-                    ${item.keterangan}
+                    ${item.keterangan || "-"}
                     <br>
                     ${item.nama_kategori}
                     <br>

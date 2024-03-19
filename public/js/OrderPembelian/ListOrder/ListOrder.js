@@ -11,6 +11,7 @@ $(function () {
                 "/show",
             type: "get",
             success: function (data) {
+                console.log(data)
                 document.getElementById("KategoriUtama_ListOrder").innerHTML =
                     "Kategori Utama: " + (data[0].nama || "");
                 document.getElementById("Kategori_ListOrder").innerHTML =

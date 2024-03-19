@@ -236,7 +236,7 @@ function print(data) {
                         item.Kd_brg
                     }</p></td>
                     <td><p style="line-height: 13.8px; font-size: 13px;font-family: Helvetica;">
-                    ${item.NAMA_BRG}
+                    ${item.NAMA_BRG.replace(/</g, "&lt;")}
                     </td>
                     <td style="text-align: center;"><p style="line-height: 13.8px; font-size: 13px;font-family: Helvetica;">${
                         !parseFloat(item.Qty)
@@ -487,7 +487,10 @@ $("#tabelcreate").on("dblclick", "tr", function () {
     let rowData = tabelData.row(this).data();
     no_po.value = rowData[0];
     kode_barang.value = rowData[1];
-    nama_barang.value = rowData[2];
+    nama_barang.value = rowData[2].replace(/&lt;/g, "<").replace(
+        /&gt;/g,
+        ">"
+    );
     sub_kategori.value = rowData[3];
     qty_ordered.value = parseFloat(rowData[4]).toFixed(2);
 
@@ -582,7 +585,7 @@ function responseData(datas) {
             .add([
                 data.No_trans,
                 data.Kd_brg,
-                data.NAMA_BRG,
+                data.NAMA_BRG.replace(/</g, "&lt;"),
                 data.nama_sub_kategori,
                 numeral(parseFloat(data.Qty)).format("0.00") || 0,
                 data.Nama_satuan,
