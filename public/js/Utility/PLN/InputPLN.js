@@ -21,6 +21,26 @@ var tanggal_akhirInput = document.getElementById("tanggal-akhir");
 var tanggal_akhirOutput = new Date().toISOString().split("T")[0];
 tanggal_akhirInput.value = tanggal_akhirOutput;
 
+tanggal_akhirInput.addEventListener("change", function () {
+    // Ambil nilai tanggal awal dan tanggal akhir
+    var tanggal_awal = new Date(tanggal_awalInput.value);
+    var tanggal_akhir = new Date(tanggal_akhirInput.value);
+
+    // Periksa apakah tanggal akhir kurang dari tanggal awal
+    if (tanggal_akhir < tanggal_awal) {
+        // Tampilkan pesan peringatan menggunakan SweetAlert
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Tanggal akhir tidak boleh lebih kecil dari tanggal awal",
+            confirmButtonText: "OK",
+        }).then((result) => {
+            // Set ulang nilai tanggal akhir ke nilai tanggal awal
+            tanggal_akhirInput.value = tanggal_awalInput.value;
+        });
+    }
+});
+
 if (jam) {
     function updateCurrentTime() {
         var currentDateTime = new Date();

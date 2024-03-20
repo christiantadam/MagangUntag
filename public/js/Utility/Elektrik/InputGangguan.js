@@ -25,8 +25,6 @@ let hasil_gambar1 = document.getElementById("hasil_gambar1");
 let gambar2 = document.getElementById("gambar2");
 let ket_gambar2 = document.getElementById("ket_gambar2");
 let hasil_gambar2 = document.getElementById("hasil_gambar2");
-let bulan = document.getElementById("bulan");
-let sampaiDengan = document.getElementById("sampaiDengan");
 let divisi_pelapor2 = document.getElementById("divisi_pelapor2");
 let imagePreviewContainer1 = document.getElementById("imagePreviewContainer1");
 let imagePreviewContainer2 = document.getElementById("imagePreviewContainer2");
@@ -39,6 +37,26 @@ var bulanInput = document.getElementById("bulan");
 var sampaiDenganInput = document.getElementById("sampaiDengan");
 var tanggalInput = document.getElementById("tanggal");
 let JamLapor = document.getElementById("jam_lapor");
+
+sampaiDenganInput.addEventListener("change", function () {
+    // Ambil nilai tanggal awal dan tanggal akhir
+    var tanggal_awal = new Date(bulanInput.value);
+    var tanggal_akhir = new Date(sampaiDenganInput.value);
+
+    // Periksa apakah tanggal akhir kurang dari tanggal awal
+    if (tanggal_akhir < tanggal_awal) {
+        // Tampilkan pesan peringatan menggunakan SweetAlert
+        Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "Tanggal akhir tidak boleh lebih kecil dari tanggal awal",
+            confirmButtonText: "OK",
+        }).then((result) => {
+            // Set ulang nilai tanggal akhir ke nilai tanggal awal
+            sampaiDenganInput.value = bulanInput.value;
+        });
+    }
+});
 
 if (tanggal && bulanInput && tanggalInput && JamLapor && sampaiDenganInput) {
     function updateCurrentTime() {
