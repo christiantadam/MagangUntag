@@ -57,6 +57,17 @@ sampaiDenganInput.addEventListener("change", function () {
         });
     }
 });
+bulanInput.addEventListener("change", function () {
+    // Ambil nilai tanggal awal dan tanggal akhir
+    var tanggal_awal = new Date(bulanInput.value);
+    var tanggal_akhir = new Date(sampaiDenganInput.value);
+
+    // Periksa apakah tanggal awal lebih besar dari tanggal akhir
+    if (tanggal_awal > tanggal_akhir) {
+        // Set ulang nilai tanggal akhir ke nilai tanggal awal
+        bulanInput.value = sampaiDenganInput.value;
+    }
+});
 
 if (tanggal && bulanInput && tanggalInput && JamLapor && sampaiDenganInput) {
     function updateCurrentTime() {

@@ -41,6 +41,17 @@ tanggal_akhirInput.addEventListener("change", function () {
         });
     }
 });
+tanggal_awalInput.addEventListener("change", function () {
+    // Ambil nilai tanggal awal dan tanggal akhir
+    var tanggal_awal = new Date(tanggal_awalInput.value);
+    var tanggal_akhir = new Date(tanggal_akhirInput.value);
+
+    // Periksa apakah tanggal awal lebih besar dari tanggal akhir
+    if (tanggal_awal > tanggal_akhir) {
+        // Set ulang nilai tanggal akhir ke nilai tanggal awal
+        tanggal_akhirInput.value = tanggal_awalInput.value;
+    }
+});
 
 var currentDateTime = new Date();
 var hours = currentDateTime.getHours().toString().padStart(2, "0");
