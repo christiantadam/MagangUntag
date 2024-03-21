@@ -47,7 +47,7 @@
                                         <label class="font-weight-bold" for="supplier">Supplier</label>
                                     </div>
                                     <div class="col-10">
-                                        <select class="form-control font-weight-bold" name="supplier_select" id="supplier_select" disabled>
+                                        <select class="form-control font-weight-bold" name="supplier_select" id="supplier_select">
                                             <option selected disabled>-- Pilih Supplier --</option>
                                             @foreach ($supplier as $data)
                                                 <option value="{{ $data->NO_SUP }}">{{ $data->NM_SUP }}</option>

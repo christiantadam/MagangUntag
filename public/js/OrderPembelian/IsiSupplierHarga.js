@@ -269,19 +269,19 @@ function redisplayData(noTrans, requester, kd) {
             {
                 data: "keterangan",
                 render: function (data) {
-                    return (
-                        data == '-' ? '<p style="text-align:center;font-size: 14px;">-</p>' : data ||
-                        '<p style="text-align:center;font-size: 14px;">-</p>'
-                    );
+                    return data == "-"
+                        ? '<p style="text-align:center;font-size: 14px;">-</p>'
+                        : data ||
+                              '<p style="text-align:center;font-size: 14px;">-</p>';
                 },
             },
             {
                 data: "Ket_Internal",
                 render: function (data) {
-                    return (
-                        data == '-' ? '<p style="text-align:center;font-size: 14px;">-</p>' : data ||
-                        '<p style="text-align:center;font-size: 14px;">-</p>'
-                    );
+                    return data == "-"
+                        ? '<p style="text-align:center;font-size: 14px;">-</p>'
+                        : data ||
+                              '<p style="text-align:center;font-size: 14px;">-</p>';
                 },
             },
         ],
@@ -453,6 +453,7 @@ $(document).ready(function () {
         updateIDRPPN();
         updateHargaTotal();
         updateIDRHargaTotal();
+        btn_approve.focus();
     });
 
     qty_order.addEventListener("keypress", function (event) {

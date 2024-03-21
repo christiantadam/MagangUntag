@@ -80,6 +80,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('/PurchaseOrderr/create/CloseOrder', 'App\Http\Controllers\Beli\TransaksiBeli\PurchaseOrderController@closeOrder');
     Route::put('/PurchaseOrderr/create/BackCreatePO', 'App\Http\Controllers\Beli\TransaksiBeli\PurchaseOrderController@backCreatePO');
     Route::get('/openFormCreateSPPB/create', 'App\Http\Controllers\Beli\TransaksiBeli\PurchaseOrderController@openFormCreateSPPB');
+    Route::get('/openFormCreateSPPB/create/DaftarSupplier', 'App\Http\Controllers\Beli\TransaksiBeli\PurchaseOrderController@daftarSupplier');
     Route::get('/openFormCreateSPPB/create/Print', 'App\Http\Controllers\Beli\TransaksiBeli\PurchaseOrderController@print');
     Route::post('/openFormCreateSPPB/create/Submit', 'App\Http\Controllers\Beli\TransaksiBeli\PurchaseOrderController@submit');
     Route::put('/openFormCreateSPPB/create/Update', 'App\Http\Controllers\Beli\TransaksiBeli\PurchaseOrderController@update');

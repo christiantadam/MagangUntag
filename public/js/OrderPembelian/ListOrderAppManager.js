@@ -124,17 +124,15 @@ function inisialisasiDataTable(response) {
                 },
                 orderable: false,
             },
-            { data: "No_trans" },
             {
                 data: "Tgl_acc",
-                render: function (data) {
-                    return (
-                        data.split(" ")[0] +
-                        " " +
-                        data.split(" ")[1].slice(0, 8)
-                    );
+                render: function (data, type, row) {
+                    let parts = data.split(" ")[0].split("-");
+                    let tgl = parts[1] + "/" + parts[2] + "/" + parts[0] + ' ' + data.split(" ")[1].slice(0, 5);
+                    return tgl;
                 },
             },
+            { data: "No_trans" },
             { data: "StatusBeli" },
             { data: "Kd_brg" },
             { data: "NAMA_BRG" },
@@ -237,10 +235,10 @@ btnPrint.addEventListener("click", function () {
     });
     if (checkedRowData.length > 0 && checkedRowData[0].length > 0) {
         let headerRow = [
-            "No. Order",
             "Tgl_Jam Acc",
+            "No. Order",
             "Kode Barang",
-            "NAMA Barang",
+            "Nama Barang",
             "Sub Kategori",
             "Qty",
             "Satuan",
@@ -260,7 +258,13 @@ btnPrint.addEventListener("click", function () {
         });
         XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
 
-        XLSX.writeFile(wb, "data.xlsx");
+        let fileName = window.prompt("Masukkan nama file (tanpa ekstensi):") || "data";
+
+        if (!fileName.endsWith(".xlsx")) {
+            fileName += ".xlsx";
+        }
+
+        XLSX.writeFile(wb, fileName);
     } else {
         alert("Pilih Data Yang Akan DiPrint Terlebih Dahulu");
     }

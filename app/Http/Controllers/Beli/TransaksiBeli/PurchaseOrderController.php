@@ -632,14 +632,14 @@ class PurchaseOrderController extends Controller
         $No_PO = '000000' . strval($mValue[0]->NO_SPPB);
         $No_PO = 'PO-' . $tahun . substr($No_PO, -6);
         DB::connection('ConnPurchase')->statement('update ycounter set NO_SPPB =' . $mValue[0]->NO_SPPB . '+ 1');
-        // dd($No_PO);
+        // dd($noTrans);
 
         for ($i = 0; $i < count($noTrans); $i++) {
             db::connection('ConnPurchase')->statement(
                 'exec SP_5409_MAINT_PO
             @kd = ?,
             @noTrans = ?,
-            @NoPO = ?,
+            @noPO = ?,
             @Operator = ?',
                 [
                     2,
@@ -652,15 +652,27 @@ class PurchaseOrderController extends Controller
 
         $loadHeader = db::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd = ?, @noPO = ?', [14, $No_PO]);
         $loadPermohonan = db::connection('ConnPurchase')->select('exec SP_5409_LIST_ORDER @kd = ?, @noPO = ?', [13, $No_PO]);
+        // dd($loadPermohonan);
         $namaDiv = db::connection('ConnPurchase')->table("YDIVISI")->select("YDIVISI.NM_DIV")->where("YDIVISI.KD_DIV", trim($loadPermohonan[0]->Kd_div))->get();
         $supplier = db::connection('ConnPurchase')->select('exec SP_5409_PBL_SUPPLIER @kd = ?', [1]);
+        // dd($supplier);
         $listPayment = db::connection('ConnPurchase')->select('exec SP_5409_LIST_PAYMENT');
         $mataUang = db::connection('ConnPurchase')->select('exec SP_7775_PBL_LIST_MATA_UANG');
         $ppn = db::connection('ConnPurchase')->select('exec SP_5409_LIST_PPN');
         // dd($loadHeader, $loadPermohonan);
         return view('Beli.TransaksiBeli.PurchaseOrder.CreateSPPB', compact('access', 'supplier', 'listPayment', 'mataUang', 'ppn', 'No_PO', 'loadPermohonan', 'loadHeader', 'namaDiv'));
     }
-
+    public function daftarSupplier(Request $request)
+    {
+        $kd = 1;
+        $idsup = $request->input('idsup');
+        try {
+            $supplier = DB::connection('ConnPurchase')->select('exec SP_1273_PBL_LIST_SUPPLIER @kd = ?, @idsup = ?', [$kd, $idsup]);
+            return Response()->json($supplier);
+        } catch (\Throwable $Error) {
+            return Response()->json($Error);
+        }
+    }
     public function print(Request $request)
     {
         $noPO = $request->input('noPO');
@@ -923,6 +935,7 @@ class PurchaseOrderController extends Controller
         $kd = 12;
         $NoPO = $request->input('NoPO');
         $tglPO = Carbon::parse($request->input('tglPO'));
+        $tglPO->setTimeFrom(Carbon::now()->setTimezone('Asia/Jakarta'));
         $Tgl_Dibutuhkan = Carbon::parse($request->input('Tgl_Dibutuhkan'));
 
         if (($NoPO !== null) ||

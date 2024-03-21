@@ -13,6 +13,7 @@ tanggal_purchaseOrder.valueAsDate = new Date();
 tanggal_mohonKirim.valueAsDate = new Date();
 
 function LoadPermohonan(data) {
+    console.log(data)
     $("#table_CreatePurchaseOrder").DataTable().destroy();
     let table = $("#table_CreatePurchaseOrder").DataTable({
         responsive: true,
@@ -155,13 +156,13 @@ btn_post.addEventListener("click", function (event) {
                 },
                 success: function (response) {
                     console.log(response);
-                    Swal.fire({
-                        icon: "success",
-                        title: "Data Berhasil DiPost!",
-                        showConfirmButton: false,
-                        timer: "2000",
-                    });
                     if (i == loadPermohonanData.length - 1) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Data Berhasil DiPost!",
+                            showConfirmButton: false,
+                            timer: "2000",
+                        });
                         dataPrint();
                     }
                 },
@@ -228,10 +229,10 @@ function print(data) {
         chunk.forEach((item, index) => {
             tableRows += `
                 <tr>
-                    <td style="text-align: center;"><p style="line-height: 13.8px; font-size: 13px;font-family: Helvetica;">${
+                    <td style="text-align: center;vertical-align: top;"><p style="margin:0;font-size: 13px;font-family: Helvetica;">${
                         No + 1
                     }</p></td>
-                    <td style="text-align: center;"><p style="line-height: 13.8px; font-size: 13px;font-family: Helvetica;">${
+                    <td style="text-align: center;vertical-align: top;"><p style="margin:0;font-size: 13px;font-family: Helvetica;">${
                         item.Kd_brg
                     }</p></td>
                     <td><p style="line-height: 13.8px; font-size: 13px;font-family: Helvetica;">
@@ -245,7 +246,7 @@ function print(data) {
                     <br>
                     ${item.No_trans}</p>
                     </td>
-                    <td style="text-align: center;"><p style="line-height: 13.8px; font-size: 13px;font-family: Helvetica;">${
+                    <td style="text-align: center;vertical-align: top;"><p style="margin:0;font-size: 13px;font-family: Helvetica;">${
                         !parseFloat(item.Qty)
                             .toLocaleString("en-US")
                             .includes(".")
@@ -253,8 +254,10 @@ function print(data) {
                               ".00"
                             : parseFloat(item.Qty).toLocaleString("en-US")
                     }</p></td>
-                    <td style="text-align: center;"><p style="line-height: 13.8px; font-size: 13px;font-family: Helvetica;">${item.Nama_satuan.trim()}</p></td>
-                    <td style="text-align: center;"><p style="line-height: 13.8px; font-size: 13px;font-family: Helvetica;">${
+                    <td style="text-align: center;vertical-align: top;">
+                    <p style="margin:0;font-size: 13px;font-family: Helvetica;">${item.Nama_satuan.trim()}</p>
+                    </td>
+                    <td style="text-align: center;vertical-align: top;"><p style="margin:0;font-size: 13px;font-family: Helvetica;">${
                         !parseFloat(item.PriceUnit)
                             .toLocaleString("en-US")
                             .includes(".")
@@ -263,7 +266,7 @@ function print(data) {
                               ) + ".00"
                             : parseFloat(item.PriceUnit).toLocaleString("en-US")
                     }</p></td>
-                    <td style="text-align: center;"><p style="line-height: 13.8px; font-size: 13px;font-family: Helvetica;">${
+                    <td style="text-align: center;vertical-align: top;"><p style="margin:0;font-size: 13px;font-family: Helvetica;">${
                         !parseFloat(
                             item.harga_disc == null ? 0 : item.harga_disc
                         )
@@ -276,7 +279,7 @@ function print(data) {
                                   item.harga_disc == null ? 0 : item.harga_disc
                               ).toLocaleString("en-US")
                     }</p></td>
-                    <td style="text-align: right;"><p style="line-height: 13.8px; font-size: 13px;font-family: Helvetica;">${
+                    <td style="text-align: right;vertical-align: top;"><p style="margin:0;font-size: 13px;font-family: Helvetica;">${
                         !parseFloat(item.PriceSub)
                             .toLocaleString("en-US")
                             .includes(".")
@@ -409,33 +412,33 @@ function print(data) {
                     </table>
                 </div>
                 <div style="width: 100%; display: flex;">
-                    <div style="width: 50%;">
+                    <div style="width: 70%;">
                         <h1 style="font-size: 13px;font-family: Helvetica; font-weight: bold;margin-top:50px">Document Copy of ${
                             data.print[0].JumCetak
                         }</h1>
                     </div>
-                    <div style="width: 50%;">
+                    <div style="width: 30%;">
                         <div style="width: 100%; display: flex;">
-                            <div style="width: 30%; margin-right: 3rem;">
+                            <div style="width: 40%; margin-right: 3rem;">
                                 <h1 style="font-size: 13px;font-family: Helvetica; font-weight: bold; margin: 2px 0;">Sub Total</h1>
                             </div>
-                            <div style="width: 70%; border-bottom: 1px solid; text-align: right;">
+                            <div style="width: 60%; border-bottom: 1px solid; text-align: right;">
                                 <p style="line-height: 13.8px; font-size: 13px;font-family: Helvetica; margin: 2px 0;">${sumAmountFix}</p>
                             </div>
                         </div>
                         <div style="width: 100%; display: flex;">
-                            <div style="width: 30%; margin-right: 3rem;">
+                            <div style="width: 40%; margin-right: 3rem;">
                                 <h1 style="font-size: 13px;font-family: Helvetica; font-weight: bold; margin: 2px 0;">VAT</h1>
                             </div>
-                            <div style="width: 70%; border-bottom: 1px solid; text-align: right;">
+                            <div style="width: 60%; border-bottom: 1px solid; text-align: right;">
                                 <p style="line-height: 13.8px; font-size: 13px;font-family: Helvetica; margin: 2px 0;">${ppnFix}</p>
                             </div>
                         </div>
                         <div style="width: 100%; display: flex;">
-                            <div style="width: 30%; margin-right: 3rem;">
+                            <div style="width: 40%; margin-right: 3rem;">
                                 <h1 style="font-size: 13px;font-family: Helvetica; font-weight: bold; margin: 2px 0;">Total</h1>
                             </div>
-                            <div style="width: 70%; border-bottom: 1px solid; text-align: right;">
+                            <div style="width: 60%; border-bottom: 1px solid; text-align: right;">
                                 <p style="line-height: 13.8px; font-size: 13px;font-family: Helvetica; margin: 2px 0;">${
                                     !(sumAmount + ppn)
                                         .toLocaleString("en-US")
@@ -478,7 +481,7 @@ $(document).ready(function () {
     supplier_select.value = loadHeaderData[0].NM_SUP;
     paymentTerm_select.value = loadHeaderData[0].Pembayaran;
     matauang_select.value = loadHeaderData[0].Curr;
-    tanggal_mohonKirim.value = loadHeaderData[0].Est_Date.split(" ")[0]
-    tanggal_purchaseOrder.value = loadHeaderData[0].Tgl_sppb.split(" ")[0]
+    tanggal_mohonKirim.value = loadHeaderData[0].Est_Date.split(" ")[0];
+    tanggal_purchaseOrder.value = loadHeaderData[0].Tgl_sppb.split(" ")[0];
     console.log(loadHeaderData);
 });

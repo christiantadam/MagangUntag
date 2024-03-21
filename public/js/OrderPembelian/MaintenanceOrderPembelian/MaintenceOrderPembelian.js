@@ -24,7 +24,7 @@ let btn_submit = document.getElementById("btn_submit");
 let btn_delete = document.getElementById("btn_delete");
 
 let csrfToken = $('meta[name="csrf-token"]').attr("content");
-
+let kdBarangAslinya = "";
 select_kategori.disabled = true;
 select_subKategori.disabled = true;
 select_namaBarang.disabled = true;
@@ -161,6 +161,7 @@ btn_submit.addEventListener("click", function (event) {
                     showConfirmButton: false,
                     timer: "2000",
                 });
+                // console.log()
                 no_order.value = response.data;
                 btn_save.disabled = true;
                 btn_submit.disabled = true;
@@ -403,7 +404,6 @@ function clearData() {
     tgl_mohonKirim.valueAsDate = new Date();
     pemesan.value = "";
     no_order.value = "";
-    divisi.value = "";
     // select_divisi.selectedIndex = 0;
     select_kategori_utama.selectedIndex = 0;
     select_kategori.disabled = true;

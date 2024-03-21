@@ -106,7 +106,7 @@ function LoadPermohonan(data) {
         responsive: true,
         scrollX: true,
         searching: false,
-        scrollY: "150px",
+        scrollY: "300px",
         paging: false,
         data: data,
         columns: [
@@ -472,13 +472,13 @@ btn_post.addEventListener("click", function (event) {
                     idSup: supplier_select.value,
                 },
                 success: function (response) {
-                    Swal.fire({
-                        icon: "success",
-                        title: "Data Berhasil DiPost!",
-                        showConfirmButton: false,
-                        timer: "2000",
-                    });
                     if (i == loadPermohonanData.length - 1) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Data Berhasil DiPost!",
+                            showConfirmButton: false,
+                            timer: "2000",
+                        });
                         dataPrint();
                     }
                 },
@@ -544,10 +544,10 @@ function print(data) {
         chunk.forEach((item, index) => {
             tableRows += `
                 <tr>
-                    <td style="text-align: center;"><p style="line-height: 13.8px; font-size: 13px;font-family: Helvetica;">${
+                    <td style="text-align: center;vertical-align: top;"><p style="margin:0;font-size: 13px;font-family: Helvetica;">${
                         No + 1
                     }</p></td>
-                    <td style="text-align: center;"><p style="line-height: 13.8px; font-size: 13px;font-family: Helvetica;">${
+                    <td style="text-align: center;vertical-align: top;"><p style="margin:0;font-size: 13px;font-family: Helvetica;">${
                         item.Kd_brg
                     }</p></td>
                     <td><p style="line-height: 13.8px; font-size: 13px;font-family: Helvetica;">
@@ -561,7 +561,7 @@ function print(data) {
                     <br>
                     ${item.No_trans}</p>
                     </td>
-                    <td style="text-align: center;"><p style="line-height: 13.8px; font-size: 13px;font-family: Helvetica;">${
+                    <td style="text-align: center;vertical-align: top;"><p style="margin:0;font-size: 13px;font-family: Helvetica;">${
                         !parseFloat(item.Qty)
                             .toLocaleString("en-US")
                             .includes(".")
@@ -569,8 +569,10 @@ function print(data) {
                               ".00"
                             : parseFloat(item.Qty).toLocaleString("en-US")
                     }</p></td>
-                    <td style="text-align: center;"><p style="line-height: 13.8px; font-size: 13px;font-family: Helvetica;">${item.Nama_satuan.trim()}</p></td>
-                    <td style="text-align: center;"><p style="line-height: 13.8px; font-size: 13px;font-family: Helvetica;">${
+                    <td style="text-align: center;vertical-align: top;">
+                    <p style="margin:0;font-size: 13px;font-family: Helvetica;">${item.Nama_satuan.trim()}</p>
+                    </td>
+                    <td style="text-align: center;vertical-align: top;"><p style="margin:0;font-size: 13px;font-family: Helvetica;">${
                         !parseFloat(item.PriceUnit)
                             .toLocaleString("en-US")
                             .includes(".")
@@ -579,7 +581,7 @@ function print(data) {
                               ) + ".00"
                             : parseFloat(item.PriceUnit).toLocaleString("en-US")
                     }</p></td>
-                    <td style="text-align: center;"><p style="line-height: 13.8px; font-size: 13px;font-family: Helvetica;">${
+                    <td style="text-align: center;vertical-align: top;"><p style="margin:0;font-size: 13px;font-family: Helvetica;">${
                         !parseFloat(
                             item.harga_disc == null ? 0 : item.harga_disc
                         )
@@ -592,7 +594,7 @@ function print(data) {
                                   item.harga_disc == null ? 0 : item.harga_disc
                               ).toLocaleString("en-US")
                     }</p></td>
-                    <td style="text-align: right;"><p style="line-height: 13.8px; font-size: 13px;font-family: Helvetica;">${
+                    <td style="text-align: right;vertical-align: top;"><p style="margin:0;font-size: 13px;font-family: Helvetica;">${
                         !parseFloat(item.PriceSub)
                             .toLocaleString("en-US")
                             .includes(".")
@@ -615,7 +617,7 @@ function print(data) {
             <main style="width: 100%; height : 70%;">
                 <div style="width: 100%; height: auto; display: flex;">
                     <div style="width: 50%; height: auto; margin-right: 20px;">
-                        <h1 style="font-size: 13px;font-family: Helvetica; font-weight: bold; margin: 2px 0 10px 0;">Issued To:</h1>
+                        <h1 style="font-size: 13px;font-family: Helvetica; font-weight: bold; margin:2px 0 10px 0;">Issued To:</h1>
                         <p style="font-size: 13px;font-family: Helvetica; margin: 2px 0;">${
                             data.printHeader[0].NM_SUP
                         }</p>
@@ -725,33 +727,33 @@ function print(data) {
                     </table>
                 </div>
                 <div style="width: 100%; display: flex;">
-                    <div style="width: 50%;">
+                    <div style="width: 70%;">
                         <h1 style="font-size: 13px;font-family: Helvetica; font-weight: bold;margin-top:50px">Document Copy of ${
                             data.print[0].JumCetak
                         }</h1>
                     </div>
-                    <div style="width: 50%;">
+                    <div style="width: 30%;">
                         <div style="width: 100%; display: flex;">
-                            <div style="width: 30%; margin-right: 3rem;">
+                            <div style="width: 40%; margin-right: 3rem;">
                                 <h1 style="font-size: 13px;font-family: Helvetica; font-weight: bold; margin: 2px 0;">Sub Total</h1>
                             </div>
-                            <div style="width: 70%; border-bottom: 1px solid; text-align: right;">
+                            <div style="width: 60%; border-bottom: 1px solid; text-align: right;">
                                 <p style="line-height: 13.8px; font-size: 13px;font-family: Helvetica; margin: 2px 0;">${sumAmountFix}</p>
                             </div>
                         </div>
                         <div style="width: 100%; display: flex;">
-                            <div style="width: 30%; margin-right: 3rem;">
+                            <div style="width: 40%; margin-right: 3rem;">
                                 <h1 style="font-size: 13px;font-family: Helvetica; font-weight: bold; margin: 2px 0;">VAT</h1>
                             </div>
-                            <div style="width: 70%; border-bottom: 1px solid; text-align: right;">
+                            <div style="width: 60%; border-bottom: 1px solid; text-align: right;">
                                 <p style="line-height: 13.8px; font-size: 13px;font-family: Helvetica; margin: 2px 0;">${ppnFix}</p>
                             </div>
                         </div>
                         <div style="width: 100%; display: flex;">
-                            <div style="width: 30%; margin-right: 3rem;">
+                            <div style="width: 40%; margin-right: 3rem;">
                                 <h1 style="font-size: 13px;font-family: Helvetica; font-weight: bold; margin: 2px 0;">Total</h1>
                             </div>
-                            <div style="width: 70%; border-bottom: 1px solid; text-align: right;">
+                            <div style="width: 60%; border-bottom: 1px solid; text-align: right;">
                                 <p style="line-height: 13.8px; font-size: 13px;font-family: Helvetica; margin: 2px 0;">${
                                     !(sumAmount + ppn)
                                         .toLocaleString("en-US")
@@ -801,6 +803,37 @@ $(document).ready(function () {
             $("#supplier_select").val($(this).val());
             return false;
         }
+    });
+    supplier_select.addEventListener("change", function (event) {
+        if (supplier_select.selectedIndex !== 0) {
+            $.ajax({
+                url: "/openFormCreateSPPB/create/DaftarSupplier",
+                type: "GET",
+                data: {
+                    idsup: supplier_select.value,
+                },
+                success: function (response) {
+                    for (let i = 0; i < matauang_select.options.length; i++) {
+                        if (
+                            matauang_select.options[i].value.replace(
+                                /\s/g,
+                                ""
+                            ) === response[0].Id_MataUang.replace(/\s/g, "")
+                        ) {
+                            matauang_select.selectedIndex = i;
+                            console.log('aman')
+                        }
+                    }
+                    jenisSupplier = response[0].JNS_SUP;
+                },
+                error: function (error) {
+                    console.error("Error Send Data:", error);
+                },
+            });
+        }
+    });
+    paymentTerm_select.addEventListener("change", function (event) {
+        btn_post.focus()
     });
     qty_delay.addEventListener("input", function (event) {
         let qtyDelay = parseFloat(fixValueQTYOrder - qty_delay.value);
@@ -910,6 +943,7 @@ $(document).ready(function () {
         updateIDRPPN();
         updateHargaTotal();
         updateIDRHargaTotal();
+        btn_update.focus()
     });
     disc.addEventListener("input", function (event) {
         setInputFilter(
