@@ -163,6 +163,11 @@ function print(data) {
                         <br>
                         <div style="width: 100%; display: flex;">
                             <div style="width: 50%; height: auto;">
+                                <h1 style="font-size: 13px; font-family: Helvetica; font-weight: bold; margin: 2px 0 4px 0;">Product Receipt</h1>
+                            </div>
+                        </div>
+                        <div style="width: 100%; display: flex;">
+                            <div style="width: 50%; height: auto;">
                                 <h1 style="font-size: 13px; font-family: Helvetica; font-weight: bold; margin: 2px 0;">Page</h1>
                             </div>
                             <div style="width: 50%; height: auto;">
@@ -212,7 +217,7 @@ function print(data) {
                             </div>
                         </div>
                         <br>
-                        <h1 style="font-size: 13px; font-family: Helvetica; font-weight: bold; margin-top: 10px; margin-bottom: 2px;">Delivery To:</h1>
+                        <h1 style="font-size: 13px; font-family: Helvetica; font-weight: bold; margin-top: 10px; margin-bottom: 2px;">Delivery Address:</h1>
                         <p style="font-size: 13px; font-family: Helvetica; margin: 2px 0;">Jl. Raya Tropodo No. 1</p>
                         <p style="font-size: 13px; font-family: Helvetica; margin: 2px 0;">Waru - Sidoarjo 61256 East Java, Indonesia</p>
                     </div>
