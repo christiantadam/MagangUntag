@@ -172,14 +172,14 @@ function post(bttb) {
             },
             success: function (response) {
                 console.log(response);
-                Swal.fire({
-                    icon: "success",
-                    title: "Data Berhasil DiPost!",
-                    showConfirmButton: false,
-                    timer: "2000",
-                });
+
                 if (i == data.length - 1) {
-                    console.log("print");
+                    Swal.fire({
+                        icon: "success",
+                        title: "Data Berhasil DiPost!",
+                        showConfirmButton: false,
+                        timer: "2000",
+                    });
                     dataPrint();
                 }
             },
