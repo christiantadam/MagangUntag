@@ -65,7 +65,7 @@ bulanInput.addEventListener("change", function () {
     // Periksa apakah tanggal awal lebih besar dari tanggal akhir
     if (tanggal_awal > tanggal_akhir) {
         // Set ulang nilai tanggal akhir ke nilai tanggal awal
-        bulanInput.value = sampaiDenganInput.value;
+        sampaiDenganInput.value = bulanInput.value;
     }
 });
 
