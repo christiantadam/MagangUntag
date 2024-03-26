@@ -116,16 +116,17 @@ class InputGangguanElektrikController extends Controller
 
     public function getData(Request $request)
     {
-
         $tanggal1 = $request->input('tanggal1');
         $tanggal2 = $request->input('tanggal2');
-        $l_div_pelapor = $request->input('divisi');
+        $divisi = $request->input('divisi');
 
-        $data = ($l_div_pelapor == 0)
-        ? DB::connection('ConnUtility')->select('exec SP_DT_LIST_GANGGUAN_ELEKTRIK_BLN_THN2 @date1 = ?, @date2 = ?,  @divisi = 0', [$tanggal1, $tanggal2])
-        : DB::connection('ConnUtility')->select('exec SP_DT_LIST_GANGGUAN_ELEKTRIK_BLN_THN2 @date1 = ?, @date2 = ?,  @divisi = ?', [$tanggal1, $tanggal2, $l_div_pelapor]);
+        $data = $divisi == '0'
+            ? DB::connection('ConnUtility')->select('exec SP_DT_LIST_GANGGUAN_ELEKTRIK_ALL_DIVISION @date1 = ?, @date2 = ?', [$tanggal1, $tanggal2])
+            : DB::connection('ConnUtility')->select('exec SP_DT_LIST_GANGGUAN_ELEKTRIK_ALL_DIVISION @date1 = ?, @date2 = ?, @divisi = ?', [$tanggal1, $tanggal2, $divisi]);
+
         return datatables($data)->make(true);
     }
+
 
     public function getDataElektrikId(Request $request)
     {

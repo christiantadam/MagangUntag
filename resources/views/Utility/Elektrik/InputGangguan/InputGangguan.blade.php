@@ -117,7 +117,7 @@
                                     <h6 class="mt-2" style="white-space: nowrap;">Divisi Pelapor </h6>
                                     <select class="form-select" aria-label="Default select example" name="divisi_pelapor"
                                         id="divisi_pelapor2">
-                                        <option selected value="0">Pilih Divisi Pelapor</option>
+                                        <option selected value="0">Pilih Semua Divisi Pelapor</option>
                                         @foreach ($divisi as $divisi_pelapor)
                                             <option value="{{ $divisi_pelapor->Id_divisi }}">
                                                 {{ $divisi_pelapor->Nama_divisi }}</option>
