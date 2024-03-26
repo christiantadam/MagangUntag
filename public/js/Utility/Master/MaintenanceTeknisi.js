@@ -1,46 +1,3 @@
-// let updateButtonTeknisi = document.getElementById("updateButtonTeknisi");
-// let deleteButtonTeknisi = document.getElementById("deleteButtonTeknisi");
-// let saveButtonTeknisi = document.getElementById("saveButtonTeknisi");
-// let refreshButtonTeknisi = document.getElementById("refreshButton");
-// let Teknisi = document.getElementById("teknisi");
-// let Lokasi = document.getElementById("lokasi");
-
-// saveButtonTeknisi.disabled = true;
-// updateButtonTeknisi.disabled = false;
-// // deleteButtonTeknisi.disabled = false;
-
-// // Function to check if all fields are filled
-// function checkAllFieldsFilled2() {
-//     return Teknisi.value.trim() !== "" && Lokasi.value.trim() !== "";
-// }
-
-// updateButtonTeknisi.addEventListener("click", function () {
-//     var checkboxValues = $(".checkboxteknisi:checked")
-//         .map(function () {
-//             return this.value;
-//         })
-//         .get();
-
-//     if (checkboxValues.length === 0) {
-//         Swal.fire({
-//             icon: "error",
-//             title: "Tidak Ada Data Terpilih",
-//             text: "Pilih satu Data Teknisi untuk diperbarui.",
-//         });
-//         deleteButtonTeknisi.disabled = false;
-//     } else {
-//         Teknisi.disabled = false;
-//         Lokasi.disabled = false;
-//         deleteButtonTeknisi.disabled = true;
-//     }
-// });
-
-// // Add event listeners to enable/disable saveButton based on input field values
-// [Teknisi, Lokasi].forEach(function (inputField) {
-//     inputField.addEventListener("input", function () {
-//         saveButtonTeknisi.disabled = !checkAllFieldsFilled2();
-//     });
-// });
 $(document).ready(function () {
     var dataTableTeknisi = $("#table-teknisi").DataTable({
         serverSide: true,
@@ -174,7 +131,7 @@ $(document).ready(function () {
                         "X-CSRF-TOKEN": csrfToken,
                     },
                     success: function (response) {
-                        console.log(requestData);
+                        // console.log(response);
                         dataTableTeknisi.ajax.reload();
                         Swal.fire({
                             icon: "success",

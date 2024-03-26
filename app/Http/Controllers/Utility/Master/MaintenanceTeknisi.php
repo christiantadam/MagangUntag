@@ -54,21 +54,6 @@ class MaintenanceTeknisi extends Controller
         }
     }
 
-    // public function searchTeknisi(Request $request)
-    // {
-    //     // Mendapatkan nilai input pencarian dari request
-    //     $nama = $request->input('searchTeknisi');
-
-    //     // Melakukan query untuk mencari NamaUser yang cocok dengan input
-    //     $listNamaUser = DB::connection('ConnEDP')
-    //         ->table('UserMaster')
-    //         ->where('NamaUser', 'LIKE', "%$nama%")
-    //         ->get();
-
-    //     // Mengembalikan hasil pencarian dalam bentuk JSON
-    //     return response()->json($listNamaUser);
-    // }
-
     public function getTeknisiById(Request $request)
     {
         $id = $request->input('id');
@@ -80,7 +65,6 @@ class MaintenanceTeknisi extends Controller
 
         return response()->json($listTeknisi);
     }
-
 
     public function getTeknisi()
     {

@@ -229,21 +229,32 @@ class InputGangguanElektrikController extends Controller
             fclose($binaryReader2);
         }
 
-
-        // Update data E_Gangguan_elektrik
-        $data = DB::connection('ConnUtility')->table('E_Gangguan_elektrik')
-            ->where('Id_Laporan', $id)
-            ->update([
-                'jam_pelaksanan' => $jampelaksanaan,
-                'Jam_selesai' => $jamselesai,
-                'Type_gangguan' => $Type_gangguan,
-                'Penyebab' => $penyebab,
-                'Penyelesaian' => $penyelesaian,
-                'Keterangan' => $keterangan,
-                'Teknisi' => $teknisi,
-                'user_input' => $user_input,
-                'Lanjut' => $lanjut,
-            ]);
+        DB::connection('ConnUtility')->statement('exec SP_KOREKSI_GANGGUAN_ELEKTRIK ?,?,?,?,?,?,?,?,?,?', [
+            $jampelaksanaan,
+            $jamselesai,
+            $Type_gangguan,
+            $penyebab,
+            $penyelesaian,
+            $keterangan,
+            $teknisi,
+            $user_input,
+            $id,
+            $lanjut
+        ]);
+        // // Update data E_Gangguan_elektrik
+        // $data = DB::connection('ConnUtility')->table('E_Gangguan_elektrik')
+        //     ->where('Id_Laporan', $id)
+        //     ->update([
+        //         'jam_pelaksanan' => $jampelaksanaan,
+        //         'Jam_selesai' => $jamselesai,
+        //         'Type_gangguan' => $Type_gangguan,
+        //         'Penyebab' => $penyebab,
+        //         'Penyelesaian' => $penyelesaian,
+        //         'Keterangan' => $keterangan,
+        //         'Teknisi' => $teknisi,
+        //         'user_input' => $user_input,
+        //         'Lanjut' => $lanjut,
+        //     ]);
 
         $save = DB::connection('ConnUtility')->table('GAMBAR_ELEKTRIK')->where('IdLaporan', $id);
 
