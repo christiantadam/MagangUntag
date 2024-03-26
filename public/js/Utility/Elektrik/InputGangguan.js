@@ -524,6 +524,8 @@ $(document).ready(function () {
                         '">'
                     );
                 },
+                orderable: false,
+                searchable: false,
             },
 
             {
@@ -546,15 +548,74 @@ $(document).ready(function () {
             { data: "Keterangan" },
             { data: "Teknisi" },
         ],
-        order: [
-            [1, "asc"],
-            [5, "asc"],
-        ],
     });
 
     $("#refreshButton").click(function () {
         dataTable.ajax.reload();
         // console.log(dataTable);
+    });
+
+    var dataTable = $("#tabel_input_gangguan").DataTable({
+        processing: true,
+        serverSide: true,
+        responsive: true,
+        // scrollX: true,
+        ajax: {
+            url: "/getData",
+            type: "GET",
+            data: function (d) {
+                d.tanggal1 = $("#bulan").val();
+                d.tanggal2 = $("#sampaiDengan").val();
+                d.divisi = $("#divisi_pelapor2").val();
+            },
+        },
+    });
+
+    // Event listener untuk tombol cetak
+    $("#PrintData").on("click", function () {
+        // Mengambil data dari DataTables
+        var tableData = dataTable.rows().data();
+
+        // Membuat format cetakan
+        var printContent = '<h2>Data Gangguan Elektrik</h2><table border="1">';
+        printContent += "<thead><tr>";
+        printContent += "<th></th>";
+        printContent += "<th>Tanggal</th>";
+        printContent += "<th>Div. Pelapor</th>";
+        printContent += "<th>Pelapor</th>";
+        printContent += "<th>Penerima Laporan</th>";
+        printContent += "<th>Jam Lapor</th>";
+        printContent += "<th>Jam Perbaikan</th>";
+        printContent += "<th>Jam Selesai</th>";
+        printContent += "<th>Type Gangguan</th>";
+        printContent += "<th>Penyebab</th>";
+        printContent += "<th>Penyelesaian</th>";
+        printContent += "<th>Keterangan</th>";
+        printContent += "<th>Teknisi</th>";
+        // Tambahkan header lainnya sesuai kebutuhan
+        printContent += "</tr></thead><tbody>";
+
+        // Menambahkan data ke dalam format cetakan
+        $("#tabel_input_gangguan tbody tr").each(function () {
+            var rowData = $(this).find("td");
+            printContent += "<tr>";
+            rowData.each(function () {
+                printContent += "<td>" + $(this).text() + "</td>"; // Mengambil teks dari setiap kolom
+            });
+            printContent += "</tr>";
+        });
+
+        printContent += "</tbody></table>";
+
+        // Membuka jendela baru dan mencetak konten
+        var printWindow = window.open("", "_blank");
+        printWindow.document.write(
+            "<html><head><title>DataTables Print</title></head><body>"
+        );
+        printWindow.document.write(printContent);
+        printWindow.document.write("</body></html>");
+        printWindow.document.close();
+        printWindow.print();
     });
 
     var selectedId;

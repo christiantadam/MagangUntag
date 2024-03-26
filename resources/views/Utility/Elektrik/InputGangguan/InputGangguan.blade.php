@@ -87,7 +87,7 @@
                                         class="  form-control mb-1">
                                 </div>
                                 <div class="col-2">
-                                    <div class="d-flex gap-2 justify-content-end flex-wrap pt-3">
+                                    <div class="d-flex gap-2 justify-content-end flex-wrap pt-3 mb-5">
                                         <button type="button" class="btn btn-primary w-100 mt-3"
                                             id="inputButton">Input</button>
                                         <button type="button"
@@ -98,9 +98,16 @@
                                             class="btn btn-primary w-100 mt-5"id="prosesButton">Proses</button>
                                         <button type="button"
                                             class="btn btn-primary w-100 mt-2"id="batalButton">Batal</button>
+
                                     </div>
+
+
                                 </div>
+                                <button type="button" class="btn btn-primary mt-3 float-end" id="PrintData">Print
+                                    Data</button>
                             </div>
+
+
                         </div>
                         <div class="col-lg-12 p-4">
                             <div class="row-12 mt-2">
