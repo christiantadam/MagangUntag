@@ -57,6 +57,13 @@ class InputOperasionalController extends Controller
         return response()->json($data, 200);
     }
 
+    public function statusLog(Request $request)
+    {
+        $status = DB::connection('ConnUtility')->table('STATUSLOG_GENZET')->get();
+
+        return response()->json($status, 200);
+    }
+
 
     public function createGenzet(Request $request)
     {

@@ -242,6 +242,7 @@ Route::group(['middleware' => ['auth']], function () {
     // Genzet
     Route::resource('InputOperasional', App\Http\Controllers\Utility\Genzet\InputOperasionalController::class);
     Route::get('/get-genzet', [App\Http\Controllers\Utility\Genzet\InputOperasionalController::class, 'getGenzet'])->name('get-genzet');
+    Route::get('/getstatus', [App\Http\Controllers\Utility\Genzet\InputOperasionalController::class, 'statusLog'])->name('getstatus');
     Route::get('/get-operational-genzet', [App\Http\Controllers\Utility\Genzet\InputOperasionalController::class, 'getById'])->name('get-operational-genzet');
     Route::post('/save-genzet', [App\Http\Controllers\Utility\Genzet\InputOperasionalController::class, 'createGenzet'])->name('save-genzet');
     Route::put('/update-genzet', [App\Http\Controllers\Utility\Genzet\InputOperasionalController::class, 'updateGenzet'])->name('update-genzet');

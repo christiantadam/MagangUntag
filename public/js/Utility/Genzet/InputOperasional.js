@@ -781,8 +781,32 @@ $(document).ready(function () {
                           showConfirmButton: false,
                           timer: "2000",
                       });
+
+                $.ajax({
+                    type: "GET",
+                    url: "/getstatus",
+                    success: function (data) {
+                        var dropdown = $("#statuslog");
+                        dropdown
+                            .empty()
+                            .append(
+                                "<option selected disabled>Pilih Status Log...</option>"
+                            );
+                        $.each(data, function (index, item) {
+                            dropdown.append(
+                                '<option value="' +
+                                    item.NoStatusLog +
+                                    '">' +
+                                    item.NamaStatusLog +
+                                    "</option>"
+                            );
+                        });
+                    },
+                });
                 // Clear Form
                 $("#statuslogmodalinput").val("");
+                $("#statuslog").empty();
+                $("#statuslog").append();
                 $("#hiddenIdStatusLog").val("");
                 dataTableStatusLog.ajax.reload();
             },
