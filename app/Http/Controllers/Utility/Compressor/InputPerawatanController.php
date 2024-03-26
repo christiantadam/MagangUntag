@@ -70,18 +70,20 @@ class InputPerawatanController extends Controller
         try {
 
             $tanggal = $request->input('Tanggal');
-            $noMesin = $request->input('NoMesin');
+            $idPart = $request->input('IdPart');
+            $keterangan = $request->input('Keterangan');
 
             // Lakukan pengecekan apakah data dengan tanggal dan nomor mesin sudah tersimpan
             $existingData = DB::connection('ConnUtility')
                 ->table('PERAWATAN_COMPRESSOR') // Ganti 'nama_tabel' dengan nama tabel yang sesuai
                 ->where('Tanggal', $tanggal)
-                ->where('NoMesin', $noMesin)
+                ->where('IdPart', $idPart)
+                ->where('Keterangan', $keterangan)
                 ->first();
 
             // Jika data sudah tersimpan, return false
             if ($existingData) {
-                return response()->json(['Error' => 'Data dengan tanggal dan nomor mesin tersebut sudah tersimpan.']);
+                return response()->json(['Error' => 'Data dengan tanggal dan sparepart tersebut sudah tersimpan.']);
             }
 
 
