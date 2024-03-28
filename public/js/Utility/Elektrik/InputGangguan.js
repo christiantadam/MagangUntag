@@ -265,6 +265,7 @@ koreksiButton.addEventListener("click", function () {
         });
         return; // Stop the function execution
     } else {
+        inputButton.disabled = false;
         prosesButton.disabled = false;
         hapusButton.disabled = true;
         tanggal.disabled = false;
@@ -555,22 +556,6 @@ $(document).ready(function () {
         // console.log(dataTable);
     });
 
-    var dataTable = $("#tabel_input_gangguan").DataTable({
-        processing: true,
-        serverSide: true,
-        responsive: true,
-        // scrollX: true,
-        ajax: {
-            url: "/getData",
-            type: "GET",
-            data: function (d) {
-                d.tanggal1 = $("#bulan").val();
-                d.tanggal2 = $("#sampaiDengan").val();
-                d.divisi = $("#divisi_pelapor2").val();
-            },
-        },
-    });
-
     // Event listener untuk tombol cetak
     $("#PrintData").on("click", function () {
         // Mengambil data dari DataTables
@@ -596,15 +581,15 @@ $(document).ready(function () {
         printContent += "</tr></thead><tbody>";
 
         // Menambahkan data ke dalam format cetakan
-        $("#tabel_input_gangguan tbody tr").each(function () {
+        $("#tabel_input_gangguan tbody tr").each(function (index) {
             var rowData = $(this).find("td");
             printContent += "<tr>";
+            printContent += "<td>" + (index + 1) + "</td>"; // Nomor urut
             rowData.each(function () {
                 printContent += "<td>" + $(this).text() + "</td>"; // Mengambil teks dari setiap kolom
             });
             printContent += "</tr>";
         });
-
         printContent += "</tbody></table>";
 
         // Membuka jendela baru dan mencetak konten

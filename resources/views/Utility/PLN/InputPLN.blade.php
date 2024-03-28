@@ -59,6 +59,10 @@
                                         id="cancelButton">Batal</button>
                                 </div>
                             </div>
+                            <div class="col-12 mt-5">
+                                <button type="button" class="btn btn-primary mt-3 float-end" id="PrintData">Print
+                                    Data</button>
+                            </div>
                         </div>
                         <div class="col-lg-12 p-4">
                             <div class="row mb-3">
@@ -73,6 +77,7 @@
                                         <input type="date" class="form-control" id="tanggal-akhir" name="date2">
                                         <button id="refreshButton" class="btn btn-primary">Refresh</button>
                                     </div>
+
                                 </div>
                             </div>
                             <div class="table-responsive">
@@ -94,8 +99,8 @@
                             </div>
                             <div class="col-lg-12 p-0 mt-4">
                                 <div class="d-flex justify-content-between flex-wrap">
-                                    <button class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#modalPanel"
-                                        type="button">Panel SDP</button>
+                                    <button class="btn btn-primary mb-2" data-bs-toggle="modal"
+                                        data-bs-target="#modalPanel" type="button">Panel SDP</button>
                                     <button class="btn btn-primary mb-2" data-bs-toggle="modal"
                                         data-bs-target="#modalBerita" type="button">Berita Acara</button>
                                 </div>

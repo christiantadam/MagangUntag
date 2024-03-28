@@ -103,8 +103,10 @@
 
 
                                 </div>
-                                <button type="button" class="btn btn-primary mt-3 float-end" id="PrintData">Print
-                                    Data</button>
+                                <div class="col-12">
+                                    <button type="button" class="btn btn-primary mt-3 float-end" id="PrintData">Print
+                                        Data</button>
+                                </div>
                             </div>
 
 

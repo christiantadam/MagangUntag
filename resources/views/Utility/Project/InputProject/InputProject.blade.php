@@ -67,7 +67,7 @@
 
                                         <div id="imagePreviewContainer1">
                                             <img id="hasil_gambar1" src="" alt="Preview 1"
-                                                style="display: none; max-width: 100%; height: auto;">
+                                                style="display: none; max-width: 100%; max-height: 250px;">
                                         </div>
                                         <div class="nama_pelapor">Ket. Gambar 1</div>
                                         <input type="text" name="ket_gambar1" id="ket_gambar1" class="form-control mb-2"
@@ -82,7 +82,7 @@
 
                                         <div id="imagePreviewContainer2">
                                             <img id="hasil_gambar2" src="" alt="Preview 2"
-                                                style="display: none; max-width: 100%; height: auto;">
+                                                style="display: none; max-width: 100%; max-height: 250px;">
                                         </div>
                                         <div class="nama_pelapor">Ket. Gambar 2</div>
                                         <input type="text" name="nama_pelapor" id="ket_gambar2"

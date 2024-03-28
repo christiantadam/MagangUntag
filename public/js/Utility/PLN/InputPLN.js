@@ -325,6 +325,52 @@ $(document).ready(function () {
         $(".checkboxpln").prop("checked", false);
     });
 
+    $("#PrintData").on("click", function () {
+        // Mengambil data dari DataTables
+        var tableData = dataTable.rows().data();
+
+        // Membuat format cetakan
+        var printContent = '<h2>Data PLN</h2><table border="1">';
+        printContent += "<thead><tr>";
+        printContent += "<th></th>";
+        printContent += "<th>Tanggal</th>";
+        printContent += "<th>Jam</th>";
+        printContent += "<th>LWBP</th>";
+        printContent += "<th>WBP</th>";
+        printContent += "<th>KVAR</th>";
+        printContent += "<th>Teknisi</th>";
+
+        // Tambahkan header lainnya sesuai kebutuhan
+        printContent += "</tr></thead><tbody>";
+
+        // Menambahkan data ke dalam format cetakan
+        $("#table-pln tbody tr").each(function () {
+            var rowData = $(this).find("td");
+            printContent += "<tr>";
+            rowData.each(function () {
+                printContent += "<td>" + $(this).text() + "</td>"; // Mengambil teks dari setiap kolom
+            });
+            printContent += "</tr>";
+        });
+
+        printContent += "</tbody></table>";
+
+        // Membuka jendela baru dan mencetak konten
+        var printWindow = window.open("", "_blank");
+        printWindow.document.write(
+            "<html><head><title>DataTables Print</title>"
+        );
+        printWindow.document.write('<style type="text/css">');
+        printWindow.document.write("@media print {");
+        printWindow.document.write("body { display: block; margin: 0 auto; }");
+        printWindow.document.write("table { margin: 0 auto; }");
+        printWindow.document.write("}</style></head><body>");
+        printWindow.document.write(printContent);
+        printWindow.document.write("</body></html>");
+        printWindow.document.close();
+        printWindow.print();
+    });
+
     // Checkbox click
     $("tbody").on("click", ".checkboxpln", function () {
         if ($(this).prop("checked")) {
