@@ -68,10 +68,13 @@ class InputPerawatanController extends Controller
     public function savePerawatan(Request $request)
     {
         try {
-
             $tanggal = $request->input('Tanggal');
+            $noMesin = $request->input('NoMesin');
+            $jamOperasi = $request->input('JamOperasi');
             $idPart = $request->input('IdPart');
             $keterangan = $request->input('Keterangan');
+            $teknisi = $request->input('Teknisi');
+            $UserInput = Auth::user()->NomorUser;
 
             // Lakukan pengecekan apakah data dengan tanggal dan nomor mesin sudah tersimpan
             $existingData = DB::connection('ConnUtility')
@@ -86,20 +89,11 @@ class InputPerawatanController extends Controller
                 return response()->json(['Error' => 'Data dengan tanggal dan sparepart tersebut sudah tersimpan.']);
             }
 
-
-            $tanggal = $request->input('Tanggal');
-            $noMesin = $request->input('NoMesin');
-            $jamOperasi = $request->input('JamOperasi');
-            $idPart = $request->input('IdPart');
-            $keterangan = $request->input('Keterangan');
-            $teknisi = $request->input('Teknisi');
-            $UserInput = Auth::user()->NomorUser;
-
             DB::connection('ConnUtility')->statement('exec SP_INSERT_PERAWATAN_COMPRESSOR ?, ?, ?, ?, ?, ?, ?', [
                 $tanggal, $noMesin, $jamOperasi, $idPart, $keterangan, $teknisi, $UserInput
             ]);
 
-            return redirect()->back()->with('success', 'Data has been saved.');
+            return response()->json('save success', 200);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'An error occurred while saving the data. Please try again.');
         }
@@ -120,7 +114,7 @@ class InputPerawatanController extends Controller
                 $id, $tanggal, $noMesin, $jamOperasi, $idPart, $keterangan, $teknisi, $UserInput
             ]);
 
-            return response('hehe');//->json($data);
+            return response('hehe'); //->json($data);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'An error occurred while saving the data. Please try again.');
         }

@@ -459,7 +459,7 @@ $(document).ready(function () {
                     dataTable.ajax.reload();
                     disableForm();
                     clearForm();
-                    jamLapor.value = timeString;
+                    // jamLapor.value = timeString;
                     koreksiButton.disabled = false;
                     hapusButton.disabled = false;
                 } else {

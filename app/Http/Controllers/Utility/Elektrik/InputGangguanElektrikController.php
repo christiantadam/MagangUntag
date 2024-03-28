@@ -121,8 +121,8 @@ class InputGangguanElektrikController extends Controller
         $divisi = $request->input('divisi');
 
         $data = $divisi == '0'
-            ? DB::connection('ConnUtility')->select('exec SP_DT_LIST_GANGGUAN_ELEKTRIK_ALL_DIVISION @date1 = ?, @date2 = ?', [$tanggal1, $tanggal2])
-            : DB::connection('ConnUtility')->select('exec SP_DT_LIST_GANGGUAN_ELEKTRIK_ALL_DIVISION @date1 = ?, @date2 = ?, @divisi = ?', [$tanggal1, $tanggal2, $divisi]);
+            ? DB::connection('ConnUtility')->select('exec SP_DT_LIST_GANGGUAN_ELEKTRIK_BLN_THN2 @date1 = ?, @date2 = ?', [$tanggal1, $tanggal2])
+            : DB::connection('ConnUtility')->select('exec SP_DT_LIST_GANGGUAN_ELEKTRIK_BLN_THN2 @date1 = ?, @date2 = ?, @divisi = ?', [$tanggal1, $tanggal2, $divisi]);
 
         return datatables($data)->make(true);
     }
